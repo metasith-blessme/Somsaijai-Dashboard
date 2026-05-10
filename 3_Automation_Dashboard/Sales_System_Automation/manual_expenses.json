@@ -1,0 +1,17 @@
+{
+  "Apr26": {
+    "B1": [
+      { "date": "30/04/2026", "bucket": "OPEX", "category": "Salary", "description": "Employee 1", "amount": 19000 },
+      { "date": "30/04/2026", "bucket": "OPEX", "category": "Salary", "description": "Employee 2", "amount": 12000 },
+      { "date": "30/04/2026", "bucket": "OPEX", "category": "Fixed Costs", "description": "Rent", "amount": 35000 },
+      { "date": "30/04/2026", "bucket": "OPEX", "category": "Investment", "description": "Stock (Allocated 82.9%)", "amount": 9948 },
+      { "date": "30/04/2026", "bucket": "COGS", "category": "Other", "description": "Pineapple", "amount": 1500 }
+    ],
+    "B2": [
+      { "date": "30/04/2026", "bucket": "OPEX", "category": "Salary", "description": "Employee 3", "amount": 12000 },
+      { "date": "30/04/2026", "bucket": "OPEX", "category": "Salary", "description": "Employee 4", "amount": 6000 },
+      { "date": "30/04/2026", "bucket": "OPEX", "category": "Fixed Costs", "description": "Rent", "amount": 30000 },
+      { "date": "30/04/2026", "bucket": "OPEX", "category": "Investment", "description": "Stock (Allocated 17.1%)", "amount": 2052 }
+    ]
+  }
+}

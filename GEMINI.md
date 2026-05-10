@@ -1,7 +1,7 @@
 # SomSaiJai Automation System (Multi-Branch)
 
 This project automates data extraction and visualization for SomSaiJai across multiple branches.
-**Live dashboard:** https://somsaijai-2026.surge.sh
+**Live dashboard:** https://somsaijailive.vercel.app
 
 ## Project Structure
 - `B1/`: Branch 1 Data
@@ -20,7 +20,7 @@ This project automates data extraction and visualization for SomSaiJai across mu
 **NEVER write directly to `data.json`** — `npm run update-dashboard` reads from Branch Excels and overwrites it.
 
 ```
-LINE images → Visual OCR → pending_verification.json → verify-sales → Excel → update-dashboard → data.json + Surge deploy
+LINE images → Visual OCR → pending_verification.json → verify-sales → Excel → update-dashboard → data.json + Vercel deploy
 ```
 
 ## Execution Workflow (from `3_Automation_Dashboard/`)
@@ -35,8 +35,9 @@ Review `pending_verification.json`, ensure `"verified": true`, then:
 *This automatically routes data to B1 or B2 Excel files based on the branch tag.*
 
 ### 3. Update & Deploy Dashboard
-Sync all Branch Excels → unified `data.json` → deploy to Surge:
+Sync all Branch Excels → unified `data.json` → auto-generate `reports_data.json` → deploy to Vercel:
 `npm run update-dashboard`
+*Note: This command now automatically handles report generation for all active months.*
 
 ## Dashboard Features
 - **Multi-Branch Toggling:** View Branch 1, Branch 2, or Aggregated "All Branches" data.

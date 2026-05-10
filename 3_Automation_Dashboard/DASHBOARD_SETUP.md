@@ -1,7 +1,7 @@
 # 🍊 Som Sai Jai - Dashboard Setup Summary
 
 ## 🌐 Live Dashboard Link
-**URL:** [https://somsaijai-q1-2026.surge.sh](https://somsaijai-q1-2026.surge.sh)
+**URL:** [https://somsaijailive.vercel.app](https://somsaijailive.vercel.app)
 
 ---
 

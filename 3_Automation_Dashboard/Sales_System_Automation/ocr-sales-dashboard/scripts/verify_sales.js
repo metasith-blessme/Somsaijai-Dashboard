@@ -69,6 +69,16 @@ Object.keys(byBranch).forEach(branch => {
 
         ensureColumn('Orange (100)', 'Orange');
         ensureColumn('Guava', 'Young Coco');
+        ensureColumn('Pineapple', 'Guava');
+        ensureColumn('Used Mango', 'Used Watermelon (pcs)');
+        ensureColumn('Used Coco (Meat)', 'Used Mango');
+        ensureColumn('Used Coco (Water)', 'Used Coco (Meat)');
+        ensureColumn('Used Coco (Conden)', 'Used Coco (Water)');
+        ensureColumn('Used Coco (Raw)', 'Used Coco (Conden)');
+        ensureColumn('Used Apple', 'Used Coco (Raw)');
+        ensureColumn('Used Guava', 'Used Apple');
+        ensureColumn('Used Pineapple', 'Used Guava');
+        ensureColumn('Used Young Coco', 'Used Pineapple');
 
         const col = {};
         headers.forEach((h, i) => col[h] = i);
@@ -96,6 +106,7 @@ Object.keys(byBranch).forEach(branch => {
             rowData[col['Apple']] = rec.ap;
             rowData[col['Young Coco']] = rec.yco || 0;
             rowData[col['Guava']] = rec.guava || 0;
+            rowData[col['Pineapple']] = rec.pineapple || 0;
             rowData[col['Total Cups']] = rec.tot;
             rowData[col['Used Orange (basket)']] = rec.uo;
             rowData[col['Used Watermelon (pcs)']] = rec.uw;
@@ -105,6 +116,9 @@ Object.keys(byBranch).forEach(branch => {
             rowData[col['Used Coco (Conden)']] = rec.uco_conden || 0;
             rowData[col['Used Coco (Raw)']] = rec.uco_raw || 0;
             rowData[col['Used Apple']] = rec.uap || 0;
+            rowData[col['Used Guava']] = rec.uguava || 0;
+            rowData[col['Used Pineapple']] = rec.upine || 0;
+            rowData[col['Used Young Coco']] = rec.uyco || 0;
 
             if (idx !== -1) {
                 existingRows[idx] = rowData;

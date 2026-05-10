@@ -56,10 +56,12 @@ function categorize(note, fullText) {
     else if (n.includes('เงินเดือน') || n.includes('staff') || n.includes('ค่าแรง')) cat = 'Salary';
     else if (n.includes('ถุง') || n.includes('แพ็ค') || n.includes('กล่อง') || n.includes('แก้ว') || n.includes('ขวด') || n.includes('ฝา') || n.includes('หลอด')) cat = 'Packaging';
     else if (n.includes('น้ำแข็ง') || n.includes('ice')) cat = 'Ice';
+    else if (n.includes('น้ำ') || n.includes('water')) cat = 'Water';
+    else if (n.includes('นม') || n.includes('milk') || n.includes('conden')) cat = 'Milk/Conden';
     else if (n.includes('ค่าไฟ') || n.includes('ค่าน้ำ') || n.includes('ค่าเช่า')) cat = 'Fixed Costs';
     else if (n.includes('คีออส') || n.includes('ป้าย') || n.includes('เครื่องสกัด') || n.includes('ตกแต่ง')) cat = 'Investment';
 
-    if (['Orange', 'Watermelon', 'Apple/Melon', 'Mango', 'Pomegranate', 'Coconut', 'Packaging', 'Ice', 'Transportation'].includes(cat)) {
+    if (['Orange', 'Watermelon', 'Apple/Melon', 'Mango', 'Pomegranate', 'Coconut', 'Packaging', 'Ice', 'Transportation', 'Water', 'Milk/Conden'].includes(cat)) {
         bucket = 'COGS';
     } else if (['Investment'].includes(cat)) {
         bucket = 'CAPEX';
@@ -95,6 +97,24 @@ MONTHS.forEach(month => {
         }
     });
 });
+
+// NEW: Add manual expenses from JSON
+const MANUAL_FILE = path.join(__dirname, 'manual_expenses.json');
+if (fs.existsSync(MANUAL_FILE)) {
+    try {
+        const manual = JSON.parse(fs.readFileSync(MANUAL_FILE, 'utf8'));
+        Object.keys(manual).forEach(month => {
+            if (manual[month] && manual[month][BRANCH]) {
+                manual[month][BRANCH].forEach(exp => {
+                    allExpenses.push([exp.date, month, exp.bucket || 'OPEX', exp.category, exp.description, exp.amount]);
+                });
+                console.log(`➕ Added ${manual[month][BRANCH].length} manual expenses for ${BRANCH} in ${month}`);
+            }
+        });
+    } catch (e) {
+        console.error("Error reading manual_expenses.json:", e.message);
+    }
+}
 
 if (allExpenses.length === 0) {
     console.log(`No expenses found for ${BRANCH}.`);

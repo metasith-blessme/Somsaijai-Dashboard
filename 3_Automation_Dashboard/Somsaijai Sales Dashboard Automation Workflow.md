@@ -31,13 +31,13 @@ This document explains the step-by-step process followed when you upload sales r
 - **Charts & KPIs:** Both dashboards automatically recalculate trends and charts once the underlying data (JSON or embedded) is updated.
 
 ## 5. Deployment (Public Access)
-- **Tool:** Surge.sh
-- **Command:** `npx surge . somsaijai-2026.surge.sh`
-- **Process:** I upload the entire project directory to the Surge CDN. This makes your `index.html` (and the updated `data.json`) accessible to anyone with the URL.
+- **Tool:** Vercel
+- **Command:** `npx vercel --prod`
+- **Process:** I deploy the dashboard to Vercel production. This makes the `index.html` and `data.json` accessible at [https://somsaijailive.vercel.app](https://somsaijailive.vercel.app).
 
 ## 6. Cleanup & Maintenance
 - **Pending Verification:** I clear `pending_verification.json` to remove any temporary or incorrect extractions.
 - **Log Files:** I check `update_log.log` and `update_error.log` to ensure the automation scripts ran successfully without silent failures.
 
 ---
-**Current URL:** [https://somsaijai-2026.surge.sh](https://somsaijai-2026.surge.sh)
+**Current URL:** [https://somsaijailive.vercel.app](https://somsaijailive.vercel.app)

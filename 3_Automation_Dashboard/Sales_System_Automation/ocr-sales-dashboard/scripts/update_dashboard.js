@@ -46,12 +46,13 @@ function extractSheetData(filePath, sheetName) {
       const ap = Number(r[col['Apple']] || (col['Orange (100)'] ? r[12] : r[11])) || 0;
       const yco = Number(r[col['Young Coco']] || (col['Orange (100)'] ? r[13] : r[12])) || 0;
       const guava = Number(r[col['Guava']] || 0);
-      const tot = Number(r[col['Total Cups']] || (col['Orange (100)'] ? r[14] : r[13])) || (or + wm + mg + co + ap + yco + guava);
+      const pineapple = Number(r[col['Pineapple']] || 0);
+      const tot = Number(r[col['Total Cups']] || (col['Orange (100)'] ? r[14] : r[13])) || (or + wm + mg + co + ap + yco + guava + pineapple);
 
       rows.push({
         d: String(r[0]), day: String(r[1] || ''),
         rev, cash, exp, net, scan,
-        or, or_100, wm, mg, co, ap, yco, guava, tot,
+        or, or_100, wm, mg, co, ap, yco, guava, pineapple, tot,
         bb: Number(r[col['Bot Big']]) || 0,
         bs: Number(r[col['Bot Small']]) || 0,
         uo: Number(r[col['Used Orange (basket)']]) || 0,
@@ -61,7 +62,10 @@ function extractSheetData(filePath, sheetName) {
         uco_water: Number(r[col['Used Coco (Water)']]) || 0,
         uco_conden: Number(r[col['Used Coco (Conden)']]) || 0,
         uco_raw: Number(r[col['Used Coco (Raw)']]) || 0,
-        uap: Number(r[col['Used Apple']]) || 0
+        uap: Number(r[col['Used Apple']]) || 0,
+        uguava: Number(r[col['Used Guava']]) || 0,
+        upine: Number(r[col['Used Pineapple']]) || 0,
+        uyco: Number(r[col['Used Young Coco']]) || 0
       });
     }
     return rows;
@@ -144,6 +148,11 @@ function update() {
     result.sales = result.branches.B1.sales;
     fs.writeFileSync(DATA_JSON, JSON.stringify(result, null, 2));
     console.log(`✅ Updated ${DATA_JSON}`);
+
+    // Generate full report data
+    console.log('--- Generating reports_data.json ---');
+    execSync(`cd "${DASHBOARD_DIR}" && node gen_report.js`, { stdio: 'inherit' });
+
     execSync(`cd "${DASHBOARD_DIR}" && npx vercel --prod`, { stdio: 'inherit' });
   } catch (err) {
     console.error('❌ Update failed: ' + err.message);

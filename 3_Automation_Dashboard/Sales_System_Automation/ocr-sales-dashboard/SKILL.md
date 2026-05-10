@@ -26,7 +26,7 @@ Merge verified records into the master Excel file and recalculate monthly statis
 ### 4. Dashboard Refresh
 Update the web-based dashboard and deploy to production.
 - **Action**: Run `node scripts/update_dashboard.js`.
-- **Output**: Updates `data.json` and deploys to `https://somsaijai-2026.surge.sh/`.
+- **Output**: Updates `data.json` and deploys to `https://somsaijailive.vercel.app`.
 
 ## Resource Map
 - **Scripts**:
