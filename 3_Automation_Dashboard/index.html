@@ -21,7 +21,6 @@
     --shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
     --mono: "SF Mono", "JetBrains Mono", Menlo, monospace;
 }
-
 @media (prefers-color-scheme: dark) {
     :root {
         --bg: #000000;
@@ -32,9 +31,7 @@
         --shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
     }
 }
-
 * { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; }
-
 body {
     font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", sans-serif;
     background: var(--bg);
@@ -42,49 +39,30 @@ body {
     min-height: 100vh;
     display: flex;
 }
-
 .sidebar {
-    width: 260px;
-    height: calc(100vh - 40px);
-    margin: 20px;
-    background: var(--primary);
-    border-radius: 24px;
-    color: #fff;
-    display: flex;
-    flex-direction: column;
-    position: fixed;
-    z-index: 1000;
-    box-shadow: var(--shadow);
+    width: 260px; height: calc(100vh - 40px); margin: 20px;
+    background: var(--primary); border-radius: 24px; color: #fff;
+    display: flex; flex-direction: column; position: fixed; z-index: 1000; box-shadow: var(--shadow);
 }
-
 .logo-area { padding: 32px 24px; border-bottom: 1px solid rgba(255,255,255,0.1); }
 .logo-area h1 { font-size: 1.5em; font-weight: 800; letter-spacing: -0.5px; }
+.logo-area .brand { font-size: 0.6em; opacity: 0.6; margin-top: 4px; text-transform: uppercase; font-weight: 700; letter-spacing: 1px; }
 
 .nav { flex: 1; padding: 24px 12px; }
 .nav-item {
-    padding: 14px 20px;
-    margin-bottom: 8px;
-    border-radius: 16px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    transition: 0.2s;
-    font-weight: 600;
-    color: rgba(255,255,255,0.6);
+    padding: 14px 20px; margin-bottom: 8px; border-radius: 16px; cursor: pointer;
+    display: flex; align-items: center; gap: 12px; transition: 0.2s;
+    font-weight: 600; color: rgba(255,255,255,0.6);
 }
 .nav-item:hover { background: rgba(255,255,255,0.1); color: #fff; }
 .nav-item.active { background: var(--accent); color: #fff; box-shadow: 0 4px 15px rgba(255,102,0,0.3); }
-
 .main { flex: 1; margin-left: 300px; padding: 40px 60px; max-width: 1400px; }
-
 .command-center {
     position: sticky; top: 20px; z-index: 900;
     background: var(--card); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
     border: 1px solid var(--glass-border); border-radius: 20px; padding: 12px 24px; margin-bottom: 40px;
     display: flex; justify-content: space-between; align-items: center; box-shadow: var(--shadow);
 }
-
 .selector-group { display: flex; gap: 12px; align-items: center; }
 .btn {
     padding: 8px 16px; border-radius: 12px; border: none; background: transparent;
@@ -93,13 +71,11 @@ body {
 .btn:hover { background: rgba(0,0,0,0.05); color: var(--text); }
 .btn.active { background: var(--text); color: var(--bg); }
 .btn-branch.active { background: var(--accent); color: #fff; }
-
 .glass-card {
     background: var(--card); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
     border: 1px solid var(--glass-border); border-radius: 28px; padding: 32px;
     box-shadow: var(--shadow); margin-bottom: 32px;
 }
-
 .kpi-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; margin-bottom: 40px; }
 .kpi-premium {
     background: var(--card); border: 1px solid var(--glass-border); border-radius: 24px;
@@ -108,22 +84,17 @@ body {
 .kpi-premium .label { font-size: 0.7em; font-weight: 800; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
 .kpi-premium .value { font-size: 2.2em; font-weight: 800; color: var(--text); font-family: var(--mono); }
 .kpi-premium .subtext { font-size: 0.8em; color: var(--muted); font-weight: 500; }
-
 .premium-table { width: 100%; border-collapse: collapse; }
 .premium-table th { text-align: left; padding: 16px; font-size: 0.7em; font-weight: 800; color: var(--muted); text-transform: uppercase; border-bottom: 1px solid var(--glass-border); }
 .premium-table td { padding: 18px 16px; border-bottom: 1px solid var(--glass-border); font-size: 0.95em; font-weight: 500; }
 .num { font-family: var(--mono); text-align: right; }
-
 .dashboard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 32px; }
-
 .section { display: none; }
 .section.active { display: block; animation: fadeIn 0.4s ease; }
 @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
 .badge { padding: 4px 10px; border-radius: 8px; font-size: 0.7em; font-weight: 800; text-transform: uppercase; }
 .badge-b1 { background: rgba(31, 78, 121, 0.1); color: var(--primary); }
 .badge-b2 { background: rgba(255, 102, 0, 0.1); color: var(--accent); }
-
 @media (max-width: 1024px) {
     .sidebar { width: 70px; margin: 10px; }
     .logo-area, .nav-item span { display: none; }
@@ -135,7 +106,10 @@ body {
 <body>
 
 <div class="sidebar">
-    <div class="logo-area"><h1>SSJ</h1></div>
+    <div class="logo-area">
+        <h1>SSJ</h1>
+        <div class="brand">Premium Intelligence</div>
+    </div>
     <div class="nav">
         <div class="nav-item active" data-view="finance">📊 <span>Finance</span></div>
         <div class="nav-item" data-view="report">📜 <span>Reports</span></div>
@@ -143,6 +117,7 @@ body {
         <div class="nav-item" data-view="analytics">📈 <span>Analytics</span></div>
         <div class="nav-item" data-view="log">📝 <span>Daily Log</span></div>
     </div>
+    <div style="padding:24px; font-size:0.6em; opacity:0.3; text-align:center">v3.1.0</div>
 </div>
 
 <div class="main">
@@ -172,21 +147,23 @@ body {
     <div class="section" id="view-report">
         <div class="command-center" style="position:static; margin-bottom:32px">
             <h2 id="reportTitle">Management Report</h2>
-            <button class="btn active" onclick="downloadReport()" style="background:var(--accent); color:#fff">Export PDF</button>
+            <button class="btn active" onclick="window.print()" style="background:var(--accent); color:#fff">Export PDF</button>
         </div>
         <div id="reportContent" class="glass-card"><div id="reportTables"></div></div>
     </div>
 
     <div class="section" id="view-inventory">
         <div class="kpi-row" id="liveStockGrid"></div>
-        <h2>Forecast</h2>
-        <div id="forecastContainer" class="dashboard-grid"></div>
+        <div class="glass-card">
+            <h2>Inventory Intelligence</h2>
+            <p style="color:var(--muted)">Proportional material usage tracking.</p>
+        </div>
     </div>
 
     <div class="section" id="view-analytics">
         <div class="dashboard-grid">
             <div class="glass-card"><h3>Revenue Mix</h3><canvas id="chartProductMix"></canvas></div>
-            <div class="glass-card"><h3>Yield</h3><canvas id="chartYield"></canvas></div>
+            <div class="glass-card"><h3>Yield Analysis</h3><canvas id="chartYield"></canvas></div>
         </div>
     </div>
 
@@ -202,10 +179,8 @@ let charts = {};
 
 const PARAMS = {
     prices: { orange: 60, orange_premium: 100, watermelon: 50, apple: 60, mango: 90, coconut: 60, young: 90, guava: 60 },
-    rent: { B1: 35000, B2: 30000 },
-    staffMonthly: { B1: 31000, B2: 18000 },
-    fixedStock: { B1: 6000, B2: 6000 },
-    profitShare: { B1: 0.60, B2: 0.70 }
+    profitShare: { B1: 0.60, B2: 0.70 },
+    fixed: { B1: 31000 + 35000 + 6000, B2: 18000 + 30000 + 6000 }
 };
 
 const fmt = v => (v || 0).toLocaleString(undefined, {minimumFractionDigits:0, maximumFractionDigits:0});
@@ -213,14 +188,15 @@ const sum = (arr, k) => arr.reduce((s, r) => s + (Number(r[k]) || 0), 0);
 
 async function init() {
     try {
+        console.log('--- Initializing SomSaiJai Intelligence ---');
         const [d, l, r] = await Promise.all([
             fetch('data.json?t='+Date.now()).then(res => res.json()),
             fetch('stock_ledger.json?t='+Date.now()).then(res => res.ok ? res.json() : null),
             fetch('reports_data.json?t='+Date.now()).then(res => res.ok ? res.json() : null)
         ]);
         DATA = d; LEDGER = l; REPORTS_DATA = r;
+        console.log('Data Loaded:', { branches: Object.keys(DATA.branches), reports: !!REPORTS_DATA });
         
-        // Auto-detect available months
         const allMonthsSet = new Set();
         Object.keys(DATA.branches).forEach(b => Object.keys(DATA.branches[b].sales).forEach(m => allMonthsSet.add(m)));
         const allMonths = Array.from(allMonthsSet).sort((a,b) => b.localeCompare(a));
@@ -232,22 +208,22 @@ async function init() {
         renderMonthSelector(allMonths);
         updateUI();
     } catch (e) { 
-        console.error(e);
-        document.body.innerHTML = `<div style="padding:100px; text-align:center"><h1>Data Load Error</h1><p>\${e.message}</p></div>`;
+        console.error('Initialization Error:', e);
+        document.body.innerHTML = `<div style="padding:100px; text-align:center"><h1>Data Load Error</h1><p>${e.message}</p></div>`;
     }
 }
 
 function renderBranchSelector() {
     const branches = ['all', 'B1', 'B2'];
     document.getElementById('branchSelector').innerHTML = branches.map(b => 
-        `<button class="btn btn-branch \${currentBranch===b?'active':''}" onclick="currentBranch='\${b}';updateUI()">\${b==='all'?'All Branches':b}</button>`
+        `<button class="btn btn-branch ${currentBranch===b?'active':''}" onclick="currentBranch='${b}';updateUI()">${b==='all'?'All Branches':b}</button>`
     ).join('');
 }
 
 function renderMonthSelector(months) {
     let mList = ['all', ...months];
     document.getElementById('monthSelector').innerHTML = mList.map(m => 
-        `<button class="btn \${currentMonth===m?'active':''}" onclick="currentMonth='\${m}';updateUI()">\${m==='all'?'Full Year':m.replace('26','')}</button>`
+        `<button class="btn ${currentMonth===m?'active':''}" onclick="currentMonth='${m}';updateUI()">${m==='all'?'Full Year':m.replace('26','')}</button>`
     ).join('');
 }
 
@@ -255,6 +231,8 @@ function updateUI() {
     const sales = getCleanSales(currentBranch, currentMonth);
     const expenses = (DATA.expenses || []).filter(e => (currentBranch==='all'||e.branch===currentBranch) && (currentMonth==='all'||e.month===currentMonth));
     
+    console.log('Updating UI for:', { branch: currentBranch, month: currentMonth, recordCount: sales.length });
+
     renderKPIs(sales);
     renderFinance(sales, expenses);
     renderInventory(sales);
@@ -276,9 +254,8 @@ function getCleanSales(branch, month) {
         });
     });
     return combined.sort((a,b) => {
-        const da = a.d.split('/').map(n=>n.padStart(2,'0')).reverse().join('');
-        const db = b.d.split('/').map(n=>n.padStart(2,'0')).reverse().join('');
-        return da.localeCompare(db);
+        const parse = d => d.split('/').map(n=>n.padStart(2,'0')).reverse().join('');
+        return parse(a.d).localeCompare(parse(b.d));
     });
 }
 
@@ -286,9 +263,9 @@ function renderKPIs(sales) {
     const rev = sum(sales, 'rev'), cups = sum(sales, 'tot');
     const diff = sales.reduce((s, r) => s + (r.audit ? r.audit.rev_diff : 0), 0);
     document.getElementById('kpiGrid').innerHTML = `
-        <div class="kpi-premium"><div class="label">Revenue</div><div class="value">฿\${fmt(rev)}</div><div class="subtext">\${sales.length} days</div></div>
-        <div class="kpi-premium"><div class="label">Total Cups</div><div class="value">\${fmt(cups)}</div><div class="subtext">Sold</div></div>
-        <div class="kpi-premium"><div class="label">Audit Diff</div><div class="value" style="color:\${diff<0?'var(--red)':'var(--green)'}">฿\${fmt(diff)}</div><div class="subtext">Accuracy</div></div>
+        <div class="kpi-premium"><div class="label">Revenue</div><div class="value">฿${fmt(rev)}</div><div class="subtext">${sales.length} active days</div></div>
+        <div class="kpi-premium"><div class="label">Total Cups</div><div class="value">${fmt(cups)}</div><div class="subtext">Units sold</div></div>
+        <div class="kpi-premium"><div class="label">Audit Accuracy</div><div class="value" style="color:${diff<0?'var(--red)':'var(--green)'}">฿${fmt(diff)}</div><div class="subtext">Theor. variance</div></div>
     `;
 }
 
@@ -299,21 +276,22 @@ function renderFinance(sales, expenses) {
         if(!bs.length) return;
         const br = sum(bs, 'rev');
         const bu = bs.reduce((s, r) => s + ((r.uo||0)*700 + (r.uw||0)*35 + (r.uap||0)*30 + (r.umg||0)*150 + (r.uco_raw||0)*35), 0);
-        const bf = (PARAMS.rent[b]||0) + (PARAMS.staffMonthly[b]||0) + (PARAMS.fixedStock[b]||0);
+        const bf = PARAMS.fixed[b] || 0;
         const bn = br - bu - bf;
-        bCalcs[b] = { rev: br, net: bn, share: Math.max(0, bn * (PARAMS.profitShare[b]||0)) };
+        bCalcs[b] = { rev: br, net: bn, share: Math.max(0, bn * (PARAMS.profitShare[b] || 0)) };
     });
 
     const tRev = Object.values(bCalcs).reduce((s,b)=>s+b.rev, 0);
     const tNet = Object.values(bCalcs).reduce((s,b)=>s+b.net, 0);
 
     document.getElementById('cfBody').innerHTML = `
-        <tr><td><b>Gross Revenue</b></td><td class="num">฿\${fmt(tRev)}</td><td class="num">100%</td></tr>
-        <tr><td><b>Operational Profit</b></td><td class="num">฿\${fmt(tNet)}</td><td class="num">\${tRev?(tNet/tRev*100).toFixed(1)+'%':'0%'}</td></tr>
+        <tr><td><b>Gross Revenue</b></td><td class="num">฿${fmt(tRev)}</td><td class="num">100%</td></tr>
+        <tr><td>Material Costs (Est.)</td><td class="num">฿${fmt(tRev - tNet - (PARAMS.fixed.B1 + PARAMS.fixed.B2))}</td><td class="num">---</td></tr>
+        <tr><td><b>Net Operational Profit</b></td><td class="num">฿${fmt(tNet)}</td><td class="num">${tRev?(tNet/tRev*100).toFixed(1)+'%':'0%'}</td></tr>
     `;
 
     document.getElementById('profitShareBody').innerHTML = Object.keys(bCalcs).map(b => `
-        <tr><td><span class="badge badge-\${b.toLowerCase()}">\${b}</span></td><td class="num">฿\${fmt(bCalcs[b].net)}</td><td class="num" style="color:var(--accent)"><b>฿\${fmt(bCalcs[b].share)}</b></td></tr>
+        <tr><td><span class="badge badge-${b.toLowerCase()}">${b}</span></td><td class="num">฿${fmt(bCalcs[b].net)}</td><td class="num" style="color:var(--accent)"><b>฿${fmt(bCalcs[b].share)}</b></td></tr>
     `).join('');
     
     if(charts.rev) charts.rev.destroy();
@@ -328,16 +306,16 @@ function renderInventory(sales) {
     const items = [{ k: 'orange', b: 'uo', i: '🍊', n: 'Orange' }, { k: 'watermelon', b: 'uw', i: '🍉', n: 'Watermelon' }];
     document.getElementById('liveStockGrid').innerHTML = items.map(item => {
         const burn = sum(sales, item.b);
-        return `<div class="kpi-premium"><div class="label">\${item.i} \${item.n} Burn</div><div class="value">\${burn.toFixed(1)}</div></div>`;
+        return `<div class="kpi-premium"><div class="label">${item.i} ${item.n} Used</div><div class="value">${burn.toFixed(1)}</div></div>`;
     }).join('');
 }
 
 function renderDailyLog(sales) {
     document.getElementById('dailyLogGrid').innerHTML = sales.slice().reverse().map(r => `
         <div class="kpi-premium">
-            <div style="display:flex; justify-content:space-between"><b>\${r.d}</b> <span class="badge badge-\${r.branch.toLowerCase()}">\${r.branch}</span></div>
-            <div class="value" style="font-size:1.5em; margin:10px 0">฿\${fmt(r.rev)}</div>
-            <div style="font-size:0.8em; color:var(--muted)">Cups: \${r.tot} | Diff: \${r.audit?r.audit.rev_diff:0}</div>
+            <div style="display:flex; justify-content:space-between"><b>${r.d}</b> <span class="badge badge-${r.branch.toLowerCase()}">${r.branch}</span></div>
+            <div class="value" style="font-size:1.5em; margin:10px 0">฿${fmt(r.rev)}</div>
+            <div style="font-size:0.8em; color:var(--muted)">Cups: ${r.tot} | Diff: ${r.audit?r.audit.rev_diff:0}</div>
         </div>
     `).join('');
 }
@@ -356,8 +334,8 @@ function renderReport() {
         <div class="glass-card" style="padding:20px; border:none; background:rgba(0,0,0,0.02)">
             <h3 style="color:var(--accent); margin-bottom:20px">1. EXECUTIVE SUMMARY</h3>
             <div class="kpi-row" style="margin-bottom:0">
-                <div class="kpi-premium"><div class="label">Total Network Revenue</div><div class="value">฿\${fmt(r.total_rev)}</div></div>
-                <div class="kpi-premium"><div class="label">Consolidated Net Profit</div><div class="value" style="color:var(--green)">฿\${fmt(r.b1.net+r.b2.net)}</div></div>
+                <div class="kpi-premium"><div class="label">Total Network Revenue</div><div class="value">฿${fmt(r.total_rev)}</div></div>
+                <div class="kpi-premium"><div class="label">Consolidated Net Profit</div><div class="value" style="color:var(--green)">฿${fmt(r.b1.net+r.b2.net)}</div></div>
             </div>
         </div>
 
@@ -366,8 +344,8 @@ function renderReport() {
             <table class="premium-table">
                 <thead><tr><th>Branch</th><th class="num">Revenue</th><th class="num">COGS Share</th><th class="num">Net Profit</th><th class="num">Blessme</th></tr></thead>
                 <tbody>
-                    <tr><td>Branch 1 (B1)</td><td class="num">฿\${fmt(r.b1.rev)}</td><td class="num">฿\${fmt(r.b1.cogs)}</td><td class="num">฿\${fmt(r.b1.net)}</td><td class="num" style="color:var(--accent)"><b>฿\${fmt(r.b1.share)}</b></td></tr>
-                    <tr><td>Branch 2 (B2)</td><td class="num">฿\${fmt(r.b2.rev)}</td><td class="num">฿\${fmt(r.b2.cogs)}</td><td class="num">฿\${fmt(r.b2.net)}</td><td class="num" style="color:var(--accent)"><b>฿\${fmt(r.b2.share)}</b></td></tr>
+                    <tr><td>Branch 1 (B1)</td><td class="num">฿${fmt(r.b1.rev)}</td><td class="num">฿${fmt(r.b1.cogs)}</td><td class="num">฿${fmt(r.b1.net)}</td><td class="num" style="color:var(--accent)"><b>฿${fmt(r.b1.share)}</b></td></tr>
+                    <tr><td>Branch 2 (B2)</td><td class="num">฿${fmt(r.b2.rev)}</td><td class="num">฿${fmt(r.b2.cogs)}</td><td class="num">฿${fmt(r.b2.net)}</td><td class="num" style="color:var(--accent)"><b>฿${fmt(r.b2.share)}</b></td></tr>
                 </tbody>
             </table>
         </div>
@@ -377,8 +355,8 @@ function renderReport() {
             <table class="premium-table">
                 <thead><tr><th>Category</th><th class="num">Amount</th></tr></thead>
                 <tbody>
-                    \${Object.keys(r.fruit_summary).map(k => `<tr><td>\${k}</td><td class="num">฿\${fmt(r.fruit_summary[k])}</td></tr>`).join('')}
-                    <tr style="background:rgba(0,0,0,0.05)"><td><b>TOTAL COGS</b></td><td class="num"><b>฿\${fmt(r.total_cogs)}</b></td></tr>
+                    ${Object.keys(r.fruit_summary).map(k => `<tr><td>${k}</td><td class="num">฿${fmt(r.fruit_summary[k])}</td></tr>`).join('')}
+                    <tr style="background:rgba(0,0,0,0.05)"><td><b>TOTAL COGS</b></td><td class="num"><b>฿${fmt(r.total_cogs)}</b></td></tr>
                 </tbody>
             </table>
         </div>
@@ -387,7 +365,7 @@ function renderReport() {
             <h3 style="color:var(--accent); margin-bottom:20px">4. FRUIT ROI PERFORMANCE</h3>
             <table class="premium-table">
                 <thead><tr><th>Fruit</th><th class="num">Rev</th><th class="num">Cost</th><th class="num">ROI</th><th class="num">Cups</th></tr></thead>
-                <tbody>\${r.fruit_performance.filter(f=>f.cups>0).map(f=>`<tr><td>\${f.name}</td><td class="num">฿\${fmt(f.rev)}</td><td class="num">฿\${fmt(f.cost)}</td><td class="num" style="color:var(--green)">\${f.roi}</td><td class="num">\${f.cups}</td></tr>`).join('')}</tbody>
+                <tbody>${r.fruit_performance.filter(f=>f.cups>0).map(f=>`<tr><td>${f.name}</td><td class="num">฿${fmt(f.rev)}</td><td class="num">฿${fmt(f.cost)}</td><td class="num" style="color:var(--green)">${f.roi}</td><td class="num">${f.cups}</td></tr>`).join('')}</tbody>
             </table>
         </div>
 
@@ -397,16 +375,14 @@ function renderReport() {
                 <table class="premium-table">
                     <thead><tr><th>Branch</th><th>Category</th><th>Description</th><th class="num">Amount</th></tr></thead>
                     <tbody>
-                        \${r.b1.opex_list.map(e => `<tr><td><span class="badge badge-b1">B1</span></td><td>\${e.cat}</td><td>\${e.desc}</td><td class="num">฿\${fmt(e.amt)}</td></tr>`).join('')}
-                        \${r.b2.opex_list.map(e => `<tr><td><span class="badge badge-b2">B2</span></td><td>\${e.cat}</td><td>\${e.desc}</td><td class="num">฿\${fmt(e.amt)}</td></tr>`).join('')}
+                        ${r.b1.opex_list.map(e => `<tr><td><span class="badge badge-b1">B1</span></td><td>${e.cat}</td><td>${e.desc}</td><td class="num">฿${fmt(e.amt)}</td></tr>`).join('')}
+                        ${r.b2.opex_list.map(e => `<tr><td><span class="badge badge-b2">B2</span></td><td>${e.cat}</td><td>${e.desc}</td><td class="num">฿${fmt(e.amt)}</td></tr>`).join('')}
                     </tbody>
                 </table>
             </div>
         </div>
     `;
 }
-
-function downloadReport() { window.print(); }
 
 document.querySelectorAll('.nav-item').forEach(item => {
     item.addEventListener('click', () => {

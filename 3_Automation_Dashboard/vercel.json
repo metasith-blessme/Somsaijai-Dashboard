@@ -1,8 +1,0 @@
-{
-  "version": 2,
-  "public": true,
-  "name": "somsaijailive",
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/index.html" }
-  ]
-}
