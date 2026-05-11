@@ -11,7 +11,7 @@
     --bg: #f5f5f7;
     --accent: #ff6600;
     --primary: #1f4e79;
-    --card: rgba(255, 255, 255, 0.75);
+    --card: rgba(255, 255, 255, 0.85);
     --glass-border: rgba(255, 255, 255, 0.3);
     --text: #1d1d1f;
     --muted: #86868b;
@@ -25,7 +25,7 @@
 @media (prefers-color-scheme: dark) {
     :root {
         --bg: #000000;
-        --card: rgba(28, 28, 30, 0.75);
+        --card: rgba(28, 28, 30, 0.85);
         --glass-border: rgba(255, 255, 255, 0.1);
         --text: #f5f5f7;
         --muted: #86868b;
@@ -43,7 +43,6 @@ body {
     display: flex;
 }
 
-/* Premium Floating Sidebar */
 .sidebar {
     width: 260px;
     height: calc(100vh - 40px);
@@ -56,14 +55,9 @@ body {
     position: fixed;
     z-index: 1000;
     box-shadow: var(--shadow);
-    transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.logo-area {
-    padding: 32px 24px;
-    text-align: left;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-}
+.logo-area { padding: 32px 24px; border-bottom: 1px solid rgba(255,255,255,0.1); }
 .logo-area h1 { font-size: 1.5em; font-weight: 800; letter-spacing: -0.5px; }
 
 .nav { flex: 1; padding: 24px 12px; }
@@ -82,96 +76,46 @@ body {
 .nav-item:hover { background: rgba(255,255,255,0.1); color: #fff; }
 .nav-item.active { background: var(--accent); color: #fff; box-shadow: 0 4px 15px rgba(255,102,0,0.3); }
 
-/* Main Content Area */
-.main {
-    flex: 1;
-    margin-left: 300px;
-    padding: 40px 60px;
-    max-width: 1400px;
-}
+.main { flex: 1; margin-left: 300px; padding: 40px 60px; max-width: 1400px; }
 
-/* Command Center (Top Bar) */
 .command-center {
-    position: sticky;
-    top: 20px;
-    z-index: 900;
-    background: var(--card);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid var(--glass-border);
-    border-radius: 20px;
-    padding: 12px 24px;
-    margin-bottom: 40px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: var(--shadow);
+    position: sticky; top: 20px; z-index: 900;
+    background: var(--card); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border); border-radius: 20px; padding: 12px 24px; margin-bottom: 40px;
+    display: flex; justify-content: space-between; align-items: center; box-shadow: var(--shadow);
 }
 
 .selector-group { display: flex; gap: 12px; align-items: center; }
 .btn {
-    padding: 8px 16px;
-    border-radius: 12px;
-    border: none;
-    background: transparent;
-    color: var(--muted);
-    font-weight: 600;
-    font-size: 0.85em;
-    cursor: pointer;
-    transition: 0.2s;
+    padding: 8px 16px; border-radius: 12px; border: none; background: transparent;
+    color: var(--muted); font-weight: 600; font-size: 0.85em; cursor: pointer; transition: 0.2s;
 }
 .btn:hover { background: rgba(0,0,0,0.05); color: var(--text); }
 .btn.active { background: var(--text); color: var(--bg); }
 .btn-branch.active { background: var(--accent); color: #fff; }
 
-/* Glass Cards */
 .glass-card {
-    background: var(--card);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid var(--glass-border);
-    border-radius: 28px;
-    padding: 32px;
-    box-shadow: var(--shadow);
-    margin-bottom: 32px;
-    transition: transform 0.3s ease;
+    background: var(--card); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border); border-radius: 28px; padding: 32px;
+    box-shadow: var(--shadow); margin-bottom: 32px;
 }
 
-/* KPIs */
-.kpi-row {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 24px;
-    margin-bottom: 40px;
-}
+.kpi-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; margin-bottom: 40px; }
 .kpi-premium {
-    background: var(--card);
-    border: 1px solid var(--glass-border);
-    border-radius: 24px;
-    padding: 24px;
-    box-shadow: var(--shadow);
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+    background: var(--card); border: 1px solid var(--glass-border); border-radius: 24px;
+    padding: 24px; box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 8px;
 }
 .kpi-premium .label { font-size: 0.7em; font-weight: 800; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
 .kpi-premium .value { font-size: 2.2em; font-weight: 800; color: var(--text); font-family: var(--mono); }
 .kpi-premium .subtext { font-size: 0.8em; color: var(--muted); font-weight: 500; }
 
-/* Tables */
 .premium-table { width: 100%; border-collapse: collapse; }
 .premium-table th { text-align: left; padding: 16px; font-size: 0.7em; font-weight: 800; color: var(--muted); text-transform: uppercase; border-bottom: 1px solid var(--glass-border); }
 .premium-table td { padding: 18px 16px; border-bottom: 1px solid var(--glass-border); font-size: 0.95em; font-weight: 500; }
-.premium-table tr:last-child td { border: none; }
 .num { font-family: var(--mono); text-align: right; }
 
-/* Grid Systems */
 .dashboard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 32px; }
 
-/* Charts */
-.chart-container { height: 300px; position: relative; }
-
-/* Utilities */
 .section { display: none; }
 .section.active { display: block; animation: fadeIn 0.4s ease; }
 @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
@@ -180,7 +124,6 @@ body {
 .badge-b1 { background: rgba(31, 78, 121, 0.1); color: var(--primary); }
 .badge-b2 { background: rgba(255, 102, 0, 0.1); color: var(--accent); }
 
-/* Mobile Optimization */
 @media (max-width: 1024px) {
     .sidebar { width: 70px; margin: 10px; }
     .logo-area, .nav-item span { display: none; }
@@ -192,10 +135,7 @@ body {
 <body>
 
 <div class="sidebar">
-    <div class="logo-area">
-        <h1>SSJ</h1>
-        <div style="font-size:0.6em;opacity:0.6;margin-top:4px">PREMIUM INTELLIGENCE</div>
-    </div>
+    <div class="logo-area"><h1>SSJ</h1></div>
     <div class="nav">
         <div class="nav-item active" data-view="finance">📊 <span>Finance</span></div>
         <div class="nav-item" data-view="report">📜 <span>Reports</span></div>
@@ -203,7 +143,6 @@ body {
         <div class="nav-item" data-view="analytics">📈 <span>Analytics</span></div>
         <div class="nav-item" data-view="log">📝 <span>Daily Log</span></div>
     </div>
-    <div style="padding:24px; font-size:0.6em; opacity:0.3; text-align:center">v3.0.0</div>
 </div>
 
 <div class="main">
@@ -213,110 +152,58 @@ body {
             <div style="width:1px; height:20px; background:var(--glass-border)"></div>
             <div id="monthSelector"></div>
         </div>
-        <div id="status" style="font-size:0.75em; font-weight:700; color:var(--green)">
-            <span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:var(--green); margin-right:6px"></span>
-            SYSTEM LIVE
-        </div>
+        <div id="status" style="font-size:0.75em; font-weight:700; color:var(--green)">● SYSTEM LIVE</div>
     </div>
 
     <div class="kpi-row" id="kpiGrid"></div>
 
-    <!-- Financial Section -->
     <div class="section active" id="view-finance">
         <div class="glass-card">
-            <h3 style="margin-bottom:24px; font-weight:800; letter-spacing:-0.5px">Profit & Loss Statement</h3>
-            <table class="premium-table">
-                <thead><tr><th style="width:60%">Item</th><th class="num">Amount</th><th class="num">% Revenue</th></tr></thead>
-                <tbody id="cfBody"></tbody>
-            </table>
+            <h3>Profit & Loss Statement</h3>
+            <table class="premium-table"><tbody id="cfBody"></tbody></table>
         </div>
-
         <div class="dashboard-grid">
-            <div class="glass-card">
-                <h3 style="margin-bottom:24px">Blessme Sharing</h3>
-                <table class="premium-table">
-                    <thead><tr><th>Branch</th><th class="num">Net</th><th class="num">Earning</th></tr></thead>
-                    <tbody id="profitShareBody"></tbody>
-                </table>
-            </div>
-            <div class="glass-card">
-                <h3 style="margin-bottom:24px">Expense Mix</h3>
-                <div class="chart-container"><canvas id="chartExpMix"></canvas></div>
-            </div>
+            <div class="glass-card"><h3>Blessme Sharing</h3><table class="premium-table"><tbody id="profitShareBody"></tbody></table></div>
+            <div class="glass-card"><h3>Expense Mix</h3><div style="height:300px"><canvas id="chartExpMix"></canvas></div></div>
         </div>
-        
-        <div class="glass-card">
-            <h3 style="margin-bottom:24px">Revenue Performance</h3>
-            <div class="chart-container" style="height:400px"><canvas id="chartRevPay"></canvas></div>
-        </div>
+        <div class="glass-card"><h3>Revenue Performance</h3><div style="height:400px"><canvas id="chartRevPay"></canvas></div></div>
     </div>
 
-    <!-- Reports Section -->
     <div class="section" id="view-report">
         <div class="command-center" style="position:static; margin-bottom:32px">
-            <h2 style="font-weight:800">Management Reports</h2>
+            <h2 id="reportTitle">Management Report</h2>
             <button class="btn active" onclick="downloadReport()" style="background:var(--accent); color:#fff">Export PDF</button>
         </div>
-        <div class="dashboard-grid" style="grid-template-columns: 1.5fr 1fr">
-            <div id="reportContent" class="glass-card">
-                <h3 id="reportTitle" style="color:var(--accent); margin-bottom:24px"></h3>
-                <div id="reportTables"></div>
-            </div>
-            <div id="logContainer" style="display:flex; flex-direction:column; gap:20px"></div>
-        </div>
+        <div id="reportContent" class="glass-card"><div id="reportTables"></div></div>
     </div>
 
-    <!-- Inventory Section -->
     <div class="section" id="view-inventory">
-        <div class="glass-card">
-            <h2 style="margin-bottom:12px">Stock Intelligence</h2>
-            <p id="liveStockMeta" style="color:var(--muted); font-size:0.9em"></p>
-        </div>
-        <div class="dashboard-grid" id="liveStockGrid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr))"></div>
-        
-        <h2 style="margin:40px 0 24px 0">Forecast & Procurement</h2>
-        <div id="forecastContainer" class="dashboard-grid" style="grid-template-columns: repeat(auto-fit, minmax(320px, 1fr))"></div>
+        <div class="kpi-row" id="liveStockGrid"></div>
+        <h2>Forecast</h2>
+        <div id="forecastContainer" class="dashboard-grid"></div>
     </div>
 
-    <!-- Analytics Section -->
     <div class="section" id="view-analytics">
-        <div class="kpi-row">
-            <div class="kpi-premium"><div class="label">Liquidity</div><div id="liquidityRatio" class="value">0.0</div><div class="subtext">Cash vs Scan</div></div>
-            <div class="kpi-premium"><div class="label">Rev / Cup</div><div id="revPerCup" class="value">฿0</div><div class="subtext">Average Ticket</div></div>
-            <div class="kpi-premium"><div class="label">Yield (Or)</div><div id="yieldOrange" class="value">0</div><div class="subtext">Cups / Basket</div></div>
-        </div>
         <div class="dashboard-grid">
             <div class="glass-card"><h3>Revenue Mix</h3><canvas id="chartProductMix"></canvas></div>
-            <div class="glass-card"><h3>Net Contribution</h3><canvas id="chartContribution"></canvas></div>
-            <div class="glass-card"><h3>Yield Burn Rate</h3><canvas id="chartYield"></canvas></div>
-            <div class="glass-card"><h3>Sales by Day</h3><canvas id="chartDOW"></canvas></div>
+            <div class="glass-card"><h3>Yield</h3><canvas id="chartYield"></canvas></div>
         </div>
     </div>
 
-    <!-- Daily Log Section -->
     <div class="section" id="view-log">
-        <div class="glass-card">
-            <h2 style="margin-bottom:24px">Daily Sales & Audit Log</h2>
-            <div id="dailyLogGrid" class="dashboard-grid" style="grid-template-columns: repeat(auto-fit, minmax(350px, 1fr))"></div>
-        </div>
+        <div id="dailyLogGrid" class="dashboard-grid"></div>
     </div>
 </div>
 
 <script>
-let DATA = null;
-let LEDGER = null;
-let REPORTS_DATA = null;
-let currentBranch = 'all';
-let currentMonth = 'May26'; // Default to newest
-let currentView = 'finance';
+let DATA = null, LEDGER = null, REPORTS_DATA = null;
+let currentBranch = 'all', currentMonth = 'all';
 let charts = {};
 
 const PARAMS = {
     prices: { orange: 60, orange_premium: 100, watermelon: 50, apple: 60, mango: 90, coconut: 60, young: 90, guava: 60 },
-    costs: { orange: 700, watermelon: 35, apple: 30, mango: 150, coconut: 35, young: 50, guava: 30 },
     rent: { B1: 35000, B2: 30000 },
     staffMonthly: { B1: 31000, B2: 18000 },
-    staffPerDay: { B1: 0, B2: 0 },
     fixedStock: { B1: 6000, B2: 6000 },
     profitShare: { B1: 0.60, B2: 0.70 }
 };
@@ -326,38 +213,43 @@ const sum = (arr, k) => arr.reduce((s, r) => s + (Number(r[k]) || 0), 0);
 
 async function init() {
     try {
-        const [dataRes, ledgerRes, reportsRes] = await Promise.all([
-            fetch('data.json?t=' + Date.now()).then(r => r.json()),
-            fetch('stock_ledger.json?t=' + Date.now()).then(r => r.ok ? r.json() : null).catch(() => null),
-            fetch('reports_data.json?t=' + Date.now()).then(r => r.ok ? r.json() : null).catch(() => null)
+        const [d, l, r] = await Promise.all([
+            fetch('data.json?t='+Date.now()).then(res => res.json()),
+            fetch('stock_ledger.json?t='+Date.now()).then(res => res.ok ? res.json() : null),
+            fetch('reports_data.json?t='+Date.now()).then(res => res.ok ? res.json() : null)
         ]);
-        DATA = dataRes;
-        LEDGER = ledgerRes || { purchases: [], physical_checks: [] };
-        REPORTS_DATA = reportsRes;
+        DATA = d; LEDGER = l; REPORTS_DATA = r;
         
+        // Auto-detect available months
+        const allMonthsSet = new Set();
+        Object.keys(DATA.branches).forEach(b => Object.keys(DATA.branches[b].sales).forEach(m => allMonthsSet.add(m)));
+        const allMonths = Array.from(allMonthsSet).sort((a,b) => b.localeCompare(a));
+        
+        if(allMonths.includes('May26')) currentMonth = 'May26';
+        else if(allMonths.length > 0) currentMonth = allMonths[0];
+
         renderBranchSelector();
-        renderMonthSelector();
+        renderMonthSelector(allMonths);
         updateUI();
-    } catch (e) { console.error(e); }
+    } catch (e) { 
+        console.error(e);
+        document.body.innerHTML = `<div style="padding:100px; text-align:center"><h1>Data Load Error</h1><p>\${e.message}</p></div>`;
+    }
 }
 
 function renderBranchSelector() {
     const branches = ['all', 'B1', 'B2'];
-    const labels = { all: 'All', B1: 'B1', B2: 'B2' };
     document.getElementById('branchSelector').innerHTML = branches.map(b => 
-        `<button class="btn btn-branch ${currentBranch===b?'active':''}" onclick="setBranch('${b}')">${labels[b]}</button>`
+        `<button class="btn btn-branch \${currentBranch===b?'active':''}" onclick="currentBranch='\${b}';updateUI()">\${b==='all'?'All Branches':b}</button>`
     ).join('');
 }
 
-function renderMonthSelector() {
-    const months = ['Jan26', 'Feb26', 'Mar26', 'Apr26', 'May26'];
-    document.getElementById('monthSelector').innerHTML = months.map(m => 
-        `<button class="btn ${currentMonth===m?'active':''}" onclick="setMonth('${m}')">${m.replace('26','')}</button>`
+function renderMonthSelector(months) {
+    let mList = ['all', ...months];
+    document.getElementById('monthSelector').innerHTML = mList.map(m => 
+        `<button class="btn \${currentMonth===m?'active':''}" onclick="currentMonth='\${m}';updateUI()">\${m==='all'?'Full Year':m.replace('26','')}</button>`
     ).join('');
 }
-
-function setBranch(b) { currentBranch = b; updateUI(); }
-function setMonth(m) { currentMonth = m; updateUI(); }
 
 function updateUI() {
     const sales = getCleanSales(currentBranch, currentMonth);
@@ -366,57 +258,10 @@ function updateUI() {
     renderKPIs(sales);
     renderFinance(sales, expenses);
     renderInventory(sales);
-    renderLog(sales);
     renderAnalytics(sales);
     renderReport();
     renderDailyLog(sales);
     renderBranchSelector();
-    renderMonthSelector();
-}
-
-function renderDailyLog(sales) {
-    const el = document.getElementById('dailyLogGrid');
-    if (!el) return;
-    const weekends = new Set(['Sat','Sun']);
-    el.innerHTML = sales.slice().reverse().map(r => {
-        const audit = r.audit || { theoretical_rev: 0, rev_diff: 0 };
-        const auditColor = audit.rev_diff < -500 ? 'var(--red)' : audit.rev_diff > 500 ? 'var(--blue)' : 'var(--muted)';
-        
-        return `
-        <div class="kpi-premium" style="padding: 20px;">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; border-bottom:1px solid var(--glass-border); padding-bottom:8px;">
-                <div>
-                    <span class="badge badge-${r.branch.toLowerCase()}">${r.branch}</span>
-                    <b style="margin-left:8px; font-size:1.1em">${r.d}</b>
-                </div>
-                <span style="font-size:0.8em; font-weight:800; opacity:0.6">${r.day}</span>
-            </div>
-            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:16px;">
-                <div>
-                    <div class="label">Revenue</div>
-                    <div class="value" style="font-size:1.4em">฿${fmt(r.rev)}</div>
-                </div>
-                <div>
-                    <div class="label">Audit Diff</div>
-                    <div class="value" style="font-size:1.4em; color:${auditColor}">${audit.rev_diff||0}</div>
-                </div>
-                <div>
-                    <div class="label">Total Cups</div>
-                    <div class="value" style="font-size:1.4em">${r.tot}</div>
-                </div>
-                <div>
-                    <div class="label">Scan / Cash</div>
-                    <div class="value" style="font-size:1.1em">${fmt(r.scan)} / ${fmt(r.cash)}</div>
-                </div>
-            </div>
-            <div style="display:grid; grid-template-columns: repeat(4, 1fr); gap:8px; margin-top:16px; border-top:1px dashed var(--glass-border); padding-top:12px;">
-                <div style="text-align:center"><div class="label">Or</div><div style="font-weight:700">${r.or}</div></div>
-                <div style="text-align:center"><div class="label">Wm</div><div style="font-weight:700">${r.wm}</div></div>
-                <div style="text-align:center"><div class="label">Mg</div><div style="font-weight:700">${r.mg}</div></div>
-                <div style="text-align:center"><div class="label">Co</div><div style="font-weight:700">${r.co}</div></div>
-            </div>
-        </div>`;
-    }).join('');
 }
 
 function getCleanSales(branch, month) {
@@ -426,130 +271,142 @@ function getCleanSales(branch, month) {
         const mKeys = month === 'all' ? Object.keys(DATA.branches[b].sales) : [month];
         mKeys.forEach(m => {
             if(DATA.branches[b].sales[m]) {
-                const clean = DATA.branches[b].sales[m].filter(r => r.d && !['Date', 'TOTAL'].includes(r.d));
-                combined = combined.concat(clean.map(r => ({ ...r, branch: b })));
+                combined = combined.concat(DATA.branches[b].sales[m].filter(r => r.d && !['Date', 'TOTAL', 'AVG'].includes(r.d)).map(r => ({ ...r, branch: b, month: m })));
             }
         });
     });
-    return combined.sort((a,b) => a.d.split('/').reverse().join('').localeCompare(b.d.split('/').reverse().join('')));
+    return combined.sort((a,b) => {
+        const da = a.d.split('/').map(n=>n.padStart(2,'0')).reverse().join('');
+        const db = b.d.split('/').map(n=>n.padStart(2,'0')).reverse().join('');
+        return da.localeCompare(db);
+    });
 }
 
 function renderKPIs(sales) {
-    const rev = sum(sales, 'rev');
-    const cups = sum(sales, 'tot');
+    const rev = sum(sales, 'rev'), cups = sum(sales, 'tot');
     const diff = sales.reduce((s, r) => s + (r.audit ? r.audit.rev_diff : 0), 0);
     document.getElementById('kpiGrid').innerHTML = `
-        <div class="kpi-premium"><div class="label">Network Revenue</div><div class="value">฿${fmt(rev)}</div><div class="subtext">${sales.length} active days</div></div>
-        <div class="kpi-premium"><div class="label">Total Cups</div><div class="value">${fmt(cups)}</div><div class="subtext">Units sold</div></div>
-        <div class="kpi-premium"><div class="label">Audit Accuracy</div><div class="value" style="color:${diff<0?'var(--red)':'var(--green)'}">฿${fmt(diff)}</div><div class="subtext">Theor. variance</div></div>
+        <div class="kpi-premium"><div class="label">Revenue</div><div class="value">฿\${fmt(rev)}</div><div class="subtext">\${sales.length} days</div></div>
+        <div class="kpi-premium"><div class="label">Total Cups</div><div class="value">\${fmt(cups)}</div><div class="subtext">Sold</div></div>
+        <div class="kpi-premium"><div class="label">Audit Diff</div><div class="value" style="color:\${diff<0?'var(--red)':'var(--green)'}">฿\${fmt(diff)}</div><div class="subtext">Accuracy</div></div>
     `;
 }
 
 function renderFinance(sales, expenses) {
-    const rev = sum(sales, 'rev');
     let bCalcs = {};
     ['B1', 'B2'].forEach(b => {
         const bs = sales.filter(s => s.branch === b);
         if(!bs.length) return;
         const br = sum(bs, 'rev');
         const bu = bs.reduce((s, r) => s + ((r.uo||0)*700 + (r.uw||0)*35 + (r.uap||0)*30 + (r.umg||0)*150 + (r.uco_raw||0)*35), 0);
-        const bf = PARAMS.rent[b] + PARAMS.staffMonthly[b] + PARAMS.fixedStock[b];
+        const bf = (PARAMS.rent[b]||0) + (PARAMS.staffMonthly[b]||0) + (PARAMS.fixedStock[b]||0);
         const bn = br - bu - bf;
-        bCalcs[b] = { rev: br, net: bn, share: Math.max(0, bn * PARAMS.profitShare[b]) };
+        bCalcs[b] = { rev: br, net: bn, share: Math.max(0, bn * (PARAMS.profitShare[b]||0)) };
     });
 
     const tRev = Object.values(bCalcs).reduce((s,b)=>s+b.rev, 0);
     const tNet = Object.values(bCalcs).reduce((s,b)=>s+b.net, 0);
 
-    const rows = [
-        { l: 'Gross Revenue', a: tRev, b: true },
-        { l: 'Material Costs (Actual)', a: Object.values(bCalcs).reduce((s,b)=>s+(b.rev-b.net-PARAMS.rent.B1-PARAMS.staffMonthly.B1-PARAMS.fixedStock.B1),0) },
-        { l: 'Operational Profit (Net)', a: tNet, b: true },
-        { l: 'Net Margin', a: tRev > 0 ? (tNet/tRev*100) : 0, i: true }
-    ];
-
-    document.getElementById('cfBody').innerHTML = rows.map(r => `
-        <tr><td>${r.b?`<b>${r.l}</b>`:r.l}</td><td class="num">${r.i?'':`฿${fmt(r.a)}`}</td><td class="num">${r.i?r.a.toFixed(1)+'%':(tRev?(r.a/tRev*100).toFixed(1)+'%':'0%')}</td></tr>
-    `).join('');
+    document.getElementById('cfBody').innerHTML = `
+        <tr><td><b>Gross Revenue</b></td><td class="num">฿\${fmt(tRev)}</td><td class="num">100%</td></tr>
+        <tr><td><b>Operational Profit</b></td><td class="num">฿\${fmt(tNet)}</td><td class="num">\${tRev?(tNet/tRev*100).toFixed(1)+'%':'0%'}</td></tr>
+    `;
 
     document.getElementById('profitShareBody').innerHTML = Object.keys(bCalcs).map(b => `
-        <tr><td><span class="badge badge-${b.toLowerCase()}">${b}</span></td><td class="num">฿${fmt(bCalcs[b].net)}</td><td class="num" style="color:var(--accent)"><b>฿${fmt(bCalcs[b].share)}</b></td></tr>
+        <tr><td><span class="badge badge-\${b.toLowerCase()}">\${b}</span></td><td class="num">฿\${fmt(bCalcs[b].net)}</td><td class="num" style="color:var(--accent)"><b>฿\${fmt(bCalcs[b].share)}</b></td></tr>
     `).join('');
     
-    // Charts
     if(charts.rev) charts.rev.destroy();
     charts.rev = new Chart(document.getElementById('chartRevPay'), {
         type: 'line',
-        data: { labels: sales.map(r=>r.d), datasets: [{ label: 'Daily Revenue', data: sales.map(r=>r.rev), borderColor: '#ff6600', backgroundColor: 'rgba(255,102,0,0.1)', fill: true, tension: 0.4 }] },
+        data: { labels: sales.map(r=>r.d), datasets: [{ label: 'Revenue', data: sales.map(r=>r.rev), borderColor: '#ff6600', tension: 0.4 }] },
         options: { responsive: true, maintainAspectRatio: false }
     });
 }
 
 function renderInventory(sales) {
-    const stocks = computeLiveStock(sales);
-    document.getElementById('liveStockGrid').innerHTML = stocks.map(s => `
-        <div class="kpi-premium" style="border-left: 4px solid ${s.severity==='critical'?'var(--red)':s.severity==='warning'?'var(--accent)':'var(--green)'}">
-            <div class="label">${s.icon} ${s.name}</div>
-            <div class="value">${s.liveStock.toFixed(1)} <span style="font-size:0.4em">${s.baselineUnit}</span></div>
-            <div class="subtext">${s.daysLeft?s.daysLeft.toFixed(1)+' days left':'No data'}</div>
-        </div>
-    `).join('');
+    const items = [{ k: 'orange', b: 'uo', i: '🍊', n: 'Orange' }, { k: 'watermelon', b: 'uw', i: '🍉', n: 'Watermelon' }];
+    document.getElementById('liveStockGrid').innerHTML = items.map(item => {
+        const burn = sum(sales, item.b);
+        return `<div class="kpi-premium"><div class="label">\${item.i} \${item.n} Burn</div><div class="value">\${burn.toFixed(1)}</div></div>`;
+    }).join('');
 }
 
-function computeLiveStock(sales) {
-    const items = [
-        { key: 'orange', burn: 'uo', icon: '🍊', name: 'Orange', unit: 'baskets' },
-        { key: 'watermelon', burn: 'uw', icon: '🍉', name: 'Watermelon', unit: 'pcs' },
-        { key: 'apple', burn: 'uap', icon: '🍎', name: 'Apple', unit: 'pcs' }
-    ];
-    return items.map(item => {
-        const check = (LEDGER.physical_checks || []).filter(c=>c.item===item.key).sort((a,b)=>new Date(b.date)-new Date(a.date))[0];
-        if(!check) return null;
-        const burn = sales.reduce((s,r)=>s+(Number(r[item.burn])||0),0);
-        const live = check.qty - (burn/20); // Simplified for v3
-        return { ...item, liveStock: live, baselineUnit: item.unit, severity: live < 2 ? 'critical' : live < 5 ? 'warning' : 'ok', daysLeft: live / 0.5 };
-    }).filter(Boolean);
-}
-
-function renderLog(sales) {
-    document.getElementById('logContainer').innerHTML = sales.slice(-10).reverse().map(r => `
+function renderDailyLog(sales) {
+    document.getElementById('dailyLogGrid').innerHTML = sales.slice().reverse().map(r => `
         <div class="kpi-premium">
-            <div style="display:flex; justify-content:space-between">
-                <span class="badge badge-${r.branch.toLowerCase()}">${r.branch}</span>
-                <span style="font-weight:800">${r.d}</span>
-            </div>
-            <div style="font-size:1.4em; font-weight:800; margin:10px 0">฿${fmt(r.rev)}</div>
-            <div style="display:grid; grid-template-columns:1fr 1fr; font-size:0.8em; color:var(--muted)">
-                <div>Cups: ${r.tot}</div>
-                <div>Diff: ${r.audit?r.audit.rev_diff:0}</div>
-            </div>
+            <div style="display:flex; justify-content:space-between"><b>\${r.d}</b> <span class="badge badge-\${r.branch.toLowerCase()}">\${r.branch}</span></div>
+            <div class="value" style="font-size:1.5em; margin:10px 0">฿\${fmt(r.rev)}</div>
+            <div style="font-size:0.8em; color:var(--muted)">Cups: \${r.tot} | Diff: \${r.audit?r.audit.rev_diff:0}</div>
         </div>
     `).join('');
 }
 
 function renderAnalytics(sales) {
-    const rev = sum(sales, 'rev');
-    document.getElementById('liquidityRatio').innerText = (sum(sales,'cash') / (sum(sales,'scan')||1)).toFixed(2);
-    document.getElementById('revPerCup').innerText = '฿' + (rev / (sum(sales,'tot')||1)).toFixed(1);
-    document.getElementById('yieldOrange').innerText = (sum(sales,'or') / (sum(sales,'uo')||1)).toFixed(1);
+    if(charts.mix) charts.mix.destroy();
+    const mix = { Or: sum(sales,'or'), Wm: sum(sales,'wm'), Mg: sum(sales,'mg'), Co: sum(sales,'co') };
+    charts.mix = new Chart(document.getElementById('chartProductMix'), { type: 'pie', data: { labels: Object.keys(mix), datasets: [{ data: Object.values(mix), backgroundColor: ['#ff9800','#4caf50','#ffc107','#795548'] }] } });
 }
 
 function renderReport() {
     if (!REPORTS_DATA || !REPORTS_DATA[currentMonth]) return;
     const r = REPORTS_DATA[currentMonth];
-    document.getElementById('reportTitle').innerText = currentMonth.toUpperCase() + ' PERFORMANCE';
+    document.getElementById('reportTitle').innerText = (currentMonth==='all'?'FULL YEAR':currentMonth.toUpperCase()) + ' MANAGEMENT REPORT';
     document.getElementById('reportTables').innerHTML = `
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-bottom:30px">
-            <div class="kpi-premium"><div class="label">Total Rev</div><div class="value">฿${fmt(r.total_rev)}</div></div>
-            <div class="kpi-premium"><div class="label">Net Profit</div><div class="value">฿${fmt(r.b1.net+r.b2.net)}</div></div>
+        <div class="glass-card" style="padding:20px; border:none; background:rgba(0,0,0,0.02)">
+            <h3 style="color:var(--accent); margin-bottom:20px">1. EXECUTIVE SUMMARY</h3>
+            <div class="kpi-row" style="margin-bottom:0">
+                <div class="kpi-premium"><div class="label">Total Network Revenue</div><div class="value">฿\${fmt(r.total_rev)}</div></div>
+                <div class="kpi-premium"><div class="label">Consolidated Net Profit</div><div class="value" style="color:var(--green)">฿\${fmt(r.b1.net+r.b2.net)}</div></div>
+            </div>
         </div>
-        <h4 style="margin-bottom:12px">Fruit ROI Performance</h4>
-        <table class="premium-table">
-            <thead><tr><th>Fruit</th><th class="num">Rev</th><th class="num">ROI</th></tr></thead>
-            <tbody>${r.fruit_performance.filter(f=>f.cups>0).map(f=>`<tr><td>${f.name}</td><td class="num">฿${fmt(f.rev)}</td><td class="num" style="color:var(--green)">${f.roi}</td></tr>`).join('')}</tbody>
-        </table>
+
+        <div class="glass-card" style="padding:20px; border:none; background:rgba(0,0,0,0.02)">
+            <h3 style="color:var(--accent); margin-bottom:20px">2. BRANCH PERFORMANCE</h3>
+            <table class="premium-table">
+                <thead><tr><th>Branch</th><th class="num">Revenue</th><th class="num">COGS Share</th><th class="num">Net Profit</th><th class="num">Blessme</th></tr></thead>
+                <tbody>
+                    <tr><td>Branch 1 (B1)</td><td class="num">฿\${fmt(r.b1.rev)}</td><td class="num">฿\${fmt(r.b1.cogs)}</td><td class="num">฿\${fmt(r.b1.net)}</td><td class="num" style="color:var(--accent)"><b>฿\${fmt(r.b1.share)}</b></td></tr>
+                    <tr><td>Branch 2 (B2)</td><td class="num">฿\${fmt(r.b2.rev)}</td><td class="num">฿\${fmt(r.b2.cogs)}</td><td class="num">฿\${fmt(r.b2.net)}</td><td class="num" style="color:var(--accent)"><b>฿\${fmt(r.b2.share)}</b></td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="glass-card" style="padding:20px; border:none; background:rgba(0,0,0,0.02)">
+            <h3 style="color:var(--accent); margin-bottom:20px">3. SHARED COGS BREAKDOWN</h3>
+            <table class="premium-table">
+                <thead><tr><th>Category</th><th class="num">Amount</th></tr></thead>
+                <tbody>
+                    \${Object.keys(r.fruit_summary).map(k => `<tr><td>\${k}</td><td class="num">฿\${fmt(r.fruit_summary[k])}</td></tr>`).join('')}
+                    <tr style="background:rgba(0,0,0,0.05)"><td><b>TOTAL COGS</b></td><td class="num"><b>฿\${fmt(r.total_cogs)}</b></td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="glass-card" style="padding:20px; border:none; background:rgba(0,0,0,0.02)">
+            <h3 style="color:var(--accent); margin-bottom:20px">4. FRUIT ROI PERFORMANCE</h3>
+            <table class="premium-table">
+                <thead><tr><th>Fruit</th><th class="num">Rev</th><th class="num">Cost</th><th class="num">ROI</th><th class="num">Cups</th></tr></thead>
+                <tbody>\${r.fruit_performance.filter(f=>f.cups>0).map(f=>`<tr><td>\${f.name}</td><td class="num">฿\${fmt(f.rev)}</td><td class="num">฿\${fmt(f.cost)}</td><td class="num" style="color:var(--green)">\${f.roi}</td><td class="num">\${f.cups}</td></tr>`).join('')}</tbody>
+            </table>
+        </div>
+
+        <div class="glass-card" style="padding:20px; border:none; background:rgba(0,0,0,0.02)">
+            <h3 style="color:var(--accent); margin-bottom:20px">5. OPERATING EXPENSES (OPEX)</h3>
+            <div style="max-height:400px; overflow-y:auto">
+                <table class="premium-table">
+                    <thead><tr><th>Branch</th><th>Category</th><th>Description</th><th class="num">Amount</th></tr></thead>
+                    <tbody>
+                        \${r.b1.opex_list.map(e => `<tr><td><span class="badge badge-b1">B1</span></td><td>\${e.cat}</td><td>\${e.desc}</td><td class="num">฿\${fmt(e.amt)}</td></tr>`).join('')}
+                        \${r.b2.opex_list.map(e => `<tr><td><span class="badge badge-b2">B2</span></td><td>\${e.cat}</td><td>\${e.desc}</td><td class="num">฿\${fmt(e.amt)}</td></tr>`).join('')}
+                    </tbody>
+                </table>
+            </div>
+        </div>
     `;
 }
+
+function downloadReport() { window.print(); }
 
 document.querySelectorAll('.nav-item').forEach(item => {
     item.addEventListener('click', () => {
