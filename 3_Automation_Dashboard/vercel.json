@@ -1,4 +1,8 @@
 {
   "version": 2,
-  "cleanUrls": true
+  "public": true,
+  "cleanUrls": true,
+  "rewrites": [
+    { "source": "/", "destination": "/index.html" }
+  ]
 }

@@ -154,7 +154,11 @@ body {
     </div>
 
     <div class="section" id="view-report">
-        ...
+        <div class="command-center" style="position:static; margin-bottom:32px">
+            <h2 id="reportTitle">Management Report</h2>
+            <button class="btn active" onclick="window.print()" style="background:var(--accent); color:#fff">Export PDF</button>
+        </div>
+        <div id="reportContent" class="glass-card"><div id="reportTables"></div></div>
     </div>
 
     <div class="section" id="view-inventory">
