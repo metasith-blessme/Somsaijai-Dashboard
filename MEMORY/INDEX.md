@@ -12,6 +12,7 @@ Welcome to the SomSaiJai persistent memory. This index tracks technical knowledg
 - [[Branch_Operations]] - Specific rules for B1 and B2.
 
 ### 📝 Session History
+- [[2026-05-11_Premium_UI_Fix]] - Premium UI v3.1.0 overhaul and Vercel 404 cache resolution.
 - [[2026-05-10_May_Sync_Complete]] - Full sync of May 2026 sales up to May 9 and report format restoration.
 - [[2026-05-05_Dynamic_Reports]] - Fix for stale monthly reports (Technical Debt).
 - [[2026-05-05_Vercel_Migration_Note]] - CRITICAL: Migration from Surge to Vercel.

@@ -65,25 +65,31 @@ body {
 }
 .selector-group { display: flex; gap: 12px; align-items: center; }
 .btn {
-    padding: 8px 16px; border-radius: 12px; border: none; background: transparent;
-    color: var(--muted); font-weight: 600; font-size: 0.85em; cursor: pointer; transition: 0.2s;
+    padding: 10px 20px; border-radius: 14px; border: 1px solid var(--glass-border); background: var(--card);
+    color: var(--muted); font-weight: 700; font-size: 0.85em; cursor: pointer; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
-.btn:hover { background: rgba(0,0,0,0.05); color: var(--text); }
-.btn.active { background: var(--text); color: var(--bg); }
-.btn-branch.active { background: var(--accent); color: #fff; }
-.glass-card {
-    background: var(--card); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-    border: 1px solid var(--glass-border); border-radius: 28px; padding: 32px;
-    box-shadow: var(--shadow); margin-bottom: 32px;
-}
-.kpi-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; margin-bottom: 40px; }
+.btn:hover { background: var(--bg); color: var(--text); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+.btn.active { background: var(--text); color: var(--bg); border-color: var(--text); box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
+.btn-branch.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+
 .kpi-premium {
-    background: var(--card); border: 1px solid var(--glass-border); border-radius: 24px;
-    padding: 24px; box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 8px;
+    background: var(--card); border: 1px solid var(--glass-border); border-radius: 28px;
+    padding: 28px; box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 10px;
+    transition: transform 0.3s ease;
 }
-.kpi-premium .label { font-size: 0.7em; font-weight: 800; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
-.kpi-premium .value { font-size: 2.2em; font-weight: 800; color: var(--text); font-family: var(--mono); }
-.kpi-premium .subtext { font-size: 0.8em; color: var(--muted); font-weight: 500; }
+.kpi-premium:hover { transform: scale(1.02); }
+.kpi-premium .label { font-size: 0.75em; font-weight: 800; color: var(--muted); text-transform: uppercase; letter-spacing: 1.2px; }
+.kpi-premium .value { font-size: 2.4em; font-weight: 800; color: var(--text); font-family: var(--mono); letter-spacing: -1px; }
+
+.finance-row { display: flex; flex-direction: column; gap: 12px; }
+.finance-item { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--glass-border); }
+.finance-item.total { border-top: 2px solid var(--text); border-bottom: none; padding-top: 16px; margin-top: 8px; font-size: 1.2em; font-weight: 800; }
+.finance-item .val { font-family: var(--mono); font-weight: 700; }
+
+.stock-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 16px; }
+.stock-card { background: rgba(0,0,0,0.02); padding: 20px; border-radius: 20px; border: 1px solid var(--glass-border); }
+.stock-card .qty { font-size: 1.8em; font-weight: 800; font-family: var(--mono); margin: 8px 0; }
 .premium-table { width: 100%; border-collapse: collapse; }
 .premium-table th { text-align: left; padding: 16px; font-size: 0.7em; font-weight: 800; color: var(--muted); text-transform: uppercase; border-bottom: 1px solid var(--glass-border); }
 .premium-table td { padding: 18px 16px; border-bottom: 1px solid var(--glass-border); font-size: 0.95em; font-weight: 500; }
@@ -139,31 +145,34 @@ body {
         </div>
         <div class="dashboard-grid">
             <div class="glass-card"><h3>Blessme Sharing</h3><table class="premium-table"><tbody id="profitShareBody"></tbody></table></div>
-            <div class="glass-card"><h3>Expense Mix</h3><div style="height:300px"><canvas id="chartExpMix"></canvas></div></div>
+            <div class="glass-card"><h3>Break-Even Progress</h3><div style="height:300px"><canvas id="chartBreakEven"></canvas></div></div>
         </div>
-        <div class="glass-card"><h3>Revenue Performance</h3><div style="height:400px"><canvas id="chartRevPay"></canvas></div></div>
+        <div class="dashboard-grid">
+            <div class="glass-card"><h3>Revenue Performance</h3><div style="height:400px"><canvas id="chartRevPay"></canvas></div></div>
+            <div class="glass-card"><h3>Audit Variance Tracker</h3><div style="height:400px"><canvas id="chartVariance"></canvas></div></div>
+        </div>
     </div>
 
     <div class="section" id="view-report">
-        <div class="command-center" style="position:static; margin-bottom:32px">
-            <h2 id="reportTitle">Management Report</h2>
-            <button class="btn active" onclick="window.print()" style="background:var(--accent); color:#fff">Export PDF</button>
-        </div>
-        <div id="reportContent" class="glass-card"><div id="reportTables"></div></div>
+        ...
     </div>
 
     <div class="section" id="view-inventory">
         <div class="kpi-row" id="liveStockGrid"></div>
-        <div class="glass-card">
-            <h2>Inventory Intelligence</h2>
-            <p style="color:var(--muted)">Proportional material usage tracking.</p>
+        <div class="dashboard-grid">
+            <div class="glass-card">
+                <h2>Inventory Intelligence</h2>
+                <p style="color:var(--muted)">Proportional material usage tracking.</p>
+            </div>
+            <div class="glass-card"><h3>Material Yield (Cups per Unit)</h3><canvas id="chartYield"></canvas></div>
         </div>
     </div>
 
     <div class="section" id="view-analytics">
         <div class="dashboard-grid">
             <div class="glass-card"><h3>Revenue Mix</h3><canvas id="chartProductMix"></canvas></div>
-            <div class="glass-card"><h3>Yield Analysis</h3><canvas id="chartYield"></canvas></div>
+            <div class="glass-card"><h3>Day-of-Week Heatmap</h3><canvas id="chartDayHeatmap"></canvas></div>
+            <div class="glass-card"><h3>Payment Mix (Scan vs Cash)</h3><canvas id="chartPayMix"></canvas></div>
         </div>
     </div>
 
@@ -222,9 +231,13 @@ function renderBranchSelector() {
 
 function renderMonthSelector(months) {
     let mList = ['all', ...months];
-    document.getElementById('monthSelector').innerHTML = mList.map(m => 
-        `<button class="btn ${currentMonth===m?'active':''}" onclick="currentMonth='${m}';updateUI()">${m==='all'?'Full Year':m.replace('26','')}</button>`
-    ).join('');
+    document.getElementById('monthSelector').innerHTML = mList.map(m => {
+        const isActive = currentMonth === m;
+        const label = m === 'all' ? 'Full Year' : m.replace('26',' ');
+        return `<button class="btn ${isActive?'active':''}" onclick="currentMonth='${m}';updateUI()">
+            ${isActive ? '📍 ' : ''}${label}
+        </button>`;
+    }).join('');
 }
 
 function updateUI() {
@@ -240,6 +253,7 @@ function updateUI() {
     renderReport();
     renderDailyLog(sales);
     renderBranchSelector();
+    renderMonthSelector(Array.from(new Set(Object.keys(DATA.branches).flatMap(b => Object.keys(DATA.branches[b].sales)))).sort((a,b) => b.localeCompare(a)));
 }
 
 function getCleanSales(branch, month) {
@@ -271,59 +285,240 @@ function renderKPIs(sales) {
 
 function renderFinance(sales, expenses) {
     let bCalcs = {};
-    ['B1', 'B2'].forEach(b => {
+    const branches = ['B1', 'B2'];
+    const activeMonths = currentMonth === 'all' ? [...new Set(sales.map(s => s.month))] : [currentMonth];
+    
+    // Calculate Branch Specifics
+    branches.forEach(b => {
         const bs = sales.filter(s => s.branch === b);
-        if(!bs.length) return;
         const br = sum(bs, 'rev');
-        const bu = bs.reduce((s, r) => s + ((r.uo||0)*700 + (r.uw||0)*35 + (r.uap||0)*30 + (r.umg||0)*150 + (r.uco_raw||0)*35), 0);
-        const bf = PARAMS.fixed[b] || 0;
-        const bn = br - bu - bf;
-        bCalcs[b] = { rev: br, net: bn, share: Math.max(0, bn * (PARAMS.profitShare[b] || 0)) };
+        
+        // Materials Cost Estimation
+        let bm = 0;
+        if (currentMonth !== 'all' && REPORTS_DATA && REPORTS_DATA[currentMonth]) {
+            bm = (b === 'B1' ? REPORTS_DATA[currentMonth].b1.cogs : REPORTS_DATA[currentMonth].b2.cogs);
+        } else if (currentMonth === 'all' && REPORTS_DATA) {
+            // Aggregate from all months in REPORTS_DATA
+            activeMonths.forEach(m => {
+                if (REPORTS_DATA[m]) {
+                    bm += (b === 'B1' ? REPORTS_DATA[m].b1.cogs : REPORTS_DATA[m].b2.cogs);
+                }
+            });
+        }
+        
+        // If still 0, use fallback estimation
+        if (bm === 0) {
+            bm = bs.reduce((s, r) => s + ((r.uo||0)*700 + (r.uw||0)*35 + (r.uap||0)*30 + (r.umg||0)*150 + (r.uco_raw||0)*35), 0);
+        }
+
+        // Branch Expenses (OPEX)
+        const be = expenses.filter(e => e.branch === b).reduce((s,e) => s + e.amt, 0);
+        
+        // Fixed Cost (multiplied by number of months if "all")
+        const bf = (PARAMS.fixed[b] || 0) * activeMonths.length;
+        
+        const bn = br - bm - be - bf;
+        bCalcs[b] = { rev: br, materials: bm, expense: be, fixed: bf, net: bn, share: Math.max(0, bn * (PARAMS.profitShare[b] || 0)) };
     });
 
     const tRev = Object.values(bCalcs).reduce((s,b)=>s+b.rev, 0);
-    const tNet = Object.values(bCalcs).reduce((s,b)=>s+b.net, 0);
+    const tMat = Object.values(bCalcs).reduce((s,b)=>s+b.materials, 0);
+    const tExp = Object.values(bCalcs).reduce((s,b)=>s+b.expense, 0);
+    const tFix = Object.values(bCalcs).reduce((s,b)=>s+b.fixed, 0);
+    const tNet = tRev - tMat - tExp - tFix;
 
     document.getElementById('cfBody').innerHTML = `
-        <tr><td><b>Gross Revenue</b></td><td class="num">฿${fmt(tRev)}</td><td class="num">100%</td></tr>
-        <tr><td>Material Costs (Est.)</td><td class="num">฿${fmt(tRev - tNet - (PARAMS.fixed.B1 + PARAMS.fixed.B2))}</td><td class="num">---</td></tr>
-        <tr><td><b>Net Operational Profit</b></td><td class="num">฿${fmt(tNet)}</td><td class="num">${tRev?(tNet/tRev*100).toFixed(1)+'%':'0%'}</td></tr>
+        <tr><td><b>Revenue (Total)</b></td><td class="num">฿${fmt(tRev)}</td><td class="num">100%</td></tr>
+        <tr style="color:var(--muted)"><td>&nbsp;&nbsp;Branch 1</td><td class="num">฿${fmt(bCalcs.B1.rev)}</td><td class="num">${tRev?(bCalcs.B1.rev/tRev*100).toFixed(0)+'%':''}</td></tr>
+        <tr style="color:var(--muted)"><td>&nbsp;&nbsp;Branch 2</td><td class="num">฿${fmt(bCalcs.B2.rev)}</td><td class="num">${tRev?(bCalcs.B2.rev/tRev*100).toFixed(0)+'%':''}</td></tr>
+        
+        <tr><td><b>Material Costs</b></td><td class="num" style="color:var(--red)">- ฿${fmt(tMat)}</td><td class="num">${tRev?(tMat/tRev*100).toFixed(1)+'%':''}</td></tr>
+        
+        <tr><td><b>Operating Expenses</b></td><td class="num" style="color:var(--red)">- ฿${fmt(tExp)}</td><td class="num">${tRev?(tExp/tRev*100).toFixed(1)+'%':''}</td></tr>
+        
+        <tr><td><b>Fixed Costs</b></td><td class="num" style="color:var(--red)">- ฿${fmt(tFix)}</td><td class="num">${tRev?(tFix/tRev*100).toFixed(1)+'%':''}</td></tr>
+        
+        <tr style="background:rgba(0,0,0,0.05); font-weight:800">
+            <td><b>Net Operational Profit</b></td>
+            <td class="num" style="color:${tNet>=0?'var(--green)':'var(--red)'}">฿${fmt(tNet)}</td>
+            <td class="num">${tRev?(tNet/tRev*100).toFixed(1)+'%':'0%'}</td>
+        </tr>
     `;
 
-    document.getElementById('profitShareBody').innerHTML = Object.keys(bCalcs).map(b => `
+    document.getElementById('profitShareBody').innerHTML = branches.map(b => `
         <tr><td><span class="badge badge-${b.toLowerCase()}">${b}</span></td><td class="num">฿${fmt(bCalcs[b].net)}</td><td class="num" style="color:var(--accent)"><b>฿${fmt(bCalcs[b].share)}</b></td></tr>
     `).join('');
     
     if(charts.rev) charts.rev.destroy();
     charts.rev = new Chart(document.getElementById('chartRevPay'), {
         type: 'line',
-        data: { labels: sales.map(r=>r.d), datasets: [{ label: 'Revenue', data: sales.map(r=>r.rev), borderColor: '#ff6600', tension: 0.4 }] },
+        data: { 
+            labels: sales.map(r=>r.d), 
+            datasets: [
+                { label: 'Total Revenue', data: sales.map(r=>r.rev), borderColor: '#ff6600', backgroundColor: 'rgba(255,102,0,0.1)', fill: true, tension: 0.4 },
+                { label: 'B1', data: sales.map(r=>r.branch==='B1'?r.rev:0), borderColor: 'var(--primary)', tension: 0.4, hidden: true },
+                { label: 'B2', data: sales.map(r=>r.branch==='B2'?r.rev:0), borderColor: '#3498db', tension: 0.4, hidden: true }
+            ] 
+        },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: true } } }
+    });
+
+    // Break-Even Chart
+    if(charts.be) charts.be.destroy();
+    let cumProfit = 0;
+    const beData = sales.map(s => {
+        const dayRev = s.rev || 0;
+        const dayMat = (s.uo||0)*700 + (s.uw||0)*35 + (s.uap||0)*30 + (s.umg||0)*150 + (s.uco_raw||0)*35;
+        cumProfit += (dayRev - dayMat - (s.exp||0));
+        return cumProfit;
+    });
+    const targetFix = tFix;
+    charts.be = new Chart(document.getElementById('chartBreakEven'), {
+        type: 'line',
+        data: {
+            labels: sales.map(r=>r.d),
+            datasets: [
+                { label: 'Cumulative Profit', data: beData, borderColor: 'var(--green)', fill: false, tension: 0.4 },
+                { label: 'Target Fix Cost', data: Array(sales.length).fill(targetFix), borderColor: 'var(--red)', borderDash: [5,5], fill: false }
+            ]
+        },
+        options: { responsive: true, maintainAspectRatio: false }
+    });
+
+    // Variance Chart
+    if(charts.var) charts.var.destroy();
+    charts.var = new Chart(document.getElementById('chartVariance'), {
+        type: 'bar',
+        data: {
+            labels: sales.map(r=>r.d),
+            datasets: [{ 
+                label: 'Theor. Variance (฿)', 
+                data: sales.map(r=>r.audit?r.audit.rev_diff:0), 
+                backgroundColor: sales.map(r=>(r.audit?r.audit.rev_diff:0)>=0?'rgba(46, 204, 113, 0.5)':'rgba(231, 76, 60, 0.5)') 
+            }]
+        },
         options: { responsive: true, maintainAspectRatio: false }
     });
 }
 
 function renderInventory(sales) {
-    const items = [{ k: 'orange', b: 'uo', i: '🍊', n: 'Orange' }, { k: 'watermelon', b: 'uw', i: '🍉', n: 'Watermelon' }];
+    const items = [
+        { k: 'orange', b: 'uo', i: '🍊', n: 'Orange', u: 'Basket', p: 'or' },
+        { k: 'watermelon', b: 'uw', i: '🍉', n: 'Watermelon', u: 'Pcs', p: 'wm' },
+        { k: 'mango', b: 'umg', i: '🥭', n: 'Mango', u: 'Kg', p: 'mg' },
+        { k: 'coconut', b: 'uco_raw', i: '🥥', n: 'Coconut', u: 'Pcs', p: 'co' },
+        { k: 'apple', b: 'uap', i: '🍎', n: 'Apple', u: 'Pcs', p: 'ap' },
+        { k: 'guava', b: 'uguava', i: '🍐', n: 'Guava', u: 'Pcs', p: 'guava' },
+        { k: 'pineapple', b: 'upine', i: '🍍', n: 'Pineapple', u: 'Pcs', p: 'pineapple' }
+    ];
+
     document.getElementById('liveStockGrid').innerHTML = items.map(item => {
         const burn = sum(sales, item.b);
-        return `<div class="kpi-premium"><div class="label">${item.i} ${item.n} Used</div><div class="value">${burn.toFixed(1)}</div></div>`;
+        let stock = 0;
+        if (LEDGER && LEDGER.physical_checks) {
+            const check = LEDGER.physical_checks.filter(c => c.item === item.k).sort((a,b)=>b.date.localeCompare(a.date))[0];
+            stock = check ? check.qty : 0;
+        }
+        return `
+            <div class="kpi-premium">
+                <div class="label">${item.i} ${item.n}</div>
+                <div class="value">${burn.toFixed(1)}</div>
+                <div class="subtext">Used (${item.u}) | Last Check: ${stock}</div>
+            </div>
+        `;
     }).join('');
-}
 
-function renderDailyLog(sales) {
-    document.getElementById('dailyLogGrid').innerHTML = sales.slice().reverse().map(r => `
-        <div class="kpi-premium">
-            <div style="display:flex; justify-content:space-between"><b>${r.d}</b> <span class="badge badge-${r.branch.toLowerCase()}">${r.branch}</span></div>
-            <div class="value" style="font-size:1.5em; margin:10px 0">฿${fmt(r.rev)}</div>
-            <div style="font-size:0.8em; color:var(--muted)">Cups: ${r.tot} | Diff: ${r.audit?r.audit.rev_diff:0}</div>
-        </div>
-    `).join('');
+    // Yield Chart
+    if(charts.yield) charts.yield.destroy();
+    const yieldData = items.map(item => {
+        const cups = sum(sales, item.p);
+        const units = sum(sales, item.b);
+        return units > 0 ? (cups / units).toFixed(1) : 0;
+    });
+    charts.yield = new Chart(document.getElementById('chartYield'), {
+        type: 'bar',
+        data: {
+            labels: items.map(i=>i.n),
+            datasets: [{ label: 'Cups per Unit', data: yieldData, backgroundColor: 'var(--blue)' }]
+        },
+        options: { indexAxis: 'y', responsive: true }
+    });
+
+    // Add Detailed Stock Table if LEDGER exists
+    if (LEDGER && LEDGER.physical_checks) {
+        let stockHtml = `<div class="glass-card"><h3>Physical Inventory Checks</h3><table class="premium-table"><thead><tr><th>Item</th><th>Quantity</th><th>Unit</th><th>Date</th><th>Note</th></tr></thead><tbody>`;
+        LEDGER.physical_checks.forEach(c => {
+            stockHtml += `<tr><td>${c.item}</td><td class="num">${c.qty}</td><td>${c.unit||''}</td><td>${c.date}</td><td>${c.note||'-'}</td></tr>`;
+        });
+        stockHtml += `</tbody></table></div>`;
+        const existingStockTable = document.getElementById('stockTableContainer');
+        if(existingStockTable) existingStockTable.innerHTML = stockHtml;
+        else {
+            const div = document.createElement('div');
+            div.id = 'stockTableContainer';
+            div.innerHTML = stockHtml;
+            document.getElementById('view-inventory').appendChild(div);
+        }
+    }
 }
 
 function renderAnalytics(sales) {
     if(charts.mix) charts.mix.destroy();
-    const mix = { Or: sum(sales,'or'), Wm: sum(sales,'wm'), Mg: sum(sales,'mg'), Co: sum(sales,'co') };
-    charts.mix = new Chart(document.getElementById('chartProductMix'), { type: 'pie', data: { labels: Object.keys(mix), datasets: [{ data: Object.values(mix), backgroundColor: ['#ff9800','#4caf50','#ffc107','#795548'] }] } });
+    const mix = { 
+        Orange: sum(sales,'or'), 
+        Watermelon: sum(sales,'wm'), 
+        Mango: sum(sales,'mg'), 
+        Coconut: sum(sales,'co'), 
+        Apple: sum(sales,'ap'),
+        Guava: sum(sales,'guava'),
+        Pineapple: sum(sales,'pineapple')
+    };
+    charts.mix = new Chart(document.getElementById('chartProductMix'), { 
+        type: 'doughnut', 
+        data: { 
+            labels: Object.keys(mix).filter(k => mix[k] > 0), 
+            datasets: [{ 
+                data: Object.values(mix).filter(v => v > 0), 
+                backgroundColor: ['#ff9800','#4caf50','#ffc107','#795548','#f44336','#8bc34a','#ffeb3b'] 
+            }] 
+        },
+        options: { plugins: { legend: { position: 'bottom' } } }
+    });
+
+    // Day of Week Heatmap
+    if(charts.day) charts.day.destroy();
+    const days = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+    const dayRev = days.map(d => sum(sales.filter(s=>s.day===d), 'rev'));
+    charts.day = new Chart(document.getElementById('chartDayHeatmap'), {
+        type: 'bar',
+        data: { labels: days, datasets: [{ label: 'Revenue by Day', data: dayRev, backgroundColor: 'var(--primary)' }] }
+    });
+
+    // Payment Mix
+    if(charts.pay) charts.pay.destroy();
+    const payData = { Scan: sum(sales, 'scan'), Cash: sum(sales, 'cash') };
+    charts.pay = new Chart(document.getElementById('chartPayMix'), {
+        type: 'pie',
+        data: { labels: ['Scan','Cash'], datasets: [{ data: [payData.Scan, payData.Cash], backgroundColor: ['var(--blue)','var(--green)'] }] }
+    });
+
+    // Velocity Analysis
+    const velocity = Object.keys(mix).map(k => ({ name: k, val: mix[k] })).sort((a,b)=>b.val - a.val);
+    let velocityHtml = `<h3>Product Velocity (Total Cups)</h3><table class="premium-table">`;
+    velocity.forEach(v => {
+        if(v.val > 0) velocityHtml += `<tr><td>${v.name}</td><td class="num">${fmt(v.val)} cups</td></tr>`;
+    });
+    velocityHtml += `</table>`;
+    
+    const container = document.querySelector('#view-analytics .dashboard-grid');
+    if (!document.getElementById('velocityCard')) {
+        const div = document.createElement('div');
+        div.id = 'velocityCard'; div.className = 'glass-card';
+        div.innerHTML = velocityHtml;
+        container.appendChild(div);
+    } else {
+        document.getElementById('velocityCard').innerHTML = velocityHtml;
+    }
 }
 
 function renderReport() {

@@ -1,7 +1,7 @@
 # SomSaiJai Automation System (Multi-Branch)
 
 This project automates data extraction and visualization for SomSaiJai across multiple branches.
-**Live dashboard:** https://somsaijailive.vercel.app
+**Live dashboard:** https://somsaijailive.vercel.app (v3.1.0)
 
 ## Project Structure
 - `B1/`: Branch 1 Data
@@ -13,7 +13,8 @@ This project automates data extraction and visualization for SomSaiJai across mu
 - `3_Automation_Dashboard/`: 
   - Automation scripts (`Sales_System_Automation/`).
   - Master Excels (`SomSaiJai_Dashboard_B[X]_2026.xlsx`) — **Source of Truth per Branch**.
-  - HTML Dashboard (`index.html`) — Unified multi-branch UI.
+  - HTML Dashboard (`index.html`) — Unified "Premium Glass" UI.
+  - Deployment Config (`vercel.json`) — Essential for routing and cache stability.
   - Data storage (`data.json`, `pending_verification.json`, `stock_ledger.json`).
 
 ## CRITICAL: Data Flow
@@ -23,8 +24,13 @@ This project automates data extraction and visualization for SomSaiJai across mu
 LINE images → Visual OCR → pending_verification.json → verify-sales → Excel → update-dashboard → data.json + Vercel deploy
 ```
 
-## Execution Workflow (from `3_Automation_Dashboard/`)
+## Business Rules & Profit Sharing
+- **Branch 1 (B1):** Profit shared at **60%** of Net Profit to Blessme.
+- **Branch 2 (B2):** Profit shared at **70%** of Net Profit to Blessme.
+- **Shared COGS:** Fruit, Ice, and Packaging costs are calculated globally and shared proportionally based on branch revenue.
 
+## Execution Workflow (from `3_Automation_Dashboard/`)
+...
 ### 1. Process New Sales
 `npm run process-sales [Month] [Branch]`
 Example: `npm run process-sales Apr26 B2` (Scans images in `B2/1_Sale/Apr26/`)
