@@ -525,6 +525,16 @@ function renderAnalytics(sales) {
     }
 }
 
+function renderDailyLog(sales) {
+    document.getElementById('dailyLogGrid').innerHTML = sales.slice().reverse().map(r => `
+        <div class="kpi-premium">
+            <div style="display:flex; justify-content:space-between"><b>${r.d}</b> <span class="badge badge-${r.branch.toLowerCase()}">${r.branch}</span></div>
+            <div class="value" style="font-size:1.5em; margin:10px 0">฿${fmt(r.rev)}</div>
+            <div style="font-size:0.8em; color:var(--muted)">Cups: ${r.tot} | Diff: ${r.audit?r.audit.rev_diff:0}</div>
+        </div>
+    `).join('');
+}
+
 function renderReport() {
     if (!REPORTS_DATA || !REPORTS_DATA[currentMonth]) return;
     const r = REPORTS_DATA[currentMonth];
