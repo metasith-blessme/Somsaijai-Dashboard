@@ -198,6 +198,13 @@ const PARAMS = {
 
 const fmt = v => (v || 0).toLocaleString(undefined, {minimumFractionDigits:0, maximumFractionDigits:0});
 const sum = (arr, k) => arr.reduce((s, r) => s + (Number(r[k]) || 0), 0);
+const MONTH_ORDER = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const monthSort = (a, b) => {
+    const ya = parseInt(a.replace(/\D+/,''));
+    const yb = parseInt(b.replace(/\D+/,''));
+    if (ya !== yb) return ya - yb;
+    return MONTH_ORDER.indexOf(a.replace(/\d+/,'')) - MONTH_ORDER.indexOf(b.replace(/\d+/,''));
+};
 
 async function init() {
     try {
@@ -212,10 +219,9 @@ async function init() {
         
         const allMonthsSet = new Set();
         Object.keys(DATA.branches).forEach(b => Object.keys(DATA.branches[b].sales).forEach(m => allMonthsSet.add(m)));
-        const allMonths = Array.from(allMonthsSet).sort((a,b) => b.localeCompare(a));
-        
-        if(allMonths.includes('May26')) currentMonth = 'May26';
-        else if(allMonths.length > 0) currentMonth = allMonths[0];
+        const allMonths = Array.from(allMonthsSet).sort(monthSort);
+
+        if(allMonths.length > 0) currentMonth = allMonths[allMonths.length - 1];
 
         renderBranchSelector();
         renderMonthSelector(allMonths);
@@ -254,10 +260,10 @@ function updateUI() {
     renderFinance(sales, expenses);
     renderInventory(sales);
     renderAnalytics(sales);
-    renderReport();
+    renderReport(sales);
     renderDailyLog(sales);
     renderBranchSelector();
-    renderMonthSelector(Array.from(new Set(Object.keys(DATA.branches).flatMap(b => Object.keys(DATA.branches[b].sales)))).sort((a,b) => b.localeCompare(a)));
+    renderMonthSelector(Array.from(new Set(Object.keys(DATA.branches).flatMap(b => Object.keys(DATA.branches[b].sales)))).sort(monthSort));
 }
 
 function getCleanSales(branch, month) {
@@ -526,71 +532,277 @@ function renderAnalytics(sales) {
 }
 
 function renderDailyLog(sales) {
-    document.getElementById('dailyLogGrid').innerHTML = sales.slice().reverse().map(r => `
-        <div class="kpi-premium">
-            <div style="display:flex; justify-content:space-between"><b>${r.d}</b> <span class="badge badge-${r.branch.toLowerCase()}">${r.branch}</span></div>
-            <div class="value" style="font-size:1.5em; margin:10px 0">฿${fmt(r.rev)}</div>
-            <div style="font-size:0.8em; color:var(--muted)">Cups: ${r.tot} | Diff: ${r.audit?r.audit.rev_diff:0}</div>
-        </div>
-    `).join('');
+    const rows = sales.slice().reverse();
+    document.getElementById('dailyLogGrid').innerHTML = `
+        <div class="glass-card" style="grid-column:1/-1; overflow-x:auto">
+            <h3 style="margin-bottom:16px">Daily Operations Log</h3>
+            <table class="premium-table" style="min-width:1200px">
+                <thead><tr>
+                    <th>Date</th><th>Branch</th>
+                    <th class="num">Rev</th><th class="num">Cash</th><th class="num">Scan</th>
+                    <th class="num">Expense</th><th class="num">Net</th>
+                    <th class="num">Or</th><th class="num">WM</th><th class="num">MG</th>
+                    <th class="num">CO</th><th class="num">AP</th><th class="num">YCo</th>
+                    <th class="num">Guava</th><th class="num">Pine</th><th class="num">Total</th>
+                    <th class="num">u:Or</th><th class="num">u:WM</th><th class="num">u:MG</th>
+                    <th class="num">u:Co</th><th class="num">u:AP</th><th class="num">Audit</th>
+                </tr></thead>
+                <tbody>${rows.map(r => {
+                    const flagged = r.audit && r.audit.is_flagged;
+                    const diff = r.audit ? r.audit.rev_diff : 0;
+                    return `<tr style="${flagged ? 'background:rgba(231,76,60,0.05)' : ''}">
+                        <td>${r.d}</td>
+                        <td><span class="badge badge-${r.branch.toLowerCase()}">${r.branch}</span></td>
+                        <td class="num">${fmt(r.rev)}</td>
+                        <td class="num">${fmt(r.cash)}</td>
+                        <td class="num">${fmt(r.scan)}</td>
+                        <td class="num">${fmt(r.exp)}</td>
+                        <td class="num">${fmt(r.net)}</td>
+                        <td class="num">${r.or||0}</td>
+                        <td class="num">${r.wm||0}</td>
+                        <td class="num">${r.mg||0}</td>
+                        <td class="num">${r.co||0}</td>
+                        <td class="num">${r.ap||0}</td>
+                        <td class="num">${r.yco||0}</td>
+                        <td class="num">${r.guava||0}</td>
+                        <td class="num">${r.pineapple||0}</td>
+                        <td class="num"><b>${r.tot||0}</b></td>
+                        <td class="num">${r.uo||0}</td>
+                        <td class="num">${r.uw||0}</td>
+                        <td class="num">${r.umg||0}</td>
+                        <td class="num">${(r.uco_raw||0)+(r.uco_meat||0)+(r.uco_water||0)+(r.uco_conden||0)}</td>
+                        <td class="num">${r.uap||0}</td>
+                        <td class="num" style="color:${diff>=0?'var(--green)':'var(--red)'}">${diff}</td>
+                    </tr>`;
+                }).join('')}</tbody>
+            </table>
+        </div>`;
 }
 
-function renderReport() {
-    if (!REPORTS_DATA || !REPORTS_DATA[currentMonth]) return;
-    const r = REPORTS_DATA[currentMonth];
+function renderReport(sales) {
     document.getElementById('reportTitle').innerText = (currentMonth==='all'?'FULL YEAR':currentMonth.toUpperCase()) + ' MANAGEMENT REPORT';
-    document.getElementById('reportTables').innerHTML = `
+
+    if (!REPORTS_DATA || !REPORTS_DATA[currentMonth]) {
+        document.getElementById('reportTables').innerHTML = `<div class="glass-card" style="padding:40px; text-align:center; color:var(--muted)"><h3>No report data available for this period.</h3><p>Run <code>npm run update-dashboard</code> to generate reports.</p></div>`;
+        return;
+    }
+
+    const r = REPORTS_DATA[currentMonth];
+    const totalNet = r.b1.net + r.b2.net;
+    const totalOpex = r.b1.opex + r.b2.opex;
+    const grossProfit = r.total_rev - r.total_cogs;
+    const grossMargin = r.total_rev > 0 ? (grossProfit / r.total_rev * 100) : 0;
+    const totalShare = r.b1.share + r.b2.share;
+
+    // Audit totals from raw sales
+    const totalTheoRev = sales.reduce((s, x) => s + (x.audit ? x.audit.theoretical_rev : 0), 0);
+    const totalVariance = sales.reduce((s, x) => s + (x.audit ? x.audit.rev_diff : 0), 0);
+    const flaggedDays = sales.filter(x => x.audit && x.audit.is_flagged).length;
+
+    // --- Section 1: Executive Summary ---
+    const sec1 = `
         <div class="glass-card" style="padding:20px; border:none; background:rgba(0,0,0,0.02)">
             <h3 style="color:var(--accent); margin-bottom:20px">1. EXECUTIVE SUMMARY</h3>
-            <div class="kpi-row" style="margin-bottom:0">
-                <div class="kpi-premium"><div class="label">Total Network Revenue</div><div class="value">฿${fmt(r.total_rev)}</div></div>
-                <div class="kpi-premium"><div class="label">Consolidated Net Profit</div><div class="value" style="color:var(--green)">฿${fmt(r.b1.net+r.b2.net)}</div></div>
+            <div class="kpi-row" style="margin-bottom:0; display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:16px">
+                <div class="kpi-premium"><div class="label">Total Revenue</div><div class="value">฿${fmt(r.total_rev)}</div></div>
+                <div class="kpi-premium"><div class="label">Total COGS</div><div class="value" style="color:var(--red)">฿${fmt(r.total_cogs)}</div></div>
+                <div class="kpi-premium"><div class="label">Gross Margin</div><div class="value" style="color:${grossMargin>=50?'var(--green)':grossMargin>=30?'var(--accent)':'var(--red)'}">${grossMargin.toFixed(1)}%</div></div>
+                <div class="kpi-premium"><div class="label">Net Profit</div><div class="value" style="color:${totalNet>=0?'var(--green)':'var(--red)'}">฿${fmt(totalNet)}</div></div>
+                <div class="kpi-premium"><div class="label">Total OPEX</div><div class="value">฿${fmt(totalOpex)}</div></div>
+                <div class="kpi-premium"><div class="label">Blessme Share</div><div class="value" style="color:var(--accent)">฿${fmt(totalShare)}</div></div>
             </div>
-        </div>
+        </div>`;
 
+    // --- Section 2: Final Audited Financial Statement ---
+    const b1GP = r.b1.rev - r.b1.cogs;
+    const b2GP = r.b2.rev - r.b2.cogs;
+    const b1Margin = r.b1.rev > 0 ? (b1GP / r.b1.rev * 100).toFixed(1) : '0.0';
+    const b2Margin = r.b2.rev > 0 ? (b2GP / r.b2.rev * 100).toFixed(1) : '0.0';
+    const sec2 = `
         <div class="glass-card" style="padding:20px; border:none; background:rgba(0,0,0,0.02)">
-            <h3 style="color:var(--accent); margin-bottom:20px">2. BRANCH PERFORMANCE</h3>
+            <h3 style="color:var(--accent); margin-bottom:20px">2. FINAL AUDITED FINANCIAL STATEMENT</h3>
             <table class="premium-table">
-                <thead><tr><th>Branch</th><th class="num">Revenue</th><th class="num">COGS Share</th><th class="num">Net Profit</th><th class="num">Blessme</th></tr></thead>
+                <thead><tr><th>Line Item</th><th class="num">B1</th><th class="num">B2</th><th class="num">Total</th><th class="num">%</th></tr></thead>
                 <tbody>
-                    <tr><td>Branch 1 (B1)</td><td class="num">฿${fmt(r.b1.rev)}</td><td class="num">฿${fmt(r.b1.cogs)}</td><td class="num">฿${fmt(r.b1.net)}</td><td class="num" style="color:var(--accent)"><b>฿${fmt(r.b1.share)}</b></td></tr>
-                    <tr><td>Branch 2 (B2)</td><td class="num">฿${fmt(r.b2.rev)}</td><td class="num">฿${fmt(r.b2.cogs)}</td><td class="num">฿${fmt(r.b2.net)}</td><td class="num" style="color:var(--accent)"><b>฿${fmt(r.b2.share)}</b></td></tr>
+                    <tr><td><b>Revenue</b></td><td class="num">฿${fmt(r.b1.rev)}</td><td class="num">฿${fmt(r.b2.rev)}</td><td class="num"><b>฿${fmt(r.total_rev)}</b></td><td class="num">100%</td></tr>
+                    <tr style="color:var(--red)"><td>Less: COGS</td><td class="num">(฿${fmt(r.b1.cogs)})</td><td class="num">(฿${fmt(r.b2.cogs)})</td><td class="num">(฿${fmt(r.total_cogs)})</td><td class="num">${r.total_rev?(r.total_cogs/r.total_rev*100).toFixed(1):'0'}%</td></tr>
+                    <tr style="background:rgba(0,0,0,0.03)"><td><b>Gross Profit</b></td><td class="num">฿${fmt(b1GP)}</td><td class="num">฿${fmt(b2GP)}</td><td class="num"><b>฿${fmt(grossProfit)}</b></td><td class="num" style="color:${grossMargin>=50?'var(--green)':'var(--accent)'}">${grossMargin.toFixed(1)}%</td></tr>
+                    <tr style="color:var(--red)"><td>Less: OPEX</td><td class="num">(฿${fmt(r.b1.opex)})</td><td class="num">(฿${fmt(r.b2.opex)})</td><td class="num">(฿${fmt(totalOpex)})</td><td class="num">${r.total_rev?(totalOpex/r.total_rev*100).toFixed(1):'0'}%</td></tr>
+                    <tr style="background:rgba(0,0,0,0.05); font-weight:800"><td><b>Net Operational Profit</b></td><td class="num" style="color:${r.b1.net>=0?'var(--green)':'var(--red)'}">฿${fmt(r.b1.net)}</td><td class="num" style="color:${r.b2.net>=0?'var(--green)':'var(--red)'}">฿${fmt(r.b2.net)}</td><td class="num" style="color:${totalNet>=0?'var(--green)':'var(--red)'}"><b>฿${fmt(totalNet)}</b></td><td class="num">${r.total_rev?(totalNet/r.total_rev*100).toFixed(1):'0'}%</td></tr>
+                    <tr style="border-top:2px solid var(--glass-border)"><td colspan="5" style="padding-top:16px"><b>Audit Reconciliation</b></td></tr>
+                    <tr><td>Theoretical Revenue</td><td colspan="2"></td><td class="num">฿${fmt(totalTheoRev)}</td><td></td></tr>
+                    <tr><td>Actual Revenue</td><td colspan="2"></td><td class="num">฿${fmt(r.total_rev)}</td><td></td></tr>
+                    <tr><td>Variance</td><td colspan="2"></td><td class="num" style="color:${totalVariance>=0?'var(--green)':'var(--red)'}">฿${fmt(totalVariance)}</td><td class="num">${flaggedDays} flagged day${flaggedDays!==1?'s':''}</td></tr>
                 </tbody>
             </table>
-        </div>
+        </div>`;
 
+    // --- Section 3: Branch Performance & Profit Sharing ---
+    const b1NetMargin = r.b1.rev > 0 ? (r.b1.net / r.b1.rev * 100).toFixed(1) : '0.0';
+    const b2NetMargin = r.b2.rev > 0 ? (r.b2.net / r.b2.rev * 100).toFixed(1) : '0.0';
+    const totalNetMargin = r.total_rev > 0 ? (totalNet / r.total_rev * 100).toFixed(1) : '0.0';
+    const sec3 = `
         <div class="glass-card" style="padding:20px; border:none; background:rgba(0,0,0,0.02)">
-            <h3 style="color:var(--accent); margin-bottom:20px">3. SHARED COGS BREAKDOWN</h3>
+            <h3 style="color:var(--accent); margin-bottom:20px">3. BRANCH PERFORMANCE & PROFIT SHARING</h3>
             <table class="premium-table">
-                <thead><tr><th>Category</th><th class="num">Amount</th></tr></thead>
+                <thead><tr><th>Branch</th><th class="num">Revenue</th><th class="num">COGS</th><th class="num">Gross Profit</th><th class="num">OPEX</th><th class="num">Net Profit</th><th class="num">Margin</th><th class="num">Blessme Share</th></tr></thead>
                 <tbody>
-                    ${Object.keys(r.fruit_summary).map(k => `<tr><td>${k}</td><td class="num">฿${fmt(r.fruit_summary[k])}</td></tr>`).join('')}
-                    <tr style="background:rgba(0,0,0,0.05)"><td><b>TOTAL COGS</b></td><td class="num"><b>฿${fmt(r.total_cogs)}</b></td></tr>
+                    <tr><td><span class="badge badge-b1">B1</span> (60%)</td><td class="num">฿${fmt(r.b1.rev)}</td><td class="num">฿${fmt(r.b1.cogs)}</td><td class="num">฿${fmt(b1GP)}</td><td class="num">฿${fmt(r.b1.opex)}</td><td class="num" style="color:${r.b1.net>=0?'var(--green)':'var(--red)'}">฿${fmt(r.b1.net)}</td><td class="num">${b1NetMargin}%</td><td class="num" style="color:var(--accent)"><b>฿${fmt(r.b1.share)}</b></td></tr>
+                    <tr><td><span class="badge badge-b2">B2</span> (70%)</td><td class="num">฿${fmt(r.b2.rev)}</td><td class="num">฿${fmt(r.b2.cogs)}</td><td class="num">฿${fmt(b2GP)}</td><td class="num">฿${fmt(r.b2.opex)}</td><td class="num" style="color:${r.b2.net>=0?'var(--green)':'var(--red)'}">฿${fmt(r.b2.net)}</td><td class="num">${b2NetMargin}%</td><td class="num" style="color:var(--accent)"><b>฿${fmt(r.b2.share)}</b></td></tr>
+                    <tr style="background:rgba(0,0,0,0.05); font-weight:700"><td><b>TOTAL</b></td><td class="num">฿${fmt(r.total_rev)}</td><td class="num">฿${fmt(r.total_cogs)}</td><td class="num">฿${fmt(grossProfit)}</td><td class="num">฿${fmt(totalOpex)}</td><td class="num" style="color:${totalNet>=0?'var(--green)':'var(--red)'}">฿${fmt(totalNet)}</td><td class="num">${totalNetMargin}%</td><td class="num" style="color:var(--accent)"><b>฿${fmt(totalShare)}</b></td></tr>
                 </tbody>
             </table>
-        </div>
+        </div>`;
 
+    // --- Section 4: Shared Cost Breakdown (COGS) ---
+    const cogsEntries = Object.entries(r.fruit_summary || {}).sort((a,b) => b[1] - a[1]);
+    const sec4 = `
         <div class="glass-card" style="padding:20px; border:none; background:rgba(0,0,0,0.02)">
-            <h3 style="color:var(--accent); margin-bottom:20px">4. FRUIT ROI PERFORMANCE</h3>
+            <h3 style="color:var(--accent); margin-bottom:20px">4. SHARED COST BREAKDOWN (COGS)</h3>
+            ${r.total_cogs > 0 ? `<p style="color:var(--muted); margin-bottom:12px; font-size:0.85em">Shared costs allocated to branches by revenue proportion (B1: ${r.total_rev>0?(r.b1.rev/r.total_rev*100).toFixed(0):0}% / B2: ${r.total_rev>0?(r.b2.rev/r.total_rev*100).toFixed(0):0}%)</p>` : ''}
             <table class="premium-table">
-                <thead><tr><th>Fruit</th><th class="num">Rev</th><th class="num">Cost</th><th class="num">ROI</th><th class="num">Cups</th></tr></thead>
-                <tbody>${r.fruit_performance.filter(f=>f.cups>0).map(f=>`<tr><td>${f.name}</td><td class="num">฿${fmt(f.rev)}</td><td class="num">฿${fmt(f.cost)}</td><td class="num" style="color:var(--green)">${f.roi}</td><td class="num">${f.cups}</td></tr>`).join('')}</tbody>
+                <thead><tr><th>Category</th><th class="num">Amount</th><th class="num">% of COGS</th></tr></thead>
+                <tbody>
+                    ${cogsEntries.map(([k, v]) => {
+                        const pct = r.total_cogs > 0 ? (v / r.total_cogs * 100).toFixed(1) : '0.0';
+                        return `<tr><td>${k}</td><td class="num">฿${fmt(v)}</td><td class="num">${pct}%</td></tr>`;
+                    }).join('')}
+                    <tr style="background:rgba(0,0,0,0.05); font-weight:700"><td><b>TOTAL COGS</b></td><td class="num"><b>฿${fmt(r.total_cogs)}</b></td><td class="num">100%</td></tr>
+                </tbody>
             </table>
-        </div>
+        </div>`;
 
+    // --- Section 5: Daily Shared COGS Breakdown ---
+    const dailyCogs = r.daily_cogs || [];
+    const b1Ratio = r.total_rev > 0 ? r.b1.rev / r.total_rev : 1;
+    const b2Ratio = r.total_rev > 0 ? r.b2.rev / r.total_rev : 0;
+    let sec5 = '';
+    if (dailyCogs.length > 0) {
+        let lastDate = '';
+        sec5 = `
         <div class="glass-card" style="padding:20px; border:none; background:rgba(0,0,0,0.02)">
-            <h3 style="color:var(--accent); margin-bottom:20px">5. OPERATING EXPENSES (OPEX)</h3>
+            <h3 style="color:var(--accent); margin-bottom:20px">5. DAILY SHARED COGS BREAKDOWN</h3>
+            <p style="color:var(--muted); margin-bottom:12px; font-size:0.85em">B1 allocation: ${(b1Ratio*100).toFixed(0)}% | B2 allocation: ${(b2Ratio*100).toFixed(0)}% (based on revenue proportion)</p>
+            <div style="max-height:500px; overflow-y:auto">
+                <table class="premium-table">
+                    <thead><tr><th>Date</th><th>Category</th><th>Description</th><th class="num">Amount</th><th class="num">B1 Share</th><th class="num">B2 Share</th></tr></thead>
+                    <tbody>
+                        ${dailyCogs.map(e => {
+                            const showDate = e.date !== lastDate;
+                            lastDate = e.date;
+                            return `<tr${showDate ? ' style="border-top:2px solid var(--glass-border)"' : ''}>
+                                <td>${showDate ? e.date : ''}</td>
+                                <td>${e.cat}</td>
+                                <td>${e.desc}</td>
+                                <td class="num">฿${fmt(e.amt)}</td>
+                                <td class="num">฿${fmt(Math.round(e.amt * b1Ratio))}</td>
+                                <td class="num">฿${fmt(Math.round(e.amt * b2Ratio))}</td>
+                            </tr>`;
+                        }).join('')}
+                        <tr style="background:rgba(0,0,0,0.05); font-weight:700">
+                            <td colspan="3"><b>TOTAL</b></td>
+                            <td class="num"><b>฿${fmt(dailyCogs.reduce((s,e)=>s+e.amt,0))}</b></td>
+                            <td class="num"><b>฿${fmt(Math.round(dailyCogs.reduce((s,e)=>s+e.amt,0)*b1Ratio))}</b></td>
+                            <td class="num"><b>฿${fmt(Math.round(dailyCogs.reduce((s,e)=>s+e.amt,0)*b2Ratio))}</b></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>`;
+    } else {
+        sec5 = `<div class="glass-card" style="padding:20px; border:none; background:rgba(0,0,0,0.02)"><h3 style="color:var(--accent); margin-bottom:20px">5. DAILY SHARED COGS BREAKDOWN</h3><p style="color:var(--muted)">No daily COGS data available for this period.</p></div>`;
+    }
+
+    // --- Section 6: Fruit Performance Ranking & ROI Analysis ---
+    const fruits = (r.fruit_performance || [])
+        .filter(f => f.cups > 0)
+        .map(f => {
+            const profit = f.rev - f.cost;
+            const margin = f.rev > 0 ? (profit / f.rev * 100) : 0;
+            const roiNum = parseFloat(f.roi) || 0;
+            const revPerCup = f.cups > 0 ? (f.rev / f.cups) : 0;
+            return { ...f, profit, margin, roiNum, revPerCup };
+        })
+        .sort((a, b) => b.roiNum - a.roiNum);
+    let sec6 = '';
+    if (fruits.length > 0) {
+        sec6 = `
+        <div class="glass-card" style="padding:20px; border:none; background:rgba(0,0,0,0.02)">
+            <h3 style="color:var(--accent); margin-bottom:20px">6. FRUIT ROI ANALYSIS (PROFITABILITY RANKING)</h3>
+            <table class="premium-table">
+                <thead><tr><th>#</th><th>Fruit</th><th class="num">Revenue</th><th class="num">Cost</th><th class="num">Profit</th><th class="num">Margin</th><th class="num">ROI</th><th class="num">Cups</th><th class="num">Rev/Cup</th></tr></thead>
+                <tbody>${fruits.map((f, i) => `
+                    <tr>
+                        <td>${i+1}</td>
+                        <td>${f.name}</td>
+                        <td class="num">฿${fmt(f.rev)}</td>
+                        <td class="num">฿${fmt(f.cost)}</td>
+                        <td class="num" style="color:${f.profit>=0?'var(--green)':'var(--red)'}">฿${fmt(f.profit)}</td>
+                        <td class="num" style="color:${f.margin>=0?'var(--green)':'var(--red)'}">${f.margin.toFixed(1)}%</td>
+                        <td class="num" style="color:${f.roiNum>=0?'var(--green)':'var(--red)'}">${f.roi}</td>
+                        <td class="num">${fmt(f.cups)}</td>
+                        <td class="num">฿${f.revPerCup.toFixed(0)}</td>
+                    </tr>`).join('')}
+                </tbody>
+            </table>
+        </div>`;
+    } else {
+        sec6 = `<div class="glass-card" style="padding:20px; border:none; background:rgba(0,0,0,0.02)"><h3 style="color:var(--accent); margin-bottom:20px">6. FRUIT ROI ANALYSIS</h3><p style="color:var(--muted)">No fruit performance data available for this period.</p></div>`;
+    }
+
+    // --- Section 7: Key Insights for Shareholders ---
+    const insights = [];
+    if (fruits.length > 0) {
+        insights.push(`Top ROI fruit: <b>${fruits[0].name}</b> at <b>${fruits[0].roi}</b> — most efficient return on cost.`);
+        const topRev = [...fruits].sort((a,b) => b.rev - a.rev)[0];
+        insights.push(`Highest revenue fruit: <b>${topRev.name}</b> generating <b>฿${fmt(topRev.rev)}</b>.`);
+    }
+    if (grossMargin >= 50) insights.push(`Gross margin at <b style="color:var(--green)">${grossMargin.toFixed(1)}%</b> — healthy and above target.`);
+    else if (grossMargin >= 30) insights.push(`Gross margin at <b style="color:var(--accent)">${grossMargin.toFixed(1)}%</b> — moderate, monitor COGS efficiency.`);
+    else if (r.total_rev > 0) insights.push(`Gross margin at <b style="color:var(--red)">${grossMargin.toFixed(1)}%</b> — below healthy threshold, review cost structure.`);
+
+    if (r.b1.rev > 0 && r.b2.rev > 0) {
+        const b1Eff = r.b1.net / r.b1.rev * 100;
+        const b2Eff = r.b2.net / r.b2.rev * 100;
+        const better = b1Eff > b2Eff ? 'B1' : 'B2';
+        insights.push(`<b>${better}</b> is more profitable per baht of revenue (${better === 'B1' ? b1Eff.toFixed(1) : b2Eff.toFixed(1)}% net margin vs ${better === 'B1' ? b2Eff.toFixed(1) : b1Eff.toFixed(1)}%).`);
+    }
+    if (r.total_rev > 0 && r.total_cogs > 0) {
+        insights.push(`COGS efficiency: <b>${(r.total_cogs / r.total_rev * 100).toFixed(1)}%</b> of revenue spent on materials.`);
+    }
+    if (flaggedDays > 0) {
+        insights.push(`Audit: <b>${flaggedDays}</b> day${flaggedDays!==1?'s':''} flagged with total variance of <b style="color:${totalVariance>=0?'var(--green)':'var(--red)'}">฿${fmt(totalVariance)}</b>.`);
+    } else if (sales.length > 0) {
+        insights.push(`Audit: All <b>${sales.length}</b> trading days passed audit — no flagged variances.`);
+    }
+    insights.push(`Blessme total share: <b style="color:var(--accent)">฿${fmt(totalShare)}</b> (B1: ฿${fmt(r.b1.share)} @ 60% | B2: ฿${fmt(r.b2.share)} @ 70%).`);
+
+    const sec7 = `
+        <div class="glass-card" style="padding:20px; border:none; background:rgba(0,0,0,0.02)">
+            <h3 style="color:var(--accent); margin-bottom:20px">7. KEY INSIGHTS FOR SHAREHOLDERS</h3>
+            <ul style="list-style:none; padding:0">${insights.map(ins => `<li style="padding:10px 0; border-bottom:1px solid var(--glass-border); font-size:0.95em">▸ ${ins}</li>`).join('')}</ul>
+        </div>`;
+
+    // --- Section 8: Operating Expenses (OPEX) ---
+    const opexList1 = r.b1.opex_list || [];
+    const opexList2 = r.b2.opex_list || [];
+    const sec8 = `
+        <div class="glass-card" style="padding:20px; border:none; background:rgba(0,0,0,0.02)">
+            <h3 style="color:var(--accent); margin-bottom:20px">8. OPERATING EXPENSES (OPEX)</h3>
             <div style="max-height:400px; overflow-y:auto">
                 <table class="premium-table">
                     <thead><tr><th>Branch</th><th>Category</th><th>Description</th><th class="num">Amount</th></tr></thead>
                     <tbody>
-                        ${r.b1.opex_list.map(e => `<tr><td><span class="badge badge-b1">B1</span></td><td>${e.cat}</td><td>${e.desc}</td><td class="num">฿${fmt(e.amt)}</td></tr>`).join('')}
-                        ${r.b2.opex_list.map(e => `<tr><td><span class="badge badge-b2">B2</span></td><td>${e.cat}</td><td>${e.desc}</td><td class="num">฿${fmt(e.amt)}</td></tr>`).join('')}
+                        ${opexList1.map(e => `<tr><td><span class="badge badge-b1">B1</span></td><td>${e.cat}</td><td>${e.desc}</td><td class="num">฿${fmt(e.amt)}</td></tr>`).join('')}
+                        ${opexList2.map(e => `<tr><td><span class="badge badge-b2">B2</span></td><td>${e.cat}</td><td>${e.desc}</td><td class="num">฿${fmt(e.amt)}</td></tr>`).join('')}
+                        ${(opexList1.length + opexList2.length) === 0 ? '<tr><td colspan="4" style="text-align:center; color:var(--muted)">No OPEX data for this period.</td></tr>' : ''}
+                        <tr style="background:rgba(0,0,0,0.05); font-weight:700"><td colspan="3"><b>TOTAL OPEX</b></td><td class="num"><b>฿${fmt(totalOpex)}</b></td></tr>
                     </tbody>
                 </table>
             </div>
-        </div>
-    `;
+        </div>`;
+
+    document.getElementById('reportTables').innerHTML = sec1 + sec2 + sec3 + sec4 + sec5 + sec6 + sec7 + sec8;
 }
 
 document.querySelectorAll('.nav-item').forEach(item => {
