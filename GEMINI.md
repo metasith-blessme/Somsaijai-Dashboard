@@ -45,6 +45,13 @@ Sync all Branch Excels → unified `data.json` → auto-generate `reports_data.j
 `npm run update-dashboard`
 *Note: This command now automatically handles report generation for all active months.*
 
+### 4. Generate Professional Documents (Word)
+To generate digital sale records, stock reports, and attendance templates:
+`python3 generate_docs.py`
+To generate specific daily sale records populated with data:
+`python3 generate_populated_sales.py`
+*Documents are saved in `SomSaiJai_Documents/`.*
+
 ## Dashboard Features
 - **Multi-Branch Toggling:** View Branch 1, Branch 2, or Aggregated "All Branches" data.
 - **Advanced BI Analytics:**

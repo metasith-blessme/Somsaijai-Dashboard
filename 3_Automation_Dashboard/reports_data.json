@@ -1523,101 +1523,101 @@
     ]
   },
   "May26": {
-    "total_rev": 152661,
+    "total_rev": 220366,
     "total_cogs": 0,
     "b1": {
-      "rev": 92250,
+      "rev": 131255,
       "opex": 0,
       "opex_list": [],
       "cogs": 0,
-      "net": 92250,
-      "share": 55350
+      "net": 131255,
+      "share": 78753
     },
     "b2": {
-      "rev": 60411,
+      "rev": 89111,
       "opex": 0,
       "opex_list": [],
       "cogs": 0,
-      "net": 60411,
-      "share": 42287.7
+      "net": 89111,
+      "share": 62377.7
     },
     "fruit_summary": {},
     "daily_cogs": [],
     "fruit_performance": [
       {
         "name": "Orange",
-        "rev": 44160,
+        "rev": 33180,
         "cost": 0,
-        "cups": 736,
+        "cups": 553,
         "roi": "N/A"
       },
       {
         "name": "Watermelon",
-        "rev": 45750,
+        "rev": 33850,
         "cost": 0,
-        "cups": 915,
+        "cups": 677,
         "roi": "N/A"
       },
       {
         "name": "Mango",
-        "rev": 7290,
+        "rev": 10665,
         "cost": 0,
-        "cups": 81,
+        "cups": 118.5,
         "roi": "N/A"
       },
       {
         "name": "Apple",
-        "rev": 9240,
+        "rev": 13170,
         "cost": 0,
-        "cups": 154,
+        "cups": 219.5,
         "roi": "N/A"
       },
       {
         "name": "Coconut",
-        "rev": 34740,
+        "rev": 41100,
         "cost": 0,
-        "cups": 579,
+        "cups": 685,
         "roi": "N/A"
       },
       {
         "name": "Young Coco",
-        "rev": 900,
+        "rev": 2025,
         "cost": 0,
-        "cups": 10,
+        "cups": 22.5,
         "roi": "N/A"
       },
       {
         "name": "Guava",
-        "rev": 3900,
+        "rev": 5340,
         "cost": 0,
-        "cups": 65,
+        "cups": 89,
         "roi": "N/A"
       },
       {
         "name": "Pineapple",
-        "rev": 4560,
+        "rev": 5460,
         "cost": 0,
-        "cups": 76,
+        "cups": 91,
         "roi": "N/A"
       }
     ]
   },
   "all": {
-    "total_rev": 1438169,
+    "total_rev": 1505874,
     "total_cogs": 648358.47,
     "b1": {
-      "rev": 1308498,
+      "rev": 1347503,
       "opex": 109448,
       "opex_list": [],
       "cogs": 615257.144089967,
-      "net": 583792.855910033
+      "net": 622797.855910033
     },
     "b2": {
-      "rev": 129671,
+      "rev": 158371,
       "opex": 50052,
       "opex_list": [],
       "cogs": 33101.32591003294,
-      "net": 46517.67408996706
+      "net": 75217.67408996707
     },
     "fruit_summary": {
       "Packaging": 52826,

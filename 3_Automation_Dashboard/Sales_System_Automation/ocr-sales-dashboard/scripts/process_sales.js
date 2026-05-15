@@ -1,192 +1,177 @@
+require('dotenv').config();
 const fs = require('fs');
 const path = require('path');
-const { execSync } = require('child_process');
+const { GoogleGenAI } = require('@google/genai');
 
-// --- FUZZY MATCHING HELPERS ---
-function levenshtein(a, b) {
-    const matrix = [];
-    for (let i = 0; i <= b.length; i++) matrix[i] = [i];
-    for (let j = 0; j <= a.length; j++) matrix[0][j] = j;
-    for (let i = 1; i <= b.length; i++) {
-        for (let j = 1; j <= a.length; j++) {
-            if (b.charAt(i - 1) === a.charAt(j - 1)) {
-                matrix[i][j] = matrix[i - 1][j - 1];
-            } else {
-                matrix[i][j] = Math.min(matrix[i - 1][j - 1] + 1, matrix[i][j - 1] + 1, matrix[i - 1][j] + 1);
-            }
-        }
-    }
-    return matrix[b.length][a.length];
-}
-
-function fuzzyMatch(text, target, threshold = 2) {
-    const words = text.split(/[\s\n→=:-]+/);
-    for (let word of words) {
-        if (levenshtein(word.toLowerCase(), target.toLowerCase()) <= threshold) return true;
-    }
-    return false;
-}
-
-const MONTH = process.argv[2] || 'Apr26';
-const BRANCH = process.argv[3] || 'B1'; // NEW: Branch parameter
+const MONTH = process.argv[2] || 'May26';
+const BRANCH = process.argv[3] || 'B1';
 
 const ROOT_DIR = path.join(__dirname, '..', '..', '..', '..');
 const DASHBOARD_DIR = path.join(ROOT_DIR, '3_Automation_Dashboard');
-const SALES_DIR = path.join(ROOT_DIR, BRANCH, '1_Sale', MONTH); // Updated path
+const SALES_DIR = path.join(ROOT_DIR, BRANCH, '1_Sale', MONTH);
 const STAGING_FILE = path.join(DASHBOARD_DIR, 'pending_verification.json');
-const OCR_BIN = path.join(DASHBOARD_DIR, 'ocr_bin');
 
-function parseDate(text) {
-    const match = text.match(/(\d{1,2})\.(\d{1,2})\.([0-2]\d{3})/);
-    if (!match) return null;
-    let year = match[3];
-    if (year === '0026' || year === '20€6') year = '2026';
-    return `${match[1].padStart(2, '0')}/${match[2].padStart(2, '0')}/${year}`;
+// --- API CLIENTS ---
+const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+
+const EXTRACTION_PROMPT = `Analyze this SomSaiJai sales report image.
+Return ONLY a JSON object:
+{
+  "date": "DD/MM/YYYY",
+  "day": "Mon/Tue/Wed/Thu/Fri/Sat/Sun",
+  "rev": number (Total/All),
+  "cash": number,
+  "scan": number (Scan/Transfer),
+  "exp": number (Staff/Expenses),
+  "or": number (Orange),
+  "or_100": number,
+  "wm": number,
+  "mg": number,
+  "co": number,
+  "ap": number,
+  "yco": number,
+  "guava": number,
+  "pineapple": number,
+  "tot": number (Total cups),
+  "uo": number (Used Orange),
+  "uw": number,
+  "umg": number,
+  "uco_meat": number,
+  "uco_water": number,
+  "uco_conden": number,
+  "uco_raw": number,
+  "uap": number,
+  "uguava": number,
+  "upine": number,
+  "uyco": number
 }
+Rules: 0 for missing, convert fractions to decimals. No conversational text.`;
 
-function parseDay(text) {
-    const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-    for (let d of days) {
-        if (text.includes(d) || fuzzyMatch(text, d, 2)) return d.substring(0, 3);
-    }
-    return '';
-}
-
-function parseField(text, patterns, fuzzyTarget = null) {
-    for (let p of patterns) {
-        const matches = [...text.matchAll(p)];
-        if (matches.length > 0) {
-            return parseFloat(matches[matches.length - 1][1].replace(/,/g, ''));
-        }
-    }
-    if (fuzzyTarget) {
-        const lines = text.split('\n');
-        for (let line of lines) {
-            if (fuzzyMatch(line, fuzzyTarget, 2)) {
-                const numMatch = line.match(/(\d+)/);
-                if (numMatch) return parseFloat(numMatch[1]);
-            }
-        }
-    }
-    return 0;
-}
-
-function parseFraction(text) {
-    if (!text) return 0;
-    const parts = text.trim().split(/\s+/);
-    let total = 0;
-    for (let p of parts) {
-        if (p.includes('/')) {
-            const [num, den] = p.split('/');
-            total += parseFloat(num) / parseFloat(den);
-        } else {
-            total += parseFloat(p);
-        }
-    }
-    return total;
-}
-
-const allSales = [];
-if (!fs.existsSync(SALES_DIR)) {
-    console.error(`Directory not found: ${SALES_DIR}`);
-    process.exit(1);
-}
-
-const files = fs.readdirSync(SALES_DIR).filter(f => f.endsWith('.jpg') || f.endsWith('.png'));
-console.log(`🔍 Scanning ${files.length} images for ${BRANCH} in ${MONTH}...`);
-
-files.forEach(file => {
-    const filePath = path.join(SALES_DIR, file);
+async function callGemini(imagePath, modelName, retries = 2) {
     try {
-        const out = execSync(`"${OCR_BIN}" "${filePath}"`, { encoding: 'utf8' });
-        const date = parseDate(out);
-        const day = parseDay(out);
-        
-        const rev = parseField(out, [/All\s*[→=]\s*(\d+)/gi, /All\s*->\s*(\d+)/gi], 'All');
-        const cash = parseField(out, [/cash\s*[→=]\s*(\d+)/gi, /cask\s*[→=]\s*(\d+)/gi], 'cash');
-        const scan = parseField(out, [/Scan\s*[→=]\s*(\d+)/gi, /Soan\s*[→=]\s*(\d+)/gi], 'Scan');
-        const exp = parseField(out, [/Staff\s*[→=]\s*(\d+)/gi, /Stalf\s*[→=]\s*(\d+)/gi], 'Staff');
-        
-        const parts = out.split(/Cup|Cap/i);
-        const productText = parts.length > 1 ? parts[parts.length - 1] : out;
-
-        const orMatch = productText.match(/Ora\w*[^\d\n]*\n?(\d+)/i) || (fuzzyMatch(productText, 'Orange') && productText.match(/(\d+)/));
-        const or = orMatch ? parseInt(orMatch[1]) : 0;
-
-        const wmMatch = productText.match(/Water\w*[^\d\n]*\n?(\d+)/i);
-        const wm = wmMatch ? parseInt(wmMatch[1]) : 0;
-
-        const mgMatch = productText.match(/Mango[^\d\n]*\n?(\d+)/i);
-        const mg = mgMatch ? parseInt(mgMatch[1]) : 0;
-
-        const coMatch = productText.match(/Coco\w*[^\d\n]*\n?(\d+)/i);
-        const co = coMatch ? parseInt(coMatch[1]) : 0;
-
-        const apMatch = productText.match(/Apple[^\d\n]*\n?(\d+)/i);
-        const ap = apMatch ? parseInt(apMatch[1]) : 0;
-
-        const totMatch = productText.match(/\((\d{2,3})\)/);
-        const tot = totMatch ? parseInt(totMatch[1]) : (or + wm + mg + co + ap);
-
-        const bottomParts = out.split(/Orange\s*[→=]/i);
-        const fruitsText = bottomParts.length > 1 ? 'Orange →' + bottomParts[bottomParts.length - 1] : out;
-
-        const uoMatch = fruitsText.match(/Orange\s*[→=]\s*(?:®\s*)?([\d\s./]+)/i) || fruitsText.match(/Orange\s*[→=]\s*\(?([\d\s./]+)\)?/i);
-        const uo = uoMatch ? parseFraction(uoMatch[1]) : 0;
-        
-        const uwMatch = fruitsText.match(/Water\w*\s*[→=]\s*(\d+)/i) || fruitsText.match(/Water\w*\s*[→=]\s*\(?(\d+)\)?/i);
-        const uw = uwMatch ? parseFloat(uwMatch[1]) : 0;
-
-        const umgMatch = fruitsText.match(/Mang\w*\s*[→=]\s*(\d+)/i) || fruitsText.match(/Marg\w*\s*[→=]\s*(\d+)/i);
-        const umg = umgMatch ? parseFloat(umgMatch[1]) : 0;
-
-        const ucoMatch = fruitsText.match(/Coco\w*\s*[→=]\s*(\d+)/i) || fruitsText.match(/Cocon\w*\s*[→=]\s*(\d+)/i);
-        const uco = ucoMatch ? parseFloat(ucoMatch[1]) : 0;
-
-        const uapMatch = fruitsText.match(/Apple\s*[→=]\s*(\d+)/i) || fruitsText.match(/Ap\w*le\s*[→=]\s*(\d+)/i);
-        const uap = uapMatch ? parseFloat(uapMatch[1]) : 0;
-
-        if (date) {
-            allSales.push({
-                date, day, rev, cash, exp, scan,
-                or, wm, mg, co, ap,
-                tot, uo, uw, umg, uco, uap,
-                branch: BRANCH, // Tag branch
-                source: file,
-                verified: false
-            });
-        }
+        const imageData = fs.readFileSync(imagePath);
+        const response = await ai.models.generateContent({
+            model: modelName,
+            contents: [{
+                role: "user",
+                parts: [
+                    { text: EXTRACTION_PROMPT },
+                    { inlineData: { data: imageData.toString("base64"), mimeType: "image/jpeg" } }
+                ]
+            }]
+        });
+        const text = response.text;
+        const cleanText = text.replace(/<think>[\s\S]*?<\/think>/g, '').replace(/```json|```/g, '').trim();
+        const jsonMatch = cleanText.match(/\{[\s\S]*\}/);
+        return JSON.parse(jsonMatch ? jsonMatch[0] : cleanText);
     } catch (e) {
-        console.error(`Error processing ${file}:`, e.message);
+        if (e.message.includes('429') && retries > 0) {
+            console.warn(`[${modelName}] Rate limited. Waiting 10s...`);
+            await new Promise(r => setTimeout(r, 10000));
+            return callGemini(imagePath, modelName, retries - 1);
+        }
+        console.error(`Gemini Error (${modelName}):`, e.message);
+        return null;
     }
-});
-
-const uniqueMap = new Map();
-allSales.forEach(s => {
-    const key = `${BRANCH}_${s.date}`;
-    if (!uniqueMap.has(key)) uniqueMap.set(key, s);
-});
-const finalSales = Array.from(uniqueMap.values()).sort((a, b) => {
-    const da = a.date.split('/').reverse().join('');
-    const db = b.date.split('/').reverse().join('');
-    return da.localeCompare(db);
-});
-
-let stagingData = [];
-if (fs.existsSync(STAGING_FILE)) {
-    try { stagingData = JSON.parse(fs.readFileSync(STAGING_FILE, 'utf8')); } catch(e) {}
 }
 
-finalSales.forEach(newRec => {
-    const idx = stagingData.findIndex(r => r.date === newRec.date && r.branch === newRec.branch);
-    if (idx === -1) {
-        stagingData.push(newRec);
-    } else if (!stagingData[idx].verified) {
-        stagingData[idx] = newRec;
+function auditData(data) {
+    if (!data || !data.date) return false;
+    
+    // Check 1: Revenue Match
+    const revCalc = (data.cash || 0) + (data.scan || 0);
+    const revMatch = Math.abs((data.rev || 0) - revCalc) < 2; // Allow small rounding error
+
+    // Check 2: Total Cups Match
+    const cupsCalc = (data.or || 0) + (data.or_100 || 0) + (data.wm || 0) + (data.mg || 0) + (data.co || 0) + (data.ap || 0) + (data.yco || 0) + (data.guava || 0) + (data.pineapple || 0);
+    const cupsMatch = data.tot === cupsCalc || data.tot === 0 || cupsCalc === 0;
+
+    // Check 3: Date Hallucination
+    const dateMatch = data.date && data.date.includes('/2026');
+
+    return revMatch && cupsMatch && dateMatch;
+}
+
+async function processImages() {
+    if (!fs.existsSync(SALES_DIR)) {
+        console.error(`Directory not found: ${SALES_DIR}`);
+        process.exit(1);
     }
-});
 
-fs.writeFileSync(STAGING_FILE, JSON.stringify(stagingData, null, 2));
+    // Load existing staging data for caching
+    let stagingData = [];
+    if (fs.existsSync(STAGING_FILE)) {
+        try { stagingData = JSON.parse(fs.readFileSync(STAGING_FILE, 'utf8')); } catch(e) {}
+    }
 
-console.log(`\n✅ [${BRANCH}] Staging Layer Updated: ${STAGING_FILE}`);
-console.log(`📊 Extracted ${finalSales.length} records. Please review them before running 'node verify_sales.js'.`);
+    const files = fs.readdirSync(SALES_DIR).filter(f => f.endsWith('.jpg') || f.endsWith('.png'));
+    console.log(`🚀 Turbo Processing ${files.length} images for ${BRANCH}...`);
+
+    const processedSales = [];
+    for (const file of files) {
+        // --- CACHE CHECK (SKIP IF ALREADY IN STAGING) ---
+        const existing = stagingData.find(r => r.source === file && r.branch === BRANCH);
+        if (existing && existing.date) {
+            console.log(`⏩ Skipping ${file} (Already in staging)`);
+            processedSales.push(existing);
+            continue;
+        }
+
+        const filePath = path.join(SALES_DIR, file);
+        console.log(`📦 Processing ${file}...`);
+
+        // --- ATTEMPT: FLASH LITE (FAST) ---
+        let data = await callGemini(filePath, "gemini-3.1-flash-lite-preview", 0); // No retries to keep it fast
+        
+        if (data) {
+            // Local Date Correction (Fix 2086 -> 2026)
+            if (data.date && data.date.includes('/2086')) {
+                data.date = data.date.replace('/2086', '/2026');
+            }
+
+            const verified = auditData(data);
+            if (verified) console.log(`  ✅ [AUTO-VERIFIED] ${data.date}`);
+            else console.warn(`  ⚠️ Audit failed for ${file}. Needs manual review.`);
+
+            processedSales.push({
+                ...data,
+                branch: BRANCH,
+                source: file,
+                verified: verified
+            });
+        } else {
+            console.error(`  ❌ Failed to process ${file} (Rate limited or Error).`);
+        }
+        
+        // Very small delay
+        await new Promise(r => setTimeout(r, 500));
+    }
+
+    // Deduplication & Sync
+    const uniqueMap = new Map();
+    // Keep verified ones over unverified ones for the same date
+    processedSales.sort((a, b) => (a.verified === b.verified) ? 0 : a.verified ? -1 : 1);
+    processedSales.forEach(s => {
+        if (!s.date) return;
+        const key = `${BRANCH}_${s.date}`;
+        if (!uniqueMap.has(key)) uniqueMap.set(key, s);
+    });
+
+    const finalSales = Array.from(uniqueMap.values()).sort((a, b) => {
+        const da = a.date.split('/').reverse().join('');
+        const db = b.date.split('/').reverse().join('');
+        return da.localeCompare(db);
+    });
+
+    // Merge back into staging
+    finalSales.forEach(newRec => {
+        const idx = stagingData.findIndex(r => r.source === newRec.source && r.branch === newRec.branch);
+        if (idx === -1) stagingData.push(newRec);
+        else stagingData[idx] = newRec;
+    });
+
+    fs.writeFileSync(STAGING_FILE, JSON.stringify(stagingData, null, 2));
+    console.log(`\n✨ Done! Staging Updated: ${STAGING_FILE}`);
+}
+
+processImages();
