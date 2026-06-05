@@ -43,7 +43,7 @@ async function sync() {
     // 1. Verify Sales (Move from pending to Excel)
     if (!runStep('Verifying Sales', 'node Sales_System_Automation/ocr-sales-dashboard/scripts/verify_sales.js')) return;
 
-    // 2. Update Dashboard & Deploy (Excel to JSON + Surge)
+    // 2. Update Dashboard & Deploy (Excel to JSON + Vercel)
     if (!runStep('Updating Dashboard & Deploying', 'node Sales_System_Automation/ocr-sales-dashboard/scripts/update_dashboard.js')) return;
 
     console.log('\n✨ Sync and Deployment Complete!');

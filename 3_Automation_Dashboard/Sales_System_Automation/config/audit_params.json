@@ -13,7 +13,8 @@
     "mango": 90,
     "coconut": 60,
     "young": 90,
-    "guava": 60
+    "guava": 60,
+    "pineapple": 60
   },
   "thresholds": {
     "revenue_pct": 0.05,

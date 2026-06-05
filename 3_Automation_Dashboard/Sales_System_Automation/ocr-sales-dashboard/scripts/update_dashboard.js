@@ -2,6 +2,7 @@ const XLSX = require('xlsx');
 const fs = require('fs');
 const path = require('path');
 const { execSync } = require('child_process');
+const { auditRecord } = require('../../logic/business_rules');
 
 const ROOT_DIR = path.join(__dirname, '..', '..', '..', '..');
 const DASHBOARD_DIR = path.join(ROOT_DIR, '3_Automation_Dashboard');
@@ -98,28 +99,11 @@ function extractExpensesData(branch) {
   } catch (e) { return []; }
 }
 
-function calculateAudit(result, params) {
+function calculateAudit(result) {
   Object.keys(result.branches).forEach(branch => {
     Object.keys(result.branches[branch].sales).forEach(month => {
         result.branches[branch].sales[month].forEach(r => {
-          const or_100 = r.or_100 || 0;
-          const or_60 = Math.max(0, (r.or || 0) - or_100);
-          const theoreticalRev = 
-            or_60 * params.prices.orange +
-            or_100 * params.prices.orange_premium +
-            (r.wm || 0) * params.prices.watermelon +
-            (r.mg || 0) * params.prices.mango +
-            (r.ap || 0) * params.prices.apple +
-            (r.co || 0) * params.prices.coconut +
-            (r.yco || 0) * params.prices.young +
-            (r.guava || 0) * (params.prices.guava || 60);
-
-          const diff = r.rev - theoreticalRev;
-          r.audit = {
-            theoretical_rev: theoreticalRev,
-            rev_diff: diff,
-            is_flagged: Math.abs(diff) > params.thresholds.revenue_abs
-          };
+          r.audit = auditRecord(r);
         });
     });
   });
@@ -144,10 +128,13 @@ function update() {
       result.expenses = result.expenses.concat(extractExpensesData(b));
     });
 
-    calculateAudit(result, params);
-    result.sales = result.branches.B1.sales;
+    calculateAudit(result);
     fs.writeFileSync(DATA_JSON, JSON.stringify(result, null, 2));
     console.log(`✅ Updated ${DATA_JSON}`);
+
+    // Sync backup html
+    console.log('--- Syncing SomSaiJai_Dashboard.html ---');
+    execSync(`cd "${DASHBOARD_DIR}" && node sync_dashboard_html.js`, { stdio: 'inherit' });
 
     // Generate full report data
     console.log('--- Generating reports_data.json ---');

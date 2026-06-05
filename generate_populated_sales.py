@@ -76,12 +76,21 @@ def create_populated_sale_record(output_path, branch, data):
 
 if __name__ == "__main__":
     docs_dir = "SomSaiJai_Documents"
+    if not os.path.exists(docs_dir):
+        os.makedirs(docs_dir)
+        
     with open("3_Automation_Dashboard/data.json", 'r') as f:
         full_data = json.load(f)
     
-    b1_latest = full_data['branches']['B1']['sales']['May26'][-1]
-    b2_latest = full_data['branches']['B2']['sales']['May26'][-1]
+    target_dates = ["15/05/2026", "16/05/2026", "17/05/2026", "18/05/2026", "19/05/2026", "20/05/2026"]
     
-    create_populated_sale_record(f"{docs_dir}/B1_Sale_Record_May12.docx", "B1", b1_latest)
-    create_populated_sale_record(f"{docs_dir}/B2_Sale_Record_May12.docx", "B2", b2_latest)
-    print("Populated sale records generated.")
+    for branch in ["B1", "B2"]:
+        branch_sales = full_data['branches'][branch]['sales'].get('May26', [])
+        for record in branch_sales:
+            date_str = record.get('d', '')
+            if date_str in target_dates:
+                day_num = date_str.split('/')[0]
+                output_filename = f"{docs_dir}/{branch}_Sale_Record_May{day_num}.docx"
+                create_populated_sale_record(output_filename, branch, record)
+                print(f"Generated populated sale record for {branch} on {date_str} to {output_filename}")
+

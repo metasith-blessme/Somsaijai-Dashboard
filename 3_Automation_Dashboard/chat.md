@@ -3,7 +3,7 @@
 **Date:** Sunday, March 29, 2026
 
 ## Objective
-Update sales data for the "Som Sai Jai" shop based on handwritten reports, update the master data (Excel and JSON), synchronize the HTML dashboards, and deploy the changes to Surge.
+Update sales data for the "Som Sai Jai" shop based on handwritten reports, update the master data (Excel and JSON), synchronize the HTML dashboards, and deploy the changes to Vercel.
 
 ---
 
@@ -44,8 +44,8 @@ I used a custom Python script with `openpyxl` to:
 - **SomSaiJai_Dashboard.html:** Updated the embedded `BUILT_IN` JavaScript constant with the latest March data to ensure the standalone version stays in sync.
 
 ### D. Deployment
-Deployed the entire project to the public URL using Surge:
-- **URL:** [https://somsaijai-2026.surge.sh](https://somsaijai-2026.surge.sh)
+Deployed the entire project to the public URL using Vercel:
+- **URL:** [https://somsaijailive.vercel.app](https://somsaijailive.vercel.app)
 
 ---
 
@@ -55,7 +55,7 @@ A new file `Somsaijai Sales Dashboard Automation Workflow.md` was created to exp
 2. **Master Update:** Syncing `data.json`.
 3. **Excel Sync:** Automating spreadsheet updates via Python.
 4. **Dashboard Sync:** Updating web views.
-5. **Deployment:** Pushing to Surge.sh.
+5. **Deployment:** Pushing to Vercel.
 
 ---
 

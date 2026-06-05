@@ -12,6 +12,7 @@
     "audit-stock": "node Sales_System_Automation/scripts/audit_stock.js",
     "stock-in": "node Sales_System_Automation/scripts/stock_in.js",
     "deploy": "npx vercel --prod",
+    "pipeline": "node Sales_System_Automation/agents/Orchestrator.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

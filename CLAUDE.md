@@ -4,7 +4,7 @@ This file provides guidance for AI agents working in this multi-branch repositor
 
 ## Project Overview
 Sales data analysis and unified dashboard for **Som Sai Jai** Juice Bar (Branches B1 and B2).
-**Live dashboard:** https://somsaijai-2026.surge.sh
+**Live dashboard:** https://somsaijailive.vercel.app
 
 ## Tech Stack
 - **Frontend:** Vanilla JS, Chart.js (client-side aggregation).
@@ -21,7 +21,7 @@ npm run process-sales Apr26 B2
 # Push verified staging data to branch Excels
 npm run verify-sales
 
-# Sync Excels to data.json and deploy to Surge
+# Sync Excels to data.json and deploy to Vercel
 npm run update-dashboard
 
 # Record shared stock purchase

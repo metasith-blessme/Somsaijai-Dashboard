@@ -32,10 +32,10 @@ Update the web-based dashboard and deploy to production.
 - **Scripts**:
   - `process_sales.js`: OCR and Fuzzy Matching logic.
   - `verify_sales.js`: Excel merging and stats calculation.
-  - `update_dashboard.js`: Excel to JSON sync and Surge deployment.
+  - `update_dashboard.js`: Excel to JSON sync and Vercel deployment.
 - **Reference**:
   - `references/excel_schema.md`: Layout of the master Excel workbook.
 
 ## Troubleshooting
 - **Fuzzy Match Issues**: If a product name is missed, adjust the threshold in `process_sales.js`.
-- **DNS Errors**: If the Surge site shows NXDOMAIN, re-run Step 4 to refresh the deployment.
+- **Hosting Issues**: If the Vercel site shows errors, check your vercel configuration and run `npx vercel logs`.

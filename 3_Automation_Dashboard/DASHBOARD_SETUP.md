@@ -11,7 +11,7 @@ The dashboard is set to update **automatically every day at 10:00 AM**.
 ### How it works:
 1. At 10:00 AM, your Mac runs `update_dashboard.js`.
 2. It reads the latest data from `SomSaiJai_Dashboard_Q1_2026.xlsx`.
-3. It updates `index.html` and pushes it to the live link using Surge.
+3. It updates `index.html` and pushes it to the live link using Vercel.
 
 ### Files Involved:
 - **Data Source:** `SomSaiJai_Dashboard_Q1_2026.xlsx`

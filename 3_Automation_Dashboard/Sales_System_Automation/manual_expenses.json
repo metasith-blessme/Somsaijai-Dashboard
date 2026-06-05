@@ -13,5 +13,15 @@
       { "date": "30/04/2026", "bucket": "OPEX", "category": "Fixed Costs", "description": "Rent", "amount": 30000 },
       { "date": "30/04/2026", "bucket": "OPEX", "category": "Investment", "description": "Stock (Allocated 17.1%)", "amount": 2052 }
     ]
+  },
+  "May26": {
+    "B1": [
+      { "date": "31/05/2026", "bucket": "OPEX", "category": "Investment", "description": "Stock Adjustment (Allocated to B2)", "amount": -4830 }
+    ],
+    "B2": [
+      { "date": "31/05/2026", "bucket": "OPEX", "category": "Salary", "description": "Employee 3", "amount": 12000 },
+      { "date": "31/05/2026", "bucket": "OPEX", "category": "Salary", "description": "Employee 4", "amount": 6000 },
+      { "date": "31/05/2026", "bucket": "OPEX", "category": "Investment", "description": "Stock (Allocated 40.25%)", "amount": 4830 }
+    ]
   }
 }

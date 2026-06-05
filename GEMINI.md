@@ -1,7 +1,7 @@
 # SomSaiJai Automation System (Multi-Branch)
 
 This project automates data extraction and visualization for SomSaiJai across multiple branches.
-**Live dashboard:** https://somsaijailive.vercel.app (v3.1.0)
+**Live dashboard:** https://somsaijailive.vercel.app (v3.2.0 — mobile-responsive)
 
 ## Project Structure
 - `B1/`: Branch 1 Data
@@ -13,9 +13,9 @@ This project automates data extraction and visualization for SomSaiJai across mu
 - `3_Automation_Dashboard/`: 
   - Automation scripts (`Sales_System_Automation/`).
   - Master Excels (`SomSaiJai_Dashboard_B[X]_2026.xlsx`) — **Source of Truth per Branch**.
-  - HTML Dashboard (`index.html`) — Unified "Premium Glass" UI.
+  - HTML Dashboard (`index.html`) — Unified "Premium Glass" UI, mobile-responsive with hamburger nav.
   - Deployment Config (`vercel.json`) — Essential for routing and cache stability.
-  - Data storage (`data.json`, `pending_verification.json`, `stock_ledger.json`).
+  - Data storage (`data.json`, `reports_data.json`, `pending_verification.json`, `stock_ledger.json`).
 
 ## CRITICAL: Data Flow
 **NEVER write directly to `data.json`** — `npm run update-dashboard` reads from Branch Excels and overwrites it.
@@ -30,38 +30,45 @@ LINE images → Visual OCR → pending_verification.json → verify-sales → Ex
 - **Shared COGS:** Fruit, Ice, and Packaging costs are calculated globally and shared proportionally based on branch revenue.
 
 ## Execution Workflow (from `3_Automation_Dashboard/`)
-...
-### 1. Process New Sales
-`npm run process-sales [Month] [Branch]`
-Example: `npm run process-sales Apr26 B2` (Scans images in `B2/1_Sale/Apr26/`)
 
-### 2. Verify & Push to Excel
-Review `pending_verification.json`, ensure `"verified": true`, then:
-`npm run verify-sales`
-*This automatically routes data to B1 or B2 Excel files based on the branch tag.*
+**Autonomous 4-Agent Pipeline**
+We have consolidated the workflow into a single command that runs 4 specialized AI agents (ImageExtractor, DataSync, DocGen, QADeployer) in sequence.
 
-### 3. Update & Deploy Dashboard
-Sync all Branch Excels → unified `data.json` → auto-generate `reports_data.json` → deploy to Vercel:
-`npm run update-dashboard`
-*Note: This command now automatically handles report generation for all active months.*
+To process new sales images and deploy the entire system automatically:
+```bash
+cd 3_Automation_Dashboard
+npm run pipeline ../B1/1_Sale/May26/LINE_ALBUM_xxxx.jpg
+```
 
-### 4. Generate Professional Documents (Word)
-To generate digital sale records, stock reports, and attendance templates:
-`python3 generate_docs.py`
-To generate specific daily sale records populated with data:
-`python3 generate_populated_sales.py`
-*Documents are saved in `SomSaiJai_Documents/`.*
+**What this command does:**
+1. **Agent 1:** OCR extracts data & derives math.
+2. **Agent 2:** Syncs to B1/B2 Excel and `data.json`.
+3. **Agent 3:** Rebuilds Word documents via Python.
+4. **Agent 4:** Deploys live to Vercel and runs sanity checks.
+
+**Manual commands:**
+```bash
+cd 3_Automation_Dashboard
+npm run process-sales Mar26     # OCR process specific month
+npm run verify-sales            # Verify pending data
+npm run update-dashboard        # Rebuild data.json from Excel
+npm run deploy                  # Deploy to Vercel
+```
 
 ## Dashboard Features
 - **Multi-Branch Toggling:** View Branch 1, Branch 2, or Aggregated "All Branches" data.
+- **Mobile-Responsive:** Hamburger menu on phones (≤768px), collapsed sidebar on tablets (≤1024px).
 - **Advanced BI Analytics:**
   - **Product Velocity:** Revenue mix % per SKU.
   - **Liquidity Ratio:** Cash vs. Scan ratio.
   - **Inventory Yield:** Cups sold per raw material unit.
   - **Net Contribution:** Revenue minus Variable Costs (Ice + Raw Materials).
+- **Management Reports:** 8-section P&L with COGS breakdown, audit reconciliation, fruit ROI analysis.
 - **Shared Stock System:** Live inventory deductions combine usage from ALL branches.
 
 ## Architecture Notes
 - Each branch has its own Excel file for safety and isolation.
 - `update_dashboard.js` dynamically maps columns (handles format changes between Q1 and Q2).
 - `stock_ledger.json` is the global pool for physical checks and purchases.
+- Dashboard CSS includes `glass-card`, `kpi-row`, responsive breakpoints at 1024px and 768px.
+- Fixed costs are in `PARAMS.fixed` object in `index.html` — update when rent/salary changes.
