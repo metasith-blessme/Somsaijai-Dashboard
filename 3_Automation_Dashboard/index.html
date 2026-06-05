@@ -307,8 +307,196 @@ body {
     .premium-table th { padding: 10px 8px; font-size: 0.6em; }
     .premium-table td { padding: 12px 8px; font-size: 0.8em; }
 }
-@media (max-width: 480px) {
-    .kpi-grid-container { grid-template-columns: 1fr; }
+.print-header { display: none; }
+@media print {
+    /* Hide non-report layout elements */
+    .sidebar,
+    .mobile-header,
+    .sidebar-overlay,
+    #status,
+    #status-mobile,
+    .version-label,
+    .command-center button,
+    .command-center .btn {
+        display: none !important;
+    }
+
+    /* Reset global canvas for printer page dimensions */
+    body {
+        background: #ffffff !important;
+        color: #111111 !important;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+        font-size: 10pt !important;
+        line-height: 1.4 !important;
+    }
+    .main {
+        margin-left: 0 !important;
+        padding: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    /* Isolate print view */
+    .section {
+        display: none !important;
+    }
+    #view-report.section.active {
+        display: block !important;
+    }
+
+    /* Top metadata header printed on every page */
+    .print-header {
+        display: block !important;
+    }
+
+    /* Convert command-center to standard corporate title letterhead */
+    #view-report .command-center {
+        background: none !important;
+        border: none !important;
+        border-bottom: 2px solid #1f4e79 !important;
+        box-shadow: none !important;
+        margin-bottom: 30px !important;
+        padding: 0 0 10px 0 !important;
+        border-radius: 0 !important;
+        position: static !important;
+    }
+    #reportTitle {
+        font-size: 18pt !important;
+        font-weight: 800 !important;
+        color: #1f4e79 !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.5px !important;
+        margin: 0 !important;
+    }
+
+    /* Strip container card properties */
+    .glass-card {
+        background: none !important;
+        border: none !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+        margin-bottom: 35px !important;
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+        page-break-inside: avoid !important;
+    }
+
+    /* Render high-contrast crisp grid lines for tabular printouts */
+    .premium-table {
+        width: 100% !important;
+        border-collapse: collapse !important;
+        margin-top: 10px !important;
+    }
+    .premium-table th {
+        background: #1f4e79 !important;
+        color: #ffffff !important;
+        border: 1px solid #1f4e79 !important;
+        padding: 8px 10px !important;
+        font-size: 9pt !important;
+        font-weight: 700 !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.5px !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+    .premium-table td {
+        border: 1px solid #e2e8f0 !important;
+        padding: 8px 10px !important;
+        font-size: 9pt !important;
+        color: #111111 !important;
+        background: transparent !important;
+    }
+    .premium-table tr:nth-child(even) td {
+        background: #f8fafc !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+    .premium-table tr.total-row td, 
+    .premium-table tr[style*="font-weight:700"] td,
+    .premium-table tr[style*="font-weight:800"] td {
+        background: #f1f5f9 !important;
+        font-weight: 700 !important;
+        border-top: 2px solid #1f4e79 !important;
+        border-bottom: 2px solid #1f4e79 !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+    
+    /* Auto-expand dashboard log/expenses heights, disabling browser page scroll cuts */
+    div[style*="max-height"] {
+        max-height: none !important;
+        overflow: visible !important;
+    }
+
+    /* Document section dividers style */
+    #reportTables h3 {
+        color: #1f4e79 !important;
+        border-bottom: 1px solid #cbd5e1 !important;
+        padding-bottom: 6px !important;
+        margin-top: 30px !important;
+        margin-bottom: 12px !important;
+        font-size: 12pt !important;
+        font-weight: 700 !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.5px !important;
+    }
+
+    /* Insight Bullet Lists */
+    #reportTables ul {
+        list-style-type: none !important;
+        padding: 0 !important;
+    }
+    #reportTables li {
+        padding: 8px 0 !important;
+        border-bottom: 1px solid #f1f5f9 !important;
+        font-size: 9.5pt !important;
+    }
+
+    /* Executive summary 3-column compact grid format */
+    .kpi-row {
+        display: grid !important;
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 12px !important;
+        margin-bottom: 20px !important;
+        page-break-inside: avoid !important;
+    }
+    .kpi-premium {
+        background: #f8fafc !important;
+        border: 1px solid #cbd5e1 !important;
+        border-radius: 12px !important;
+        padding: 16px !important;
+        box-shadow: none !important;
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 6px !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+    .kpi-premium .label {
+        font-size: 8pt !important;
+        color: #475569 !important;
+        font-weight: 700 !important;
+    }
+    .kpi-premium .value {
+        font-size: 16pt !important;
+        color: #1f4e79 !important;
+        font-weight: 800 !important;
+    }
+
+    /* Page layout break rules */
+    h1, h2, h3, h4, tr {
+        page-break-inside: avoid !important;
+    }
+    
+    /* Monochrome printable borders for badges */
+    .badge {
+        border: 1px solid #475569 !important;
+        background: none !important;
+        color: #475569 !important;
+        padding: 2px 6px !important;
+        font-size: 7.5pt !important;
+        border-radius: 4px !important;
+    }
 }
 </style>
 </head>
@@ -383,6 +571,12 @@ body {
     </div>
 
     <div class="section" id="view-report">
+        <div class="print-header" style="display:none">
+            <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #cbd5e1; padding-bottom:8px; margin-bottom:20px; font-size:8pt; color:#475569; font-weight:600">
+                <span>SOMSAIJAI JUICE BAR • FINANCIAL INTELLIGENCE</span>
+                <span id="printDate">REPORT GENERATED ON: --/--/----</span>
+            </div>
+        </div>
         <div class="command-center" style="position:static; margin-bottom:32px">
             <h2 id="reportTitle">Management Report</h2>
             <button class="btn active" onclick="window.print()" style="background:var(--accent); color:#fff">Export PDF</button>
@@ -889,6 +1083,10 @@ function renderDailyLog(sales) {
 
 function renderReport(sales) {
     document.getElementById('reportTitle').innerText = (currentMonth==='all'?'FULL YEAR':currentMonth.toUpperCase()) + ' MANAGEMENT REPORT';
+    const printDate = document.getElementById('printDate');
+    if (printDate) {
+        printDate.innerText = 'REPORT GENERATED ON: ' + new Date().toLocaleDateString('en-GB');
+    }
 
     if (!REPORTS_DATA || !REPORTS_DATA[currentMonth]) {
         document.getElementById('reportTables').innerHTML = `<div class="glass-card" style="padding:40px; text-align:center; color:var(--muted)"><h3>No report data available for this period.</h3><p>Run <code>npm run update-dashboard</code> to generate reports.</p></div>`;
