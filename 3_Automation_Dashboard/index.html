@@ -281,6 +281,7 @@ body {
     .kpi-row { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
 }
 @media (max-width: 768px) {
+    body { font-size: 17px; } /* ponytail: bump base font for phone readability */
     .sidebar {
         position: fixed;
         left: 0;
@@ -316,13 +317,8 @@ body {
         width: 100%;
         padding-bottom: 4px;
     }
-    .selector-group::-webkit-scrollbar {
-        height: 3px;
-    }
-    .selector-group::-webkit-scrollbar-thumb {
-        background: rgba(255, 255, 255, 0.2);
-        border-radius: 4px;
-    }
+    .selector-group::-webkit-scrollbar { height: 3px; }
+    .selector-group::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 4px; }
     #monthSelector {
         display: flex;
         flex-wrap: nowrap;
@@ -331,75 +327,74 @@ body {
         -webkit-overflow-scrolling: touch;
         width: 100%;
     }
-    #monthSelector button, #monthSelector .btn {
-        flex-shrink: 0;
-        white-space: nowrap;
-    }
-    .selector-group > div[style] { display: none; } /* hide vertical divider */
-    /* ponytail: 44px min tap target for mobile per Apple/Google HIG */
+    #monthSelector button, #monthSelector .btn { flex-shrink: 0; white-space: nowrap; }
+    .selector-group > div[style] { display: none; }
+    /* ponytail: 44px min tap target — Apple/Google HIG */
     .btn { padding: 10px 16px; font-size: 0.82em; min-height: 44px; display: inline-flex; align-items: center; justify-content: center; }
-    /* KPIs: single column for readability on phones */
-    .kpi-row { grid-template-columns: 1fr; gap: 12px; margin-bottom: 20px; }
-    .kpi-grid-container { grid-template-columns: 1fr; margin-bottom: 20px; border-radius: 16px; }
-    .kpi-cell { padding: 18px 16px; }
-    .kpi-cell .label { font-size: 0.85em; }
-    .kpi-cell .value { font-size: 1.8em; }
-    .kpi-premium { padding: 20px; border-radius: 20px; }
-    .kpi-premium .label { font-size: 0.8em; }
-    .kpi-premium .value { font-size: 2em; }
+    /* KPIs: single column, large values */
+    .kpi-row { grid-template-columns: 1fr; gap: 14px; margin-bottom: 24px; }
+    .kpi-grid-container { grid-template-columns: 1fr; margin-bottom: 24px; border-radius: 16px; }
+    .kpi-cell { padding: 20px 16px; }
+    .kpi-cell .label { font-size: 0.9em; letter-spacing: 0.8px; }
+    .kpi-cell .value { font-size: 2.2em; }
+    .kpi-cell .change { font-size: 0.82em; }
+    .kpi-premium { padding: 22px; border-radius: 20px; }
+    .kpi-premium .label { font-size: 0.85em; }
+    .kpi-premium .value { font-size: 2.2em; }
+    /* Cards */
     .dashboard-grid { grid-template-columns: 1fr; gap: 16px; }
-    .glass-card { padding: 16px; border-radius: 16px; margin-bottom: 16px; }
-    .glass-card h3 { font-size: 1.05em; margin-bottom: 12px; }
-    /* Tables: readable on mobile with scroll hint */
-    .premium-table th { padding: 10px 8px; font-size: 0.65em; }
-    .premium-table td { padding: 12px 8px; font-size: 0.82em; }
-    .table-responsive-wrapper {
-        position: relative;
-    }
+    .glass-card { padding: 20px; border-radius: 18px; margin-bottom: 16px; }
+    .glass-card h3 { font-size: 1.15em; margin-bottom: 14px; }
+    /* Tables */
+    .premium-table th { padding: 10px 8px; font-size: 0.68em; }
+    .premium-table td { padding: 12px 8px; font-size: 0.85em; }
+    .table-responsive-wrapper { position: relative; }
     .table-responsive-wrapper::after {
         content: '';
         position: absolute;
-        top: 0;
-        right: 0;
-        width: 24px;
-        height: 100%;
+        top: 0; right: 0;
+        width: 24px; height: 100%;
         background: linear-gradient(to right, transparent, var(--bg));
         pointer-events: none;
         border-radius: 0 16px 16px 0;
         opacity: 0.7;
     }
-    .chart-container { height: 260px !important; }
-    /* Finance rows: better spacing */
-    .finance-item { padding: 14px 0; font-size: 0.92em; }
-    .finance-item .val { font-size: 0.95em; }
-    /* Stock grid: single column */
+    .chart-container { height: 280px !important; }
+    /* Finance */
+    .finance-item { padding: 14px 0; font-size: 0.95em; }
+    .finance-item .val { font-size: 1em; }
+    .finance-item.total { font-size: 1.15em; }
+    /* Stock */
     .stock-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
     .stock-card { padding: 16px; border-radius: 16px; }
     .stock-card .qty { font-size: 1.5em; }
     /* Nav items: bigger tap targets */
-    .nav-item { padding: 16px 20px; min-height: 48px; }
+    .nav-item { padding: 16px 20px; min-height: 48px; font-size: 1em; }
+    /* Badge sizing */
+    .badge { font-size: 0.75em; padding: 5px 12px; }
 }
-/* ponytail: extra breakpoint for small phones (iPhone SE, etc.) */
+/* ponytail: small phones (iPhone SE / mini ~375px) */
 @media (max-width: 480px) {
-    .main { padding: 12px; }
-    .command-center { padding: 10px 12px; border-radius: 14px; margin-bottom: 16px; }
+    body { font-size: 16px; }
+    .main { padding: 10px; }
+    .command-center { padding: 10px; border-radius: 14px; margin-bottom: 14px; }
     .btn { padding: 8px 12px; font-size: 0.75em; min-height: 44px; border-radius: 10px; }
-    .kpi-cell { padding: 14px 12px; }
-    .kpi-cell .value { font-size: 1.6em; letter-spacing: -0.5px; }
-    .kpi-cell .label { font-size: 0.78em; }
-    .kpi-premium { padding: 16px; border-radius: 16px; }
-    .kpi-premium .value { font-size: 1.8em; }
-    .glass-card { padding: 14px; border-radius: 14px; margin-bottom: 12px; }
-    .glass-card h3 { font-size: 0.95em; }
-    .premium-table th { padding: 8px 6px; font-size: 0.58em; }
-    .premium-table td { padding: 10px 6px; font-size: 0.75em; }
+    .kpi-cell { padding: 16px 12px; }
+    .kpi-cell .value { font-size: 1.9em; letter-spacing: -0.5px; }
+    .kpi-cell .label { font-size: 0.82em; }
+    .kpi-premium { padding: 18px; border-radius: 16px; }
+    .kpi-premium .value { font-size: 1.9em; }
+    .glass-card { padding: 16px; border-radius: 14px; margin-bottom: 12px; }
+    .glass-card h3 { font-size: 1.05em; }
+    .premium-table th { padding: 8px 6px; font-size: 0.6em; }
+    .premium-table td { padding: 10px 6px; font-size: 0.78em; }
     .chart-container { height: 220px !important; }
     .stock-grid { grid-template-columns: 1fr; gap: 10px; }
     .stock-card .qty { font-size: 1.3em; }
-    .mobile-header { height: 56px; padding: 0 14px; }
+    .mobile-header { height: 56px; padding: 0 12px; }
     .mobile-header .mobile-title { font-size: 1em; }
     .mobile-header .hamburger { width: 44px; height: 44px; font-size: 1.4em; }
-    .finance-item { font-size: 0.88em; padding: 12px 0; }
+    .finance-item { font-size: 0.9em; padding: 12px 0; }
     .dashboard-grid { gap: 12px; }
     .selector-group { gap: 6px; }
 }
@@ -633,7 +628,7 @@ body {
             <div class="nav-item" data-view="analytics">📈 <span>Analytics</span></div>
             <div class="nav-item" data-view="log">📝 <span>Daily Log</span></div>
         </div>
-        <div class="version-label">v3.2.0</div>
+        <div class="version-label">v3.2.1</div>
     </div>
 </div>
 
