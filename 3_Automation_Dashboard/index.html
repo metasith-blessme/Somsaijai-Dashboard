@@ -281,7 +281,7 @@ body {
     .kpi-row { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
 }
 @media (max-width: 768px) {
-    body { font-size: 17px; }
+    body { font-size: 17px; flex-direction: column; }
     .sidebar {
         position: fixed;
         left: 0; top: 0;
@@ -298,6 +298,7 @@ body {
     /* ponytail: redesigned mobile header — clean, blurred, premium feel */
     .mobile-header {
         display: flex;
+        width: 100%;
         height: 56px;
         padding: 0 16px;
         background: var(--card);
@@ -670,7 +671,7 @@ body {
             <div class="nav-item" data-view="analytics">📈 <span>Analytics</span></div>
             <div class="nav-item" data-view="log">📝 <span>Daily Log</span></div>
         </div>
-        <div class="version-label">v3.2.1</div>
+        <div class="version-label">v3.2.2</div>
     </div>
 </div>
 

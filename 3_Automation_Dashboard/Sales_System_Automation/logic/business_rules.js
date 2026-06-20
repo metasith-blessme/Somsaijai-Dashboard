@@ -122,8 +122,8 @@ function calculatePL(data) {
 
     months.forEach(m => {
         const branchCalcs = {
-            B1: { rev: 0, opex: 0, opex_list: [], raw_usage: {}, cogs: 0, net: 0, share: 0, loss_carry_forward: 0, adjusted_net: 0 },
-            B2: { rev: 0, opex: 0, opex_list: [], raw_usage: {}, cogs: 0, net: 0, share: 0, loss_carry_forward: 0, adjusted_net: 0 }
+            B1: { rev: 0, opex: 0, rental: 0, opex_list: [], raw_usage: {}, cogs: 0, net: 0, share: 0, loss_carry_forward: 0, adjusted_net: 0 },
+            B2: { rev: 0, opex: 0, rental: 0, opex_list: [], raw_usage: {}, cogs: 0, net: 0, share: 0, loss_carry_forward: 0, adjusted_net: 0 }
         };
         
         let total_rev = 0;
@@ -135,7 +135,7 @@ function calculatePL(data) {
         // 1. Calculate branch specifics (revenue, usage, cup sales)
         branchNames.forEach(b => {
             const salesRecords = (data.branches[b] && data.branches[b].sales[m]) || [];
-            const usage = { orange: 0, watermelon: 0, mango: 0, coconut: 0, apple: 0, pineapple: 0 };
+            const usage = { orange: 0, watermelon: 0, mango: 0, coconut: 0, apple: 0, guava: 0, pineapple: 0 };
             
             salesRecords.forEach(r => {
                 branchCalcs[b].rev += r.rev || 0;
@@ -155,6 +155,7 @@ function calculatePL(data) {
                 usage.mango += (r.umg || 0);
                 usage.apple += (r.uap || 0);
                 usage.coconut += (r.uco_raw || 0) + (r.uco_meat || 0) + (r.uco_water || 0) + (r.uco_conden || 0);
+                usage.guava += (r.uguava || 0);
                 usage.pineapple += (r.upine || 0);
             });
             
@@ -164,7 +165,7 @@ function calculatePL(data) {
 
         // 2. Parse expenses for this month
         const cogsExpenses = [];
-        const fruit_costs = { 'Orange': 0, 'Watermelon': 0, 'Mango': 0, 'Apple': 0, 'Coconut': 0, 'Pineapple': 0 };
+        const fruit_costs = { 'Orange': 0, 'Watermelon': 0, 'Mango': 0, 'Apple': 0, 'Coconut': 0, 'Guava': 0, 'Pineapple': 0 };
 
         (data.expenses || []).forEach(e => {
             if (e.month === m) {
@@ -181,13 +182,22 @@ function calculatePL(data) {
                     else if (cat.includes('Mango')) fruit_costs['Mango'] += e.amt;
                     else if (cat.includes('Apple')) fruit_costs['Apple'] += e.amt;
                     else if (cat.includes('Coconut')) fruit_costs['Coconut'] += e.amt;
-                    else if (e.desc && e.desc.toLowerCase().includes('pineapple')) fruit_costs['Pineapple'] += e.amt;
+                    else if (cat.includes('Guava')) fruit_costs['Guava'] += e.amt;
+                    else if (cat.includes('Pineapple') || (e.desc && e.desc.toLowerCase().includes('pineapple'))) fruit_costs['Pineapple'] += e.amt;
                 } else {
                     if (e.branch === 'B1') {
-                        branchCalcs.B1.opex += e.amt;
+                        if (e.cat === 'Rental') {
+                            branchCalcs.B1.rental += e.amt;
+                        } else {
+                            branchCalcs.B1.opex += e.amt;
+                        }
                         branchCalcs.B1.opex_list.push(e);
                     } else if (e.branch === 'B2') {
-                        branchCalcs.B2.opex += e.amt;
+                        if (e.cat === 'Rental') {
+                            branchCalcs.B2.rental += e.amt;
+                        } else {
+                            branchCalcs.B2.opex += e.amt;
+                        }
                         branchCalcs.B2.opex_list.push(e);
                     }
                 }
@@ -206,7 +216,8 @@ function calculatePL(data) {
             else if (cat.includes('Mango')) fruitType = 'mango';
             else if (cat.includes('Apple')) fruitType = 'apple';
             else if (cat.includes('Coconut')) fruitType = 'coconut';
-            else if (e.desc && e.desc.toLowerCase().includes('pineapple')) fruitType = 'pineapple';
+            else if (cat.includes('Guava')) fruitType = 'guava';
+            else if (cat.includes('Pineapple') || (e.desc && e.desc.toLowerCase().includes('pineapple'))) fruitType = 'pineapple';
 
             if (fruitType) {
                 const u1 = branchCalcs.B1.raw_usage[fruitType] || 0;
@@ -232,7 +243,7 @@ function calculatePL(data) {
             const branchData = branchCalcs[b];
             
             // Raw Net Profit
-            branchData.net = branchData.rev - branchData.opex - branchData.cogs;
+            branchData.net = branchData.rev - branchData.opex - branchData.rental - branchData.cogs;
             
             // Apply Net Loss Carry-Forward
             branchData.loss_carry_forward = lossCarryForward[b];
@@ -269,6 +280,7 @@ function calculatePL(data) {
             total_cogs,
             b1: {
                 rev: branchCalcs.B1.rev,
+                rental: branchCalcs.B1.rental,
                 opex: branchCalcs.B1.opex,
                 opex_list: branchCalcs.B1.opex_list,
                 cogs: branchCalcs.B1.cogs,
@@ -279,6 +291,7 @@ function calculatePL(data) {
             },
             b2: {
                 rev: branchCalcs.B2.rev,
+                rental: branchCalcs.B2.rental,
                 opex: branchCalcs.B2.opex,
                 opex_list: branchCalcs.B2.opex_list,
                 cogs: branchCalcs.B2.cogs,
@@ -297,8 +310,8 @@ function calculatePL(data) {
     const annual = {
         total_rev: 0,
         total_cogs: 0,
-        b1: { rev: 0, opex: 0, opex_list: [], cogs: 0, net: 0, share: 0, loss_carry_forward: 0, adjusted_net: 0 },
-        b2: { rev: 0, opex: 0, opex_list: [], cogs: 0, net: 0, share: 0, loss_carry_forward: 0, adjusted_net: 0 },
+        b1: { rev: 0, opex: 0, rental: 0, opex_list: [], cogs: 0, net: 0, share: 0, loss_carry_forward: 0, adjusted_net: 0 },
+        b2: { rev: 0, opex: 0, rental: 0, opex_list: [], cogs: 0, net: 0, share: 0, loss_carry_forward: 0, adjusted_net: 0 },
         fruit_summary: {},
         daily_cogs: [],
         fruit_performance: []
@@ -311,6 +324,7 @@ function calculatePL(data) {
         
         branchNames.forEach(b => {
             annual[b.toLowerCase()].rev += r[b.toLowerCase()].rev;
+            annual[b.toLowerCase()].rental += r[b.toLowerCase()].rental || 0;
             annual[b.toLowerCase()].opex += r[b.toLowerCase()].opex;
             annual[b.toLowerCase()].cogs += r[b.toLowerCase()].cogs;
             annual[b.toLowerCase()].net += r[b.toLowerCase()].net;
@@ -326,7 +340,7 @@ function calculatePL(data) {
     });
 
     // Recalculate annual fruit performance from sums of sales and costs
-    const annual_fruit_costs = { 'Orange': 0, 'Watermelon': 0, 'Mango': 0, 'Apple': 0, 'Coconut': 0, 'Pineapple': 0 };
+    const annual_fruit_costs = { 'Orange': 0, 'Watermelon': 0, 'Mango': 0, 'Apple': 0, 'Coconut': 0, 'Guava': 0, 'Pineapple': 0 };
     const annual_fruit_sales = { orange: 0, orange_100: 0, watermelon: 0, mango: 0, coconut: 0, apple: 0, young: 0, guava: 0, pineapple: 0 };
     
     months.forEach(m => {

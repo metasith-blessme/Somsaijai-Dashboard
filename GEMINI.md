@@ -25,9 +25,15 @@ LINE images → Visual OCR → pending_verification.json → verify-sales → Ex
 ```
 
 ## Business Rules & Profit Sharing
-- **Branch 1 (B1):** Profit shared at **60%** of Net Profit to Blessme.
-- **Branch 2 (B2):** Profit shared at **70%** of Net Profit to Blessme.
-- **Shared COGS:** Fruit, Ice, and Packaging costs are calculated globally and shared proportionally based on branch revenue.
+- **Branch 1 (B1):** Profit shared at **60%** of Net Profit to Blessme. Rent is ฿31,000, Salary ฿35,000, Utilities ฿6,000.
+- **Branch 2 (B2):** Profit shared at **70%** of Net Profit to Blessme. Rent is ฿18,000, Salary ฿30,000, Utilities ฿6,000.
+- **Shared COGS (ADR 0001):** 
+  - Fruits (Orange, Watermelon, Mango, Apple, Coconut, Guava, Pineapple) are allocated proportionally by **actual usage count** of each branch.
+  - Packaging, Ice, and generic Stock (e.g. ฿12k Stock split) are allocated proportionally by **revenue share**.
+- **OPEX Rental Separation:**
+  - OPEX expenses categorized as `Rental` are separated from other general operating expenses (Other OPEX) in the dashboard P&L summaries and management report sections.
+  - Split slips (e.g., slip #15 containing ฿35k B1 Rent and ฿12k Stock) are divided into distinct daily expense rows.
+- **Net Loss Carry-Forward (ADR 0002):** Branch losses carried forward to offset future profit of that branch only.
 
 ## Execution Workflow (from `3_Automation_Dashboard/`)
 

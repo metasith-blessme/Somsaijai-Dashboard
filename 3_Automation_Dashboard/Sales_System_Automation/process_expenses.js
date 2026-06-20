@@ -12,13 +12,24 @@ const EXCEL_FILE = path.join(DASHBOARD_DIR, `SomSaiJai_Dashboard_${BRANCH}_2026.
 const OCR_BIN = path.join(DASHBOARD_DIR, 'ocr_bin');
 
 function parseThaiDate(text) {
-    const match = text.match(/(\d{1,2})\s*(ม\.ค\.|ก\.พ\.|มี\.ค\.|เม\.ย\.)\s*(69|2569|2026|68|2568|2025)/);
+    const match = text.match(/(\d{1,2})\s*(ม\.ค\.|ก\.พ\.|มี\.ค\.|เม\.ย\.|พ\.ค\.|มิ\.ย\.|ก\.ค\.|ส\.ค\.|ก\.ย\.|ต\.ค\.|พ\.ย\.|ธ\.ค\.)\s*(69|2569|2026|68|2568|2025)/);
     if (!match) return null;
     const day = match[1].padStart(2, '0');
-    let month = '01';
-    if (match[2] === 'ก.พ.') month = '02';
-    else if (match[2] === 'มี.ค.') month = '03';
-    else if (match[2] === 'เม.ย.') month = '04';
+    const monthMap = {
+        'ม.ค.': '01',
+        'ก.พ.': '02',
+        'มี.ค.': '03',
+        'เม.ย.': '04',
+        'พ.ค.': '05',
+        'มิ.ย.': '06',
+        'ก.ค.': '07',
+        'ส.ค.': '08',
+        'ก.ย.': '09',
+        'ต.ค.': '10',
+        'พ.ย.': '11',
+        'ธ.ค.': '12'
+    };
+    const month = monthMap[match[2]] || '01';
     return `${day}/${month}/2026`;
 }
 
@@ -46,22 +57,31 @@ function categorize(note, fullText) {
     let cat = 'Other';
     let bucket = 'OPEX';
 
-    if (n.includes('ส้ม')) cat = 'Orange';
+    // 1. Rental check first (prevents matching ingredients in rental descriptions like 'ค่าที่ร้านน้ำส้ม')
+    if (n.includes('ค่าที่') || n.includes('ค่าเช่า') || n.includes('rental') || n.includes('rent')) {
+        cat = 'Rental';
+    }
+    // 2. Ingredients
+    else if (n.includes('ส้ม')) cat = 'Orange';
     else if (n.includes('แตงโม')) cat = 'Watermelon';
-    else if (n.includes('แอปเปิ้ล') || n.includes('เมล่อน')) cat = 'Apple/Melon';
     else if (n.includes('มะม่วง')) cat = 'Mango';
-    else if (n.includes('ทับทิม')) cat = 'Pomegranate';
+    else if (n.includes('แอปเปิ้ล') || n.includes('แอพเปิ้ล') || n.includes('เมล่อน')) cat = 'Apple';
+    else if (n.includes('ฝรั่ง')) cat = 'Guava';
+    else if (n.includes('น้ำมะพร้าว')) cat = 'Coconut Water';
+    else if (n.includes('เนื้อมะพร้าว')) cat = 'Coconut Meat';
     else if (n.includes('มะพร้าว')) cat = 'Coconut';
+    else if (n.includes('สับปะรด') || n.includes('pineapple') || n.includes('pine')) cat = 'Pineapple';
+    // 3. OPEX / Utilities / Other
     else if (n.includes('ส่ง') || n.includes('lalamove') || n.includes('grab')) cat = 'Transportation';
     else if (n.includes('เงินเดือน') || n.includes('staff') || n.includes('ค่าแรง')) cat = 'Salary';
     else if (n.includes('ถุง') || n.includes('แพ็ค') || n.includes('กล่อง') || n.includes('แก้ว') || n.includes('ขวด') || n.includes('ฝา') || n.includes('หลอด')) cat = 'Packaging';
     else if (n.includes('น้ำแข็ง') || n.includes('ice')) cat = 'Ice';
     else if (n.includes('น้ำ') || n.includes('water')) cat = 'Water';
     else if (n.includes('นม') || n.includes('milk') || n.includes('conden')) cat = 'Milk/Conden';
-    else if (n.includes('ค่าไฟ') || n.includes('ค่าน้ำ') || n.includes('ค่าเช่า')) cat = 'Fixed Costs';
+    else if (n.includes('ค่าไฟ') || n.includes('ค่าน้ำ')) cat = 'Fixed Costs';
     else if (n.includes('คีออส') || n.includes('ป้าย') || n.includes('เครื่องสกัด') || n.includes('ตกแต่ง')) cat = 'Investment';
 
-    if (['Orange', 'Watermelon', 'Apple/Melon', 'Mango', 'Pomegranate', 'Coconut', 'Packaging', 'Ice', 'Transportation', 'Water', 'Milk/Conden'].includes(cat)) {
+    if (['Orange', 'Watermelon', 'Mango', 'Apple', 'Guava', 'Coconut Water', 'Coconut Meat', 'Coconut', 'Pineapple', 'Packaging', 'Ice', 'Transportation', 'Water', 'Milk/Conden'].includes(cat)) {
         bucket = 'COGS';
     } else if (['Investment'].includes(cat)) {
         bucket = 'CAPEX';
@@ -76,17 +96,80 @@ const allExpenses = [];
 
 MONTHS.forEach(month => {
     const dir = path.join(EXPENSES_DIR, month);
-    if (!fs.existsSync(dir)) return;
-    const files = fs.readdirSync(dir).filter(f => f.endsWith('.jpg') || f.endsWith('.png'));
+    // For B2, Jun26 directory is empty, but we must inject the B2 rental receipt uploaded to B1
+    const dirExists = fs.existsSync(dir);
+    if (!dirExists && !(BRANCH === 'B2' && month === 'Jun26')) return;
+
+    let files = [];
+    if (dirExists) {
+        files = fs.readdirSync(dir).filter(f => f.endsWith('.jpg') || f.endsWith('.png'));
+    }
+
+    if (BRANCH === 'B2' && month === 'Jun26') {
+        files.push('LINE_ALBUM_Cost 0626_260615_30.jpg');
+    }
+
     console.log(`🔍 Processing ${files.length} receipts for ${BRANCH} in ${month}...`);
     files.forEach(file => {
-        const filePath = path.join(dir, file);
+        let filePath = path.join(dirExists ? dir : '', file);
+        if (BRANCH === 'B2' && file === 'LINE_ALBUM_Cost 0626_260615_30.jpg') {
+            filePath = path.join(ROOT_DIR, 'B1', '2_Expenses', 'Jun26', file);
+        }
+
+        // Skip B2 rent when processing B1
+        if (BRANCH === 'B1' && file === 'LINE_ALBUM_Cost 0626_260615_30.jpg') {
+            console.log(`⏩ Skipping B2 rent receipt ${file} from B1 processing.`);
+            return;
+        }
+
         try {
             const out = execSync(`"${OCR_BIN}" "${filePath}"`, { encoding: 'utf8' });
-            const date = parseThaiDate(out);
-            const amount = parseAmount(out);
-            const note = parseNote(out);
-            const { cat, bucket } = categorize(note, out);
+            let date = parseThaiDate(out);
+            let amount = parseAmount(out);
+            let note = parseNote(out);
+            let { cat, bucket } = categorize(note, out);
+
+            // Hardcoded overrides for known OCR failures/misreads and splits in Jun26
+            if (month === 'Jun26') {
+                if (file === 'LINE_ALBUM_Cost 0626_260615_30.jpg') {
+                    // This is B2 rental
+                    date = '01/06/2026';
+                    amount = 30000;
+                    cat = 'Rental';
+                    bucket = 'OPEX';
+                    note = 'ค่าที่ร้านน้ำส้ม b2 06/26';
+                } else if (file === 'LINE_ALBUM_Cost 0626_260615_13.jpg') {
+                    // This is split: B1 Rent 35000 + Stock 12000
+                    date = '08/06/2026';
+                    amount = 35000;
+                    cat = 'Rental';
+                    bucket = 'OPEX';
+                    note = 'ค่าเช่าร้านเดือน June (06) b1 35000';
+                    
+                    // Push the 12000 Stock component (COGS, allocated by revenue ratio)
+                    allExpenses.push(['08/06/2026', 'Jun26', 'COGS', 'Stock', 'Stock June 2026 (split from rent slip)', 12000]);
+                    console.log('✂️ Split rent slip: Added 12,000 COGS Stock and 35,000 Rent OPEX.');
+                } else if (file === 'LINE_ALBUM_Cost 0626_260615_2.jpg') {
+                    date = '14/06/2026';
+                    amount = 7200;
+                    cat = 'Watermelon';
+                    bucket = 'COGS';
+                    note = 'แตงโม 90 ลูก (7-6-2569: 45 ลูก, 12-6-2569: 45 ลูก)';
+                } else if (file === 'LINE_ALBUM_Cost 0626_260615_20.jpg') {
+                    date = '05/06/2026';
+                    amount = 8000;
+                    cat = 'Watermelon';
+                    bucket = 'COGS';
+                    note = 'แตงโม 100 ลูก (2-6-2569: 50 ลูก, 4-6-2569: 50 ลูก)';
+                } else if (file === 'LINE_ALBUM_Cost 0626_260615_29.jpg') {
+                    date = '02/06/2026';
+                    amount = 8000;
+                    cat = 'Watermelon';
+                    bucket = 'COGS';
+                    note = 'แตงโม 160 ลูก (25-5-2569: 80 ลูก, 30-5-2569: 80 ลูก)';
+                }
+            }
+
             if (date && amount) {
                 allExpenses.push([date, month, bucket, cat, note, amount]);
             } else {
