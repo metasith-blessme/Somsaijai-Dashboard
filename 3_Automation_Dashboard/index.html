@@ -281,16 +281,13 @@ body {
     .kpi-row { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
 }
 @media (max-width: 768px) {
-    body { font-size: 17px; } /* ponytail: bump base font for phone readability */
+    body { font-size: 17px; }
     .sidebar {
         position: fixed;
-        left: 0;
-        top: 0;
+        left: 0; top: 0;
         transform: translateX(-280px);
-        width: 260px;
-        height: 100vh;
-        margin: 0;
-        border-radius: 0;
+        width: 260px; height: 100vh;
+        margin: 0; border-radius: 0;
         transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         z-index: 2000;
     }
@@ -298,39 +295,86 @@ body {
     .sidebar.open .logo-area,
     .sidebar.open .nav-item span,
     .sidebar.open .theme-toggle span { display: block; }
-    .mobile-header { display: flex; }
-    .main { margin-left: 0; padding: 16px; }
+    /* ponytail: redesigned mobile header — clean, blurred, premium feel */
+    .mobile-header {
+        display: flex;
+        height: 56px;
+        padding: 0 16px;
+        background: var(--card);
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
+        border-bottom: 1px solid var(--glass-border);
+        box-shadow: 0 1px 8px rgba(0,0,0,0.06);
+    }
+    .mobile-header .hamburger {
+        width: 44px; height: 44px;
+        font-size: 1.3em;
+        border-radius: 12px;
+    }
+    .mobile-header .mobile-title {
+        font-size: 1.05em;
+        font-weight: 800;
+        letter-spacing: -0.3px;
+    }
+    .main { margin-left: 0; padding: 16px; padding-top: 12px; }
+    /* ponytail: command-center as clean floating pill strip — no heavy card background */
     .command-center {
-        flex-direction: column;
-        gap: 10px;
-        padding: 12px 16px;
+        flex-direction: row;
+        gap: 8px;
+        padding: 8px 0;
         position: relative;
         top: 0;
-        border-radius: 16px;
-        margin-bottom: 20px;
+        border-radius: 0;
+        margin-bottom: 16px;
+        background: transparent;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        border: none;
+        box-shadow: none;
     }
+    /* Hide desktop SYSTEM LIVE — mobile header already has LIVE badge */
+    #status { display: none; }
     .selector-group {
         flex-wrap: nowrap;
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
-        gap: 8px;
+        gap: 6px;
         width: 100%;
-        padding-bottom: 4px;
+        padding-bottom: 2px;
+        scrollbar-width: none; /* Firefox */
     }
-    .selector-group::-webkit-scrollbar { height: 3px; }
-    .selector-group::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 4px; }
+    .selector-group::-webkit-scrollbar { display: none; } /* hide scrollbar */
     #monthSelector {
         display: flex;
         flex-wrap: nowrap;
-        gap: 8px;
+        gap: 6px;
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
         width: 100%;
+        scrollbar-width: none;
     }
+    #monthSelector::-webkit-scrollbar { display: none; }
     #monthSelector button, #monthSelector .btn { flex-shrink: 0; white-space: nowrap; }
     .selector-group > div[style] { display: none; }
-    /* ponytail: 44px min tap target — Apple/Google HIG */
-    .btn { padding: 10px 16px; font-size: 0.82em; min-height: 44px; display: inline-flex; align-items: center; justify-content: center; }
+    /* Month pill buttons — compact, rounded, clear active state */
+    .btn {
+        padding: 8px 14px;
+        font-size: 0.78em;
+        min-height: 36px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 20px;
+        border: 1.5px solid var(--glass-border);
+        background: var(--card);
+        transition: all 0.2s ease;
+    }
+    .btn.active {
+        background: var(--text);
+        color: var(--bg);
+        border-color: var(--text);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
     /* KPIs: single column, large values */
     .kpi-row { grid-template-columns: 1fr; gap: 14px; margin-bottom: 24px; }
     .kpi-grid-container { grid-template-columns: 1fr; margin-bottom: 24px; border-radius: 16px; }
@@ -370,15 +414,14 @@ body {
     .stock-card .qty { font-size: 1.5em; }
     /* Nav items: bigger tap targets */
     .nav-item { padding: 16px 20px; min-height: 48px; font-size: 1em; }
-    /* Badge sizing */
     .badge { font-size: 0.75em; padding: 5px 12px; }
 }
 /* ponytail: small phones (iPhone SE / mini ~375px) */
 @media (max-width: 480px) {
     body { font-size: 16px; }
-    .main { padding: 10px; }
-    .command-center { padding: 10px; border-radius: 14px; margin-bottom: 14px; }
-    .btn { padding: 8px 12px; font-size: 0.75em; min-height: 44px; border-radius: 10px; }
+    .main { padding: 10px; padding-top: 8px; }
+    .command-center { padding: 6px 0; margin-bottom: 12px; }
+    .btn { padding: 7px 11px; font-size: 0.72em; min-height: 34px; border-radius: 18px; }
     .kpi-cell { padding: 16px 12px; }
     .kpi-cell .value { font-size: 1.9em; letter-spacing: -0.5px; }
     .kpi-cell .label { font-size: 0.82em; }
@@ -391,12 +434,11 @@ body {
     .chart-container { height: 220px !important; }
     .stock-grid { grid-template-columns: 1fr; gap: 10px; }
     .stock-card .qty { font-size: 1.3em; }
-    .mobile-header { height: 56px; padding: 0 12px; }
-    .mobile-header .mobile-title { font-size: 1em; }
-    .mobile-header .hamburger { width: 44px; height: 44px; font-size: 1.4em; }
+    .mobile-header { height: 52px; padding: 0 12px; }
+    .mobile-header .mobile-title { font-size: 0.95em; }
     .finance-item { font-size: 0.9em; padding: 12px 0; }
     .dashboard-grid { gap: 12px; }
-    .selector-group { gap: 6px; }
+    .selector-group { gap: 5px; }
 }
 .print-header { display: none; }
 @media print {
