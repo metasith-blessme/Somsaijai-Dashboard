@@ -234,31 +234,46 @@ body {
     display: none;
     align-items: center;
     gap: 16px;
-    padding: 16px 20px;
-    background: var(--primary);
-    color: #fff;
+    padding: 0 20px;
+    height: 60px;
+    background: var(--card);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--glass-border);
+    color: var(--text);
     position: sticky;
     top: 0;
     z-index: 1500;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+    box-shadow: var(--shadow);
 }
 .mobile-header .hamburger {
-    background: none; border: none; color: #fff; font-size: 1.6em; cursor: pointer;
+    background: none; border: none; color: var(--text); font-size: 1.6em; cursor: pointer;
     width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;
     border-radius: 12px; transition: background 0.2s;
 }
-.mobile-header .hamburger:hover { background: rgba(255,255,255,0.15); }
+.mobile-header .hamburger:hover { background: rgba(255,255,255,0.1); }
 .mobile-header .mobile-title { font-weight: 800; font-size: 1.1em; letter-spacing: -0.3px; }
 .sidebar-overlay {
-    display: none;
     position: fixed;
     inset: 0;
     background: rgba(0,0,0,0.5);
     z-index: 1900;
     opacity: 0;
+    pointer-events: none;
     transition: opacity 0.3s ease;
 }
-.sidebar-overlay.visible { display: block; opacity: 1; }
+.sidebar-overlay.visible { opacity: 1; pointer-events: auto; }
+.table-responsive-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin-bottom: 1rem;
+}
+.chart-container {
+    position: relative;
+    width: 100%;
+    height: 350px;
+}
 @media (max-width: 1024px) {
     .sidebar { width: 260px; margin: 10px; }
     .main { margin-left: 280px; padding: 20px; }
@@ -268,15 +283,17 @@ body {
 @media (max-width: 768px) {
     .sidebar {
         position: fixed;
-        left: -280px;
+        left: 0;
+        top: 0;
+        transform: translateX(-280px);
         width: 260px;
         height: 100vh;
         margin: 0;
         border-radius: 0;
-        transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         z-index: 2000;
     }
-    .sidebar.open { left: 0; }
+    .sidebar.open { transform: translateX(0); }
     .sidebar.open .logo-area,
     .sidebar.open .nav-item span,
     .sidebar.open .theme-toggle span { display: block; }
@@ -288,24 +305,103 @@ body {
         padding: 12px 16px;
         position: relative;
         top: 0;
+        border-radius: 16px;
+        margin-bottom: 20px;
     }
     .selector-group {
-        flex-wrap: wrap;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
         gap: 8px;
         width: 100%;
+        padding-bottom: 4px;
+    }
+    .selector-group::-webkit-scrollbar {
+        height: 3px;
+    }
+    .selector-group::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 4px;
+    }
+    #monthSelector {
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 8px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        width: 100%;
+    }
+    #monthSelector button, #monthSelector .btn {
+        flex-shrink: 0;
+        white-space: nowrap;
     }
     .selector-group > div[style] { display: none; } /* hide vertical divider */
-    .btn { padding: 8px 14px; font-size: 0.78em; }
-    .kpi-row { grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
-    .kpi-grid-container { grid-template-columns: 1fr 1fr; margin-bottom: 20px; border-radius: 16px; }
-    .kpi-cell { padding: 16px; }
-    .kpi-cell .value { font-size: 1.6em; }
-    .kpi-premium { padding: 18px; border-radius: 20px; }
-    .kpi-premium .value { font-size: 1.6em; }
+    /* ponytail: 44px min tap target for mobile per Apple/Google HIG */
+    .btn { padding: 10px 16px; font-size: 0.82em; min-height: 44px; display: inline-flex; align-items: center; justify-content: center; }
+    /* KPIs: single column for readability on phones */
+    .kpi-row { grid-template-columns: 1fr; gap: 12px; margin-bottom: 20px; }
+    .kpi-grid-container { grid-template-columns: 1fr; margin-bottom: 20px; border-radius: 16px; }
+    .kpi-cell { padding: 18px 16px; }
+    .kpi-cell .label { font-size: 0.85em; }
+    .kpi-cell .value { font-size: 1.8em; }
+    .kpi-premium { padding: 20px; border-radius: 20px; }
+    .kpi-premium .label { font-size: 0.8em; }
+    .kpi-premium .value { font-size: 2em; }
     .dashboard-grid { grid-template-columns: 1fr; gap: 16px; }
     .glass-card { padding: 16px; border-radius: 16px; margin-bottom: 16px; }
-    .premium-table th { padding: 10px 8px; font-size: 0.6em; }
-    .premium-table td { padding: 12px 8px; font-size: 0.8em; }
+    .glass-card h3 { font-size: 1.05em; margin-bottom: 12px; }
+    /* Tables: readable on mobile with scroll hint */
+    .premium-table th { padding: 10px 8px; font-size: 0.65em; }
+    .premium-table td { padding: 12px 8px; font-size: 0.82em; }
+    .table-responsive-wrapper {
+        position: relative;
+    }
+    .table-responsive-wrapper::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 24px;
+        height: 100%;
+        background: linear-gradient(to right, transparent, var(--bg));
+        pointer-events: none;
+        border-radius: 0 16px 16px 0;
+        opacity: 0.7;
+    }
+    .chart-container { height: 260px !important; }
+    /* Finance rows: better spacing */
+    .finance-item { padding: 14px 0; font-size: 0.92em; }
+    .finance-item .val { font-size: 0.95em; }
+    /* Stock grid: single column */
+    .stock-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+    .stock-card { padding: 16px; border-radius: 16px; }
+    .stock-card .qty { font-size: 1.5em; }
+    /* Nav items: bigger tap targets */
+    .nav-item { padding: 16px 20px; min-height: 48px; }
+}
+/* ponytail: extra breakpoint for small phones (iPhone SE, etc.) */
+@media (max-width: 480px) {
+    .main { padding: 12px; }
+    .command-center { padding: 10px 12px; border-radius: 14px; margin-bottom: 16px; }
+    .btn { padding: 8px 12px; font-size: 0.75em; min-height: 44px; border-radius: 10px; }
+    .kpi-cell { padding: 14px 12px; }
+    .kpi-cell .value { font-size: 1.6em; letter-spacing: -0.5px; }
+    .kpi-cell .label { font-size: 0.78em; }
+    .kpi-premium { padding: 16px; border-radius: 16px; }
+    .kpi-premium .value { font-size: 1.8em; }
+    .glass-card { padding: 14px; border-radius: 14px; margin-bottom: 12px; }
+    .glass-card h3 { font-size: 0.95em; }
+    .premium-table th { padding: 8px 6px; font-size: 0.58em; }
+    .premium-table td { padding: 10px 6px; font-size: 0.75em; }
+    .chart-container { height: 220px !important; }
+    .stock-grid { grid-template-columns: 1fr; gap: 10px; }
+    .stock-card .qty { font-size: 1.3em; }
+    .mobile-header { height: 56px; padding: 0 14px; }
+    .mobile-header .mobile-title { font-size: 1em; }
+    .mobile-header .hamburger { width: 44px; height: 44px; font-size: 1.4em; }
+    .finance-item { font-size: 0.88em; padding: 12px 0; }
+    .dashboard-grid { gap: 12px; }
+    .selector-group { gap: 6px; }
 }
 .print-header { display: none; }
 @media print {
@@ -319,6 +415,10 @@ body {
     .command-center button,
     .command-center .btn {
         display: none !important;
+    }
+    .table-responsive-wrapper {
+        overflow: visible !important;
+        display: block !important;
     }
 
     /* Reset global canvas for printer page dimensions */
@@ -526,7 +626,8 @@ body {
             <div class="brand-sub">Premium Intelligence</div>
         </div>
         <div class="nav">
-            <div class="nav-item active" data-view="finance">📊 <span>Finance</span></div>
+            <div class="nav-item active" data-view="overall">🏠 <span>Overall</span></div>
+            <div class="nav-item" data-view="finance">📊 <span>Finance</span></div>
             <div class="nav-item" data-view="report">📜 <span>Reports</span></div>
             <div class="nav-item" data-view="inventory">🍎 <span>Stock</span></div>
             <div class="nav-item" data-view="analytics">📈 <span>Analytics</span></div>
@@ -546,7 +647,30 @@ body {
 
     <div class="kpi-row" id="kpiGrid"></div>
 
-    <div class="section active" id="view-finance">
+    <div class="section active" id="view-overall">
+        <div class="dashboard-grid">
+            <div class="glass-card">
+                <h3>Branch Overview</h3>
+                <div id="overallBranches" style="margin-top:16px"></div>
+            </div>
+            <div class="glass-card">
+                <h3>Stock Alert & Usage</h3>
+                <div id="overallInventory" style="margin-top:16px"></div>
+            </div>
+        </div>
+        <div class="dashboard-grid" style="margin-top:24px">
+            <div class="glass-card">
+                <h3>Audits & System Status</h3>
+                <div id="overallAuditStatus" style="margin-top:16px"></div>
+            </div>
+            <div class="glass-card">
+                <h3>Recent Activity Log</h3>
+                <div id="overallRecentActivity" style="margin-top:16px"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section" id="view-finance">
         <div class="glass-card">
             <h3>Profit & Loss Statement</h3>
             <table class="premium-table"><tbody id="cfBody"></tbody></table>
@@ -562,11 +686,11 @@ body {
         </div>
         <div class="dashboard-grid">
             <div class="glass-card"><h3>Blessme Sharing</h3><table class="premium-table"><thead><tr><th>Branch</th><th class="num">Net Profit</th><th class="num">Loss Offset</th><th class="num">Blessme Share</th></tr></thead><tbody id="profitShareBody"></tbody></table></div>
-            <div class="glass-card"><h3>Break-Even Progress</h3><div style="height:300px"><canvas id="chartBreakEven"></canvas></div></div>
+            <div class="glass-card"><h3>Break-Even Progress</h3><div class="chart-container"><canvas id="chartBreakEven"></canvas></div></div>
         </div>
         <div class="dashboard-grid">
-            <div class="glass-card"><h3>Revenue Performance</h3><div style="height:400px"><canvas id="chartRevPay"></canvas></div></div>
-            <div class="glass-card"><h3>Audit Variance Tracker</h3><div style="height:400px"><canvas id="chartVariance"></canvas></div></div>
+            <div class="glass-card"><h3>Revenue Performance</h3><div class="chart-container"><canvas id="chartRevPay"></canvas></div></div>
+            <div class="glass-card"><h3>Audit Variance Tracker</h3><div class="chart-container"><canvas id="chartVariance"></canvas></div></div>
         </div>
     </div>
 
@@ -591,15 +715,15 @@ body {
                 <h2>Inventory Intelligence</h2>
                 <p style="color:var(--muted)">Proportional material usage tracking.</p>
             </div>
-            <div class="glass-card"><h3>Material Yield (Cups per Unit)</h3><canvas id="chartYield"></canvas></div>
+            <div class="glass-card"><h3>Material Yield (Cups per Unit)</h3><div class="chart-container"><canvas id="chartYield"></canvas></div></div>
         </div>
     </div>
 
     <div class="section" id="view-analytics">
         <div class="dashboard-grid">
-            <div class="glass-card"><h3>Revenue Mix</h3><canvas id="chartProductMix"></canvas></div>
-            <div class="glass-card"><h3>Day-of-Week Heatmap</h3><canvas id="chartDayHeatmap"></canvas></div>
-            <div class="glass-card"><h3>Payment Mix (Scan vs Cash)</h3><canvas id="chartPayMix"></canvas></div>
+            <div class="glass-card"><h3>Revenue Mix</h3><div class="chart-container"><canvas id="chartProductMix"></canvas></div></div>
+            <div class="glass-card"><h3>Day-of-Week Heatmap</h3><div class="chart-container"><canvas id="chartDayHeatmap"></canvas></div></div>
+            <div class="glass-card"><h3>Payment Mix (Scan vs Cash)</h3><div class="chart-container"><canvas id="chartPayMix"></canvas></div></div>
         </div>
     </div>
 
@@ -684,6 +808,7 @@ function updateUI() {
     
     console.log('Updating UI for:', { branch: currentBranch, month: currentMonth, recordCount: sales.length });
 
+    renderOverall(sales, expenses);
     renderKPIs(sales);
     renderFinance(sales, expenses);
     renderInventory(sales);
@@ -692,6 +817,17 @@ function updateUI() {
     renderDailyLog(sales);
     renderBranchSelector();
     renderMonthSelector(Array.from(new Set(Object.keys(DATA.branches).flatMap(b => Object.keys(DATA.branches[b].sales)))).sort(monthSort));
+    wrapTables();
+}
+
+function wrapTables() {
+    document.querySelectorAll('table.premium-table').forEach(table => {
+        if (table.parentElement.classList.contains('table-responsive-wrapper')) return;
+        const wrapper = document.createElement('div');
+        wrapper.className = 'table-responsive-wrapper';
+        table.parentNode.insertBefore(wrapper, table);
+        wrapper.appendChild(table);
+    });
 }
 
 function getCleanSales(branch, month) {
@@ -778,14 +914,16 @@ function renderKPIs(sales) {
 }
 
 function renderFinance(sales, expenses) {
-    let tRev, b1Rev, b2Rev, tMat, b1Mat, b2Mat, tExp, b1Exp, b2Exp, tNet, b1Net, b2Net, b1Share, b2Share, b1LossCF, b2LossCF, tFix;
+    let tRev, b1Rev, b2Rev, tMat, b1Mat, b2Mat, tExp, b1Exp, b2Exp, tRent, b1Rent, b2Rent, tOpex, b1Opex, b2Opex, tNet, b1Net, b2Net, b1Share, b2Share, b1LossCF, b2LossCF, tFix;
     const branches = ['B1', 'B2'];
     
     if (REPORTS_DATA && REPORTS_DATA[currentMonth]) {
         const r = REPORTS_DATA[currentMonth];
         b1Rev = r.b1.rev; b2Rev = r.b2.rev; tRev = r.total_rev;
         b1Mat = r.b1.cogs; b2Mat = r.b2.cogs; tMat = r.total_cogs;
-        b1Exp = r.b1.opex; b2Exp = r.b2.opex; tExp = b1Exp + b2Exp;
+        b1Rent = r.b1.rental || 0; b2Rent = r.b2.rental || 0; tRent = b1Rent + b2Rent;
+        b1Opex = r.b1.opex || 0; b2Opex = r.b2.opex || 0; tOpex = b1Opex + b2Opex;
+        b1Exp = b1Rent + b1Opex; b2Exp = b2Rent + b2Opex; tExp = b1Exp + b2Exp;
         b1Net = r.b1.net; b2Net = r.b2.net; tNet = b1Net + b2Net;
         b1Share = r.b1.share; b2Share = r.b2.share;
         b1LossCF = r.b1.loss_carry_forward || 0;
@@ -798,9 +936,13 @@ function renderFinance(sales, expenses) {
         b1Mat = bs1.reduce((s, r) => s + ((r.uo||0)*700 + (r.uw||0)*35 + (r.uap||0)*30 + (r.umg||0)*150 + (r.uco_raw||0)*35), 0);
         b2Mat = bs2.reduce((s, r) => s + ((r.uo||0)*700 + (r.uw||0)*35 + (r.uap||0)*30 + (r.umg||0)*150 + (r.uco_raw||0)*35), 0);
         tMat = b1Mat + b2Mat;
-        b1Exp = expenses.filter(e => e.branch === 'B1').reduce((s,e) => s + e.amt, 0);
-        b2Exp = expenses.filter(e => e.branch === 'B2').reduce((s,e) => s + e.amt, 0);
-        tExp = b1Exp + b2Exp;
+        b1Rent = expenses.filter(e => e.branch === 'B1' && e.cat === 'Rental').reduce((s,e) => s + e.amt, 0);
+        b2Rent = expenses.filter(e => e.branch === 'B2' && e.cat === 'Rental').reduce((s,e) => s + e.amt, 0);
+        tRent = b1Rent + b2Rent;
+        b1Opex = expenses.filter(e => e.branch === 'B1' && e.cat !== 'Rental').reduce((s,e) => s + e.amt, 0);
+        b2Opex = expenses.filter(e => e.branch === 'B2' && e.cat !== 'Rental').reduce((s,e) => s + e.amt, 0);
+        tOpex = b1Opex + b2Opex;
+        b1Exp = b1Rent + b1Opex; b2Exp = b2Rent + b2Opex; tExp = b1Exp + b2Exp;
         b1Net = b1Rev - b1Mat - b1Exp;
         b2Net = b2Rev - b2Mat - b2Exp;
         tNet = b1Net + b2Net;
@@ -816,6 +958,9 @@ function renderFinance(sales, expenses) {
         tFix = (PARAMS.fixed[currentBranch] || 0) * activeMonths.length;
     }
 
+    const displayRent = currentBranch === 'all' ? tRent : (currentBranch === 'B1' ? b1Rent : b2Rent);
+    const displayOpex = currentBranch === 'all' ? tOpex : (currentBranch === 'B1' ? b1Opex : b2Opex);
+
     document.getElementById('cfBody').innerHTML = `
         <tr><td><b>Revenue (Total)</b></td><td class="num">฿${fmt(tRev)}</td><td class="num">100%</td></tr>
         <tr style="color:var(--muted)"><td>&nbsp;&nbsp;Branch 1</td><td class="num">฿${fmt(b1Rev)}</td><td class="num">${tRev?(b1Rev/tRev*100).toFixed(0)+'%':''}</td></tr>
@@ -823,7 +968,13 @@ function renderFinance(sales, expenses) {
         
         <tr><td><b>Material Costs</b></td><td class="num" style="color:var(--red)">- ฿${fmt(tMat)}</td><td class="num">${tRev?(tMat/tRev*100).toFixed(1)+'%':''}</td></tr>
         
-        <tr><td><b>Operating Expenses</b></td><td class="num" style="color:var(--red)">- ฿${fmt(tExp)}</td><td class="num">${tRev?(tExp/tRev*100).toFixed(1)+'%':''}</td></tr>
+        <tr><td><b>Rental Costs</b></td><td class="num" style="color:var(--red)">- ฿${fmt(displayRent)}</td><td class="num">${tRev?(displayRent/tRev*100).toFixed(1)+'%':''}</td></tr>
+        ${currentBranch === 'all' ? `
+        <tr style="color:var(--muted)"><td>&nbsp;&nbsp;Branch 1 Rental</td><td class="num">฿${fmt(b1Rent)}</td><td class="num">${tRev?(b1Rent/tRev*100).toFixed(1)+'%':''}</td></tr>
+        <tr style="color:var(--muted)"><td>&nbsp;&nbsp;Branch 2 Rental</td><td class="num">฿${fmt(b2Rent)}</td><td class="num">${tRev?(b2Rent/tRev*100).toFixed(1)+'%':''}</td></tr>
+        ` : ''}
+        
+        <tr><td><b>Other OPEX</b></td><td class="num" style="color:var(--red)">- ฿${fmt(displayOpex)}</td><td class="num">${tRev?(displayOpex/tRev*100).toFixed(1)+'%':''}</td></tr>
         
         <tr style="background:rgba(0,0,0,0.05); font-weight:800">
             <td><b>Net Operational Profit</b></td>
@@ -856,7 +1007,7 @@ function renderFinance(sales, expenses) {
         </tr>
     `).join('') + (expenses.length === 0 ? '<tr><td colspan="4" style="text-align:center; color:var(--muted)">No OPEX data for this period.</td></tr>' : `
         <tr style="background:rgba(0,0,0,0.05); font-weight:700">
-            <td colspan="3"><b>TOTAL OPEX</b></td>
+            <td colspan="3"><b>TOTAL OPEX (incl. Rent)</b></td>
             <td class="num"><b>฿${fmt(tExp)}</b></td>
         </tr>
     `);
@@ -953,7 +1104,7 @@ function renderInventory(sales) {
             labels: items.map(i=>i.n),
             datasets: [{ label: 'Cups per Unit', data: yieldData, backgroundColor: 'var(--blue)' }]
         },
-        options: { indexAxis: 'y', responsive: true }
+        options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false }
     });
 
     // Add Detailed Stock Table if LEDGER exists
@@ -994,7 +1145,7 @@ function renderAnalytics(sales) {
                 backgroundColor: ['#ff9800','#4caf50','#ffc107','#795548','#f44336','#8bc34a','#ffeb3b'] 
             }] 
         },
-        options: { plugins: { legend: { position: 'bottom' } } }
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
     });
 
     // Day of Week Heatmap
@@ -1003,7 +1154,8 @@ function renderAnalytics(sales) {
     const dayRev = days.map(d => sum(sales.filter(s=>s.day===d), 'rev'));
     charts.day = new Chart(document.getElementById('chartDayHeatmap'), {
         type: 'bar',
-        data: { labels: days, datasets: [{ label: 'Revenue by Day', data: dayRev, backgroundColor: 'var(--primary)' }] }
+        data: { labels: days, datasets: [{ label: 'Revenue by Day', data: dayRev, backgroundColor: 'var(--primary)' }] },
+        options: { responsive: true, maintainAspectRatio: false }
     });
 
     // Payment Mix
@@ -1011,7 +1163,8 @@ function renderAnalytics(sales) {
     const payData = { Scan: sum(sales, 'scan'), Cash: sum(sales, 'cash') };
     charts.pay = new Chart(document.getElementById('chartPayMix'), {
         type: 'pie',
-        data: { labels: ['Scan','Cash'], datasets: [{ data: [payData.Scan, payData.Cash], backgroundColor: ['var(--blue)','var(--green)'] }] }
+        data: { labels: ['Scan','Cash'], datasets: [{ data: [payData.Scan, payData.Cash], backgroundColor: ['var(--blue)','var(--green)'] }] },
+        options: { responsive: true, maintainAspectRatio: false }
     });
 
     // Velocity Analysis
@@ -1031,6 +1184,137 @@ function renderAnalytics(sales) {
     } else {
         document.getElementById('velocityCard').innerHTML = velocityHtml;
     }
+}
+
+function renderOverall(sales, expenses) {
+    const reportExists = REPORTS_DATA && REPORTS_DATA[currentMonth];
+    let b1Rev = 0, b2Rev = 0, b1Net = 0, b2Net = 0, b1Share = 0, b2Share = 0;
+    
+    if (reportExists) {
+        const r = REPORTS_DATA[currentMonth];
+        b1Rev = r.b1.rev; b2Rev = r.b2.rev;
+        b1Net = r.b1.net; b2Net = r.b2.net;
+        b1Share = r.b1.share; b2Share = r.b2.share;
+    } else {
+        const bs1 = sales.filter(s => s.branch === 'B1');
+        const bs2 = sales.filter(s => s.branch === 'B2');
+        b1Rev = sum(bs1, 'rev'); b2Rev = sum(bs2, 'rev');
+        const b1Mat = bs1.reduce((s, r) => s + ((r.uo||0)*700 + (r.uw||0)*35 + (r.uap||0)*30 + (r.umg||0)*150 + (r.uco_raw||0)*35), 0);
+        const b2Mat = bs2.reduce((s, r) => s + ((r.uo||0)*700 + (r.uw||0)*35 + (r.uap||0)*30 + (r.umg||0)*150 + (r.uco_raw||0)*35), 0);
+        const b1Exp = expenses.filter(e => e.branch === 'B1').reduce((s,e) => s + e.amt, 0);
+        const b2Exp = expenses.filter(e => e.branch === 'B2').reduce((s,e) => s + e.amt, 0);
+        b1Net = b1Rev - b1Mat - b1Exp;
+        b2Net = b2Rev - b2Mat - b2Exp;
+        b1Share = Math.max(0, b1Net * 0.6);
+        b2Share = Math.max(0, b2Net * 0.7);
+    }
+    
+    const b1RevPct = (b1Rev + b2Rev) > 0 ? (b1Rev / (b1Rev + b2Rev) * 100).toFixed(0) : 0;
+    const b2RevPct = (b1Rev + b2Rev) > 0 ? (b2Rev / (b1Rev + b2Rev) * 100).toFixed(0) : 0;
+    
+    document.getElementById('overallBranches').innerHTML = `
+        <div style="display:flex; flex-direction:column; gap:20px">
+            <div>
+                <div style="display:flex; justify-content:space-between; margin-bottom:8px">
+                    <span style="font-weight:700"><span class="badge badge-b1">B1</span> Branch 1</span>
+                    <span style="font-weight:700">฿${fmt(b1Rev)} (${b1RevPct}%)</span>
+                </div>
+                <div style="background:rgba(0,0,0,0.05); height:8px; border-radius:4px; overflow:hidden">
+                    <div style="background:var(--primary); width:${b1RevPct}%; height:100%"></div>
+                </div>
+                <div style="display:flex; justify-content:space-between; margin-top:8px; font-size:0.85em; color:var(--muted)">
+                    <span>Net Profit: <b style="color:${b1Net>=0?'var(--green)':'var(--red)'}">฿${fmt(b1Net)}</b></span>
+                    <span>Blessme Share: <b>฿${fmt(b1Share)}</b></span>
+                </div>
+            </div>
+            
+            <hr style="border:none; border-top:1px solid var(--glass-border); margin:0">
+            
+            <div>
+                <div style="display:flex; justify-content:space-between; margin-bottom:8px">
+                    <span style="font-weight:700"><span class="badge badge-b2">B2</span> Branch 2</span>
+                    <span style="font-weight:700">฿${fmt(b2Rev)} (${b2RevPct}%)</span>
+                </div>
+                <div style="background:rgba(0,0,0,0.05); height:8px; border-radius:4px; overflow:hidden">
+                    <div style="background:#3498db; width:${b2RevPct}%; height:100%"></div>
+                </div>
+                <div style="display:flex; justify-content:space-between; margin-top:8px; font-size:0.85em; color:var(--muted)">
+                    <span>Net Profit: <b style="color:${b2Net>=0?'var(--green)':'var(--red)'}">฿${fmt(b2Net)}</b></span>
+                    <span>Blessme Share: <b>฿${fmt(b2Share)}</b></span>
+                </div>
+            </div>
+        </div>
+    `;
+
+    const items = [
+        { k: 'orange', b: 'uo', i: '🍊', n: 'Orange', u: 'Basket' },
+        { k: 'watermelon', b: 'uw', i: '🍉', n: 'Watermelon', u: 'Pcs' },
+        { k: 'mango', b: 'umg', i: '🥭', n: 'Mango', u: 'Kg' },
+        { k: 'coconut', b: 'uco_raw', i: '🥥', n: 'Coconut', u: 'Pcs' },
+        { k: 'apple', b: 'uap', i: '🍎', n: 'Apple', u: 'Pcs' }
+    ];
+    
+    document.getElementById('overallInventory').innerHTML = `
+        <div style="display:flex; flex-direction:column; gap:12px">
+            ${items.map(item => {
+                const burn = sum(sales, item.b);
+                let stock = 0;
+                if (LEDGER && LEDGER.physical_checks) {
+                    const check = LEDGER.physical_checks.filter(c => c.item === item.k).sort((a,b)=>b.date.localeCompare(a.date))[0];
+                    stock = check ? check.qty : 0;
+                }
+                const isLow = stock < burn;
+                return `
+                    <div style="display:flex; align-items:center; justify-content:space-between">
+                        <span style="font-size:0.95em">${item.i} <b>${item.n}</b></span>
+                        <span style="font-size:0.95em">Used: <b>${burn.toFixed(1)}</b> ${item.u} | Stock: <b style="color:${isLow?'var(--red)':'var(--green)'}">${stock}</b></span>
+                    </div>
+                `;
+            }).join('')}
+        </div>
+    `;
+
+    const diff = sales.reduce((s, r) => s + (r.audit ? r.audit.rev_diff : 0), 0);
+    const flagged = sales.filter(r => r.audit && r.audit.is_flagged);
+    const isGood = Math.abs(diff) < 500 && flagged.length === 0;
+    
+    document.getElementById('overallAuditStatus').innerHTML = `
+        <div style="display:flex; flex-direction:column; gap:16px; text-align:center; padding:10px 0">
+            <div style="font-size:32px">${isGood?'✅':'⚠️'}</div>
+            <div>
+                <h4 style="margin:0 0 4px 0">${isGood?'All Audits Normal':'Audit Attention Required'}</h4>
+                <p style="margin:0; font-size:0.85em; color:var(--muted)">
+                    Monthly Net Variance: <b>${diff >= 0 ? '+' : ''}฿${fmt(diff)}</b>
+                </p>
+            </div>
+            ${flagged.length > 0 ? `
+                <div style="background:rgba(231,76,60,0.05); padding:8px; border-radius:4px; font-size:0.8em; color:var(--red)">
+                    <b>${flagged.length} day(s) flagged</b> with high variance.
+                </div>
+            ` : `
+                <div style="background:rgba(46,204,113,0.05); padding:8px; border-radius:4px; font-size:0.8em; color:var(--green)">
+                    All daily receipts match theoretical yields.
+                </div>
+            `}
+        </div>
+    `;
+
+    const latestSales = sales.slice(-4).reverse();
+    document.getElementById('overallRecentActivity').innerHTML = `
+        <table class="premium-table" style="font-size:0.85em">
+            <thead><tr><th>Date</th><th>Branch</th><th class="num">Revenue</th><th class="num">Cups</th></tr></thead>
+            <tbody>
+                ${latestSales.map(r => `
+                    <tr>
+                        <td>${r.d}</td>
+                        <td><span class="badge badge-${r.branch.toLowerCase()}">${r.branch}</span></td>
+                        <td class="num">฿${fmt(r.rev)}</td>
+                        <td class="num">${r.tot} cups</td>
+                    </tr>
+                `).join('')}
+            </tbody>
+        </table>
+    `;
 }
 
 function renderDailyLog(sales) {
@@ -1095,6 +1379,7 @@ function renderReport(sales) {
 
     const r = REPORTS_DATA[currentMonth];
     const totalNet = r.b1.net + r.b2.net;
+    const totalRental = (r.b1.rental || 0) + (r.b2.rental || 0);
     const totalOpex = r.b1.opex + r.b2.opex;
     const grossProfit = r.total_rev - r.total_cogs;
     const grossMargin = r.total_rev > 0 ? (grossProfit / r.total_rev * 100) : 0;
@@ -1109,12 +1394,13 @@ function renderReport(sales) {
     const sec1 = `
         <div class="glass-card" style="padding:20px; border:none; background:rgba(0,0,0,0.02)">
             <h3 style="color:var(--accent); margin-bottom:20px">1. EXECUTIVE SUMMARY</h3>
-            <div class="kpi-row" style="margin-bottom:0; display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:16px">
+            <div class="kpi-row" style="margin-bottom:0; display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:16px">
                 <div class="kpi-premium"><div class="label">Total Revenue</div><div class="value">฿${fmt(r.total_rev)}</div></div>
                 <div class="kpi-premium"><div class="label">Total COGS</div><div class="value" style="color:var(--red)">฿${fmt(r.total_cogs)}</div></div>
                 <div class="kpi-premium"><div class="label">Gross Margin</div><div class="value" style="color:${grossMargin>=50?'var(--green)':grossMargin>=30?'var(--accent)':'var(--red)'}">${grossMargin.toFixed(1)}%</div></div>
                 <div class="kpi-premium"><div class="label">Net Profit</div><div class="value" style="color:${totalNet>=0?'var(--green)':'var(--red)'}">฿${fmt(totalNet)}</div></div>
-                <div class="kpi-premium"><div class="label">Total OPEX</div><div class="value">฿${fmt(totalOpex)}</div></div>
+                <div class="kpi-premium"><div class="label">Total Rental</div><div class="value">฿${fmt(totalRental)}</div></div>
+                <div class="kpi-premium"><div class="label">Other OPEX</div><div class="value">฿${fmt(totalOpex)}</div></div>
                 <div class="kpi-premium"><div class="label">Blessme Share</div><div class="value" style="color:var(--accent)">฿${fmt(totalShare)}</div></div>
             </div>
         </div>`;
@@ -1133,7 +1419,8 @@ function renderReport(sales) {
                     <tr><td><b>Revenue</b></td><td class="num">฿${fmt(r.b1.rev)}</td><td class="num">฿${fmt(r.b2.rev)}</td><td class="num"><b>฿${fmt(r.total_rev)}</b></td><td class="num">100%</td></tr>
                     <tr style="color:var(--red)"><td>Less: COGS</td><td class="num">(฿${fmt(r.b1.cogs)})</td><td class="num">(฿${fmt(r.b2.cogs)})</td><td class="num">(฿${fmt(r.total_cogs)})</td><td class="num">${r.total_rev?(r.total_cogs/r.total_rev*100).toFixed(1):'0'}%</td></tr>
                     <tr style="background:rgba(0,0,0,0.03)"><td><b>Gross Profit</b></td><td class="num">฿${fmt(b1GP)}</td><td class="num">฿${fmt(b2GP)}</td><td class="num"><b>฿${fmt(grossProfit)}</b></td><td class="num" style="color:${grossMargin>=50?'var(--green)':'var(--accent)'}">${grossMargin.toFixed(1)}%</td></tr>
-                    <tr style="color:var(--red)"><td>Less: OPEX</td><td class="num">(฿${fmt(r.b1.opex)})</td><td class="num">(฿${fmt(r.b2.opex)})</td><td class="num">(฿${fmt(totalOpex)})</td><td class="num">${r.total_rev?(totalOpex/r.total_rev*100).toFixed(1):'0'}%</td></tr>
+                    <tr style="color:var(--red)"><td>Less: Rental</td><td class="num">(฿${fmt(r.b1.rental || 0)})</td><td class="num">(฿${fmt(r.b2.rental || 0)})</td><td class="num">(฿${fmt(totalRental)})</td><td class="num">${r.total_rev?(totalRental/r.total_rev*100).toFixed(1):'0'}%</td></tr>
+                    <tr style="color:var(--red)"><td>Less: Other OPEX</td><td class="num">(฿${fmt(r.b1.opex)})</td><td class="num">(฿${fmt(r.b2.opex)})</td><td class="num">(฿${fmt(totalOpex)})</td><td class="num">${r.total_rev?(totalOpex/r.total_rev*100).toFixed(1):'0'}%</td></tr>
                     <tr style="background:rgba(0,0,0,0.05); font-weight:800"><td><b>Net Operational Profit</b></td><td class="num" style="color:${r.b1.net>=0?'var(--green)':'var(--red)'}">฿${fmt(r.b1.net)}</td><td class="num" style="color:${r.b2.net>=0?'var(--green)':'var(--red)'}">฿${fmt(r.b2.net)}</td><td class="num" style="color:${totalNet>=0?'var(--green)':'var(--red)'}"><b>฿${fmt(totalNet)}</b></td><td class="num">${r.total_rev?(totalNet/r.total_rev*100).toFixed(1):'0'}%</td></tr>
                     <tr style="border-top:2px solid var(--glass-border)"><td colspan="5" style="padding-top:16px"><b>Audit Reconciliation</b></td></tr>
                     <tr><td>Theoretical Revenue</td><td colspan="2"></td><td class="num">฿${fmt(totalTheoRev)}</td><td></td></tr>
@@ -1151,13 +1438,14 @@ function renderReport(sales) {
         <div class="glass-card" style="padding:20px; border:none; background:rgba(0,0,0,0.02)">
             <h3 style="color:var(--accent); margin-bottom:20px">3. BRANCH PERFORMANCE & PROFIT SHARING</h3>
             <table class="premium-table">
-                <thead><tr><th>Branch</th><th class="num">Revenue</th><th class="num">COGS</th><th class="num">Gross Profit</th><th class="num">OPEX</th><th class="num">Net Profit</th><th class="num">Loss Offset</th><th class="num">Blessme Share</th></tr></thead>
+                <thead><tr><th>Branch</th><th class="num">Revenue</th><th class="num">COGS</th><th class="num">Gross Profit</th><th class="num">Rental</th><th class="num">Other OPEX</th><th class="num">Net Profit</th><th class="num">Loss Offset</th><th class="num">Blessme Share</th></tr></thead>
                 <tbody>
                     <tr>
                         <td><span class="badge badge-b1">B1</span> (60%)</td>
                         <td class="num">฿${fmt(r.b1.rev)}</td>
                         <td class="num">฿${fmt(r.b1.cogs)}</td>
                         <td class="num">฿${fmt(b1GP)}</td>
+                        <td class="num">฿${fmt(r.b1.rental || 0)}</td>
                         <td class="num">฿${fmt(r.b1.opex)}</td>
                         <td class="num" style="color:${r.b1.net>=0?'var(--green)':'var(--red)'}">฿${fmt(r.b1.net)}</td>
                         <td class="num" style="color:var(--red)">${r.b1.loss_carry_forward > 0 ? `-฿${fmt(Math.min(r.b1.net >= 0 ? r.b1.net : 0, r.b1.loss_carry_forward))}` : '฿0'}</td>
@@ -1168,6 +1456,7 @@ function renderReport(sales) {
                         <td class="num">฿${fmt(r.b2.rev)}</td>
                         <td class="num">฿${fmt(r.b2.cogs)}</td>
                         <td class="num">฿${fmt(b2GP)}</td>
+                        <td class="num">฿${fmt(r.b2.rental || 0)}</td>
                         <td class="num">฿${fmt(r.b2.opex)}</td>
                         <td class="num" style="color:${r.b2.net>=0?'var(--green)':'var(--red)'}">฿${fmt(r.b2.net)}</td>
                         <td class="num" style="color:var(--red)">${r.b2.loss_carry_forward > 0 ? `-฿${fmt(Math.min(r.b2.net >= 0 ? r.b2.net : 0, r.b2.loss_carry_forward))}` : '฿0'}</td>
@@ -1178,6 +1467,7 @@ function renderReport(sales) {
                         <td class="num">฿${fmt(r.total_rev)}</td>
                         <td class="num">฿${fmt(r.total_cogs)}</td>
                         <td class="num">฿${fmt(grossProfit)}</td>
+                        <td class="num">฿${fmt(totalRental)}</td>
                         <td class="num">฿${fmt(totalOpex)}</td>
                         <td class="num" style="color:${totalNet>=0?'var(--green)':'var(--red)'}">฿${fmt(totalNet)}</td>
                         <td class="num" style="color:var(--red)">${(r.b1.loss_carry_forward + r.b2.loss_carry_forward) > 0 ? `-฿${fmt(Math.min(r.b1.net >= 0 ? r.b1.net : 0, r.b1.loss_carry_forward) + Math.min(r.b2.net >= 0 ? r.b2.net : 0, r.b2.loss_carry_forward))}` : '฿0'}</td>
