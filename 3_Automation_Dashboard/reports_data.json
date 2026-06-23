@@ -2178,10 +2178,10 @@
     ]
   },
   "Jun26": {
-    "total_rev": 144050,
-    "total_cogs": 84238,
+    "total_rev": 206100,
+    "total_cogs": 127357,
     "b1": {
-      "rev": 84960,
+      "rev": 124150,
       "rental": 35000,
       "opex": 0,
       "opex_list": [
@@ -2195,14 +2195,14 @@
           "branch": "B1"
         }
       ],
-      "cogs": 38947.81009208901,
-      "net": 11012.189907910993,
+      "cogs": 62511.335946708736,
+      "net": 26638.664053291264,
       "loss_carry_forward": 0,
-      "adjusted_net": 11012.189907910993,
-      "share": 6607.313944746596
+      "adjusted_net": 26638.664053291264,
+      "share": 15983.198431974757
     },
     "b2": {
-      "rev": 59090,
+      "rev": 81950,
       "rental": 30000,
       "opex": 0,
       "opex_list": [
@@ -2216,23 +2216,24 @@
           "branch": "B2"
         }
       ],
-      "cogs": 45290.18990791099,
-      "net": -16200.189907910993,
+      "cogs": 64845.66405329127,
+      "net": -12895.664053291272,
       "loss_carry_forward": 0,
       "adjusted_net": 0,
       "share": 0
     },
     "fruit_summary": {
-      "Pineapple": 8442,
-      "Guava": 2700,
-      "Watermelon": 23200,
-      "Mango": 3380,
-      "Apple": 4900,
-      "Packaging": 11116,
-      "Orange": 14300,
-      "Transportation": 2000,
+      "Pineapple": 10367,
+      "Guava": 5000,
+      "Watermelon": 29700,
+      "Mango": 6312,
+      "Apple": 6650,
+      "Packaging": 11265,
+      "Orange": 30745,
+      "Transportation": 4000,
       "Stock": 12000,
-      "Coconut Water": 2200
+      "Coconut Water": 11300,
+      "Ice": 18
     },
     "daily_cogs": [
       {
@@ -2408,43 +2409,139 @@
         "desc": "สับปะรด 1 ลูก",
         "cat": "Pineapple",
         "amt": 50
+      },
+      {
+        "date": "15/06/2026",
+        "desc": "Unknown",
+        "cat": "Ice",
+        "amt": 18
+      },
+      {
+        "date": "15/06/2026",
+        "desc": "สับปะรด 12 ลูก",
+        "cat": "Pineapple",
+        "amt": 525
+      },
+      {
+        "date": "15/06/2026",
+        "desc": "ฝรั่ง 1 ตะกร้า",
+        "cat": "Guava",
+        "amt": 800
+      },
+      {
+        "date": "17/06/2026",
+        "desc": "รอบ 09/06/69",
+        "cat": "Orange",
+        "amt": 16445
+      },
+      {
+        "date": "18/06/2026",
+        "desc": "มะม่วง 1 ลัง",
+        "cat": "Mango",
+        "amt": 1300
+      },
+      {
+        "date": "18/06/2026",
+        "desc": "เนื้อมะพร้าว 20 * 120 2400 น้ำมะพร้าว 20 *",
+        "cat": "Coconut Water",
+        "amt": 3400
+      },
+      {
+        "date": "18/06/2026",
+        "desc": "ฝรั่ง 1 ตะกร้า",
+        "cat": "Guava",
+        "amt": 800
+      },
+      {
+        "date": "19/06/2026",
+        "desc": "น้ำมะพร้าว40ลิตร ลิตรละ45บาท",
+        "cat": "Coconut Water",
+        "amt": 5700
+      },
+      {
+        "date": "19/06/2026",
+        "desc": "น้ำยาล้างจาน 7 ถุง ผงซักฟอก 1",
+        "cat": "Packaging",
+        "amt": 149
+      },
+      {
+        "date": "21/06/2026",
+        "desc": "15-6-2569 แตงโม 50บาท 50 ลูก ยอด 2,500",
+        "cat": "Watermelon",
+        "amt": 6500
+      },
+      {
+        "date": "22/06/2026",
+        "desc": "สับปะรด 15 ลูก",
+        "cat": "Pineapple",
+        "amt": 700
+      },
+      {
+        "date": "22/06/2026",
+        "desc": "มะม่วง 2 ลัง",
+        "cat": "Mango",
+        "amt": 1632
+      },
+      {
+        "date": "22/06/2026",
+        "desc": "Lalamove",
+        "cat": "Transportation",
+        "amt": 2000
+      },
+      {
+        "date": "22/06/2026",
+        "desc": "แอพเปิ้ล 5 ลัง",
+        "cat": "Apple",
+        "amt": 1750
+      },
+      {
+        "date": "22/06/2026",
+        "desc": "สับปะรด 15 ลูก",
+        "cat": "Pineapple",
+        "amt": 700
+      },
+      {
+        "date": "22/06/2026",
+        "desc": "ฝรั่ง 1 ลัง",
+        "cat": "Guava",
+        "amt": 700
       }
     ],
     "fruit_performance": [
       {
         "name": "Orange",
-        "rev": 44760,
-        "cost": 14300,
-        "cups": 746,
-        "roi": "213.0%"
+        "rev": 60960,
+        "cost": 30745,
+        "cups": 1016,
+        "roi": "98.3%"
       },
       {
         "name": "Watermelon",
-        "rev": 41200,
-        "cost": 23200,
-        "cups": 824,
-        "roi": "77.6%"
+        "rev": 64650,
+        "cost": 29700,
+        "cups": 1293,
+        "roi": "117.7%"
       },
       {
         "name": "Mango",
-        "rev": 8730,
-        "cost": 3380,
-        "cups": 97,
-        "roi": "158.3%"
+        "rev": 15210,
+        "cost": 6312,
+        "cups": 169,
+        "roi": "141.0%"
       },
       {
         "name": "Apple",
-        "rev": 13320,
-        "cost": 4900,
-        "cups": 222,
-        "roi": "171.8%"
+        "rev": 17520,
+        "cost": 6650,
+        "cups": 292,
+        "roi": "163.5%"
       },
       {
         "name": "Coconut",
-        "rev": 24840,
-        "cost": 2200,
-        "cups": 414,
-        "roi": "1029.1%"
+        "rev": 33720,
+        "cost": 11300,
+        "cups": 562,
+        "roi": "198.4%"
       },
       {
         "name": "Young Coco",
@@ -2455,25 +2552,25 @@
       },
       {
         "name": "Guava",
-        "rev": 3780,
+        "rev": 5220,
         "cost": 0,
-        "cups": 63,
+        "cups": 87,
         "roi": "N/A"
       },
       {
         "name": "Pineapple",
-        "rev": 5400,
-        "cost": 8442,
-        "cups": 90,
-        "roi": "-36.0%"
+        "rev": 7440,
+        "cost": 10367,
+        "cups": 124,
+        "roi": "-28.2%"
       }
     ]
   },
   "all": {
-    "total_rev": 1845419,
-    "total_cogs": 851967.47,
+    "total_rev": 1907469,
+    "total_cogs": 895086.47,
     "b1": {
-      "rev": 1549688,
+      "rev": 1588878,
       "opex": 174476,
       "rental": 106324,
       "opex_list": [
@@ -2739,14 +2836,14 @@
           "branch": "B1"
         }
       ],
-      "cogs": 695931.0801098521,
-      "net": 572956.9198901479,
-      "share": 343774.1519340887,
+      "cogs": 719494.6059644718,
+      "net": 588583.3940355282,
+      "share": 353150.0364213168,
       "loss_carry_forward": 0,
       "adjusted_net": 0
     },
     "b2": {
-      "rev": 295731,
+      "rev": 318591,
       "opex": 72882,
       "rental": 60000,
       "opex_list": [
@@ -2832,27 +2929,27 @@
           "branch": "B2"
         }
       ],
-      "cogs": 156036.38989014775,
-      "net": 6812.610109852241,
+      "cogs": 175591.86403552804,
+      "net": 10117.135964471963,
       "share": 16108.960012434263,
       "loss_carry_forward": 0,
       "adjusted_net": 0
     },
     "fruit_summary": {
-      "Packaging": 91848,
-      "Ice": 157091.47,
-      "Transportation": 45657,
-      "Watermelon": 145840,
-      "Orange": 291968,
-      "Apple": 24401,
-      "Mango": 33030,
-      "Coconut Water": 6100,
+      "Packaging": 91997,
+      "Ice": 157109.47,
+      "Transportation": 47657,
+      "Watermelon": 152340,
+      "Orange": 308413,
+      "Apple": 26151,
+      "Mango": 35962,
+      "Coconut Water": 15200,
       "Water": 2800,
       "Coconut": 5435,
       "Milk/Conden": 3282,
       "Other": 1500,
-      "Guava": 14123,
-      "Pineapple": 13392,
+      "Guava": 16423,
+      "Pineapple": 15317,
       "Coconut Meat": 3500,
       "Stock": 12000
     },
@@ -4392,43 +4489,139 @@
         "desc": "สับปะรด 1 ลูก",
         "cat": "Pineapple",
         "amt": 50
+      },
+      {
+        "date": "15/06/2026",
+        "desc": "Unknown",
+        "cat": "Ice",
+        "amt": 18
+      },
+      {
+        "date": "15/06/2026",
+        "desc": "สับปะรด 12 ลูก",
+        "cat": "Pineapple",
+        "amt": 525
+      },
+      {
+        "date": "15/06/2026",
+        "desc": "ฝรั่ง 1 ตะกร้า",
+        "cat": "Guava",
+        "amt": 800
+      },
+      {
+        "date": "17/06/2026",
+        "desc": "รอบ 09/06/69",
+        "cat": "Orange",
+        "amt": 16445
+      },
+      {
+        "date": "18/06/2026",
+        "desc": "มะม่วง 1 ลัง",
+        "cat": "Mango",
+        "amt": 1300
+      },
+      {
+        "date": "18/06/2026",
+        "desc": "เนื้อมะพร้าว 20 * 120 2400 น้ำมะพร้าว 20 *",
+        "cat": "Coconut Water",
+        "amt": 3400
+      },
+      {
+        "date": "18/06/2026",
+        "desc": "ฝรั่ง 1 ตะกร้า",
+        "cat": "Guava",
+        "amt": 800
+      },
+      {
+        "date": "19/06/2026",
+        "desc": "น้ำมะพร้าว40ลิตร ลิตรละ45บาท",
+        "cat": "Coconut Water",
+        "amt": 5700
+      },
+      {
+        "date": "19/06/2026",
+        "desc": "น้ำยาล้างจาน 7 ถุง ผงซักฟอก 1",
+        "cat": "Packaging",
+        "amt": 149
+      },
+      {
+        "date": "21/06/2026",
+        "desc": "15-6-2569 แตงโม 50บาท 50 ลูก ยอด 2,500",
+        "cat": "Watermelon",
+        "amt": 6500
+      },
+      {
+        "date": "22/06/2026",
+        "desc": "สับปะรด 15 ลูก",
+        "cat": "Pineapple",
+        "amt": 700
+      },
+      {
+        "date": "22/06/2026",
+        "desc": "มะม่วง 2 ลัง",
+        "cat": "Mango",
+        "amt": 1632
+      },
+      {
+        "date": "22/06/2026",
+        "desc": "Lalamove",
+        "cat": "Transportation",
+        "amt": 2000
+      },
+      {
+        "date": "22/06/2026",
+        "desc": "แอพเปิ้ล 5 ลัง",
+        "cat": "Apple",
+        "amt": 1750
+      },
+      {
+        "date": "22/06/2026",
+        "desc": "สับปะรด 15 ลูก",
+        "cat": "Pineapple",
+        "amt": 700
+      },
+      {
+        "date": "22/06/2026",
+        "desc": "ฝรั่ง 1 ลัง",
+        "cat": "Guava",
+        "amt": 700
       }
     ],
     "fruit_performance": [
       {
         "name": "Orange",
-        "rev": 841300,
-        "cost": 291968,
-        "cups": 14011,
-        "roi": "188.1%"
+        "rev": 857500,
+        "cost": 308413,
+        "cups": 14281,
+        "roi": "178.0%"
       },
       {
         "name": "Watermelon",
-        "rev": 535550,
-        "cost": 145840,
-        "cups": 10711,
-        "roi": "267.2%"
+        "rev": 559000,
+        "cost": 152340,
+        "cups": 11180,
+        "roi": "266.9%"
       },
       {
         "name": "Mango",
-        "rev": 70380,
-        "cost": 33030,
-        "cups": 782,
-        "roi": "113.1%"
+        "rev": 76860,
+        "cost": 35962,
+        "cups": 854,
+        "roi": "113.7%"
       },
       {
         "name": "Apple",
-        "rev": 63420,
-        "cost": 24401,
-        "cups": 1057,
-        "roi": "159.9%"
+        "rev": 67620,
+        "cost": 26151,
+        "cups": 1127,
+        "roi": "158.6%"
       },
       {
         "name": "Coconut",
-        "rev": 211380,
-        "cost": 15035,
-        "cups": 3523,
-        "roi": "1305.9%"
+        "rev": 220260,
+        "cost": 24135,
+        "cups": 3671,
+        "roi": "812.6%"
       },
       {
         "name": "Young Coco",
@@ -4439,17 +4632,17 @@
       },
       {
         "name": "Guava",
-        "rev": 17820,
+        "rev": 19260,
         "cost": 0,
-        "cups": 297,
+        "cups": 321,
         "roi": "N/A"
       },
       {
         "name": "Pineapple",
-        "rev": 18540,
-        "cost": 14892,
-        "cups": 309,
-        "roi": "24.5%"
+        "rev": 20580,
+        "cost": 16817,
+        "cups": 343,
+        "roi": "22.4%"
       }
     ]
   }

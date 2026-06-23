@@ -4,6 +4,8 @@ node_modules
 *.log
 *.xlsx
 *.js
+!xlsx.full.min.js
+!chart.umd.min.js
 *.swift
 ocr_bin
 DASHBOARD_SETUP.md
