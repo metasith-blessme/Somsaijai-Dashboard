@@ -1,6 +1,5 @@
 {
   "version": 2,
-  "public": true,
   "cleanUrls": true,
   "rewrites": [
     { "source": "/(.*)", "destination": "/3_Automation_Dashboard/$1" },
