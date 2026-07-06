@@ -23,5 +23,11 @@
       { "date": "31/05/2026", "bucket": "OPEX", "category": "Salary", "description": "Employee 4", "amount": 6000 },
       { "date": "31/05/2026", "bucket": "OPEX", "category": "Investment", "description": "Stock (Allocated 40.25%)", "amount": 4830 }
     ]
+  },
+  "Jun26": {
+    "B2": [
+      { "date": "30/06/2026", "bucket": "OPEX", "category": "Salary", "description": "Staff (2 people)", "amount": 24000 },
+      { "date": "30/06/2026", "bucket": "OPEX", "category": "Salary", "description": "Part-time (1 day)", "amount": 400 }
+    ]
   }
 }

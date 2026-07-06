@@ -99,6 +99,25 @@ function extractExpensesData(branch) {
   } catch (e) { return []; }
 }
 
+// ponytail: catches the "same receipt entered twice" class of bug found in past audits.
+// Flags, never blocks — some same-amount same-day charges are genuinely separate (see 05/03 orange case).
+function checkDuplicateExpenses(expenses) {
+  const groups = {};
+  expenses.forEach(e => {
+    if (e.bucket === 'PENDING_REFUND') return;
+    const key = [e.branch, e.date, e.cat, e.amt].join('|');
+    (groups[key] = groups[key] || []).push(e);
+  });
+  const dupes = Object.values(groups).filter(g => g.length > 1);
+  if (dupes.length === 0) return;
+  console.log(`\n⚠️  POSSIBLE DUPLICATE EXPENSES (${dupes.length} group(s)) — verify before trusting totals:`);
+  dupes.forEach(g => {
+    console.log(`  ${g[0].branch} ${g[0].date} ${g[0].cat} ฿${g[0].amt} — appears ${g.length}x:`);
+    g.forEach(e => console.log(`    "${e.desc}"`));
+  });
+  console.log('  If these are real separate charges (different receipts/refs), ignore. Otherwise remove the extra row.\n');
+}
+
 function calculateAudit(result) {
   Object.keys(result.branches).forEach(branch => {
     Object.keys(result.branches[branch].sales).forEach(month => {
@@ -129,6 +148,7 @@ function update() {
     });
 
     calculateAudit(result);
+    checkDuplicateExpenses(result.expenses);
     fs.writeFileSync(DATA_JSON, JSON.stringify(result, null, 2));
     console.log(`✅ Updated ${DATA_JSON}`);
 

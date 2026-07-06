@@ -42,6 +42,11 @@ const PROFIT_SHARE_RATIO = {
     B2: 0.70
 };
 
+const MING_SHARE_RATIO = {
+    B1: 0.40,
+    B2: 0.30
+};
+
 /**
  * Calculates theoretical revenue based on cup counts
  */
@@ -122,8 +127,8 @@ function calculatePL(data) {
 
     months.forEach(m => {
         const branchCalcs = {
-            B1: { rev: 0, opex: 0, rental: 0, opex_list: [], raw_usage: {}, cogs: 0, net: 0, share: 0, loss_carry_forward: 0, adjusted_net: 0 },
-            B2: { rev: 0, opex: 0, rental: 0, opex_list: [], raw_usage: {}, cogs: 0, net: 0, share: 0, loss_carry_forward: 0, adjusted_net: 0 }
+            B1: { rev: 0, opex: 0, rental: 0, opex_list: [], raw_usage: {}, cogs: 0, net: 0, share: 0, ming_share: 0, loss_carry_forward: 0, adjusted_net: 0 },
+            B2: { rev: 0, opex: 0, rental: 0, opex_list: [], raw_usage: {}, cogs: 0, net: 0, share: 0, ming_share: 0, loss_carry_forward: 0, adjusted_net: 0 }
         };
         
         let total_rev = 0;
@@ -169,7 +174,9 @@ function calculatePL(data) {
 
         (data.expenses || []).forEach(e => {
             if (e.month === m) {
-                if (e.bucket === 'COGS') {
+                if (e.bucket === 'PENDING_REFUND') {
+                    // ponytail: excluded from COGS/OPEX, kept in raw data for reconciliation tracking
+                } else if (e.bucket === 'COGS') {
                     total_cogs += e.amt;
                     cogsExpenses.push(e);
                     
@@ -253,6 +260,7 @@ function calculatePL(data) {
                 lossCarryForward[b] += Math.abs(branchData.net);
                 branchData.adjusted_net = 0;
                 branchData.share = 0;
+                branchData.ming_share = 0;
             } else {
                 // If branch made profit, offset against carry-forward loss
                 const offset = Math.min(branchData.net, lossCarryForward[b]);
@@ -261,6 +269,8 @@ function calculatePL(data) {
                 
                 // Blessme profit share cut
                 branchData.share = branchData.adjusted_net * PROFIT_SHARE_RATIO[b];
+                // Ming profit share cut
+                branchData.ming_share = branchData.adjusted_net * MING_SHARE_RATIO[b];
             }
         });
 
@@ -287,7 +297,8 @@ function calculatePL(data) {
                 net: branchCalcs.B1.net,
                 loss_carry_forward: branchCalcs.B1.loss_carry_forward,
                 adjusted_net: branchCalcs.B1.adjusted_net,
-                share: branchCalcs.B1.share
+                share: branchCalcs.B1.share,
+                ming_share: branchCalcs.B1.ming_share
             },
             b2: {
                 rev: branchCalcs.B2.rev,
@@ -298,7 +309,8 @@ function calculatePL(data) {
                 net: branchCalcs.B2.net,
                 loss_carry_forward: branchCalcs.B2.loss_carry_forward,
                 adjusted_net: branchCalcs.B2.adjusted_net,
-                share: branchCalcs.B2.share
+                share: branchCalcs.B2.share,
+                ming_share: branchCalcs.B2.ming_share
             },
             fruit_summary,
             daily_cogs,
@@ -310,8 +322,8 @@ function calculatePL(data) {
     const annual = {
         total_rev: 0,
         total_cogs: 0,
-        b1: { rev: 0, opex: 0, rental: 0, opex_list: [], cogs: 0, net: 0, share: 0, loss_carry_forward: 0, adjusted_net: 0 },
-        b2: { rev: 0, opex: 0, rental: 0, opex_list: [], cogs: 0, net: 0, share: 0, loss_carry_forward: 0, adjusted_net: 0 },
+        b1: { rev: 0, opex: 0, rental: 0, opex_list: [], cogs: 0, net: 0, share: 0, ming_share: 0, loss_carry_forward: 0, adjusted_net: 0 },
+        b2: { rev: 0, opex: 0, rental: 0, opex_list: [], cogs: 0, net: 0, share: 0, ming_share: 0, loss_carry_forward: 0, adjusted_net: 0 },
         fruit_summary: {},
         daily_cogs: [],
         fruit_performance: []
@@ -329,6 +341,7 @@ function calculatePL(data) {
             annual[b.toLowerCase()].cogs += r[b.toLowerCase()].cogs;
             annual[b.toLowerCase()].net += r[b.toLowerCase()].net;
             annual[b.toLowerCase()].share += r[b.toLowerCase()].share;
+            annual[b.toLowerCase()].ming_share += r[b.toLowerCase()].ming_share || 0;
             annual[b.toLowerCase()].opex_list = annual[b.toLowerCase()].opex_list.concat(r[b.toLowerCase()].opex_list);
         });
 
