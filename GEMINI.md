@@ -1,7 +1,7 @@
 # SomSaiJai Automation System (Multi-Branch)
 
 This project automates data extraction and visualization for SomSaiJai across multiple branches.
-**Live dashboard:** https://somsaijailive.vercel.app (v3.2.0 — mobile-responsive)
+**Live dashboard:** https://somsaijailive.vercel.app (v3.2.2 — mobile-responsive)
 
 ## Project Structure
 - `B1/`: Branch 1 Data
@@ -24,9 +24,16 @@ This project automates data extraction and visualization for SomSaiJai across mu
 LINE images → Visual OCR → pending_verification.json → verify-sales → Excel → update-dashboard → data.json + Vercel deploy
 ```
 
+When processing new sale images:
+1. Present the plan for the batch and wait for approval before touching any files.
+2. Extract `rev`, `cash`, `scan`, `exp`, cup counts, raw materials used.
+3. If a circled/written total disagrees with the sum of individual cup counts, ask the user which to use — never decide unilaterally.
+4. Present an audit table (`Date | Revenue | Cash | Scan | Expense | Net | Verify ✓/✗`) before writing anything, even for a single day.
+5. If the user reports an updated cost figure, ask whether it replaces the existing value or is additive before writing.
+
 ## Business Rules & Profit Sharing
-- **Branch 1 (B1):** Profit shared at **60%** of Net Profit to Blessme. Rent is ฿31,000, Salary ฿35,000, Utilities ฿6,000.
-- **Branch 2 (B2):** Profit shared at **70%** of Net Profit to Blessme. Rent is ฿18,000, Salary ฿30,000, Utilities ฿6,000.
+- **Branch 1 (B1):** Profit shared at **60%** of Net Profit to Blessme, and **40%** to Ming. Rent is ฿31,000, Salary ฿35,000, Utilities ฿6,000.
+- **Branch 2 (B2):** Profit shared at **70%** of Net Profit to Blessme, and **30%** to Ming. Rent is ฿18,000, Salary ฿30,000, Utilities ฿6,000.
 - **Shared COGS (ADR 0001):** 
   - Fruits (Orange, Watermelon, Mango, Apple, Coconut, Guava, Pineapple) are allocated proportionally by **actual usage count** of each branch.
   - Packaging, Ice, and generic Stock (e.g. ฿12k Stock split) are allocated proportionally by **revenue share**.
@@ -34,6 +41,11 @@ LINE images → Visual OCR → pending_verification.json → verify-sales → Ex
   - OPEX expenses categorized as `Rental` are separated from other general operating expenses (Other OPEX) in the dashboard P&L summaries and management report sections.
   - Split slips (e.g., slip #15 containing ฿35k B1 Rent and ฿12k Stock) are divided into distinct daily expense rows.
 - **Net Loss Carry-Forward (ADR 0002):** Branch losses carried forward to offset future profit of that branch only.
+
+### Known Expense-Categorization Pitfalls (learned from Jan–Jun26 audit, Jul 2026)
+- **Generic "Stock" bulk-purchase entries are COGS, category `Stock`** — not `OPEX/Investment` and not `CAPEX`. `CAPEX/Investment` is reserved for genuine equipment/fixtures only (kiosk build-out, signage, extraction machine, renovation).
+- **Partner profit-share payouts must NEVER be recorded as an expense** (not COGS, not OPEX). Transfers noting a % split (e.g. "ส่วนแบ่ง60เปอ") are distributions made *after* net profit is calculated — booking them as an expense double-subtracts them before the profit-share ratio even runs. If found miscategorized, zero the amount and mark bucket `EXCLUDED` / category `Profit Distribution`.
+- **A legacy/unexplained "Ice" mis-tag existed on ~24 historical rows (Jan–Jun26)** with no ice content at all (tolls, medical bills, hardware, electricity, a pushcart, even profit-share payouts). Treat any `COGS/Ice` row with a non-ice-sounding description as suspect and verify against the source slip image.
 
 ## Execution Workflow (from `3_Automation_Dashboard/`)
 

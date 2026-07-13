@@ -9419,19 +9419,19 @@
     {
       "date": "02/01/2026",
       "month": "Jan26",
-      "bucket": "COGS",
-      "cat": "Ice",
-      "desc": "ส่วนแบ่ง60เปอ",
-      "amt": 47961,
+      "bucket": "EXCLUDED",
+      "cat": "Profit Distribution",
+      "desc": "ส่วนแบ่ง60เปอ — removed from P&L, this is a partner profit-share payout, not a business expense (owner-confirmed)",
+      "amt": 0,
       "branch": "B1"
     },
     {
       "date": "02/01/2026",
       "month": "Jan26",
-      "bucket": "COGS",
-      "cat": "Ice",
-      "desc": "ค่าส่วนแบ่งกำไรเมน 40เปอ",
-      "amt": 32000,
+      "bucket": "EXCLUDED",
+      "cat": "Profit Distribution",
+      "desc": "ค่าส่วนแบ่งกำไรเมน 40เปอ — removed from P&L, this is a partner profit-share payout, not a business expense (owner-confirmed)",
+      "amt": 0,
       "branch": "B1"
     },
     {
@@ -9519,7 +9519,7 @@
       "date": "09/01/2026",
       "month": "Jan26",
       "bucket": "COGS",
-      "cat": "Ice",
+      "cat": "Transportation",
       "desc": "ค่าขนตะกร้ากลับ",
       "amt": 500,
       "branch": "B1"
@@ -9905,8 +9905,8 @@
     {
       "date": "10/02/2026",
       "month": "Feb26",
-      "bucket": "COGS",
-      "cat": "Ice",
+      "bucket": "OPEX",
+      "cat": "Fixed Costs",
       "desc": "ค่าไฟเดือนมค",
       "amt": 389,
       "branch": "B1"
@@ -9923,8 +9923,8 @@
     {
       "date": "14/02/2026",
       "month": "Feb26",
-      "bucket": "OPEX",
-      "cat": "Other",
+      "bucket": "COGS",
+      "cat": "Watermelon",
       "desc": "Unknown",
       "amt": 4000,
       "branch": "B1"
@@ -9933,7 +9933,7 @@
       "date": "14/02/2026",
       "month": "Feb26",
       "bucket": "COGS",
-      "cat": "Ice",
+      "cat": "Apple",
       "desc": "Unknown",
       "amt": 350,
       "branch": "B1"
@@ -9995,8 +9995,8 @@
     {
       "date": "20/02/2026",
       "month": "Feb26",
-      "bucket": "COGS",
-      "cat": "Ice",
+      "bucket": "OPEX",
+      "cat": "Other",
       "desc": "ผ้าปิดร้าน 218 ค่ารถ 198",
       "amt": 416,
       "branch": "B1"
@@ -10166,8 +10166,8 @@
     {
       "date": "05/03/2026",
       "month": "Mar26",
-      "bucket": "COGS",
-      "cat": "Ice",
+      "bucket": "OPEX",
+      "cat": "Other",
       "desc": "ค่าทางด่วน",
       "amt": 105,
       "branch": "B1"
@@ -10274,8 +10274,8 @@
     {
       "date": "15/03/2026",
       "month": "Mar26",
-      "bucket": "COGS",
-      "cat": "Ice",
+      "bucket": "OPEX",
+      "cat": "Other",
       "desc": "ค่าทางด่วน",
       "amt": 115,
       "branch": "B1"
@@ -10292,8 +10292,8 @@
     {
       "date": "17/03/2026",
       "month": "Mar26",
-      "bucket": "COGS",
-      "cat": "Ice",
+      "bucket": "OPEX",
+      "cat": "Fixed Costs",
       "desc": "ค่าไฟเดือนกพ มีนา",
       "amt": 2779.47,
       "branch": "B1"
@@ -10310,8 +10310,8 @@
     {
       "date": "21/03/2026",
       "month": "Mar26",
-      "bucket": "COGS",
-      "cat": "Ice",
+      "bucket": "OPEX",
+      "cat": "Other",
       "desc": "สกรู กาวตะปู",
       "amt": 117,
       "branch": "B1"
@@ -10337,8 +10337,8 @@
     {
       "date": "24/03/2026",
       "month": "Mar26",
-      "bucket": "COGS",
-      "cat": "Ice",
+      "bucket": "OPEX",
+      "cat": "Other",
       "desc": "รถเข็นของคันใหม่",
       "amt": 1752,
       "branch": "B1"
@@ -10482,7 +10482,7 @@
       "date": "04/04/2026",
       "month": "Apr26",
       "bucket": "COGS",
-      "cat": "Ice",
+      "cat": "Water",
       "desc": "เนื้อ 1200 น้ำ 500",
       "amt": 1700,
       "branch": "B1"
@@ -10554,7 +10554,7 @@
       "date": "10/04/2026",
       "month": "Apr26",
       "bucket": "COGS",
-      "cat": "Ice",
+      "cat": "Milk/Conden",
       "desc": "ค่านม",
       "amt": 180,
       "branch": "B1"
@@ -10581,7 +10581,7 @@
       "date": "11/04/2026",
       "month": "Apr26",
       "bucket": "COGS",
-      "cat": "Ice",
+      "cat": "Water",
       "desc": "น้ำ 500 เนื้อ 1200",
       "amt": 1700,
       "branch": "B1"
@@ -10761,7 +10761,7 @@
       "date": "23/04/2026",
       "month": "Apr26",
       "bucket": "COGS",
-      "cat": "Ice",
+      "cat": "Water",
       "desc": "16/4/26 เนื้อ 10 น้ำ 10 21/4/26 เนื้อ 10",
       "amt": 2900,
       "branch": "B1"
@@ -10932,7 +10932,7 @@
       "date": "30/04/2026",
       "month": "Apr26",
       "bucket": "COGS",
-      "cat": "Ice",
+      "cat": "Pineapple",
       "desc": "สับปะรส 3 ตะกร้า",
       "amt": 1500,
       "branch": "B1"
@@ -10959,7 +10959,7 @@
       "date": "30/04/2026",
       "month": "Apr26",
       "bucket": "OPEX",
-      "cat": "Fixed Costs",
+      "cat": "Rental",
       "desc": "Rent",
       "amt": 35000,
       "branch": "B1"
@@ -10967,8 +10967,8 @@
     {
       "date": "30/04/2026",
       "month": "Apr26",
-      "bucket": "OPEX",
-      "cat": "Investment",
+      "bucket": "COGS",
+      "cat": "Stock",
       "desc": "Stock (Allocated 82.9%)",
       "amt": 9948,
       "branch": "B1"
@@ -10978,8 +10978,8 @@
       "month": "Apr26",
       "bucket": "COGS",
       "cat": "Other",
-      "desc": "Pineapple",
-      "amt": 1500,
+      "desc": "Pineapple (duplicate of 30/04/2026 slip entry, zeroed to avoid double-count)",
+      "amt": 0,
       "branch": "B1"
     },
     {
@@ -11021,8 +11021,8 @@
     {
       "date": "02/05/2026",
       "month": "May26",
-      "bucket": "COGS",
-      "cat": "Ice",
+      "bucket": "OPEX",
+      "cat": "Other",
       "desc": "ค่าหาหมอเอ",
       "amt": 706,
       "branch": "B1"
@@ -11030,8 +11030,8 @@
     {
       "date": "02/05/2026",
       "month": "May26",
-      "bucket": "COGS",
-      "cat": "Ice",
+      "bucket": "OPEX",
+      "cat": "Other",
       "desc": "ค่าหมอเอ",
       "amt": 13,
       "branch": "B1"
@@ -11066,8 +11066,8 @@
     {
       "date": "04/05/2026",
       "month": "May26",
-      "bucket": "OPEX",
-      "cat": "Other",
+      "bucket": "COGS",
+      "cat": "Watermelon",
       "desc": "30-4-2569 เบอร์ 70฿ 60 ลูก",
       "amt": 7000,
       "branch": "B1"
@@ -11147,8 +11147,8 @@
     {
       "date": "08/05/2026",
       "month": "May26",
-      "bucket": "OPEX",
-      "cat": "Other",
+      "bucket": "COGS",
+      "cat": "Watermelon",
       "desc": "4-5-2569 เบอร์ 70฿ 60 ลูก ยอด 4,200",
       "amt": 8200,
       "branch": "B1"
@@ -11273,8 +11273,8 @@
     {
       "date": "14/05/2026",
       "month": "May26",
-      "bucket": "OPEX",
-      "cat": "Other",
+      "bucket": "COGS",
+      "cat": "Watermelon",
       "desc": "11-5-2569 50 ลูก ยอด 4,000",
       "amt": 8000,
       "branch": "B1"
@@ -11354,8 +11354,8 @@
     {
       "date": "16/05/2026",
       "month": "May26",
-      "bucket": "OPEX",
-      "cat": "Other",
+      "bucket": "COGS",
+      "cat": "Pineapple",
       "desc": "14/05/26 18 ลูก 504 บาท 16/05/26 18 ลูก",
       "amt": 1008,
       "branch": "B1"
@@ -11435,8 +11435,8 @@
     {
       "date": "22/05/2026",
       "month": "May26",
-      "bucket": "OPEX",
-      "cat": "Other",
+      "bucket": "COGS",
+      "cat": "Watermelon",
       "desc": "16-5-2569ยอด 4,000฿",
       "amt": 12000,
       "branch": "B1"
@@ -11597,8 +11597,8 @@
     {
       "date": "30/05/2026",
       "month": "May26",
-      "bucket": "OPEX",
-      "cat": "Other",
+      "bucket": "COGS",
+      "cat": "Apple",
       "desc": "Unknown",
       "amt": 1050,
       "branch": "B1"
@@ -11615,8 +11615,8 @@
     {
       "date": "31/05/2026",
       "month": "May26",
-      "bucket": "OPEX",
-      "cat": "Investment",
+      "bucket": "COGS",
+      "cat": "Stock",
       "desc": "Stock Adjustment (Allocated to B2)",
       "amt": -4830,
       "branch": "B1"
@@ -12092,8 +12092,8 @@
     {
       "date": "29/06/2026",
       "month": "Jun26",
-      "bucket": "OPEX",
-      "cat": "Other",
+      "bucket": "CAPEX",
+      "cat": "Investment",
       "desc": "สกัดเย็น1เครื่อง",
       "amt": 1402,
       "branch": "B1"
@@ -12110,7 +12110,7 @@
     {
       "date": "29/06/2026",
       "month": "Jun26",
-      "bucket": "OPEX",
+      "bucket": "COGS",
       "cat": "Other",
       "desc": "มังคุด 3 ตะกร้า",
       "amt": 1932,
@@ -12255,7 +12255,7 @@
       "date": "30/04/2026",
       "month": "Apr26",
       "bucket": "OPEX",
-      "cat": "Fixed Costs",
+      "cat": "Rental",
       "desc": "Rent",
       "amt": 30000,
       "branch": "B2"
@@ -12263,8 +12263,8 @@
     {
       "date": "30/04/2026",
       "month": "Apr26",
-      "bucket": "OPEX",
-      "cat": "Investment",
+      "bucket": "COGS",
+      "cat": "Stock",
       "desc": "Stock (Allocated 17.1%)",
       "amt": 2052,
       "branch": "B2"
@@ -12299,8 +12299,8 @@
     {
       "date": "31/05/2026",
       "month": "May26",
-      "bucket": "OPEX",
-      "cat": "Investment",
+      "bucket": "COGS",
+      "cat": "Stock",
       "desc": "Stock (Allocated 40.25%)",
       "amt": 4830,
       "branch": "B2"
