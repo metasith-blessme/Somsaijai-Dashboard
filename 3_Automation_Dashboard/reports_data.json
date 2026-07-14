@@ -374,12 +374,21 @@
   },
   "Feb26": {
     "total_rev": 340060,
-    "total_cogs": 134076,
+    "total_cogs": 133278,
     "b1": {
       "rev": 340060,
       "rental": 12000,
-      "opex": 805,
+      "opex": 1603,
       "opex_list": [
+        {
+          "date": "08/02/2026",
+          "month": "Feb26",
+          "bucket": "OPEX",
+          "cat": "Other",
+          "desc": "Unknown",
+          "amt": 798,
+          "branch": "B1"
+        },
         {
           "date": "10/02/2026",
           "month": "Feb26",
@@ -408,7 +417,7 @@
           "branch": "B1"
         }
       ],
-      "cogs": 134076,
+      "cogs": 133278,
       "net": 193179,
       "loss_carry_forward": 0,
       "adjusted_net": 193179,
@@ -432,7 +441,6 @@
       "Watermelon": 44000,
       "Transportation": 14864,
       "Packaging": 12007,
-      "Ice": 798,
       "Apple": 350,
       "Mango": 500
     },
@@ -478,12 +486,6 @@
         "desc": "แก้วสกรีน อย่างเดียวไม่รวมฝา 2280บาท",
         "cat": "Packaging",
         "amt": 2280
-      },
-      {
-        "date": "08/02/2026",
-        "desc": "Unknown",
-        "cat": "Ice",
-        "amt": 798
       },
       {
         "date": "08/02/2026",
@@ -1035,19 +1037,19 @@
   },
   "Apr26": {
     "total_rev": 383118,
-    "total_cogs": 193603,
+    "total_cogs": 197183,
     "b1": {
       "rev": 313858,
       "rental": 35000,
-      "opex": 35000,
+      "opex": 31000,
       "opex_list": [
         {
-          "date": "18/04/2026",
+          "date": "24/04/2026",
           "month": "Apr26",
-          "bucket": "OPEX",
-          "cat": "Other",
-          "desc": "16/4/2569",
-          "amt": 4000,
+          "bucket": "EXCLUDED",
+          "cat": "Removed",
+          "desc": "บาร์เลย 4 ถั่วแดง 3 ถุงละ 60 (removed at owner request)",
+          "amt": 0,
           "branch": "B1"
         },
         {
@@ -1078,12 +1080,12 @@
           "branch": "B1"
         }
       ],
-      "cogs": 161188.86046900522,
-      "net": 82669.13953099478,
+      "cogs": 164060.37159404182,
+      "net": 83797.62840595818,
       "loss_carry_forward": 0,
-      "adjusted_net": 82669.13953099478,
-      "share": 49601.48371859687,
-      "ming_share": 33067.65581239791
+      "adjusted_net": 83797.62840595818,
+      "share": 50278.57704357491,
+      "ming_share": 33519.051362383274
     },
     "b2": {
       "rev": 69260,
@@ -1118,8 +1120,8 @@
           "branch": "B2"
         }
       ],
-      "cogs": 32414.139530994784,
-      "net": -11154.139530994784,
+      "cogs": 33122.628405958174,
+      "net": -11862.628405958174,
       "loss_carry_forward": 0,
       "adjusted_net": 0,
       "share": 0,
@@ -1132,14 +1134,13 @@
       "Packaging": 23433,
       "Coconut": 2080,
       "Orange": 78760,
-      "Ice": 7200,
-      "Watermelon": 27400,
+      "Watermelon": 38600,
       "Coconut Water": 3400,
       "Milk/Conden": 2340,
       "Transportation": 6730,
-      "Other": 420,
       "Pineapple": 1500,
-      "Stock": 12000
+      "Stock": 12000,
+      "Other": 0
     },
     "daily_cogs": [
       {
@@ -1199,7 +1200,7 @@
       {
         "date": "04/04/2026",
         "desc": "4/4/68 40 ลูก",
-        "cat": "Ice",
+        "cat": "Watermelon",
         "amt": 3200
       },
       {
@@ -1293,6 +1294,12 @@
         "amt": 750
       },
       {
+        "date": "18/04/2026",
+        "desc": "16/4/2569",
+        "cat": "Watermelon",
+        "amt": 4000
+      },
+      {
         "date": "20/04/2026",
         "desc": "ส้ม 40 ตะกร้า ตะกร้าละ 22 โล โลละ 30 บาท",
         "cat": "Orange",
@@ -1372,12 +1379,6 @@
       },
       {
         "date": "24/04/2026",
-        "desc": "บาร์เลย 4 ถั่วแดง 3 ถุงละ 60",
-        "cat": "Other",
-        "amt": 420
-      },
-      {
-        "date": "24/04/2026",
         "desc": "แตงโม 50 ลูก",
         "cat": "Watermelon",
         "amt": 4000
@@ -1415,7 +1416,7 @@
       {
         "date": "27/04/2026",
         "desc": "26/4/26 50 ลูก",
-        "cat": "Ice",
+        "cat": "Watermelon",
         "amt": 4000
       },
       {
@@ -1508,9 +1509,9 @@
       {
         "name": "Watermelon",
         "rev": 94900,
-        "cost": 27400,
+        "cost": 38600,
         "cups": 1898,
-        "roi": "246.4%"
+        "roi": "145.9%"
       },
       {
         "name": "Mango",
@@ -1558,11 +1559,11 @@
   },
   "May26": {
     "total_rev": 415861,
-    "total_cogs": 187748,
+    "total_cogs": 178625,
     "b1": {
       "rev": 248480,
       "rental": 47000,
-      "opex": 57805,
+      "opex": 66928,
       "opex_list": [
         {
           "date": "02/05/2026",
@@ -1637,6 +1638,15 @@
           "branch": "B1"
         },
         {
+          "date": "16/05/2026",
+          "month": "May26",
+          "bucket": "OPEX",
+          "cat": "Other",
+          "desc": "Police fees (portion of mixed 16/05 slip)",
+          "amt": 2000,
+          "branch": "B1"
+        },
+        {
           "date": "25/05/2026",
           "month": "May26",
           "bucket": "OPEX",
@@ -1680,14 +1690,23 @@
           "desc": "ลิ้นชักเก็บเงิน (cash register drawer, split from combined 09/05 milk+equipment slip)",
           "amt": 486,
           "branch": "B1"
+        },
+        {
+          "date": "01/05/2026",
+          "month": "May26",
+          "bucket": "OPEX",
+          "cat": "Other",
+          "desc": "ร่ม+นมข้นจืด+ที่ปั้ม+ปืนฉีดน้ำ (remainder of mixed 01/05 slip, non-guava portion)",
+          "amt": 7123,
+          "branch": "B1"
         }
       ],
-      "cogs": 102758.1657127939,
-      "net": 40916.834287206104,
+      "cogs": 101711.0446272883,
+      "net": 32840.9553727117,
       "loss_carry_forward": 0,
-      "adjusted_net": 40916.834287206104,
-      "share": 24550.100572323663,
-      "ming_share": 16366.733714882443
+      "adjusted_net": 32840.9553727117,
+      "share": 19704.57322362702,
+      "ming_share": 13136.382149084682
     },
     "b2": {
       "rev": 167381,
@@ -1722,35 +1741,35 @@
           "branch": "B2"
         }
       ],
-      "cogs": 84989.8342872061,
-      "net": 34391.165712793896,
-      "loss_carry_forward": 11154.139530994784,
-      "adjusted_net": 23237.026181799112,
-      "share": 16265.918327259378,
-      "ming_share": 6971.107854539733
+      "cogs": 76913.95537271172,
+      "net": 42467.044627288284,
+      "loss_carry_forward": 11862.628405958174,
+      "adjusted_net": 30604.41622133011,
+      "share": 21423.091354931075,
+      "ming_share": 9181.324866399033
     },
     "fruit_summary": {
-      "Guava": 11423,
+      "Guava": 4300,
       "Mango": 10835,
       "Apple": 9550,
       "Pineapple": 5958,
       "Packaging": 17309,
       "Watermelon": 47200,
-      "Transportation": 8555,
-      "Water": 3920,
+      "Coconut Water": 7375,
+      "Water": 1100,
       "Milk/Conden": 8413,
+      "Transportation": 4000,
       "Coconut Meat": 3500,
       "Orange": 53440,
-      "Ice": 4290,
-      "Coconut": 3355,
+      "Coconut": 5645,
       "Stock": 0
     },
     "daily_cogs": [
       {
         "date": "01/05/2026",
-        "desc": "ร่ม 1176 ร่ม 843 ฝรั่ง 300 นมข้นจืด 785 ที่ปั้ม 176",
+        "desc": "ร่ม 1176 ร่ม 843 ฝรั่ง 300 นมข้นจืด 785 ที่ปั้ม 176 (Guava portion only)",
         "cat": "Guava",
-        "amt": 7823
+        "amt": 700
       },
       {
         "date": "02/05/2026",
@@ -1815,7 +1834,7 @@
       {
         "date": "08/05/2026",
         "desc": "น้ำ 20 ขวด 900 ถอดเสื้อ 30 ลูก750 กล่องโฟม 3",
-        "cat": "Transportation",
+        "cat": "Coconut Water",
         "amt": 4555
       },
       {
@@ -1827,7 +1846,7 @@
       {
         "date": "08/05/2026",
         "desc": "6 พ.ค. น้ำ 30 ขวด 1500 บาท เนื้อ 11 โล 1320 บาท",
-        "cat": "Water",
+        "cat": "Coconut Water",
         "amt": 2820
       },
       {
@@ -1931,12 +1950,6 @@
         "desc": "05/05/69 ส้ม 30x22กก 660กกx30",
         "cat": "Orange",
         "amt": 21450
-      },
-      {
-        "date": "16/05/2026",
-        "desc": "Police fees -2000 2 head",
-        "cat": "Ice",
-        "amt": 4290
       },
       {
         "date": "16/05/2026",
@@ -2119,6 +2132,12 @@
         "amt": 4000
       },
       {
+        "date": "16/05/2026",
+        "desc": "Coconut meat + water + apple (remainder of mixed 16/05 slip, non-police-fee portion)",
+        "cat": "Coconut",
+        "amt": 2290
+      },
+      {
         "date": "31/05/2026",
         "desc": "Stock (Allocated 40.25%)",
         "cat": "Stock",
@@ -2157,9 +2176,9 @@
       {
         "name": "Coconut",
         "rev": 85500,
-        "cost": 6855,
+        "cost": 16520,
         "cups": 1425,
-        "roi": "1147.3%"
+        "roi": "417.6%"
       },
       {
         "name": "Young Coco",
@@ -2725,10 +2744,10 @@
   },
   "all": {
     "total_rev": 2008859,
-    "total_cogs": 885888,
+    "total_cogs": 879547,
     "b1": {
       "rev": 1656448,
-      "opex": 150146.72,
+      "opex": 156067.72,
       "rental": 147324,
       "opex_list": [
         {
@@ -2765,6 +2784,15 @@
           "cat": "Salary",
           "desc": "เงินเดือนเมนมกราคม",
           "amt": 19000,
+          "branch": "B1"
+        },
+        {
+          "date": "08/02/2026",
+          "month": "Feb26",
+          "bucket": "OPEX",
+          "cat": "Other",
+          "desc": "Unknown",
+          "amt": 798,
           "branch": "B1"
         },
         {
@@ -2867,12 +2895,12 @@
           "branch": "B1"
         },
         {
-          "date": "18/04/2026",
+          "date": "24/04/2026",
           "month": "Apr26",
-          "bucket": "OPEX",
-          "cat": "Other",
-          "desc": "16/4/2569",
-          "amt": 4000,
+          "bucket": "EXCLUDED",
+          "cat": "Removed",
+          "desc": "บาร์เลย 4 ถั่วแดง 3 ถุงละ 60 (removed at owner request)",
+          "amt": 0,
           "branch": "B1"
         },
         {
@@ -2975,6 +3003,15 @@
           "branch": "B1"
         },
         {
+          "date": "16/05/2026",
+          "month": "May26",
+          "bucket": "OPEX",
+          "cat": "Other",
+          "desc": "Police fees (portion of mixed 16/05 slip)",
+          "amt": 2000,
+          "branch": "B1"
+        },
+        {
           "date": "25/05/2026",
           "month": "May26",
           "bucket": "OPEX",
@@ -3017,6 +3054,15 @@
           "cat": "Other",
           "desc": "ลิ้นชักเก็บเงิน (cash register drawer, split from combined 09/05 milk+equipment slip)",
           "amt": 486,
+          "branch": "B1"
+        },
+        {
+          "date": "01/05/2026",
+          "month": "May26",
+          "bucket": "OPEX",
+          "cat": "Other",
+          "desc": "ร่ม+นมข้นจืด+ที่ปั้ม+ปืนฉีดน้ำ (remainder of mixed 01/05 slip, non-guava portion)",
+          "amt": 7123,
           "branch": "B1"
         },
         {
@@ -3065,10 +3111,10 @@
           "branch": "B1"
         }
       ],
-      "cogs": 703241.8362444509,
-      "net": 655735.4437555491,
-      "share": 393441.2662533295,
-      "ming_share": 262294.1775022197,
+      "cogs": 704268.2262839819,
+      "net": 648788.0537160181,
+      "share": 389272.8322296109,
+      "ming_share": 259515.22148640724,
       "loss_carry_forward": 0,
       "adjusted_net": 0
     },
@@ -3168,29 +3214,29 @@
           "branch": "B2"
         }
       ],
-      "cogs": 182646.16375554915,
-      "net": 13364.83624445086,
-      "share": 16265.918327259378,
-      "ming_share": 6971.107854539733,
+      "cogs": 175278.77371601813,
+      "net": 20732.226283981858,
+      "share": 21423.091354931075,
+      "ming_share": 9181.324866399033,
       "loss_carry_forward": 0,
       "adjusted_net": 0
     },
     "fruit_summary": {
       "Packaging": 93104,
-      "Transportation": 46471,
-      "Watermelon": 193540,
+      "Transportation": 41916,
+      "Watermelon": 204740,
       "Orange": 373551,
-      "Ice": 12366,
+      "Ice": 78,
       "Apple": 28251,
       "Mango": 35962,
-      "Coconut Water": 15200,
-      "Water": 11920,
-      "Coconut": 5435,
+      "Coconut Water": 22575,
+      "Water": 9100,
+      "Coconut": 7725,
       "Milk/Conden": 17213,
-      "Other": 2352,
       "Pineapple": 17800,
       "Stock": 12000,
-      "Guava": 17223,
+      "Other": 1932,
+      "Guava": 10100,
       "Coconut Meat": 3500
     },
     "daily_cogs": [
@@ -3475,12 +3521,6 @@
         "desc": "แก้วสกรีน อย่างเดียวไม่รวมฝา 2280บาท",
         "cat": "Packaging",
         "amt": 2280
-      },
-      {
-        "date": "08/02/2026",
-        "desc": "Unknown",
-        "cat": "Ice",
-        "amt": 798
       },
       {
         "date": "08/02/2026",
@@ -3857,7 +3897,7 @@
       {
         "date": "04/04/2026",
         "desc": "4/4/68 40 ลูก",
-        "cat": "Ice",
+        "cat": "Watermelon",
         "amt": 3200
       },
       {
@@ -3951,6 +3991,12 @@
         "amt": 750
       },
       {
+        "date": "18/04/2026",
+        "desc": "16/4/2569",
+        "cat": "Watermelon",
+        "amt": 4000
+      },
+      {
         "date": "20/04/2026",
         "desc": "ส้ม 40 ตะกร้า ตะกร้าละ 22 โล โลละ 30 บาท",
         "cat": "Orange",
@@ -4030,12 +4076,6 @@
       },
       {
         "date": "24/04/2026",
-        "desc": "บาร์เลย 4 ถั่วแดง 3 ถุงละ 60",
-        "cat": "Other",
-        "amt": 420
-      },
-      {
-        "date": "24/04/2026",
         "desc": "แตงโม 50 ลูก",
         "cat": "Watermelon",
         "amt": 4000
@@ -4073,7 +4113,7 @@
       {
         "date": "27/04/2026",
         "desc": "26/4/26 50 ลูก",
-        "cat": "Ice",
+        "cat": "Watermelon",
         "amt": 4000
       },
       {
@@ -4156,9 +4196,9 @@
       },
       {
         "date": "01/05/2026",
-        "desc": "ร่ม 1176 ร่ม 843 ฝรั่ง 300 นมข้นจืด 785 ที่ปั้ม 176",
+        "desc": "ร่ม 1176 ร่ม 843 ฝรั่ง 300 นมข้นจืด 785 ที่ปั้ม 176 (Guava portion only)",
         "cat": "Guava",
-        "amt": 7823
+        "amt": 700
       },
       {
         "date": "02/05/2026",
@@ -4223,7 +4263,7 @@
       {
         "date": "08/05/2026",
         "desc": "น้ำ 20 ขวด 900 ถอดเสื้อ 30 ลูก750 กล่องโฟม 3",
-        "cat": "Transportation",
+        "cat": "Coconut Water",
         "amt": 4555
       },
       {
@@ -4235,7 +4275,7 @@
       {
         "date": "08/05/2026",
         "desc": "6 พ.ค. น้ำ 30 ขวด 1500 บาท เนื้อ 11 โล 1320 บาท",
-        "cat": "Water",
+        "cat": "Coconut Water",
         "amt": 2820
       },
       {
@@ -4339,12 +4379,6 @@
         "desc": "05/05/69 ส้ม 30x22กก 660กกx30",
         "cat": "Orange",
         "amt": 21450
-      },
-      {
-        "date": "16/05/2026",
-        "desc": "Police fees -2000 2 head",
-        "cat": "Ice",
-        "amt": 4290
       },
       {
         "date": "16/05/2026",
@@ -4525,6 +4559,12 @@
         "desc": "แตงโม 80 ลูก (split from 02/06 batch slip)",
         "cat": "Watermelon",
         "amt": 4000
+      },
+      {
+        "date": "16/05/2026",
+        "desc": "Coconut meat + water + apple (remainder of mixed 16/05 slip, non-police-fee portion)",
+        "cat": "Coconut",
+        "amt": 2290
       },
       {
         "date": "31/05/2026",
@@ -4898,9 +4938,9 @@
       {
         "name": "Watermelon",
         "rev": 595900,
-        "cost": 193540,
+        "cost": 204740,
         "cups": 11918,
-        "roi": "207.9%"
+        "roi": "191.1%"
       },
       {
         "name": "Mango",
@@ -4919,9 +4959,9 @@
       {
         "name": "Coconut",
         "rev": 234060,
-        "cost": 24135,
+        "cost": 33800,
         "cups": 3901,
-        "roi": "869.8%"
+        "roi": "592.5%"
       },
       {
         "name": "Young Coco",
