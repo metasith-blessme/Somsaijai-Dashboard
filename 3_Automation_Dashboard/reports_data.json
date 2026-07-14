@@ -707,7 +707,7 @@
     "b1": {
       "rev": 286925,
       "rental": 0,
-      "opex": 11368.47,
+      "opex": 11817.72,
       "opex_list": [
         {
           "date": "01/01/2026",
@@ -771,14 +771,23 @@
           "desc": "รถเข็นของคันใหม่",
           "amt": 1752,
           "branch": "B1"
+        },
+        {
+          "date": "20/03/2026",
+          "month": "Mar26",
+          "bucket": "OPEX",
+          "cat": "Fixed Costs",
+          "desc": "ค่าน้ำประปา เดือน 03/69 (MWA water bill, was never ingested by OCR pipeline)",
+          "amt": 449.25,
+          "branch": "B1"
         }
       ],
       "cogs": 133528,
-      "net": 142028.53000000003,
+      "net": 141579.28000000003,
       "loss_carry_forward": 0,
-      "adjusted_net": 142028.53000000003,
-      "share": 85217.11800000002,
-      "ming_share": 56811.41200000001
+      "adjusted_net": 141579.28000000003,
+      "share": 84947.56800000001,
+      "ming_share": 56631.712000000014
     },
     "b2": {
       "rev": 0,
@@ -1554,7 +1563,7 @@
     "b1": {
       "rev": 248480,
       "rental": 47000,
-      "opex": 33319,
+      "opex": 57319,
       "opex_list": [
         {
           "date": "02/05/2026",
@@ -1660,17 +1669,17 @@
           "month": "May26",
           "bucket": "OPEX",
           "cat": "Salary",
-          "desc": "Unknown",
-          "amt": 0,
+          "desc": "Aye 12,000 + Wai 12,000 (May salary, B1 portion split from joint ฿41,200 SCB transfer 01/06 - see cost_may26.md)",
+          "amt": 24000,
           "branch": "B1"
         }
       ],
       "cogs": 85477.97240688521,
-      "net": 82683.02759311479,
+      "net": 58683.02759311479,
       "loss_carry_forward": 0,
-      "adjusted_net": 82683.02759311479,
-      "share": 49609.81655586887,
-      "ming_share": 33073.21103724592
+      "adjusted_net": 58683.02759311479,
+      "share": 35209.81655586887,
+      "ming_share": 23473.211037245917
     },
     "b2": {
       "rev": 167381,
@@ -2711,7 +2720,7 @@
     "total_cogs": 886374,
     "b1": {
       "rev": 1656448,
-      "opex": 125211.47,
+      "opex": 149660.72,
       "rental": 147324,
       "opex_list": [
         {
@@ -2838,6 +2847,15 @@
           "cat": "Other",
           "desc": "รถเข็นของคันใหม่",
           "amt": 1752,
+          "branch": "B1"
+        },
+        {
+          "date": "20/03/2026",
+          "month": "Mar26",
+          "bucket": "OPEX",
+          "cat": "Fixed Costs",
+          "desc": "ค่าน้ำประปา เดือน 03/69 (MWA water bill, was never ingested by OCR pipeline)",
+          "amt": 449.25,
           "branch": "B1"
         },
         {
@@ -2980,8 +2998,8 @@
           "month": "May26",
           "bucket": "OPEX",
           "cat": "Salary",
-          "desc": "Unknown",
-          "amt": 0,
+          "desc": "Aye 12,000 + Wai 12,000 (May salary, B1 portion split from joint ฿41,200 SCB transfer 01/06 - see cost_may26.md)",
+          "amt": 24000,
           "branch": "B1"
         },
         {
@@ -3031,9 +3049,9 @@
         }
       ],
       "cogs": 679029.565538031,
-      "net": 704882.964461969,
-      "share": 422929.7786771814,
-      "ming_share": 281953.1857847876,
+      "net": 680433.714461969,
+      "share": 408260.2286771814,
+      "ming_share": 272173.4857847876,
       "loss_carry_forward": 0,
       "adjusted_net": 0
     },

@@ -11626,8 +11626,8 @@
       "month": "May26",
       "bucket": "OPEX",
       "cat": "Salary",
-      "desc": "Unknown",
-      "amt": 0,
+      "desc": "Aye 12,000 + Wai 12,000 (May salary, B1 portion split from joint ฿41,200 SCB transfer 01/06 - see cost_may26.md)",
+      "amt": 24000,
       "branch": "B1"
     },
     {
@@ -12231,6 +12231,15 @@
       "cat": "Rental",
       "desc": "ค่าเช่าสต็อค เดือน June (b1) - DUPLICATE payment, pending refund (ref 016187141602BOR05219)",
       "amt": 12000,
+      "branch": "B1"
+    },
+    {
+      "date": "20/03/2026",
+      "month": "Mar26",
+      "bucket": "OPEX",
+      "cat": "Fixed Costs",
+      "desc": "ค่าน้ำประปา เดือน 03/69 (MWA water bill, was never ingested by OCR pipeline)",
+      "amt": 449.25,
       "branch": "B1"
     },
     {
