@@ -10446,7 +10446,7 @@
       "date": "02/04/2026",
       "month": "Mar26",
       "bucket": "COGS",
-      "cat": "Ice",
+      "cat": "Orange",
       "desc": "Unknown",
       "amt": 49560,
       "branch": "B1"
@@ -10779,7 +10779,7 @@
       "date": "24/04/2026",
       "month": "Apr26",
       "bucket": "COGS",
-      "cat": "Packaging",
+      "cat": "Other",
       "desc": "บาร์เลย 4 ถั่วแดง 3 ถุงละ 60",
       "amt": 420,
       "branch": "B1"
@@ -11130,7 +11130,7 @@
       "date": "08/05/2026",
       "month": "May26",
       "bucket": "COGS",
-      "cat": "Packaging",
+      "cat": "Water",
       "desc": "6 พ.ค. น้ำ 30 ขวด 1500 บาท เนื้อ 11 โล 1320 บาท",
       "amt": 2820,
       "branch": "B1"
@@ -11167,15 +11167,15 @@
       "month": "May26",
       "bucket": "COGS",
       "cat": "Milk/Conden",
-      "desc": "นมข้นจืด 1ลัง 636",
-      "amt": 1122,
+      "desc": "นมข้นจืด 1ลัง (drawer portion split out below)",
+      "amt": 636,
       "branch": "B1"
     },
     {
       "date": "09/05/2026",
       "month": "May26",
       "bucket": "COGS",
-      "cat": "Packaging",
+      "cat": "Milk/Conden",
       "desc": "นมข้น 3 ลัง 2568",
       "amt": 4875,
       "branch": "B1"
@@ -11472,7 +11472,7 @@
       "date": "23/05/2026",
       "month": "May26",
       "bucket": "COGS",
-      "cat": "Packaging",
+      "cat": "Milk/Conden",
       "desc": "ฝา1 788",
       "amt": 2902,
       "branch": "B1"
@@ -12240,6 +12240,15 @@
       "cat": "Fixed Costs",
       "desc": "ค่าน้ำประปา เดือน 03/69 (MWA water bill, was never ingested by OCR pipeline)",
       "amt": 449.25,
+      "branch": "B1"
+    },
+    {
+      "date": "09/05/2026",
+      "month": "May26",
+      "bucket": "OPEX",
+      "cat": "Other",
+      "desc": "ลิ้นชักเก็บเงิน (cash register drawer, split from combined 09/05 milk+equipment slip)",
+      "amt": 486,
       "branch": "B1"
     },
     {
