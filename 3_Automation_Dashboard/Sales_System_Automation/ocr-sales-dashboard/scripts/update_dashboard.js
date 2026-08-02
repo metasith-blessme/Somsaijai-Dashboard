@@ -2,14 +2,14 @@ const XLSX = require('xlsx');
 const fs = require('fs');
 const path = require('path');
 const { execSync } = require('child_process');
-const { auditRecord } = require('../../logic/business_rules');
+const { auditRecord, normalizeExpense } = require('../../logic/business_rules');
 
 const ROOT_DIR = path.join(__dirname, '..', '..', '..', '..');
 const DASHBOARD_DIR = path.join(ROOT_DIR, '3_Automation_Dashboard');
 const DATA_JSON = path.join(DASHBOARD_DIR, 'data.json');
 const PARAMS_JSON = path.join(DASHBOARD_DIR, 'Sales_System_Automation', 'config', 'audit_params.json');
 
-const BRANCHES = ['B1', 'B2'];
+const BRANCHES = ['B1', 'B2', 'B3'];
 const MONTHS = ['Jan26', 'Feb26', 'Mar26', 'Apr26', 'May26', 'Jun26', 'Jul26', 'Aug26', 'Sep26', 'Oct26', 'Nov26', 'Dec26'];
 
 function extractSheetData(filePath, sheetName) {
@@ -85,7 +85,10 @@ function extractExpensesData(branch) {
     for (let i = 3; i < json.length; i++) {
       const r = json[i];
       if (!r || !r[0]) continue;
-      rows.push({
+      // Skip header rows repeated inside the sheet body (e.g. "Date | Month | Bucket").
+      if (String(r[0]) === 'Date' && String(r[1]) === 'Month') continue;
+
+      rows.push(normalizeExpense({
         date: String(r[0]),
         month: String(r[1]),
         bucket: String(r[2] || 'OPEX'),
@@ -93,10 +96,26 @@ function extractExpensesData(branch) {
         desc: String(r[4]),
         amt: Number(r[5]) || 0,
         branch
-      });
+      }));
     }
     return rows;
-  } catch (e) { return []; }
+  } catch (e) {
+    console.error(`❌ Failed to read Daily_Expenses for ${branch}: ${e.message}`);
+    return [];
+  }
+}
+
+// Partner payouts must never sit in COGS/OPEX. normalizeExpense() zeroes them; this
+// reports what it caught so the Excel source can be corrected at the entry point too.
+function reportProfitShareReclass(expenses) {
+  const reclassed = expenses.filter(e => e.bucket === 'EXCLUDED' && e.original_amt);
+  if (reclassed.length === 0) return;
+  const total = reclassed.reduce((s, e) => s + e.original_amt, 0);
+  console.log(`\n💰 PROFIT-SHARE RECLASSED TO EXCLUDED (${reclassed.length} row(s), ฿${total.toLocaleString()}):`);
+  reclassed.forEach(e => {
+    console.log(`  ${e.branch} ${e.date} ${e.month} — was ${e.original_cat} ฿${e.original_amt.toLocaleString()} — "${e.desc}"`);
+  });
+  console.log('  Fix these rows in the source Excel (bucket=EXCLUDED, cat=Profit Distribution, amt=0).\n');
 }
 
 // ponytail: catches the "same receipt entered twice" class of bug found in past audits.
@@ -104,7 +123,7 @@ function extractExpensesData(branch) {
 function checkDuplicateExpenses(expenses) {
   const groups = {};
   expenses.forEach(e => {
-    if (e.bucket === 'PENDING_REFUND') return;
+    if (e.bucket === 'PENDING_REFUND' || e.bucket === 'EXCLUDED') return;
     const key = [e.branch, e.date, e.cat, e.amt].join('|');
     (groups[key] = groups[key] || []).push(e);
   });
@@ -148,6 +167,7 @@ function update() {
     });
 
     calculateAudit(result);
+    reportProfitShareReclass(result.expenses);
     checkDuplicateExpenses(result.expenses);
     fs.writeFileSync(DATA_JSON, JSON.stringify(result, null, 2));
     console.log(`✅ Updated ${DATA_JSON}`);
@@ -160,6 +180,10 @@ function update() {
     console.log('--- Generating reports_data.json ---');
     execSync(`cd "${DASHBOARD_DIR}" && node gen_report.js`, { stdio: 'inherit' });
 
+    if (process.argv.includes('--no-deploy')) {
+      console.log('--- Skipping deploy (--no-deploy). Run `npm run deploy` when the numbers look right. ---');
+      return;
+    }
     execSync(`cd "${DASHBOARD_DIR}" && npx vercel --prod`, { stdio: 'inherit' });
   } catch (err) {
     console.error('❌ Update failed: ' + err.message);

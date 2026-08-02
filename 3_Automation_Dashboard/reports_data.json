@@ -1,74 +1,13 @@
 {
   "Jan26": {
     "total_rev": 275405,
-    "total_cogs": 83770,
-    "b1": {
-      "rev": 275405,
-      "rental": 12324,
-      "opex": 19000,
-      "opex_list": [
-        {
-          "date": "02/01/2026",
-          "month": "Jan26",
-          "bucket": "EXCLUDED",
-          "cat": "Profit Distribution",
-          "desc": "ส่วนแบ่ง60เปอ — removed from P&L, this is a partner profit-share payout, not a business expense (owner-confirmed)",
-          "amt": 0,
-          "branch": "B1"
-        },
-        {
-          "date": "02/01/2026",
-          "month": "Jan26",
-          "bucket": "EXCLUDED",
-          "cat": "Profit Distribution",
-          "desc": "ค่าส่วนแบ่งกำไรเมน 40เปอ — removed from P&L, this is a partner profit-share payout, not a business expense (owner-confirmed)",
-          "amt": 0,
-          "branch": "B1"
-        },
-        {
-          "date": "08/01/2026",
-          "month": "Jan26",
-          "bucket": "OPEX",
-          "cat": "Rental",
-          "desc": "ค่าเช่า12,000 น้ำไฟ324 รวม12,324",
-          "amt": 12324,
-          "branch": "B1"
-        },
-        {
-          "date": "31/01/2026",
-          "month": "Jan26",
-          "bucket": "OPEX",
-          "cat": "Salary",
-          "desc": "เงินเดือนเมนมกราคม",
-          "amt": 19000,
-          "branch": "B1"
-        }
-      ],
-      "cogs": 83770,
-      "net": 160311,
-      "loss_carry_forward": 0,
-      "adjusted_net": 160311,
-      "share": 96186.59999999999,
-      "ming_share": 64124.4
-    },
-    "b2": {
-      "rev": 0,
-      "rental": 0,
-      "opex": 0,
-      "opex_list": [],
-      "cogs": 0,
-      "net": 0,
-      "loss_carry_forward": 0,
-      "adjusted_net": 0,
-      "share": 0,
-      "ming_share": 0
-    },
+    "total_cogs": 89456,
     "fruit_summary": {
       "Packaging": 8436,
-      "Transportation": 6322,
-      "Watermelon": 22800,
+      "Transportation": 7508,
+      "Watermelon": 26800,
       "Orange": 45301,
-      "Ice": 60,
+      "Ice": 560,
       "Apple": 851
     },
     "daily_cogs": [
@@ -129,7 +68,7 @@
       {
         "date": "09/01/2026",
         "desc": "ค่าขนตะกร้ากลับ",
-        "cat": "Transportation",
+        "cat": "Ice",
         "amt": 500
       },
       {
@@ -248,6 +187,12 @@
       },
       {
         "date": "23/01/2026",
+        "desc": "Unknown",
+        "cat": "Transportation",
+        "amt": 400
+      },
+      {
+        "date": "23/01/2026",
         "desc": "แตงโม 40 ลูก",
         "cat": "Watermelon",
         "amt": 3200
@@ -269,6 +214,12 @@
         "desc": "ค่าส้ม 30 ตะกร้า",
         "cat": "Orange",
         "amt": 10680
+      },
+      {
+        "date": "26/01/2026",
+        "desc": "Unknown",
+        "cat": "Transportation",
+        "amt": 400
       },
       {
         "date": "26/01/2026",
@@ -301,6 +252,24 @@
         "amt": 4000
       },
       {
+        "date": "28/01/2026",
+        "desc": "Unknown",
+        "cat": "Transportation",
+        "amt": 400
+      },
+      {
+        "date": "28/01/2026",
+        "desc": "ค่าส่ง",
+        "cat": "Transportation",
+        "amt": 486
+      },
+      {
+        "date": "28/01/2026",
+        "desc": "แตงโม 50 ลูก",
+        "cat": "Watermelon",
+        "amt": 4000
+      },
+      {
         "date": "30/01/2026",
         "desc": "แตงโม 25 ลูก",
         "cat": "Watermelon",
@@ -324,9 +293,9 @@
       {
         "name": "Watermelon",
         "rev": 77250,
-        "cost": 22800,
+        "cost": 26800,
         "cups": 1545,
-        "roi": "238.8%"
+        "roi": "188.2%"
       },
       {
         "name": "Mango",
@@ -370,59 +339,37 @@
         "cups": 0,
         "roi": "N/A"
       }
-    ]
-  },
-  "Feb26": {
-    "total_rev": 340060,
-    "total_cogs": 133278,
+    ],
     "b1": {
-      "rev": 340060,
-      "rental": 12000,
-      "opex": 1603,
+      "rev": 275405,
+      "rental": 12324,
+      "opex": 19000,
       "opex_list": [
         {
-          "date": "08/02/2026",
-          "month": "Feb26",
-          "bucket": "OPEX",
-          "cat": "Other",
-          "desc": "Unknown",
-          "amt": 798,
-          "branch": "B1"
-        },
-        {
-          "date": "10/02/2026",
-          "month": "Feb26",
-          "bucket": "OPEX",
-          "cat": "Fixed Costs",
-          "desc": "ค่าไฟเดือนมค",
-          "amt": 389,
-          "branch": "B1"
-        },
-        {
-          "date": "20/02/2026",
-          "month": "Feb26",
-          "bucket": "OPEX",
-          "cat": "Other",
-          "desc": "ผ้าปิดร้าน 218 ค่ารถ 198",
-          "amt": 416,
-          "branch": "B1"
-        },
-        {
-          "date": "28/02/2026",
-          "month": "Feb26",
+          "date": "08/01/2026",
+          "month": "Jan26",
           "bucket": "OPEX",
           "cat": "Rental",
-          "desc": "ค่าเช่าสต็อคกพ",
-          "amt": 12000,
+          "desc": "ค่าเช่า12,000 น้ำไฟ324 รวม12,324",
+          "amt": 12324,
+          "branch": "B1"
+        },
+        {
+          "date": "31/01/2026",
+          "month": "Jan26",
+          "bucket": "OPEX",
+          "cat": "Salary",
+          "desc": "เงินเดือนเมนมกราคม",
+          "amt": 19000,
           "branch": "B1"
         }
       ],
-      "cogs": 133278,
-      "net": 193179,
+      "cogs": 89456,
+      "net": 154625,
       "loss_carry_forward": 0,
-      "adjusted_net": 193179,
-      "share": 115907.4,
-      "ming_share": 77271.6
+      "adjusted_net": 154625,
+      "share": 92775,
+      "ming_share": 61850
     },
     "b2": {
       "rev": 0,
@@ -436,12 +383,28 @@
       "share": 0,
       "ming_share": 0
     },
+    "b3": {
+      "rev": 0,
+      "rental": 0,
+      "opex": 0,
+      "opex_list": [],
+      "cogs": 0,
+      "net": 0,
+      "loss_carry_forward": 0,
+      "adjusted_net": 0,
+      "share": 0,
+      "ming_share": 0
+    }
+  },
+  "Feb26": {
+    "total_rev": 340060,
+    "total_cogs": 133118,
     "fruit_summary": {
-      "Orange": 61557,
-      "Watermelon": 44000,
+      "Orange": 63794,
+      "Watermelon": 40000,
       "Transportation": 14864,
       "Packaging": 12007,
-      "Apple": 350,
+      "Ice": 1953,
       "Mango": 500
     },
     "daily_cogs": [
@@ -489,6 +452,12 @@
       },
       {
         "date": "08/02/2026",
+        "desc": "Unknown",
+        "cat": "Ice",
+        "amt": 798
+      },
+      {
+        "date": "08/02/2026",
         "desc": "แตงโม 50",
         "cat": "Watermelon",
         "amt": 4000
@@ -512,6 +481,12 @@
         "amt": 685
       },
       {
+        "date": "10/02/2026",
+        "desc": "ค่าไฟเดือนมค",
+        "cat": "Ice",
+        "amt": 389
+      },
+      {
         "date": "11/02/2026",
         "desc": "แตงโม 50 ลูก",
         "cat": "Watermelon",
@@ -520,13 +495,7 @@
       {
         "date": "14/02/2026",
         "desc": "Unknown",
-        "cat": "Watermelon",
-        "amt": 4000
-      },
-      {
-        "date": "14/02/2026",
-        "desc": "Unknown",
-        "cat": "Apple",
+        "cat": "Ice",
         "amt": 350
       },
       {
@@ -564,6 +533,12 @@
         "desc": "Unknown",
         "cat": "Transportation",
         "amt": 2000
+      },
+      {
+        "date": "20/02/2026",
+        "desc": "ผ้าปิดร้าน 218 ค่ารถ 198",
+        "cat": "Ice",
+        "amt": 416
       },
       {
         "date": "23/02/2026",
@@ -627,6 +602,12 @@
       },
       {
         "date": "28/02/2026",
+        "desc": "ค่าส่งส้ม",
+        "cat": "Orange",
+        "amt": 2237
+      },
+      {
+        "date": "28/02/2026",
         "desc": "แตงโม 50 ลูก",
         "cat": "Watermelon",
         "amt": 4000
@@ -648,16 +629,16 @@
       {
         "name": "Orange",
         "rev": 200100,
-        "cost": 61557,
+        "cost": 63794,
         "cups": 3335,
-        "roi": "225.1%"
+        "roi": "213.7%"
       },
       {
         "name": "Watermelon",
         "rev": 115400,
-        "cost": 44000,
+        "cost": 40000,
         "cups": 2308,
-        "roi": "162.3%"
+        "roi": "188.5%"
       },
       {
         "name": "Mango",
@@ -669,9 +650,9 @@
       {
         "name": "Apple",
         "rev": 0,
-        "cost": 350,
+        "cost": 0,
         "cups": 0,
-        "roi": "-100.0%"
+        "roi": "N/A"
       },
       {
         "name": "Coconut",
@@ -701,95 +682,37 @@
         "cups": 0,
         "roi": "N/A"
       }
-    ]
-  },
-  "Mar26": {
-    "total_rev": 286925,
-    "total_cogs": 133528,
+    ],
     "b1": {
-      "rev": 286925,
-      "rental": 0,
-      "opex": 11817.72,
+      "rev": 340060,
+      "rental": 12000,
+      "opex": 4000,
       "opex_list": [
         {
-          "date": "01/01/2026",
-          "month": "Mar26",
+          "date": "14/02/2026",
+          "month": "Feb26",
+          "bucket": "OPEX",
+          "cat": "Other",
+          "desc": "Unknown",
+          "amt": 4000,
+          "branch": "B1"
+        },
+        {
+          "date": "28/02/2026",
+          "month": "Feb26",
           "bucket": "OPEX",
           "cat": "Rental",
-          "desc": "Unknown",
-          "amt": 0,
-          "branch": "B1"
-        },
-        {
-          "date": "05/03/2026",
-          "month": "Mar26",
-          "bucket": "OPEX",
-          "cat": "Other",
-          "desc": "ค่าทางด่วน",
-          "amt": 105,
-          "branch": "B1"
-        },
-        {
-          "date": "10/03/2026",
-          "month": "Mar26",
-          "bucket": "CAPEX",
-          "cat": "Investment",
-          "desc": "Unknown",
-          "amt": 6500,
-          "branch": "B1"
-        },
-        {
-          "date": "15/03/2026",
-          "month": "Mar26",
-          "bucket": "OPEX",
-          "cat": "Other",
-          "desc": "ค่าทางด่วน",
-          "amt": 115,
-          "branch": "B1"
-        },
-        {
-          "date": "17/03/2026",
-          "month": "Mar26",
-          "bucket": "OPEX",
-          "cat": "Fixed Costs",
-          "desc": "ค่าไฟเดือนกพ มีนา",
-          "amt": 2779.47,
-          "branch": "B1"
-        },
-        {
-          "date": "21/03/2026",
-          "month": "Mar26",
-          "bucket": "OPEX",
-          "cat": "Other",
-          "desc": "สกรู กาวตะปู",
-          "amt": 117,
-          "branch": "B1"
-        },
-        {
-          "date": "24/03/2026",
-          "month": "Mar26",
-          "bucket": "OPEX",
-          "cat": "Other",
-          "desc": "รถเข็นของคันใหม่",
-          "amt": 1752,
-          "branch": "B1"
-        },
-        {
-          "date": "20/03/2026",
-          "month": "Mar26",
-          "bucket": "OPEX",
-          "cat": "Fixed Costs",
-          "desc": "ค่าน้ำประปา เดือน 03/69 (MWA water bill, was never ingested by OCR pipeline)",
-          "amt": 449.25,
+          "desc": "ค่าเช่าสต็อคกพ",
+          "amt": 12000,
           "branch": "B1"
         }
       ],
-      "cogs": 133528,
-      "net": 141579.28000000003,
+      "cogs": 133118,
+      "net": 190942,
       "loss_carry_forward": 0,
-      "adjusted_net": 141579.28000000003,
-      "share": 84947.56800000001,
-      "ming_share": 56631.712000000014
+      "adjusted_net": 190942,
+      "share": 114565.2,
+      "ming_share": 76376.8
     },
     "b2": {
       "rev": 0,
@@ -803,10 +726,27 @@
       "share": 0,
       "ming_share": 0
     },
+    "b3": {
+      "rev": 0,
+      "rental": 0,
+      "opex": 0,
+      "opex_list": [],
+      "cogs": 0,
+      "net": 0,
+      "loss_carry_forward": 0,
+      "adjusted_net": 0,
+      "share": 0,
+      "ming_share": 0
+    }
+  },
+  "Mar26": {
+    "total_rev": 286925,
+    "total_cogs": 138396.47,
     "fruit_summary": {
       "Watermelon": 24440,
       "Mango": 7775,
-      "Orange": 85933,
+      "Orange": 36373,
+      "Ice": 54428.47,
       "Packaging": 8530,
       "Transportation": 6000,
       "Apple": 350,
@@ -836,6 +776,12 @@
         "desc": "ค่าส้ม 20 ตะกร้า",
         "cat": "Orange",
         "amt": 7312
+      },
+      {
+        "date": "05/03/2026",
+        "desc": "ค่าทางด่วน",
+        "cat": "Ice",
+        "amt": 105
       },
       {
         "date": "05/03/2026",
@@ -899,15 +845,33 @@
       },
       {
         "date": "15/03/2026",
+        "desc": "ค่าทางด่วน",
+        "cat": "Ice",
+        "amt": 115
+      },
+      {
+        "date": "15/03/2026",
         "desc": "น้ำมะพร้าว 5ขวดเละ 50฿",
         "cat": "Watermelon",
         "amt": 4800
+      },
+      {
+        "date": "17/03/2026",
+        "desc": "ค่าไฟเดือนกพ มีนา",
+        "cat": "Ice",
+        "amt": 2779.47
       },
       {
         "date": "19/03/2026",
         "desc": "ค่าแตงโม 18/3/67 51 ลูก 4000 บาท",
         "cat": "Watermelon",
         "amt": 4000
+      },
+      {
+        "date": "21/03/2026",
+        "desc": "สกรู กาวตะปู",
+        "cat": "Ice",
+        "amt": 117
       },
       {
         "date": "23/03/2026",
@@ -920,6 +884,12 @@
         "desc": "22-3-2569",
         "cat": "Orange",
         "amt": 5890
+      },
+      {
+        "date": "24/03/2026",
+        "desc": "รถเข็นของคันใหม่",
+        "cat": "Ice",
+        "amt": 1752
       },
       {
         "date": "28/03/2026",
@@ -972,7 +942,7 @@
       {
         "date": "02/04/2026",
         "desc": "Unknown",
-        "cat": "Orange",
+        "cat": "Ice",
         "amt": 49560
       }
     ],
@@ -980,9 +950,9 @@
       {
         "name": "Orange",
         "rev": 177480,
-        "cost": 85933,
+        "cost": 36373,
         "cups": 2958,
-        "roi": "106.5%"
+        "roi": "387.9%"
       },
       {
         "name": "Watermelon",
@@ -1033,112 +1003,78 @@
         "cups": 0,
         "roi": "N/A"
       }
-    ]
-  },
-  "Apr26": {
-    "total_rev": 383118,
-    "total_cogs": 197183,
+    ],
     "b1": {
-      "rev": 313858,
-      "rental": 35000,
-      "opex": 31000,
+      "rev": 286925,
+      "rental": 0,
+      "opex": 6500,
       "opex_list": [
         {
-          "date": "24/04/2026",
-          "month": "Apr26",
-          "bucket": "EXCLUDED",
-          "cat": "Removed",
-          "desc": "บาร์เลย 4 ถั่วแดง 3 ถุงละ 60 (removed at owner request)",
+          "date": "01/01/2026",
+          "month": "Mar26",
+          "bucket": "OPEX",
+          "cat": "Rental",
+          "desc": "Unknown",
           "amt": 0,
           "branch": "B1"
         },
         {
-          "date": "30/04/2026",
-          "month": "Apr26",
-          "bucket": "OPEX",
-          "cat": "Salary",
-          "desc": "Employee 1",
-          "amt": 19000,
-          "branch": "B1"
-        },
-        {
-          "date": "30/04/2026",
-          "month": "Apr26",
-          "bucket": "OPEX",
-          "cat": "Salary",
-          "desc": "Employee 2",
-          "amt": 12000,
-          "branch": "B1"
-        },
-        {
-          "date": "30/04/2026",
-          "month": "Apr26",
-          "bucket": "OPEX",
-          "cat": "Rental",
-          "desc": "Rent",
-          "amt": 35000,
+          "date": "10/03/2026",
+          "month": "Mar26",
+          "bucket": "CAPEX",
+          "cat": "Investment",
+          "desc": "Unknown",
+          "amt": 6500,
           "branch": "B1"
         }
       ],
-      "cogs": 164060.37159404182,
-      "net": 83797.62840595818,
+      "cogs": 138396.47,
+      "net": 142028.53,
       "loss_carry_forward": 0,
-      "adjusted_net": 83797.62840595818,
-      "share": 50278.57704357491,
-      "ming_share": 33519.051362383274
+      "adjusted_net": 142028.53,
+      "share": 85217.118,
+      "ming_share": 56811.412000000004
     },
     "b2": {
-      "rev": 69260,
-      "rental": 30000,
-      "opex": 18000,
-      "opex_list": [
-        {
-          "date": "30/04/2026",
-          "month": "Apr26",
-          "bucket": "OPEX",
-          "cat": "Salary",
-          "desc": "Employee 3",
-          "amt": 12000,
-          "branch": "B2"
-        },
-        {
-          "date": "30/04/2026",
-          "month": "Apr26",
-          "bucket": "OPEX",
-          "cat": "Salary",
-          "desc": "Employee 4",
-          "amt": 6000,
-          "branch": "B2"
-        },
-        {
-          "date": "30/04/2026",
-          "month": "Apr26",
-          "bucket": "OPEX",
-          "cat": "Rental",
-          "desc": "Rent",
-          "amt": 30000,
-          "branch": "B2"
-        }
-      ],
-      "cogs": 33122.628405958174,
-      "net": -11862.628405958174,
+      "rev": 0,
+      "rental": 0,
+      "opex": 0,
+      "opex_list": [],
+      "cogs": 0,
+      "net": 0,
       "loss_carry_forward": 0,
       "adjusted_net": 0,
       "share": 0,
       "ming_share": 0
     },
+    "b3": {
+      "rev": 0,
+      "rental": 0,
+      "opex": 0,
+      "opex_list": [],
+      "cogs": 0,
+      "net": 0,
+      "loss_carry_forward": 0,
+      "adjusted_net": 0,
+      "share": 0,
+      "ming_share": 0
+    }
+  },
+  "Apr26": {
+    "total_rev": 383118,
+    "total_cogs": 193603,
     "fruit_summary": {
       "Apple": 9800,
       "Mango": 10540,
-      "Water": 8000,
-      "Packaging": 23433,
+      "Water": 1700,
+      "Packaging": 23853,
       "Coconut": 2080,
+      "Ice": 15180,
       "Orange": 78760,
-      "Watermelon": 38600,
+      "Watermelon": 27400,
       "Coconut Water": 3400,
-      "Milk/Conden": 2340,
       "Transportation": 6730,
-      "Pineapple": 1500,
+      "Milk/Conden": 2160,
       "Stock": 12000,
       "Other": 0
     },
@@ -1182,7 +1118,7 @@
       {
         "date": "04/04/2026",
         "desc": "เนื้อ 1200 น้ำ 500",
-        "cat": "Water",
+        "cat": "Ice",
         "amt": 1700
       },
       {
@@ -1200,7 +1136,7 @@
       {
         "date": "04/04/2026",
         "desc": "4/4/68 40 ลูก",
-        "cat": "Watermelon",
+        "cat": "Ice",
         "amt": 3200
       },
       {
@@ -1230,7 +1166,7 @@
       {
         "date": "10/04/2026",
         "desc": "ค่านม",
-        "cat": "Milk/Conden",
+        "cat": "Ice",
         "amt": 180
       },
       {
@@ -1248,7 +1184,7 @@
       {
         "date": "11/04/2026",
         "desc": "น้ำ 500 เนื้อ 1200",
-        "cat": "Water",
+        "cat": "Ice",
         "amt": 1700
       },
       {
@@ -1292,12 +1228,6 @@
         "desc": "16/04/26 มะม่วง 1 ลัง",
         "cat": "Mango",
         "amt": 750
-      },
-      {
-        "date": "18/04/2026",
-        "desc": "16/4/2569",
-        "cat": "Watermelon",
-        "amt": 4000
       },
       {
         "date": "20/04/2026",
@@ -1368,7 +1298,7 @@
       {
         "date": "23/04/2026",
         "desc": "16/4/26 เนื้อ 10 น้ำ 10 21/4/26 เนื้อ 10",
-        "cat": "Water",
+        "cat": "Ice",
         "amt": 2900
       },
       {
@@ -1376,6 +1306,12 @@
         "desc": "มะม่วง 1 ลัง",
         "cat": "Mango",
         "amt": 780
+      },
+      {
+        "date": "24/04/2026",
+        "desc": "บาร์เลย 4 ถั่วแดง 3 ถุงละ 60",
+        "cat": "Packaging",
+        "amt": 420
       },
       {
         "date": "24/04/2026",
@@ -1416,7 +1352,7 @@
       {
         "date": "27/04/2026",
         "desc": "26/4/26 50 ลูก",
-        "cat": "Watermelon",
+        "cat": "Ice",
         "amt": 4000
       },
       {
@@ -1476,7 +1412,7 @@
       {
         "date": "30/04/2026",
         "desc": "สับปะรส 3 ตะกร้า",
-        "cat": "Pineapple",
+        "cat": "Ice",
         "amt": 1500
       },
       {
@@ -1509,9 +1445,9 @@
       {
         "name": "Watermelon",
         "rev": 94900,
-        "cost": 38600,
+        "cost": 27400,
         "cups": 1898,
-        "roi": "145.9%"
+        "roi": "246.4%"
       },
       {
         "name": "Mango",
@@ -1551,180 +1487,68 @@
       {
         "name": "Pineapple",
         "rev": 0,
-        "cost": 1500,
+        "cost": 0,
         "cups": 0,
-        "roi": "-100.0%"
+        "roi": "N/A"
       }
-    ]
-  },
-  "May26": {
-    "total_rev": 415861,
-    "total_cogs": 178625,
+    ],
     "b1": {
-      "rev": 248480,
-      "rental": 47000,
-      "opex": 66928,
+      "rev": 313858,
+      "rental": 35000,
+      "opex": 35000,
       "opex_list": [
         {
-          "date": "02/05/2026",
-          "month": "May26",
+          "date": "18/04/2026",
+          "month": "Apr26",
           "bucket": "OPEX",
           "cat": "Other",
-          "desc": "ค่าหาหมอเอ",
-          "amt": 706,
+          "desc": "16/4/2569",
+          "amt": 4000,
           "branch": "B1"
         },
         {
-          "date": "02/05/2026",
-          "month": "May26",
-          "bucket": "OPEX",
-          "cat": "Other",
-          "desc": "ค่าหมอเอ",
-          "amt": 13,
-          "branch": "B1"
-        },
-        {
-          "date": "06/05/2026",
-          "month": "May26",
-          "bucket": "OPEX",
-          "cat": "Other",
-          "desc": "ทิชชู่3แพค 36ห่อ",
-          "amt": 451,
-          "branch": "B1"
-        },
-        {
-          "date": "08/05/2026",
-          "month": "May26",
-          "bucket": "OPEX",
-          "cat": "Other",
-          "desc": "ค่าทำความสะอาดตึกชั้น 1",
-          "amt": 2700,
-          "branch": "B1"
-        },
-        {
-          "date": "09/05/2026",
-          "month": "May26",
-          "bucket": "OPEX",
-          "cat": "Other",
-          "desc": "พรหมเช็ดเท้า 1 ผืน",
-          "amt": 372,
-          "branch": "B1"
-        },
-        {
-          "date": "10/05/2026",
-          "month": "May26",
-          "bucket": "OPEX",
-          "cat": "Other",
-          "desc": "ไฟ 2อัน 422",
-          "amt": 838,
-          "branch": "B1"
-        },
-        {
-          "date": "13/05/2026",
-          "month": "May26",
-          "bucket": "OPEX",
-          "cat": "Other",
-          "desc": "ที่หนีบ 6ตัว 374 บาท",
-          "amt": 374,
-          "branch": "B1"
-        },
-        {
-          "date": "14/05/2026",
-          "month": "May26",
-          "bucket": "OPEX",
-          "cat": "Rental",
-          "desc": "ค่าเช่า+สต๊อกร้าน 1",
-          "amt": 47000,
-          "branch": "B1"
-        },
-        {
-          "date": "16/05/2026",
-          "month": "May26",
-          "bucket": "OPEX",
-          "cat": "Other",
-          "desc": "Police fees (portion of mixed 16/05 slip)",
-          "amt": 2000,
-          "branch": "B1"
-        },
-        {
-          "date": "25/05/2026",
-          "month": "May26",
+          "date": "30/04/2026",
+          "month": "Apr26",
           "bucket": "OPEX",
           "cat": "Salary",
-          "desc": "เงินเดือนซี เดือนพ.ค.",
-          "amt": 7800,
-          "branch": "B1"
-        },
-        {
-          "date": "27/05/2026",
-          "month": "May26",
-          "bucket": "OPEX",
-          "cat": "Salary",
-          "desc": "เงินเดือนเมน 5/26",
+          "desc": "Employee 1",
           "amt": 19000,
           "branch": "B1"
         },
         {
-          "date": "28/05/2026",
-          "month": "May26",
-          "bucket": "CAPEX",
-          "cat": "Investment",
-          "desc": "เครื่องสกัดเย็น 1",
-          "amt": 1065,
-          "branch": "B1"
-        },
-        {
-          "date": "01/06/2026",
-          "month": "May26",
+          "date": "30/04/2026",
+          "month": "Apr26",
           "bucket": "OPEX",
           "cat": "Salary",
-          "desc": "Aye 12,000 + Wai 12,000 (May salary, B1 portion split from joint ฿41,200 SCB transfer 01/06 - see cost_may26.md)",
-          "amt": 24000,
+          "desc": "Employee 2",
+          "amt": 12000,
           "branch": "B1"
         },
         {
-          "date": "09/05/2026",
-          "month": "May26",
+          "date": "30/04/2026",
+          "month": "Apr26",
           "bucket": "OPEX",
-          "cat": "Other",
-          "desc": "ลิ้นชักเก็บเงิน (cash register drawer, split from combined 09/05 milk+equipment slip)",
-          "amt": 486,
-          "branch": "B1"
-        },
-        {
-          "date": "01/05/2026",
-          "month": "May26",
-          "bucket": "OPEX",
-          "cat": "Other",
-          "desc": "ร่ม+นมข้นจืด+ที่ปั้ม+ปืนฉีดน้ำ (remainder of mixed 01/05 slip, non-guava portion)",
-          "amt": 7123,
+          "cat": "Rental",
+          "desc": "Rent",
+          "amt": 35000,
           "branch": "B1"
         }
       ],
-      "cogs": 101711.0446272883,
-      "net": 32840.9553727117,
+      "cogs": 161188.86046900522,
+      "net": 82669.13953099478,
       "loss_carry_forward": 0,
-      "adjusted_net": 32840.9553727117,
-      "share": 19704.57322362702,
-      "ming_share": 13136.382149084682
+      "adjusted_net": 82669.13953099478,
+      "share": 49601.48371859687,
+      "ming_share": 33067.65581239791
     },
     "b2": {
-      "rev": 167381,
+      "rev": 69260,
       "rental": 30000,
       "opex": 18000,
       "opex_list": [
         {
-          "date": "07/05/2026",
-          "month": "May26",
-          "bucket": "OPEX",
-          "cat": "Rental",
-          "desc": "ค่าเช่าร้าน 2 เดือนพฤษภาคม",
-          "amt": 30000,
-          "branch": "B2"
-        },
-        {
-          "date": "31/05/2026",
-          "month": "May26",
+          "date": "30/04/2026",
+          "month": "Apr26",
           "bucket": "OPEX",
           "cat": "Salary",
           "desc": "Employee 3",
@@ -1732,44 +1556,69 @@
           "branch": "B2"
         },
         {
-          "date": "31/05/2026",
-          "month": "May26",
+          "date": "30/04/2026",
+          "month": "Apr26",
           "bucket": "OPEX",
           "cat": "Salary",
           "desc": "Employee 4",
           "amt": 6000,
           "branch": "B2"
+        },
+        {
+          "date": "30/04/2026",
+          "month": "Apr26",
+          "bucket": "OPEX",
+          "cat": "Rental",
+          "desc": "Rent",
+          "amt": 30000,
+          "branch": "B2"
         }
       ],
-      "cogs": 76913.95537271172,
-      "net": 42467.044627288284,
-      "loss_carry_forward": 11862.628405958174,
-      "adjusted_net": 30604.41622133011,
-      "share": 21423.091354931075,
-      "ming_share": 9181.324866399033
+      "cogs": 32414.139530994784,
+      "net": -11154.139530994784,
+      "loss_carry_forward": 0,
+      "adjusted_net": 0,
+      "share": 0,
+      "ming_share": 0
     },
+    "b3": {
+      "rev": 0,
+      "rental": 0,
+      "opex": 0,
+      "opex_list": [],
+      "cogs": 0,
+      "net": 0,
+      "loss_carry_forward": 0,
+      "adjusted_net": 0,
+      "share": 0,
+      "ming_share": 0
+    }
+  },
+  "May26": {
+    "total_rev": 415861,
+    "total_cogs": 143695,
     "fruit_summary": {
-      "Guava": 4300,
+      "Guava": 11423,
       "Mango": 10835,
-      "Apple": 9550,
-      "Pineapple": 5958,
-      "Packaging": 17309,
-      "Watermelon": 47200,
-      "Coconut Water": 7375,
+      "Apple": 8500,
+      "Pineapple": 4950,
+      "Ice": 5009,
+      "Packaging": 27906,
+      "Transportation": 8555,
       "Water": 1100,
-      "Milk/Conden": 8413,
-      "Transportation": 4000,
+      "Milk/Conden": 1122,
+      "Watermelon": 4000,
       "Coconut Meat": 3500,
       "Orange": 53440,
-      "Coconut": 5645,
+      "Coconut": 3355,
       "Stock": 0
     },
     "daily_cogs": [
       {
         "date": "01/05/2026",
-        "desc": "ร่ม 1176 ร่ม 843 ฝรั่ง 300 นมข้นจืด 785 ที่ปั้ม 176 (Guava portion only)",
+        "desc": "ร่ม 1176 ร่ม 843 ฝรั่ง 300 นมข้นจืด 785 ที่ปั้ม 176",
         "cat": "Guava",
-        "amt": 700
+        "amt": 7823
       },
       {
         "date": "02/05/2026",
@@ -1790,6 +1639,18 @@
         "amt": 1116
       },
       {
+        "date": "02/05/2026",
+        "desc": "ค่าหาหมอเอ",
+        "cat": "Ice",
+        "amt": 706
+      },
+      {
+        "date": "02/05/2026",
+        "desc": "ค่าหมอเอ",
+        "cat": "Ice",
+        "amt": 13
+      },
+      {
         "date": "04/05/2026",
         "desc": "ถุงมือ4อัน",
         "cat": "Packaging",
@@ -1806,12 +1667,6 @@
         "desc": "มะม่วง 2 ลัง",
         "cat": "Mango",
         "amt": 1680
-      },
-      {
-        "date": "04/05/2026",
-        "desc": "30-4-2569 เบอร์ 70฿ 60 ลูก",
-        "cat": "Watermelon",
-        "amt": 7000
       },
       {
         "date": "06/05/2026",
@@ -1834,7 +1689,7 @@
       {
         "date": "08/05/2026",
         "desc": "น้ำ 20 ขวด 900 ถอดเสื้อ 30 ลูก750 กล่องโฟม 3",
-        "cat": "Coconut Water",
+        "cat": "Transportation",
         "amt": 4555
       },
       {
@@ -1846,25 +1701,19 @@
       {
         "date": "08/05/2026",
         "desc": "6 พ.ค. น้ำ 30 ขวด 1500 บาท เนื้อ 11 โล 1320 บาท",
-        "cat": "Coconut Water",
+        "cat": "Packaging",
         "amt": 2820
       },
       {
-        "date": "08/05/2026",
-        "desc": "4-5-2569 เบอร์ 70฿ 60 ลูก ยอด 4,200",
-        "cat": "Watermelon",
-        "amt": 8200
-      },
-      {
         "date": "09/05/2026",
-        "desc": "นมข้นจืด 1ลัง (drawer portion split out below)",
+        "desc": "นมข้นจืด 1ลัง 636",
         "cat": "Milk/Conden",
-        "amt": 636
+        "amt": 1122
       },
       {
         "date": "09/05/2026",
         "desc": "นมข้น 3 ลัง 2568",
-        "cat": "Milk/Conden",
+        "cat": "Packaging",
         "amt": 4875
       },
       {
@@ -1898,7 +1747,7 @@
         "amt": 910
       },
       {
-        "date": "09/05/2026",
+        "date": "11/05/2026",
         "desc": "แตงโม 4000 วันที่ 9-5-26",
         "cat": "Watermelon",
         "amt": 4000
@@ -1910,16 +1759,10 @@
         "amt": 3500
       },
       {
-        "date": "09/05/2026",
+        "date": "13/05/2026",
         "desc": "09/05/26 สับปะรด 2 ตะกร้า",
         "cat": "Pineapple",
         "amt": 1008
-      },
-      {
-        "date": "14/05/2026",
-        "desc": "11-5-2569 50 ลูก ยอด 4,000",
-        "cat": "Watermelon",
-        "amt": 8000
       },
       {
         "date": "14/05/2026",
@@ -1946,22 +1789,22 @@
         "amt": 15730
       },
       {
-        "date": "05/05/2026",
+        "date": "15/05/2026",
         "desc": "05/05/69 ส้ม 30x22กก 660กกx30",
         "cat": "Orange",
         "amt": 21450
       },
       {
         "date": "16/05/2026",
-        "desc": "มะพร้าว 20 โล",
-        "cat": "Coconut",
-        "amt": 2400
+        "desc": "Police fees -2000 2 head",
+        "cat": "Ice",
+        "amt": 4290
       },
       {
         "date": "16/05/2026",
-        "desc": "14/05/26 18 ลูก 504 บาท 16/05/26 18 ลูก",
-        "cat": "Pineapple",
-        "amt": 1008
+        "desc": "มะพร้าว 20 โล",
+        "cat": "Coconut",
+        "amt": 2400
       },
       {
         "date": "16/05/2026",
@@ -2013,12 +1856,6 @@
       },
       {
         "date": "22/05/2026",
-        "desc": "16-5-2569ยอด 4,000฿",
-        "cat": "Watermelon",
-        "amt": 12000
-      },
-      {
-        "date": "22/05/2026",
         "desc": "ฝรั่ง 1 ตะกร้า",
         "cat": "Guava",
         "amt": 600
@@ -2038,7 +1875,7 @@
       {
         "date": "23/05/2026",
         "desc": "ฝา1 788",
-        "cat": "Milk/Conden",
+        "cat": "Packaging",
         "amt": 2902
       },
       {
@@ -2066,7 +1903,7 @@
         "amt": 1245
       },
       {
-        "date": "24/05/2026",
+        "date": "25/05/2026",
         "desc": "24/05/69",
         "cat": "Orange",
         "amt": 15015
@@ -2103,12 +1940,6 @@
       },
       {
         "date": "30/05/2026",
-        "desc": "Unknown",
-        "cat": "Apple",
-        "amt": 1050
-      },
-      {
-        "date": "30/05/2026",
         "desc": "ฝรั่ง 1 ตะกร้า",
         "cat": "Guava",
         "amt": 600
@@ -2118,24 +1949,6 @@
         "desc": "Stock Adjustment (Allocated to B2)",
         "cat": "Stock",
         "amt": -4830
-      },
-      {
-        "date": "25/05/2026",
-        "desc": "แตงโม 80 ลูก (split from 02/06 batch slip)",
-        "cat": "Watermelon",
-        "amt": 4000
-      },
-      {
-        "date": "30/05/2026",
-        "desc": "แตงโม 80 ลูก (split from 02/06 batch slip)",
-        "cat": "Watermelon",
-        "amt": 4000
-      },
-      {
-        "date": "16/05/2026",
-        "desc": "Coconut meat + water + apple (remainder of mixed 16/05 slip, non-police-fee portion)",
-        "cat": "Coconut",
-        "amt": 2290
       },
       {
         "date": "31/05/2026",
@@ -2155,9 +1968,9 @@
       {
         "name": "Watermelon",
         "rev": 125050,
-        "cost": 47200,
+        "cost": 4000,
         "cups": 2501,
-        "roi": "164.9%"
+        "roi": "3026.3%"
       },
       {
         "name": "Mango",
@@ -2169,16 +1982,16 @@
       {
         "name": "Apple",
         "rev": 27240,
-        "cost": 9550,
+        "cost": 8500,
         "cups": 454,
-        "roi": "185.2%"
+        "roi": "220.5%"
       },
       {
         "name": "Coconut",
         "rev": 85500,
-        "cost": 16520,
+        "cost": 6855,
         "cups": 1425,
-        "roi": "417.6%"
+        "roi": "1147.3%"
       },
       {
         "name": "Young Coco",
@@ -2197,135 +2010,237 @@
       {
         "name": "Pineapple",
         "rev": 13140,
-        "cost": 5958,
+        "cost": 4950,
         "cups": 219,
-        "roi": "120.5%"
+        "roi": "165.5%"
       }
-    ]
-  },
-  "Jun26": {
-    "total_rev": 307490,
-    "total_cogs": 153163,
+    ],
     "b1": {
-      "rev": 191720,
-      "rental": 41000,
-      "opex": 25719,
+      "rev": 248480,
+      "rental": 47000,
+      "opex": 69858,
       "opex_list": [
         {
-          "date": "08/06/2026",
-          "month": "Jun26",
+          "date": "04/05/2026",
+          "month": "May26",
           "bucket": "OPEX",
-          "cat": "Rental",
-          "desc": "ค่าเช่าสต็อค เดือน June (B1 portion, split from joint 12,000 - see B2 for other half)",
-          "amt": 6000,
+          "cat": "Other",
+          "desc": "30-4-2569 เบอร์ 70฿ 60 ลูก",
+          "amt": 7000,
           "branch": "B1"
         },
         {
-          "date": "08/06/2026",
-          "month": "Jun26",
+          "date": "06/05/2026",
+          "month": "May26",
           "bucket": "OPEX",
-          "cat": "Rental",
-          "desc": "ค่าเช่าร้านเดือน June (06) b1 35000",
-          "amt": 35000,
+          "cat": "Other",
+          "desc": "ทิชชู่3แพค 36ห่อ",
+          "amt": 451,
           "branch": "B1"
         },
         {
-          "date": "27/06/2026",
-          "month": "Jun26",
+          "date": "08/05/2026",
+          "month": "May26",
+          "bucket": "OPEX",
+          "cat": "Other",
+          "desc": "ค่าทำความสะอาดตึกชั้น 1",
+          "amt": 2700,
+          "branch": "B1"
+        },
+        {
+          "date": "08/05/2026",
+          "month": "May26",
+          "bucket": "OPEX",
+          "cat": "Other",
+          "desc": "4-5-2569 เบอร์ 70฿ 60 ลูก ยอด 4,200",
+          "amt": 8200,
+          "branch": "B1"
+        },
+        {
+          "date": "09/05/2026",
+          "month": "May26",
+          "bucket": "OPEX",
+          "cat": "Other",
+          "desc": "พรหมเช็ดเท้า 1 ผืน",
+          "amt": 372,
+          "branch": "B1"
+        },
+        {
+          "date": "10/05/2026",
+          "month": "May26",
+          "bucket": "OPEX",
+          "cat": "Other",
+          "desc": "ไฟ 2อัน 422",
+          "amt": 838,
+          "branch": "B1"
+        },
+        {
+          "date": "13/05/2026",
+          "month": "May26",
+          "bucket": "OPEX",
+          "cat": "Other",
+          "desc": "ที่หนีบ 6ตัว 374 บาท",
+          "amt": 374,
+          "branch": "B1"
+        },
+        {
+          "date": "14/05/2026",
+          "month": "May26",
+          "bucket": "OPEX",
+          "cat": "Other",
+          "desc": "11-5-2569 50 ลูก ยอด 4,000",
+          "amt": 8000,
+          "branch": "B1"
+        },
+        {
+          "date": "14/05/2026",
+          "month": "May26",
+          "bucket": "OPEX",
+          "cat": "Rental",
+          "desc": "ค่าเช่า+สต๊อกร้าน 1",
+          "amt": 47000,
+          "branch": "B1"
+        },
+        {
+          "date": "16/05/2026",
+          "month": "May26",
+          "bucket": "OPEX",
+          "cat": "Other",
+          "desc": "14/05/26 18 ลูก 504 บาท 16/05/26 18 ลูก",
+          "amt": 1008,
+          "branch": "B1"
+        },
+        {
+          "date": "22/05/2026",
+          "month": "May26",
+          "bucket": "OPEX",
+          "cat": "Other",
+          "desc": "16-5-2569ยอด 4,000฿",
+          "amt": 12000,
+          "branch": "B1"
+        },
+        {
+          "date": "25/05/2026",
+          "month": "May26",
+          "bucket": "OPEX",
+          "cat": "Salary",
+          "desc": "เงินเดือนซี เดือนพ.ค.",
+          "amt": 7800,
+          "branch": "B1"
+        },
+        {
+          "date": "27/05/2026",
+          "month": "May26",
+          "bucket": "OPEX",
+          "cat": "Salary",
+          "desc": "เงินเดือนเมน 5/26",
+          "amt": 19000,
+          "branch": "B1"
+        },
+        {
+          "date": "28/05/2026",
+          "month": "May26",
+          "bucket": "CAPEX",
+          "cat": "Investment",
+          "desc": "เครื่องสกัดเย็น 1",
+          "amt": 1065,
+          "branch": "B1"
+        },
+        {
+          "date": "30/05/2026",
+          "month": "May26",
           "bucket": "OPEX",
           "cat": "Other",
           "desc": "Unknown",
-          "amt": 317,
+          "amt": 1050,
           "branch": "B1"
         },
         {
-          "date": "29/06/2026",
-          "month": "Jun26",
-          "bucket": "CAPEX",
-          "cat": "Investment",
-          "desc": "สกัดเย็น1เครื่อง",
-          "amt": 1402,
-          "branch": "B1"
-        },
-        {
-          "date": "30/06/2026",
-          "month": "Jun26",
+          "date": "01/06/2026",
+          "month": "May26",
           "bucket": "OPEX",
           "cat": "Salary",
-          "desc": "ค่าแรง 2 คน คนละ 12000 (B1 portion, split from joint payroll transfer ฿48,400 - see B2 for other portion + ฿400 day-rate)",
-          "amt": 24000,
+          "desc": "Unknown",
+          "amt": 0,
           "branch": "B1"
         }
       ],
-      "cogs": 87920.81006265173,
-      "net": 37080.189937348274,
+      "cogs": 81035.33339637918,
+      "net": 50586.66660362082,
       "loss_carry_forward": 0,
-      "adjusted_net": 37080.189937348274,
-      "share": 22248.113962408963,
-      "ming_share": 14832.075974939311
+      "adjusted_net": 50586.66660362082,
+      "share": 30351.99996217249,
+      "ming_share": 20234.66664144833
     },
     "b2": {
-      "rev": 115770,
-      "rental": 36000,
-      "opex": 24400,
+      "rev": 167381,
+      "rental": 30000,
+      "opex": 18000,
       "opex_list": [
         {
-          "date": "01/06/2026",
-          "month": "Jun26",
+          "date": "07/05/2026",
+          "month": "May26",
           "bucket": "OPEX",
           "cat": "Rental",
-          "desc": "ค่าที่ร้านน้ำส้ม b2 06/26",
+          "desc": "ค่าเช่าร้าน 2 เดือนพฤษภาคม",
           "amt": 30000,
           "branch": "B2"
         },
         {
-          "date": "30/06/2026",
-          "month": "Jun26",
+          "date": "31/05/2026",
+          "month": "May26",
           "bucket": "OPEX",
           "cat": "Salary",
-          "desc": "ค่าแรง 2 คน คนละ 12000 (B2 portion, split from joint payroll transfer ฿48,400 - see B1 for other portion)",
-          "amt": 24000,
+          "desc": "Employee 3",
+          "amt": 12000,
           "branch": "B2"
         },
         {
-          "date": "30/06/2026",
-          "month": "Jun26",
+          "date": "31/05/2026",
+          "month": "May26",
           "bucket": "OPEX",
           "cat": "Salary",
-          "desc": "รายวัน 1 คน 400 (B2 portion, part of joint payroll transfer ฿48,400)",
-          "amt": 400,
-          "branch": "B2"
-        },
-        {
-          "date": "08/06/2026",
-          "month": "Jun26",
-          "bucket": "OPEX",
-          "cat": "Rental",
-          "desc": "ค่าเช่าสต็อค เดือน June (B2 portion, split from joint ฿12,000 - see B1 for other half)",
+          "desc": "Employee 4",
           "amt": 6000,
           "branch": "B2"
         }
       ],
-      "cogs": 65242.18993734825,
-      "net": -9872.189937348252,
+      "cogs": 62659.66660362085,
+      "net": 56721.33339637915,
+      "loss_carry_forward": 11154.139530994784,
+      "adjusted_net": 45567.19386538437,
+      "share": 31897.035705769056,
+      "ming_share": 13670.15815961531
+    },
+    "b3": {
+      "rev": 0,
+      "rental": 0,
+      "opex": 0,
+      "opex_list": [],
+      "cogs": 0,
+      "net": 0,
       "loss_carry_forward": 0,
       "adjusted_net": 0,
       "share": 0,
       "ming_share": 0
-    },
+    }
+  },
+  "Jun26": {
+    "total_rev": 307490,
+    "total_cogs": 199025,
     "fruit_summary": {
-      "Pineapple": 10342,
-      "Guava": 5800,
-      "Mango": 6312,
-      "Apple": 7350,
-      "Packaging": 23389,
-      "Orange": 48560,
+      "Pineapple": 11042,
+      "Guava": 6600,
+      "Watermelon": 35700,
+      "Mango": 7612,
+      "Apple": 6650,
+      "Packaging": 23538,
+      "Orange": 65005,
       "Transportation": 4000,
-      "Coconut Water": 11300,
+      "Stock": 12000,
+      "Coconut Water": 20400,
       "Ice": 18,
-      "Watermelon": 27700,
-      "Milk/Conden": 6460,
-      "Other": 1932
+      "Milk/Conden": 6460
     },
     "daily_cogs": [
       {
@@ -2339,6 +2254,12 @@
         "desc": "ฝรั่ง 1 ตะกร้า",
         "cat": "Guava",
         "amt": 600
+      },
+      {
+        "date": "02/06/2026",
+        "desc": "แตงโม 160 ลูก (25-5-2569: 80 ลูก, 30-5-2569: 80 ลูก)",
+        "cat": "Watermelon",
+        "amt": 8000
       },
       {
         "date": "04/06/2026",
@@ -2383,6 +2304,12 @@
         "amt": 594
       },
       {
+        "date": "05/06/2026",
+        "desc": "แตงโม 100 ลูก (2-6-2569: 50 ลูก, 4-6-2569: 50 ลูก)",
+        "cat": "Watermelon",
+        "amt": 8000
+      },
+      {
         "date": "07/06/2026",
         "desc": "ส้ม 20x22กก 440กกx30 13,200บาท",
         "cat": "Orange",
@@ -2393,6 +2320,12 @@
         "desc": "Lalamove",
         "cat": "Transportation",
         "amt": 2000
+      },
+      {
+        "date": "08/06/2026",
+        "desc": "Stock June 2026 (split from rent slip)",
+        "cat": "Stock",
+        "amt": 12000
       },
       {
         "date": "08/06/2026",
@@ -2473,6 +2406,12 @@
         "amt": 950
       },
       {
+        "date": "14/06/2026",
+        "desc": "แตงโม 90 ลูก (7-6-2569: 45 ลูก, 12-6-2569: 45 ลูก)",
+        "cat": "Watermelon",
+        "amt": 7200
+      },
+      {
         "date": "15/06/2026",
         "desc": "สับปะรด 1 ลูก",
         "cat": "Pineapple",
@@ -2497,7 +2436,13 @@
         "amt": 800
       },
       {
-        "date": "09/06/2026",
+        "date": "17/06/2026",
+        "desc": "รอบ 09/06/69",
+        "cat": "Orange",
+        "amt": 16445
+      },
+      {
+        "date": "17/06/2026",
         "desc": "รอบ 09/06/69",
         "cat": "Orange",
         "amt": 16445
@@ -2521,6 +2466,24 @@
         "amt": 800
       },
       {
+        "date": "18/06/2026",
+        "desc": "ฝรั่ง 1 ตะกร้า",
+        "cat": "Guava",
+        "amt": 800
+      },
+      {
+        "date": "18/06/2026",
+        "desc": "เนื้อมะพร้าว 20 * 120 2400 น้ำมะพร้าว 20 *",
+        "cat": "Coconut Water",
+        "amt": 3400
+      },
+      {
+        "date": "18/06/2026",
+        "desc": "มะม่วง 1 ลัง",
+        "cat": "Mango",
+        "amt": 1300
+      },
+      {
         "date": "19/06/2026",
         "desc": "น้ำมะพร้าว40ลิตร ลิตรละ45บาท",
         "cat": "Coconut Water",
@@ -2533,7 +2496,19 @@
         "amt": 149
       },
       {
-        "date": "15/06/2026",
+        "date": "19/06/2026",
+        "desc": "น้ำยาล้างจาน 7 ถุง ผงซักฟอก 1",
+        "cat": "Packaging",
+        "amt": 149
+      },
+      {
+        "date": "19/06/2026",
+        "desc": "น้ำมะพร้าว40ลิตร ลิตรละ45บาท",
+        "cat": "Coconut Water",
+        "amt": 5700
+      },
+      {
+        "date": "21/06/2026",
         "desc": "15-6-2569 แตงโม 50บาท 50 ลูก ยอด 2,500",
         "cat": "Watermelon",
         "amt": 6500
@@ -2564,6 +2539,12 @@
       },
       {
         "date": "22/06/2026",
+        "desc": "สับปะรด 15 ลูก",
+        "cat": "Pineapple",
+        "amt": 700
+      },
+      {
+        "date": "22/06/2026",
         "desc": "ฝรั่ง 1 ลัง",
         "cat": "Guava",
         "amt": 700
@@ -2585,6 +2566,12 @@
         "desc": "นมข้นหวาน1ลัง",
         "cat": "Milk/Conden",
         "amt": 840
+      },
+      {
+        "date": "25/06/2026",
+        "desc": "แตงโม 22-6-2569 30 ลูก 2400 25-6-2569 40",
+        "cat": "Watermelon",
+        "amt": 6000
       },
       {
         "date": "27/06/2026",
@@ -2624,100 +2611,52 @@
       },
       {
         "date": "29/06/2026",
-        "desc": "มังคุด 3 ตะกร้า",
-        "cat": "Other",
-        "amt": 1932
-      },
-      {
-        "date": "29/06/2026",
-        "desc": "Apple 2 box",
-        "cat": "Apple",
-        "amt": 700
-      },
-      {
-        "date": "29/06/2026",
         "desc": "สับปะรด 15 ลูก",
         "cat": "Pineapple",
         "amt": 675
       },
       {
-        "date": "18/06/2026",
+        "date": "29/06/2026",
         "desc": "รอบ 18/06/69",
         "cat": "Orange",
         "amt": 17815
-      },
-      {
-        "date": "02/06/2026",
-        "desc": "แตงโม 50 ลูก (split from 05/06 batch slip)",
-        "cat": "Watermelon",
-        "amt": 4000
-      },
-      {
-        "date": "04/06/2026",
-        "desc": "แตงโม 50 ลูก (split from 05/06 batch slip)",
-        "cat": "Watermelon",
-        "amt": 4000
-      },
-      {
-        "date": "07/06/2026",
-        "desc": "แตงโม 45 ลูก (split from 14/06 batch slip)",
-        "cat": "Watermelon",
-        "amt": 3600
-      },
-      {
-        "date": "12/06/2026",
-        "desc": "แตงโม 45 ลูก (split from 14/06 batch slip)",
-        "cat": "Watermelon",
-        "amt": 3600
-      },
-      {
-        "date": "22/06/2026",
-        "desc": "แตงโม 30 ลูก (split from 25/06 batch slip)",
-        "cat": "Watermelon",
-        "amt": 2400
-      },
-      {
-        "date": "25/06/2026",
-        "desc": "แตงโม 40 ลูก (split from 25/06 batch slip)",
-        "cat": "Watermelon",
-        "amt": 3600
       }
     ],
     "fruit_performance": [
       {
         "name": "Orange",
         "rev": 86720,
-        "cost": 48560,
+        "cost": 65005,
         "cups": 1442,
-        "roi": "78.6%"
+        "roi": "33.4%"
       },
       {
         "name": "Watermelon",
         "rev": 101550,
-        "cost": 27700,
+        "cost": 35700,
         "cups": 2031,
-        "roi": "266.6%"
+        "roi": "184.5%"
       },
       {
         "name": "Mango",
         "rev": 22410,
-        "cost": 6312,
+        "cost": 7612,
         "cups": 249,
-        "roi": "255.0%"
+        "roi": "194.4%"
       },
       {
         "name": "Apple",
         "rev": 24360,
-        "cost": 7350,
+        "cost": 6650,
         "cups": 406,
-        "roi": "231.4%"
+        "roi": "266.3%"
       },
       {
         "name": "Coconut",
         "rev": 47520,
-        "cost": 11300,
+        "cost": 20400,
         "cups": 792,
-        "roi": "320.5%"
+        "roi": "132.9%"
       },
       {
         "name": "Young Coco",
@@ -2736,344 +2675,16 @@
       {
         "name": "Pineapple",
         "rev": 10680,
-        "cost": 10342,
+        "cost": 11042,
         "cups": 178,
-        "roi": "3.3%"
+        "roi": "-3.3%"
       }
-    ]
-  },
-  "all": {
-    "total_rev": 2008859,
-    "total_cogs": 879547,
+    ],
     "b1": {
-      "rev": 1656448,
-      "opex": 156067.72,
-      "rental": 147324,
+      "rev": 191720,
+      "rental": 35000,
+      "opex": 52751,
       "opex_list": [
-        {
-          "date": "02/01/2026",
-          "month": "Jan26",
-          "bucket": "EXCLUDED",
-          "cat": "Profit Distribution",
-          "desc": "ส่วนแบ่ง60เปอ — removed from P&L, this is a partner profit-share payout, not a business expense (owner-confirmed)",
-          "amt": 0,
-          "branch": "B1"
-        },
-        {
-          "date": "02/01/2026",
-          "month": "Jan26",
-          "bucket": "EXCLUDED",
-          "cat": "Profit Distribution",
-          "desc": "ค่าส่วนแบ่งกำไรเมน 40เปอ — removed from P&L, this is a partner profit-share payout, not a business expense (owner-confirmed)",
-          "amt": 0,
-          "branch": "B1"
-        },
-        {
-          "date": "08/01/2026",
-          "month": "Jan26",
-          "bucket": "OPEX",
-          "cat": "Rental",
-          "desc": "ค่าเช่า12,000 น้ำไฟ324 รวม12,324",
-          "amt": 12324,
-          "branch": "B1"
-        },
-        {
-          "date": "31/01/2026",
-          "month": "Jan26",
-          "bucket": "OPEX",
-          "cat": "Salary",
-          "desc": "เงินเดือนเมนมกราคม",
-          "amt": 19000,
-          "branch": "B1"
-        },
-        {
-          "date": "08/02/2026",
-          "month": "Feb26",
-          "bucket": "OPEX",
-          "cat": "Other",
-          "desc": "Unknown",
-          "amt": 798,
-          "branch": "B1"
-        },
-        {
-          "date": "10/02/2026",
-          "month": "Feb26",
-          "bucket": "OPEX",
-          "cat": "Fixed Costs",
-          "desc": "ค่าไฟเดือนมค",
-          "amt": 389,
-          "branch": "B1"
-        },
-        {
-          "date": "20/02/2026",
-          "month": "Feb26",
-          "bucket": "OPEX",
-          "cat": "Other",
-          "desc": "ผ้าปิดร้าน 218 ค่ารถ 198",
-          "amt": 416,
-          "branch": "B1"
-        },
-        {
-          "date": "28/02/2026",
-          "month": "Feb26",
-          "bucket": "OPEX",
-          "cat": "Rental",
-          "desc": "ค่าเช่าสต็อคกพ",
-          "amt": 12000,
-          "branch": "B1"
-        },
-        {
-          "date": "01/01/2026",
-          "month": "Mar26",
-          "bucket": "OPEX",
-          "cat": "Rental",
-          "desc": "Unknown",
-          "amt": 0,
-          "branch": "B1"
-        },
-        {
-          "date": "05/03/2026",
-          "month": "Mar26",
-          "bucket": "OPEX",
-          "cat": "Other",
-          "desc": "ค่าทางด่วน",
-          "amt": 105,
-          "branch": "B1"
-        },
-        {
-          "date": "10/03/2026",
-          "month": "Mar26",
-          "bucket": "CAPEX",
-          "cat": "Investment",
-          "desc": "Unknown",
-          "amt": 6500,
-          "branch": "B1"
-        },
-        {
-          "date": "15/03/2026",
-          "month": "Mar26",
-          "bucket": "OPEX",
-          "cat": "Other",
-          "desc": "ค่าทางด่วน",
-          "amt": 115,
-          "branch": "B1"
-        },
-        {
-          "date": "17/03/2026",
-          "month": "Mar26",
-          "bucket": "OPEX",
-          "cat": "Fixed Costs",
-          "desc": "ค่าไฟเดือนกพ มีนา",
-          "amt": 2779.47,
-          "branch": "B1"
-        },
-        {
-          "date": "21/03/2026",
-          "month": "Mar26",
-          "bucket": "OPEX",
-          "cat": "Other",
-          "desc": "สกรู กาวตะปู",
-          "amt": 117,
-          "branch": "B1"
-        },
-        {
-          "date": "24/03/2026",
-          "month": "Mar26",
-          "bucket": "OPEX",
-          "cat": "Other",
-          "desc": "รถเข็นของคันใหม่",
-          "amt": 1752,
-          "branch": "B1"
-        },
-        {
-          "date": "20/03/2026",
-          "month": "Mar26",
-          "bucket": "OPEX",
-          "cat": "Fixed Costs",
-          "desc": "ค่าน้ำประปา เดือน 03/69 (MWA water bill, was never ingested by OCR pipeline)",
-          "amt": 449.25,
-          "branch": "B1"
-        },
-        {
-          "date": "24/04/2026",
-          "month": "Apr26",
-          "bucket": "EXCLUDED",
-          "cat": "Removed",
-          "desc": "บาร์เลย 4 ถั่วแดง 3 ถุงละ 60 (removed at owner request)",
-          "amt": 0,
-          "branch": "B1"
-        },
-        {
-          "date": "30/04/2026",
-          "month": "Apr26",
-          "bucket": "OPEX",
-          "cat": "Salary",
-          "desc": "Employee 1",
-          "amt": 19000,
-          "branch": "B1"
-        },
-        {
-          "date": "30/04/2026",
-          "month": "Apr26",
-          "bucket": "OPEX",
-          "cat": "Salary",
-          "desc": "Employee 2",
-          "amt": 12000,
-          "branch": "B1"
-        },
-        {
-          "date": "30/04/2026",
-          "month": "Apr26",
-          "bucket": "OPEX",
-          "cat": "Rental",
-          "desc": "Rent",
-          "amt": 35000,
-          "branch": "B1"
-        },
-        {
-          "date": "02/05/2026",
-          "month": "May26",
-          "bucket": "OPEX",
-          "cat": "Other",
-          "desc": "ค่าหาหมอเอ",
-          "amt": 706,
-          "branch": "B1"
-        },
-        {
-          "date": "02/05/2026",
-          "month": "May26",
-          "bucket": "OPEX",
-          "cat": "Other",
-          "desc": "ค่าหมอเอ",
-          "amt": 13,
-          "branch": "B1"
-        },
-        {
-          "date": "06/05/2026",
-          "month": "May26",
-          "bucket": "OPEX",
-          "cat": "Other",
-          "desc": "ทิชชู่3แพค 36ห่อ",
-          "amt": 451,
-          "branch": "B1"
-        },
-        {
-          "date": "08/05/2026",
-          "month": "May26",
-          "bucket": "OPEX",
-          "cat": "Other",
-          "desc": "ค่าทำความสะอาดตึกชั้น 1",
-          "amt": 2700,
-          "branch": "B1"
-        },
-        {
-          "date": "09/05/2026",
-          "month": "May26",
-          "bucket": "OPEX",
-          "cat": "Other",
-          "desc": "พรหมเช็ดเท้า 1 ผืน",
-          "amt": 372,
-          "branch": "B1"
-        },
-        {
-          "date": "10/05/2026",
-          "month": "May26",
-          "bucket": "OPEX",
-          "cat": "Other",
-          "desc": "ไฟ 2อัน 422",
-          "amt": 838,
-          "branch": "B1"
-        },
-        {
-          "date": "13/05/2026",
-          "month": "May26",
-          "bucket": "OPEX",
-          "cat": "Other",
-          "desc": "ที่หนีบ 6ตัว 374 บาท",
-          "amt": 374,
-          "branch": "B1"
-        },
-        {
-          "date": "14/05/2026",
-          "month": "May26",
-          "bucket": "OPEX",
-          "cat": "Rental",
-          "desc": "ค่าเช่า+สต๊อกร้าน 1",
-          "amt": 47000,
-          "branch": "B1"
-        },
-        {
-          "date": "16/05/2026",
-          "month": "May26",
-          "bucket": "OPEX",
-          "cat": "Other",
-          "desc": "Police fees (portion of mixed 16/05 slip)",
-          "amt": 2000,
-          "branch": "B1"
-        },
-        {
-          "date": "25/05/2026",
-          "month": "May26",
-          "bucket": "OPEX",
-          "cat": "Salary",
-          "desc": "เงินเดือนซี เดือนพ.ค.",
-          "amt": 7800,
-          "branch": "B1"
-        },
-        {
-          "date": "27/05/2026",
-          "month": "May26",
-          "bucket": "OPEX",
-          "cat": "Salary",
-          "desc": "เงินเดือนเมน 5/26",
-          "amt": 19000,
-          "branch": "B1"
-        },
-        {
-          "date": "28/05/2026",
-          "month": "May26",
-          "bucket": "CAPEX",
-          "cat": "Investment",
-          "desc": "เครื่องสกัดเย็น 1",
-          "amt": 1065,
-          "branch": "B1"
-        },
-        {
-          "date": "01/06/2026",
-          "month": "May26",
-          "bucket": "OPEX",
-          "cat": "Salary",
-          "desc": "Aye 12,000 + Wai 12,000 (May salary, B1 portion split from joint ฿41,200 SCB transfer 01/06 - see cost_may26.md)",
-          "amt": 24000,
-          "branch": "B1"
-        },
-        {
-          "date": "09/05/2026",
-          "month": "May26",
-          "bucket": "OPEX",
-          "cat": "Other",
-          "desc": "ลิ้นชักเก็บเงิน (cash register drawer, split from combined 09/05 milk+equipment slip)",
-          "amt": 486,
-          "branch": "B1"
-        },
-        {
-          "date": "01/05/2026",
-          "month": "May26",
-          "bucket": "OPEX",
-          "cat": "Other",
-          "desc": "ร่ม+นมข้นจืด+ที่ปั้ม+ปืนฉีดน้ำ (remainder of mixed 01/05 slip, non-guava portion)",
-          "amt": 7123,
-          "branch": "B1"
-        },
-        {
-          "date": "08/06/2026",
-          "month": "Jun26",
-          "bucket": "OPEX",
-          "cat": "Rental",
-          "desc": "ค่าเช่าสต็อค เดือน June (B1 portion, split from joint 12,000 - see B2 for other half)",
-          "amt": 6000,
-          "branch": "B1"
-        },
         {
           "date": "08/06/2026",
           "month": "Jun26",
@@ -3095,10 +2706,28 @@
         {
           "date": "29/06/2026",
           "month": "Jun26",
-          "bucket": "CAPEX",
-          "cat": "Investment",
+          "bucket": "OPEX",
+          "cat": "Other",
           "desc": "สกัดเย็น1เครื่อง",
           "amt": 1402,
+          "branch": "B1"
+        },
+        {
+          "date": "29/06/2026",
+          "month": "Jun26",
+          "bucket": "OPEX",
+          "cat": "Other",
+          "desc": "มังคุด 3 ตะกร้า",
+          "amt": 1932,
+          "branch": "B1"
+        },
+        {
+          "date": "29/06/2026",
+          "month": "Jun26",
+          "bucket": "OPEX",
+          "cat": "Other",
+          "desc": "Apple 2 box",
+          "amt": 700,
           "branch": "B1"
         },
         {
@@ -3106,77 +2735,23 @@
           "month": "Jun26",
           "bucket": "OPEX",
           "cat": "Salary",
-          "desc": "ค่าแรง 2 คน คนละ 12000 (B1 portion, split from joint payroll transfer ฿48,400 - see B2 for other portion + ฿400 day-rate)",
-          "amt": 24000,
+          "desc": "ค่าแรง 4 คน คนคนละ 12000 และ รายวัน 1",
+          "amt": 48400,
           "branch": "B1"
         }
       ],
-      "cogs": 704268.2262839819,
-      "net": 648788.0537160181,
-      "share": 389272.8322296109,
-      "ming_share": 259515.22148640724,
+      "cogs": 116353.61890841516,
+      "net": -12384.618908415156,
       "loss_carry_forward": 0,
-      "adjusted_net": 0
+      "adjusted_net": 0,
+      "share": 0,
+      "ming_share": 0
     },
     "b2": {
-      "rev": 352411,
-      "opex": 60400,
-      "rental": 96000,
+      "rev": 115770,
+      "rental": 36000,
+      "opex": 24400,
       "opex_list": [
-        {
-          "date": "30/04/2026",
-          "month": "Apr26",
-          "bucket": "OPEX",
-          "cat": "Salary",
-          "desc": "Employee 3",
-          "amt": 12000,
-          "branch": "B2"
-        },
-        {
-          "date": "30/04/2026",
-          "month": "Apr26",
-          "bucket": "OPEX",
-          "cat": "Salary",
-          "desc": "Employee 4",
-          "amt": 6000,
-          "branch": "B2"
-        },
-        {
-          "date": "30/04/2026",
-          "month": "Apr26",
-          "bucket": "OPEX",
-          "cat": "Rental",
-          "desc": "Rent",
-          "amt": 30000,
-          "branch": "B2"
-        },
-        {
-          "date": "07/05/2026",
-          "month": "May26",
-          "bucket": "OPEX",
-          "cat": "Rental",
-          "desc": "ค่าเช่าร้าน 2 เดือนพฤษภาคม",
-          "amt": 30000,
-          "branch": "B2"
-        },
-        {
-          "date": "31/05/2026",
-          "month": "May26",
-          "bucket": "OPEX",
-          "cat": "Salary",
-          "desc": "Employee 3",
-          "amt": 12000,
-          "branch": "B2"
-        },
-        {
-          "date": "31/05/2026",
-          "month": "May26",
-          "bucket": "OPEX",
-          "cat": "Salary",
-          "desc": "Employee 4",
-          "amt": 6000,
-          "branch": "B2"
-        },
         {
           "date": "01/06/2026",
           "month": "Jun26",
@@ -3214,29 +2789,790 @@
           "branch": "B2"
         }
       ],
-      "cogs": 175278.77371601813,
-      "net": 20732.226283981858,
-      "share": 21423.091354931075,
-      "ming_share": 9181.324866399033,
+      "cogs": 82671.38109158487,
+      "net": -27301.381091584874,
       "loss_carry_forward": 0,
-      "adjusted_net": 0
+      "adjusted_net": 0,
+      "share": 0,
+      "ming_share": 0
     },
+    "b3": {
+      "rev": 0,
+      "rental": 0,
+      "opex": 0,
+      "opex_list": [],
+      "cogs": 0,
+      "net": 0,
+      "loss_carry_forward": 0,
+      "adjusted_net": 0,
+      "share": 0,
+      "ming_share": 0
+    }
+  },
+  "Jul26": {
+    "total_rev": 549947,
+    "total_cogs": 223530,
     "fruit_summary": {
-      "Packaging": 93104,
-      "Transportation": 41916,
-      "Watermelon": 204740,
-      "Orange": 373551,
-      "Ice": 78,
-      "Apple": 28251,
-      "Mango": 35962,
-      "Coconut Water": 22575,
-      "Water": 9100,
-      "Coconut": 7725,
-      "Milk/Conden": 17213,
-      "Pineapple": 17800,
-      "Stock": 12000,
-      "Other": 1932,
-      "Guava": 10100,
+      "Stock": 8133,
+      "Apple": 15640,
+      "Guava": 21200,
+      "Mango": 31370,
+      "Coconut": 19870,
+      "Watermelon": 36880,
+      "Orange": 65128,
+      "Other": 6705,
+      "Pineapple": 8093,
+      "Packaging": 10511
+    },
+    "daily_cogs": [
+      {
+        "date": "24/07/2026",
+        "desc": "ฝา 1 ลัง 509 นมข้นหวาน 1 ลัง 785 นมข้นจืด 2 ลัง 1342 บาท (LINE_ALBUM_Cost July_260802_1.jpg)",
+        "cat": "Stock",
+        "amt": 2636
+      },
+      {
+        "date": "24/07/2026",
+        "desc": "ฝา 1 ลัง 502 บาท นมข้นหวาน 3 ลัง 2582 บาท (LINE_ALBUM_Cost July_260802_2.jpg)",
+        "cat": "Stock",
+        "amt": 3084
+      },
+      {
+        "date": "24/07/2026",
+        "desc": "ฝา 1 ลัง 474 นมข้นจืด 1 ลัง 751 (LINE_ALBUM_Cost July_260802_3.jpg)",
+        "cat": "Stock",
+        "amt": 1225
+      },
+      {
+        "date": "24/07/2026",
+        "desc": "ฝา 1 ลัง (LINE_ALBUM_Cost July_260802_4.jpg)",
+        "cat": "Stock",
+        "amt": 472
+      },
+      {
+        "date": "26/07/2026",
+        "desc": "Apple 5 box (LINE_ALBUM_Cost July_260802_6.jpg)",
+        "cat": "Apple",
+        "amt": 2000
+      },
+      {
+        "date": "26/07/2026",
+        "desc": "ฝรั่ง 2 ตะกร้า (LINE_ALBUM_Cost July_260802_7.jpg)",
+        "cat": "Guava",
+        "amt": 2000
+      },
+      {
+        "date": "26/07/2026",
+        "desc": "Cogs มะม่วง 3 ลัง 3900 และ งบลงทุน 810 (LINE_ALBUM_Cost July_260802_8.jpg)",
+        "cat": "Mango",
+        "amt": 4710
+      },
+      {
+        "date": "26/07/2026",
+        "desc": "น้ำมะพร้าว 30ลิตร 1350 เนื้อ 50kg 5000 ค่าส่ง 350 (LINE_ALBUM_Cost July_260802_9.jpg)",
+        "cat": "Coconut",
+        "amt": 6700
+      },
+      {
+        "date": "27/07/2026",
+        "desc": "Apple 4 box (LINE_ALBUM_Cost July_260802_10.jpg)",
+        "cat": "Apple",
+        "amt": 1600
+      },
+      {
+        "date": "27/07/2026",
+        "desc": "ฝรั่ง 2 ตะกร้า (LINE_ALBUM_Cost July_260802_11.jpg)",
+        "cat": "Guava",
+        "amt": 2000
+      },
+      {
+        "date": "27/07/2026",
+        "desc": "มะม่วง 2 ลัง (LINE_ALBUM_Cost July_260802_12.jpg)",
+        "cat": "Mango",
+        "amt": 2600
+      },
+      {
+        "date": "27/07/2026",
+        "desc": "แตงโม 40 ลูก (LINE_ALBUM_Cost July_260802_13.jpg)",
+        "cat": "Watermelon",
+        "amt": 3200
+      },
+      {
+        "date": "28/07/2026",
+        "desc": "ฝรั่ง 2 ลัง (LINE_ALBUM_Cost July_260802_15.jpg)",
+        "cat": "Guava",
+        "amt": 2000
+      },
+      {
+        "date": "28/07/2026",
+        "desc": "แอปเปิ้ล 4 ลัง (LINE_ALBUM_Cost July_260802_16.jpg)",
+        "cat": "Apple",
+        "amt": 1600
+      },
+      {
+        "date": "28/07/2026",
+        "desc": "มะม่วง 2 ลัง (LINE_ALBUM_Cost July_260802_17.jpg)",
+        "cat": "Mango",
+        "amt": 2600
+      },
+      {
+        "date": "28/07/2026",
+        "desc": "แตงโม 40 ลูก (LINE_ALBUM_Cost July_260802_18.jpg)",
+        "cat": "Watermelon",
+        "amt": 3200
+      },
+      {
+        "date": "29/07/2026",
+        "desc": "ส้ม 31x22กก 682กกx30 20,460บาท ค่าขนส่ง 31ตกx 50 1550 (LINE_ALBUM_Cost July_260802_20.jpg)",
+        "cat": "Orange",
+        "amt": 22010
+      },
+      {
+        "date": "31/07/2026",
+        "desc": "แอปเปิ้ล 4 ลัง (LINE_ALBUM_Cost July_260802_23.jpg)",
+        "cat": "Apple",
+        "amt": 1200
+      },
+      {
+        "date": "31/07/2026",
+        "desc": "มะม่วง 4 ลัง (LINE_ALBUM_Cost July_260802_24.jpg)",
+        "cat": "Mango",
+        "amt": 4680
+      },
+      {
+        "date": "31/07/2026",
+        "desc": "ฝรั่ง 3 ลัง (LINE_ALBUM_Cost July_260802_26.jpg)",
+        "cat": "Guava",
+        "amt": 3600
+      },
+      {
+        "date": "31/07/2026",
+        "desc": "ทุเรียน 20.6 กิโลกรัม (LINE_ALBUM_Cost July_260802_27.jpg)",
+        "cat": "Other",
+        "amt": 2255
+      },
+      {
+        "date": "02/07/2026",
+        "desc": "ค่าส่งส้มเดือน 6 (LINE_ALBUM_Cost July_260802_29.jpg)",
+        "cat": "Orange",
+        "amt": 1598
+      },
+      {
+        "date": "03/07/2026",
+        "desc": "1 สับปะรด 15 ลูก 750 2 สับปะรด 15 ลูก 729 (LINE_ALBUM_Cost July_260802_30.jpg)",
+        "cat": "Pineapple",
+        "amt": 1479
+      },
+      {
+        "date": "03/07/2026",
+        "desc": "แอปเปิ้ล 3 ลัง (LINE_ALBUM_Cost July_260802_31.jpg)",
+        "cat": "Apple",
+        "amt": 1140
+      },
+      {
+        "date": "03/07/2026",
+        "desc": "มะม่วง 1 ลัง (LINE_ALBUM_Cost July_260802_32.jpg)",
+        "cat": "Mango",
+        "amt": 1040
+      },
+      {
+        "date": "03/07/2026",
+        "desc": "ฝรั่ง 1 ลัง (LINE_ALBUM_Cost July_260802_33.jpg)",
+        "cat": "Guava",
+        "amt": 900
+      },
+      {
+        "date": "06/07/2026",
+        "desc": "สับปะรด 20 ลูก (LINE_ALBUM_Cost July_260802_36.jpg)",
+        "cat": "Pineapple",
+        "amt": 783
+      },
+      {
+        "date": "06/07/2026",
+        "desc": "มะม่วง 2 ลัง (LINE_ALBUM_Cost July_260802_37.jpg)",
+        "cat": "Mango",
+        "amt": 2340
+      },
+      {
+        "date": "06/07/2026",
+        "desc": "ฝรั่ง 1 ตะกร้า (LINE_ALBUM_Cost July_260802_38.jpg)",
+        "cat": "Guava",
+        "amt": 900
+      },
+      {
+        "date": "06/07/2026",
+        "desc": "แอปเปิ้ล 3 ลัง (LINE_ALBUM_Cost July_260802_39.jpg)",
+        "cat": "Apple",
+        "amt": 900
+      },
+      {
+        "date": "08/07/2026",
+        "desc": "แตงโม 3-7-69 36 ลูก ลูกละ 80 บาท 6-7-69 50 ลูก ลูกละ 80 บาท (LINE_ALBUM_Cost July_260802_40.jpg)",
+        "cat": "Watermelon",
+        "amt": 6880
+      },
+      {
+        "date": "09/07/2026",
+        "desc": "น้ำ 25ลิตร ลิตรละ45บาท เนื้อคว้าน 50kg.กิโลละ 100บาท ค่าส่ง350บาท (LINE_ALBUM_Cost July_260802_42.jpg)",
+        "cat": "Coconut",
+        "amt": 6470
+      },
+      {
+        "date": "10/07/2026",
+        "desc": "ฝรั่ง 1 ลัง (LINE_ALBUM_Cost July_260802_43.jpg)",
+        "cat": "Guava",
+        "amt": 900
+      },
+      {
+        "date": "10/07/2026",
+        "desc": "Apple 5 box (LINE_ALBUM_Cost July_260802_44.jpg)",
+        "cat": "Apple",
+        "amt": 1500
+      },
+      {
+        "date": "11/07/2026",
+        "desc": "ฝรั่ง 1 ตะกร้า (LINE_ALBUM_Cost July_260802_45.jpg)",
+        "cat": "Guava",
+        "amt": 900
+      },
+      {
+        "date": "11/07/2026",
+        "desc": "มะม่วง 3 ลัง (LINE_ALBUM_Cost July_260802_46.jpg)",
+        "cat": "Mango",
+        "amt": 4300
+      },
+      {
+        "date": "11/07/2026",
+        "desc": "แอปเปิ้ล 3 ลัง (LINE_ALBUM_Cost July_260802_47.jpg)",
+        "cat": "Apple",
+        "amt": 900
+      },
+      {
+        "date": "13/07/2026",
+        "desc": "ทิชชู4(636) หลอด20 (671) ถุงเล็ก3(605) ถุงใหญ่2(943) (LINE_ALBUM_Cost July_260802_49.jpg)",
+        "cat": "Packaging",
+        "amt": 2855
+      },
+      {
+        "date": "13/07/2026",
+        "desc": "แก้ว98 4ลัง 7656-635 7,021 ฝา635 (LINE_ALBUM_Cost July_260802_50.jpg)",
+        "cat": "Packaging",
+        "amt": 7656
+      },
+      {
+        "date": "14/07/2026",
+        "desc": "11/7/69 10 ลูก 620 14/7/69 25 ลูก 1269 (LINE_ALBUM_Cost July_260802_51.jpg)",
+        "cat": "Pineapple",
+        "amt": 1889
+      },
+      {
+        "date": "14/07/2026",
+        "desc": "Apple 3 ลัง (LINE_ALBUM_Cost July_260802_52.jpg)",
+        "cat": "Apple",
+        "amt": 1200
+      },
+      {
+        "date": "15/07/2026",
+        "desc": "ฝรั่ง 2 ตะกร้า ตะกร้าละ 20 โล (LINE_ALBUM_Cost July_260802_53.jpg)",
+        "cat": "Guava",
+        "amt": 2000
+      },
+      {
+        "date": "16/07/2026",
+        "desc": "รอบ 01/07/69 ส้ม 28x22กก 616กกx30 18,480บาท ค่าขนส่ง 28ตกx 55 1540 (LINE_ALBUM_Cost July_260802_54.jpg)",
+        "cat": "Orange",
+        "amt": 20020
+      },
+      {
+        "date": "17/07/2026",
+        "desc": "ส้ม 125 โล 3450 ค่าส่ง 300 (LINE_ALBUM_Cost July_260802_55.jpg)",
+        "cat": "Orange",
+        "amt": 3750
+      },
+      {
+        "date": "17/07/2026",
+        "desc": "สับปะรด 25 ลูก (LINE_ALBUM_Cost July_260802_56.jpg)",
+        "cat": "Pineapple",
+        "amt": 1539
+      },
+      {
+        "date": "17/07/2026",
+        "desc": "แตงโม 10-7-69 50 ลูก 4000 11-7-69 40 ลูก 3200 (LINE_ALBUM_Cost July_260802_57.jpg)",
+        "cat": "Watermelon",
+        "amt": 7200
+      },
+      {
+        "date": "17/07/2026",
+        "desc": "ทุเรียน 50 โล โลละ 85 รวม 4250 มัดจำตะกร้า 200 (LINE_ALBUM_Cost July_260802_58.jpg)",
+        "cat": "Other",
+        "amt": 4450
+      },
+      {
+        "date": "17/07/2026",
+        "desc": "แตงโม 14-7-69 50 ลูก 4000 (LINE_ALBUM_Cost July_260802_59.jpg)",
+        "cat": "Watermelon",
+        "amt": 4000
+      },
+      {
+        "date": "17/07/2026",
+        "desc": "มะม่วง 52 โล(2 ตะกร้า) โลละ 50 (LINE_ALBUM_Cost July_260802_60.jpg)",
+        "cat": "Mango",
+        "amt": 2600
+      },
+      {
+        "date": "17/07/2026",
+        "desc": "ฝรั่ง 2 ตะกร้า (ตะกร้าละ 20 โล) (LINE_ALBUM_Cost July_260802_61.jpg)",
+        "cat": "Guava",
+        "amt": 2000
+      },
+      {
+        "date": "17/07/2026",
+        "desc": "แอปเปิ้ล 5 ลัง (LINE_ALBUM_Cost July_260802_62.jpg)",
+        "cat": "Apple",
+        "amt": 2000
+      },
+      {
+        "date": "17/07/2026",
+        "desc": "น้ำ 30ลิตร ลิตรละ45บาท เนื้อมะพร้าว 50kg.กิโลละ 100บาท ค่าส่ง350 (LINE_ALBUM_Cost July_260802_63.jpg)",
+        "cat": "Coconut",
+        "amt": 6700
+      },
+      {
+        "date": "20/07/2026",
+        "desc": "ฝรั่ง 2 ตะกร้า (LINE_ALBUM_Cost July_260802_64.jpg)",
+        "cat": "Guava",
+        "amt": 2000
+      },
+      {
+        "date": "20/07/2026",
+        "desc": "สับปะรด 20 ลูก (LINE_ALBUM_Cost July_260802_65.jpg)",
+        "cat": "Pineapple",
+        "amt": 1296
+      },
+      {
+        "date": "20/07/2026",
+        "desc": "มะม่วง 2 ลัง (LINE_ALBUM_Cost July_260802_66.jpg)",
+        "cat": "Mango",
+        "amt": 2600
+      },
+      {
+        "date": "20/07/2026",
+        "desc": "แตงโม 17-7-2569 เบอร์ 80บาท 50 ลูก (LINE_ALBUM_Cost July_260802_67.jpg)",
+        "cat": "Watermelon",
+        "amt": 4000
+      },
+      {
+        "date": "22/07/2026",
+        "desc": "ส้ม 25x22กก รวม 550กกx30 บ รวม 16500บาท ค่าขนส่ง 25ตกx 50 บ 1250 (LINE_ALBUM_Cost July_260802_69.jpg)",
+        "cat": "Orange",
+        "amt": 17750
+      },
+      {
+        "date": "22/07/2026",
+        "desc": "แอปเปิ้ล 4 ลัง (LINE_ALBUM_Cost July_260802_70.jpg)",
+        "cat": "Apple",
+        "amt": 1600
+      },
+      {
+        "date": "22/07/2026",
+        "desc": "มะม่วง 78 กิโล 3 ลัง (LINE_ALBUM_Cost July_260802_71.jpg)",
+        "cat": "Mango",
+        "amt": 3900
+      },
+      {
+        "date": "22/07/2026",
+        "desc": "Cogs Falcon milk (LINE_ALBUM_Cost July_260802_77.jpg)",
+        "cat": "Stock",
+        "amt": 716
+      },
+      {
+        "date": "23/07/2026",
+        "desc": "20-7-2569 ราคา 80 - 45ลูก 22-7-2569 ราคา 80 - 30 ลูก 23-7-2569 ราคา 80 - 30 ลูก (LINE_ALBUM_Cost July_260802_81.jpg)",
+        "cat": "Watermelon",
+        "amt": 8400
+      },
+      {
+        "date": "23/07/2026",
+        "desc": "ฝรั่ง 2 ลัง ลังละ 20 กิโล กิโลละ 50 บาท รวม 2000 บาท (LINE_ALBUM_Cost July_260802_82.jpg)",
+        "cat": "Guava",
+        "amt": 2000
+      },
+      {
+        "date": "23/07/2026",
+        "desc": "สับปะรด 41 กิโล *27 บาท รวม 1107 บาท (LINE_ALBUM_Cost July_260802_83.jpg)",
+        "cat": "Pineapple",
+        "amt": 1107
+      }
+    ],
+    "fruit_performance": [
+      {
+        "name": "Orange",
+        "rev": 116100,
+        "cost": 65128,
+        "cups": 1935,
+        "roi": "78.3%"
+      },
+      {
+        "name": "Watermelon",
+        "rev": 196150,
+        "cost": 36880,
+        "cups": 3923,
+        "roi": "431.9%"
+      },
+      {
+        "name": "Mango",
+        "rev": 45900,
+        "cost": 31370,
+        "cups": 510,
+        "roi": "46.3%"
+      },
+      {
+        "name": "Apple",
+        "rev": 51120,
+        "cost": 15640,
+        "cups": 852,
+        "roi": "226.9%"
+      },
+      {
+        "name": "Coconut",
+        "rev": 83520,
+        "cost": 19870,
+        "cups": 1392,
+        "roi": "320.3%"
+      },
+      {
+        "name": "Young Coco",
+        "rev": 0,
+        "cost": 0,
+        "cups": 0,
+        "roi": "N/A"
+      },
+      {
+        "name": "Guava",
+        "rev": 17100,
+        "cost": 0,
+        "cups": 285,
+        "roi": "N/A"
+      },
+      {
+        "name": "Pineapple",
+        "rev": 15060,
+        "cost": 8093,
+        "cups": 251,
+        "roi": "86.1%"
+      }
+    ],
+    "b1": {
+      "rev": 242090,
+      "rental": 39000,
+      "opex": 56419.75,
+      "opex_list": [
+        {
+          "date": "24/07/2026",
+          "month": "Jul26",
+          "bucket": "OPEX",
+          "cat": "Other",
+          "desc": "Lalamove (LINE_ALBUM_Cost July_260802_5.jpg)",
+          "amt": 2000,
+          "branch": "B1"
+        },
+        {
+          "date": "28/07/2026",
+          "month": "Jul26",
+          "bucket": "OPEX",
+          "cat": "Other",
+          "desc": "Lalamove (LINE_ALBUM_Cost July_260802_14.jpg)",
+          "amt": 1000,
+          "branch": "B1"
+        },
+        {
+          "date": "29/07/2026",
+          "month": "Jul26",
+          "bucket": "OPEX",
+          "cat": "Other",
+          "desc": "ค่าขนส่ง (LINE_ALBUM_Cost July_260802_19.jpg)",
+          "amt": 2000,
+          "branch": "B1"
+        },
+        {
+          "date": "30/07/2026",
+          "month": "Jul26",
+          "bucket": "OPEX",
+          "cat": "Other",
+          "desc": "ตะแกรงคว่ำจาน 6อัน ป้ายไฟ3อัน (LINE_ALBUM_Cost July_260802_21.jpg)",
+          "amt": 1790,
+          "branch": "B1"
+        },
+        {
+          "date": "30/07/2026",
+          "month": "Jul26",
+          "bucket": "OPEX",
+          "cat": "Other",
+          "desc": "ถุงขยะ 5*5แพค (LINE_ALBUM_Cost July_260802_22.jpg)",
+          "amt": 1101,
+          "branch": "B1"
+        },
+        {
+          "date": "31/07/2026",
+          "month": "Jul26",
+          "bucket": "OPEX",
+          "cat": "Other",
+          "desc": "ค่าขนส่ง (LINE_ALBUM_Cost July_260802_25.jpg)",
+          "amt": 2000,
+          "branch": "B1"
+        },
+        {
+          "date": "31/07/2026",
+          "month": "Jul26",
+          "bucket": "OPEX",
+          "cat": "Other",
+          "desc": "ตะกร้าแต่งร้าน 3 (LINE_ALBUM_Cost July_260802_28.jpg)",
+          "amt": 558,
+          "branch": "B1"
+        },
+        {
+          "date": "03/07/2026",
+          "month": "Jul26",
+          "bucket": "OPEX",
+          "cat": "Other",
+          "desc": "ค่าส่ง (LINE_ALBUM_Cost July_260802_34.jpg)",
+          "amt": 2000,
+          "branch": "B1"
+        },
+        {
+          "date": "06/07/2026",
+          "month": "Jul26",
+          "bucket": "OPEX",
+          "cat": "Rental",
+          "desc": "ค่าเช่า stock เดือน june (1/3 split B1) (LINE_ALBUM_Cost July_260802_35.jpg)",
+          "amt": 4000,
+          "branch": "B1"
+        },
+        {
+          "date": "08/07/2026",
+          "month": "Jul26",
+          "bucket": "OPEX",
+          "cat": "Other",
+          "desc": "เต้น (tent) (LINE_ALBUM_Cost July_260802_41.jpg)",
+          "amt": 1342,
+          "branch": "B1"
+        },
+        {
+          "date": "13/07/2026",
+          "month": "Jul26",
+          "bucket": "OPEX",
+          "cat": "Other",
+          "desc": "ค่าขนส่ง (LINE_ALBUM_Cost July_260802_48.jpg)",
+          "amt": 344,
+          "branch": "B1"
+        },
+        {
+          "date": "21/07/2026",
+          "month": "Jul26",
+          "bucket": "OPEX",
+          "cat": "Other",
+          "desc": " (LINE_ALBUM_Cost July_260802_68.jpg)",
+          "amt": 2000,
+          "branch": "B1"
+        },
+        {
+          "date": "22/07/2026",
+          "month": "Jul26",
+          "bucket": "OPEX",
+          "cat": "Other",
+          "desc": "OPEX Avocado milk (LINE_ALBUM_Cost July_260802_74.jpg)",
+          "amt": 440.75,
+          "branch": "B1"
+        },
+        {
+          "date": "22/07/2026",
+          "month": "Jul26",
+          "bucket": "OPEX",
+          "cat": "Other",
+          "desc": "Opex knife (LINE_ALBUM_Cost July_260802_75.jpg)",
+          "amt": 199,
+          "branch": "B1"
+        },
+        {
+          "date": "22/07/2026",
+          "month": "Jul26",
+          "bucket": "OPEX",
+          "cat": "Other",
+          "desc": "Opex equipment (LINE_ALBUM_Cost July_260802_76.jpg)",
+          "amt": 221,
+          "branch": "B1"
+        },
+        {
+          "date": "22/07/2026",
+          "month": "Jul26",
+          "bucket": "OPEX",
+          "cat": "Other",
+          "desc": "Opex B1 police fee 1000 / person (LINE_ALBUM_Cost July_260802_78.jpg)",
+          "amt": 2000,
+          "branch": "B1"
+        },
+        {
+          "date": "22/07/2026",
+          "month": "Jul26",
+          "bucket": "OPEX",
+          "cat": "Other",
+          "desc": "Opex equipments (LINE_ALBUM_Cost July_260802_79.jpg)",
+          "amt": 506,
+          "branch": "B1"
+        },
+        {
+          "date": "22/07/2026",
+          "month": "Jul26",
+          "bucket": "OPEX",
+          "cat": "Other",
+          "desc": "Opex other (LINE_ALBUM_Cost July_260802_80.jpg)",
+          "amt": 1918,
+          "branch": "B1"
+        },
+        {
+          "date": "31/07/2026",
+          "month": "Jul26",
+          "bucket": "OPEX",
+          "cat": "Rental",
+          "desc": "Rent B1",
+          "amt": 35000,
+          "branch": "B1"
+        },
+        {
+          "date": "31/07/2026",
+          "month": "Jul26",
+          "bucket": "OPEX",
+          "cat": "Salary",
+          "desc": "Salary B1",
+          "amt": 35000,
+          "branch": "B1"
+        }
+      ],
+      "cogs": 83339.35488945886,
+      "net": 63330.89511054114,
+      "loss_carry_forward": 12384.618908415156,
+      "adjusted_net": 50946.276202125984,
+      "share": 30567.765721275588,
+      "ming_share": 20378.510480850397
+    },
+    "b2": {
+      "rev": 135960,
+      "rental": 29000,
+      "opex": 30000,
+      "opex_list": [
+        {
+          "date": "22/07/2026",
+          "month": "Jul26",
+          "bucket": "OPEX",
+          "cat": "Salary",
+          "desc": "Salary b2 wei 20days 450/day (LINE_ALBUM_Cost July_260802_72.jpg)",
+          "amt": 9000,
+          "branch": "B2"
+        },
+        {
+          "date": "31/07/2026",
+          "month": "Jul26",
+          "bucket": "OPEX",
+          "cat": "Rental",
+          "desc": "Rent B2",
+          "amt": 25000,
+          "branch": "B2"
+        },
+        {
+          "date": "31/07/2026",
+          "month": "Jul26",
+          "bucket": "OPEX",
+          "cat": "Salary",
+          "desc": "Salary B2 (Remaining)",
+          "amt": 21000,
+          "branch": "B2"
+        },
+        {
+          "date": "06/07/2026",
+          "month": "Jul26",
+          "bucket": "OPEX",
+          "cat": "Rental",
+          "desc": "ค่าเช่า stock เดือน june (1/3 split B2)",
+          "amt": 4000,
+          "branch": "B2"
+        }
+      ],
+      "cogs": 67344.40137579651,
+      "net": 9615.598624203485,
+      "loss_carry_forward": 27301.381091584874,
+      "adjusted_net": 0,
+      "share": 0,
+      "ming_share": 0
+    },
+    "b3": {
+      "rev": 171897,
+      "rental": 23000,
+      "opex": 46500,
+      "opex_list": [
+        {
+          "date": "22/07/2026",
+          "month": "Jul26",
+          "bucket": "OPEX",
+          "cat": "Salary",
+          "desc": "Salary b3 mike 15days 500/day (LINE_ALBUM_Cost July_260802_73.jpg)",
+          "amt": 7500,
+          "branch": "B3"
+        },
+        {
+          "date": "31/07/2026",
+          "month": "Jul26",
+          "bucket": "OPEX",
+          "cat": "Rental",
+          "desc": "Rent B3",
+          "amt": 19000,
+          "branch": "B3"
+        },
+        {
+          "date": "31/07/2026",
+          "month": "Jul26",
+          "bucket": "OPEX",
+          "cat": "Salary",
+          "desc": "Salary B3 (Remaining)",
+          "amt": 39000,
+          "branch": "B3"
+        },
+        {
+          "date": "06/07/2026",
+          "month": "Jul26",
+          "bucket": "OPEX",
+          "cat": "Rental",
+          "desc": "ค่าเช่า stock เดือน june (1/3 split B3)",
+          "amt": 4000,
+          "branch": "B3"
+        }
+      ],
+      "cogs": 72846.24373474464,
+      "net": 29550.75626525536,
+      "loss_carry_forward": 0,
+      "adjusted_net": 29550.75626525536,
+      "share": 20685.52938567875,
+      "ming_share": 8865.226879576609
+    }
+  },
+  "all": {
+    "total_rev": 2558806,
+    "total_cogs": 1120823.47,
+    "fruit_summary": {
+      "Packaging": 114781,
+      "Transportation": 47657,
+      "Watermelon": 195220,
+      "Orange": 407801,
+      "Ice": 77148.47,
+      "Apple": 41791,
+      "Mango": 68632,
+      "Coconut Water": 24300,
+      "Water": 2800,
+      "Coconut": 25305,
+      "Milk/Conden": 9742,
+      "Stock": 32133,
+      "Other": 6705,
+      "Guava": 39223,
+      "Pineapple": 24085,
       "Coconut Meat": 3500
     },
     "daily_cogs": [
@@ -3297,7 +3633,7 @@
       {
         "date": "09/01/2026",
         "desc": "ค่าขนตะกร้ากลับ",
-        "cat": "Transportation",
+        "cat": "Ice",
         "amt": 500
       },
       {
@@ -3416,6 +3752,12 @@
       },
       {
         "date": "23/01/2026",
+        "desc": "Unknown",
+        "cat": "Transportation",
+        "amt": 400
+      },
+      {
+        "date": "23/01/2026",
         "desc": "แตงโม 40 ลูก",
         "cat": "Watermelon",
         "amt": 3200
@@ -3445,6 +3787,12 @@
         "amt": 400
       },
       {
+        "date": "26/01/2026",
+        "desc": "Unknown",
+        "cat": "Transportation",
+        "amt": 400
+      },
+      {
         "date": "27/01/2026",
         "desc": "ถุงมือ - 5 กล่อง",
         "cat": "Packaging",
@@ -3465,6 +3813,24 @@
       {
         "date": "28/01/2026",
         "desc": "ค่าแตงโม 50 ลูก",
+        "cat": "Watermelon",
+        "amt": 4000
+      },
+      {
+        "date": "28/01/2026",
+        "desc": "Unknown",
+        "cat": "Transportation",
+        "amt": 400
+      },
+      {
+        "date": "28/01/2026",
+        "desc": "ค่าส่ง",
+        "cat": "Transportation",
+        "amt": 486
+      },
+      {
+        "date": "28/01/2026",
+        "desc": "แตงโม 50 ลูก",
         "cat": "Watermelon",
         "amt": 4000
       },
@@ -3524,6 +3890,12 @@
       },
       {
         "date": "08/02/2026",
+        "desc": "Unknown",
+        "cat": "Ice",
+        "amt": 798
+      },
+      {
+        "date": "08/02/2026",
         "desc": "แตงโม 50",
         "cat": "Watermelon",
         "amt": 4000
@@ -3547,6 +3919,12 @@
         "amt": 685
       },
       {
+        "date": "10/02/2026",
+        "desc": "ค่าไฟเดือนมค",
+        "cat": "Ice",
+        "amt": 389
+      },
+      {
         "date": "11/02/2026",
         "desc": "แตงโม 50 ลูก",
         "cat": "Watermelon",
@@ -3555,13 +3933,7 @@
       {
         "date": "14/02/2026",
         "desc": "Unknown",
-        "cat": "Watermelon",
-        "amt": 4000
-      },
-      {
-        "date": "14/02/2026",
-        "desc": "Unknown",
-        "cat": "Apple",
+        "cat": "Ice",
         "amt": 350
       },
       {
@@ -3599,6 +3971,12 @@
         "desc": "Unknown",
         "cat": "Transportation",
         "amt": 2000
+      },
+      {
+        "date": "20/02/2026",
+        "desc": "ผ้าปิดร้าน 218 ค่ารถ 198",
+        "cat": "Ice",
+        "amt": 416
       },
       {
         "date": "23/02/2026",
@@ -3662,6 +4040,12 @@
       },
       {
         "date": "28/02/2026",
+        "desc": "ค่าส่งส้ม",
+        "cat": "Orange",
+        "amt": 2237
+      },
+      {
+        "date": "28/02/2026",
         "desc": "แตงโม 50 ลูก",
         "cat": "Watermelon",
         "amt": 4000
@@ -3701,6 +4085,12 @@
         "desc": "ค่าส้ม 20 ตะกร้า",
         "cat": "Orange",
         "amt": 7312
+      },
+      {
+        "date": "05/03/2026",
+        "desc": "ค่าทางด่วน",
+        "cat": "Ice",
+        "amt": 105
       },
       {
         "date": "05/03/2026",
@@ -3764,15 +4154,33 @@
       },
       {
         "date": "15/03/2026",
+        "desc": "ค่าทางด่วน",
+        "cat": "Ice",
+        "amt": 115
+      },
+      {
+        "date": "15/03/2026",
         "desc": "น้ำมะพร้าว 5ขวดเละ 50฿",
         "cat": "Watermelon",
         "amt": 4800
+      },
+      {
+        "date": "17/03/2026",
+        "desc": "ค่าไฟเดือนกพ มีนา",
+        "cat": "Ice",
+        "amt": 2779.47
       },
       {
         "date": "19/03/2026",
         "desc": "ค่าแตงโม 18/3/67 51 ลูก 4000 บาท",
         "cat": "Watermelon",
         "amt": 4000
+      },
+      {
+        "date": "21/03/2026",
+        "desc": "สกรู กาวตะปู",
+        "cat": "Ice",
+        "amt": 117
       },
       {
         "date": "23/03/2026",
@@ -3785,6 +4193,12 @@
         "desc": "22-3-2569",
         "cat": "Orange",
         "amt": 5890
+      },
+      {
+        "date": "24/03/2026",
+        "desc": "รถเข็นของคันใหม่",
+        "cat": "Ice",
+        "amt": 1752
       },
       {
         "date": "28/03/2026",
@@ -3837,7 +4251,7 @@
       {
         "date": "02/04/2026",
         "desc": "Unknown",
-        "cat": "Orange",
+        "cat": "Ice",
         "amt": 49560
       },
       {
@@ -3879,7 +4293,7 @@
       {
         "date": "04/04/2026",
         "desc": "เนื้อ 1200 น้ำ 500",
-        "cat": "Water",
+        "cat": "Ice",
         "amt": 1700
       },
       {
@@ -3897,7 +4311,7 @@
       {
         "date": "04/04/2026",
         "desc": "4/4/68 40 ลูก",
-        "cat": "Watermelon",
+        "cat": "Ice",
         "amt": 3200
       },
       {
@@ -3927,7 +4341,7 @@
       {
         "date": "10/04/2026",
         "desc": "ค่านม",
-        "cat": "Milk/Conden",
+        "cat": "Ice",
         "amt": 180
       },
       {
@@ -3945,7 +4359,7 @@
       {
         "date": "11/04/2026",
         "desc": "น้ำ 500 เนื้อ 1200",
-        "cat": "Water",
+        "cat": "Ice",
         "amt": 1700
       },
       {
@@ -3989,12 +4403,6 @@
         "desc": "16/04/26 มะม่วง 1 ลัง",
         "cat": "Mango",
         "amt": 750
-      },
-      {
-        "date": "18/04/2026",
-        "desc": "16/4/2569",
-        "cat": "Watermelon",
-        "amt": 4000
       },
       {
         "date": "20/04/2026",
@@ -4065,7 +4473,7 @@
       {
         "date": "23/04/2026",
         "desc": "16/4/26 เนื้อ 10 น้ำ 10 21/4/26 เนื้อ 10",
-        "cat": "Water",
+        "cat": "Ice",
         "amt": 2900
       },
       {
@@ -4073,6 +4481,12 @@
         "desc": "มะม่วง 1 ลัง",
         "cat": "Mango",
         "amt": 780
+      },
+      {
+        "date": "24/04/2026",
+        "desc": "บาร์เลย 4 ถั่วแดง 3 ถุงละ 60",
+        "cat": "Packaging",
+        "amt": 420
       },
       {
         "date": "24/04/2026",
@@ -4113,7 +4527,7 @@
       {
         "date": "27/04/2026",
         "desc": "26/4/26 50 ลูก",
-        "cat": "Watermelon",
+        "cat": "Ice",
         "amt": 4000
       },
       {
@@ -4173,7 +4587,7 @@
       {
         "date": "30/04/2026",
         "desc": "สับปะรส 3 ตะกร้า",
-        "cat": "Pineapple",
+        "cat": "Ice",
         "amt": 1500
       },
       {
@@ -4196,9 +4610,9 @@
       },
       {
         "date": "01/05/2026",
-        "desc": "ร่ม 1176 ร่ม 843 ฝรั่ง 300 นมข้นจืด 785 ที่ปั้ม 176 (Guava portion only)",
+        "desc": "ร่ม 1176 ร่ม 843 ฝรั่ง 300 นมข้นจืด 785 ที่ปั้ม 176",
         "cat": "Guava",
-        "amt": 700
+        "amt": 7823
       },
       {
         "date": "02/05/2026",
@@ -4219,6 +4633,18 @@
         "amt": 1116
       },
       {
+        "date": "02/05/2026",
+        "desc": "ค่าหาหมอเอ",
+        "cat": "Ice",
+        "amt": 706
+      },
+      {
+        "date": "02/05/2026",
+        "desc": "ค่าหมอเอ",
+        "cat": "Ice",
+        "amt": 13
+      },
+      {
         "date": "04/05/2026",
         "desc": "ถุงมือ4อัน",
         "cat": "Packaging",
@@ -4235,12 +4661,6 @@
         "desc": "มะม่วง 2 ลัง",
         "cat": "Mango",
         "amt": 1680
-      },
-      {
-        "date": "04/05/2026",
-        "desc": "30-4-2569 เบอร์ 70฿ 60 ลูก",
-        "cat": "Watermelon",
-        "amt": 7000
       },
       {
         "date": "06/05/2026",
@@ -4263,7 +4683,7 @@
       {
         "date": "08/05/2026",
         "desc": "น้ำ 20 ขวด 900 ถอดเสื้อ 30 ลูก750 กล่องโฟม 3",
-        "cat": "Coconut Water",
+        "cat": "Transportation",
         "amt": 4555
       },
       {
@@ -4275,25 +4695,19 @@
       {
         "date": "08/05/2026",
         "desc": "6 พ.ค. น้ำ 30 ขวด 1500 บาท เนื้อ 11 โล 1320 บาท",
-        "cat": "Coconut Water",
+        "cat": "Packaging",
         "amt": 2820
       },
       {
-        "date": "08/05/2026",
-        "desc": "4-5-2569 เบอร์ 70฿ 60 ลูก ยอด 4,200",
-        "cat": "Watermelon",
-        "amt": 8200
-      },
-      {
         "date": "09/05/2026",
-        "desc": "นมข้นจืด 1ลัง (drawer portion split out below)",
+        "desc": "นมข้นจืด 1ลัง 636",
         "cat": "Milk/Conden",
-        "amt": 636
+        "amt": 1122
       },
       {
         "date": "09/05/2026",
         "desc": "นมข้น 3 ลัง 2568",
-        "cat": "Milk/Conden",
+        "cat": "Packaging",
         "amt": 4875
       },
       {
@@ -4327,7 +4741,7 @@
         "amt": 910
       },
       {
-        "date": "09/05/2026",
+        "date": "11/05/2026",
         "desc": "แตงโม 4000 วันที่ 9-5-26",
         "cat": "Watermelon",
         "amt": 4000
@@ -4339,16 +4753,10 @@
         "amt": 3500
       },
       {
-        "date": "09/05/2026",
+        "date": "13/05/2026",
         "desc": "09/05/26 สับปะรด 2 ตะกร้า",
         "cat": "Pineapple",
         "amt": 1008
-      },
-      {
-        "date": "14/05/2026",
-        "desc": "11-5-2569 50 ลูก ยอด 4,000",
-        "cat": "Watermelon",
-        "amt": 8000
       },
       {
         "date": "14/05/2026",
@@ -4375,22 +4783,22 @@
         "amt": 15730
       },
       {
-        "date": "05/05/2026",
+        "date": "15/05/2026",
         "desc": "05/05/69 ส้ม 30x22กก 660กกx30",
         "cat": "Orange",
         "amt": 21450
       },
       {
         "date": "16/05/2026",
-        "desc": "มะพร้าว 20 โล",
-        "cat": "Coconut",
-        "amt": 2400
+        "desc": "Police fees -2000 2 head",
+        "cat": "Ice",
+        "amt": 4290
       },
       {
         "date": "16/05/2026",
-        "desc": "14/05/26 18 ลูก 504 บาท 16/05/26 18 ลูก",
-        "cat": "Pineapple",
-        "amt": 1008
+        "desc": "มะพร้าว 20 โล",
+        "cat": "Coconut",
+        "amt": 2400
       },
       {
         "date": "16/05/2026",
@@ -4442,12 +4850,6 @@
       },
       {
         "date": "22/05/2026",
-        "desc": "16-5-2569ยอด 4,000฿",
-        "cat": "Watermelon",
-        "amt": 12000
-      },
-      {
-        "date": "22/05/2026",
         "desc": "ฝรั่ง 1 ตะกร้า",
         "cat": "Guava",
         "amt": 600
@@ -4467,7 +4869,7 @@
       {
         "date": "23/05/2026",
         "desc": "ฝา1 788",
-        "cat": "Milk/Conden",
+        "cat": "Packaging",
         "amt": 2902
       },
       {
@@ -4495,7 +4897,7 @@
         "amt": 1245
       },
       {
-        "date": "24/05/2026",
+        "date": "25/05/2026",
         "desc": "24/05/69",
         "cat": "Orange",
         "amt": 15015
@@ -4532,12 +4934,6 @@
       },
       {
         "date": "30/05/2026",
-        "desc": "Unknown",
-        "cat": "Apple",
-        "amt": 1050
-      },
-      {
-        "date": "30/05/2026",
         "desc": "ฝรั่ง 1 ตะกร้า",
         "cat": "Guava",
         "amt": 600
@@ -4547,24 +4943,6 @@
         "desc": "Stock Adjustment (Allocated to B2)",
         "cat": "Stock",
         "amt": -4830
-      },
-      {
-        "date": "25/05/2026",
-        "desc": "แตงโม 80 ลูก (split from 02/06 batch slip)",
-        "cat": "Watermelon",
-        "amt": 4000
-      },
-      {
-        "date": "30/05/2026",
-        "desc": "แตงโม 80 ลูก (split from 02/06 batch slip)",
-        "cat": "Watermelon",
-        "amt": 4000
-      },
-      {
-        "date": "16/05/2026",
-        "desc": "Coconut meat + water + apple (remainder of mixed 16/05 slip, non-police-fee portion)",
-        "cat": "Coconut",
-        "amt": 2290
       },
       {
         "date": "31/05/2026",
@@ -4583,6 +4961,12 @@
         "desc": "ฝรั่ง 1 ตะกร้า",
         "cat": "Guava",
         "amt": 600
+      },
+      {
+        "date": "02/06/2026",
+        "desc": "แตงโม 160 ลูก (25-5-2569: 80 ลูก, 30-5-2569: 80 ลูก)",
+        "cat": "Watermelon",
+        "amt": 8000
       },
       {
         "date": "04/06/2026",
@@ -4627,6 +5011,12 @@
         "amt": 594
       },
       {
+        "date": "05/06/2026",
+        "desc": "แตงโม 100 ลูก (2-6-2569: 50 ลูก, 4-6-2569: 50 ลูก)",
+        "cat": "Watermelon",
+        "amt": 8000
+      },
+      {
         "date": "07/06/2026",
         "desc": "ส้ม 20x22กก 440กกx30 13,200บาท",
         "cat": "Orange",
@@ -4637,6 +5027,12 @@
         "desc": "Lalamove",
         "cat": "Transportation",
         "amt": 2000
+      },
+      {
+        "date": "08/06/2026",
+        "desc": "Stock June 2026 (split from rent slip)",
+        "cat": "Stock",
+        "amt": 12000
       },
       {
         "date": "08/06/2026",
@@ -4717,6 +5113,12 @@
         "amt": 950
       },
       {
+        "date": "14/06/2026",
+        "desc": "แตงโม 90 ลูก (7-6-2569: 45 ลูก, 12-6-2569: 45 ลูก)",
+        "cat": "Watermelon",
+        "amt": 7200
+      },
+      {
         "date": "15/06/2026",
         "desc": "สับปะรด 1 ลูก",
         "cat": "Pineapple",
@@ -4741,7 +5143,13 @@
         "amt": 800
       },
       {
-        "date": "09/06/2026",
+        "date": "17/06/2026",
+        "desc": "รอบ 09/06/69",
+        "cat": "Orange",
+        "amt": 16445
+      },
+      {
+        "date": "17/06/2026",
         "desc": "รอบ 09/06/69",
         "cat": "Orange",
         "amt": 16445
@@ -4765,6 +5173,24 @@
         "amt": 800
       },
       {
+        "date": "18/06/2026",
+        "desc": "ฝรั่ง 1 ตะกร้า",
+        "cat": "Guava",
+        "amt": 800
+      },
+      {
+        "date": "18/06/2026",
+        "desc": "เนื้อมะพร้าว 20 * 120 2400 น้ำมะพร้าว 20 *",
+        "cat": "Coconut Water",
+        "amt": 3400
+      },
+      {
+        "date": "18/06/2026",
+        "desc": "มะม่วง 1 ลัง",
+        "cat": "Mango",
+        "amt": 1300
+      },
+      {
         "date": "19/06/2026",
         "desc": "น้ำมะพร้าว40ลิตร ลิตรละ45บาท",
         "cat": "Coconut Water",
@@ -4777,7 +5203,19 @@
         "amt": 149
       },
       {
-        "date": "15/06/2026",
+        "date": "19/06/2026",
+        "desc": "น้ำยาล้างจาน 7 ถุง ผงซักฟอก 1",
+        "cat": "Packaging",
+        "amt": 149
+      },
+      {
+        "date": "19/06/2026",
+        "desc": "น้ำมะพร้าว40ลิตร ลิตรละ45บาท",
+        "cat": "Coconut Water",
+        "amt": 5700
+      },
+      {
+        "date": "21/06/2026",
         "desc": "15-6-2569 แตงโม 50บาท 50 ลูก ยอด 2,500",
         "cat": "Watermelon",
         "amt": 6500
@@ -4808,6 +5246,12 @@
       },
       {
         "date": "22/06/2026",
+        "desc": "สับปะรด 15 ลูก",
+        "cat": "Pineapple",
+        "amt": 700
+      },
+      {
+        "date": "22/06/2026",
         "desc": "ฝรั่ง 1 ลัง",
         "cat": "Guava",
         "amt": 700
@@ -4829,6 +5273,12 @@
         "desc": "นมข้นหวาน1ลัง",
         "cat": "Milk/Conden",
         "amt": 840
+      },
+      {
+        "date": "25/06/2026",
+        "desc": "แตงโม 22-6-2569 30 ลูก 2400 25-6-2569 40",
+        "cat": "Watermelon",
+        "amt": 6000
       },
       {
         "date": "27/06/2026",
@@ -4868,100 +5318,430 @@
       },
       {
         "date": "29/06/2026",
-        "desc": "มังคุด 3 ตะกร้า",
-        "cat": "Other",
-        "amt": 1932
-      },
-      {
-        "date": "29/06/2026",
-        "desc": "Apple 2 box",
-        "cat": "Apple",
-        "amt": 700
-      },
-      {
-        "date": "29/06/2026",
         "desc": "สับปะรด 15 ลูก",
         "cat": "Pineapple",
         "amt": 675
       },
       {
-        "date": "18/06/2026",
+        "date": "29/06/2026",
         "desc": "รอบ 18/06/69",
         "cat": "Orange",
         "amt": 17815
       },
       {
-        "date": "02/06/2026",
-        "desc": "แตงโม 50 ลูก (split from 05/06 batch slip)",
+        "date": "24/07/2026",
+        "desc": "ฝา 1 ลัง 509 นมข้นหวาน 1 ลัง 785 นมข้นจืด 2 ลัง 1342 บาท (LINE_ALBUM_Cost July_260802_1.jpg)",
+        "cat": "Stock",
+        "amt": 2636
+      },
+      {
+        "date": "24/07/2026",
+        "desc": "ฝา 1 ลัง 502 บาท นมข้นหวาน 3 ลัง 2582 บาท (LINE_ALBUM_Cost July_260802_2.jpg)",
+        "cat": "Stock",
+        "amt": 3084
+      },
+      {
+        "date": "24/07/2026",
+        "desc": "ฝา 1 ลัง 474 นมข้นจืด 1 ลัง 751 (LINE_ALBUM_Cost July_260802_3.jpg)",
+        "cat": "Stock",
+        "amt": 1225
+      },
+      {
+        "date": "24/07/2026",
+        "desc": "ฝา 1 ลัง (LINE_ALBUM_Cost July_260802_4.jpg)",
+        "cat": "Stock",
+        "amt": 472
+      },
+      {
+        "date": "26/07/2026",
+        "desc": "Apple 5 box (LINE_ALBUM_Cost July_260802_6.jpg)",
+        "cat": "Apple",
+        "amt": 2000
+      },
+      {
+        "date": "26/07/2026",
+        "desc": "ฝรั่ง 2 ตะกร้า (LINE_ALBUM_Cost July_260802_7.jpg)",
+        "cat": "Guava",
+        "amt": 2000
+      },
+      {
+        "date": "26/07/2026",
+        "desc": "Cogs มะม่วง 3 ลัง 3900 และ งบลงทุน 810 (LINE_ALBUM_Cost July_260802_8.jpg)",
+        "cat": "Mango",
+        "amt": 4710
+      },
+      {
+        "date": "26/07/2026",
+        "desc": "น้ำมะพร้าว 30ลิตร 1350 เนื้อ 50kg 5000 ค่าส่ง 350 (LINE_ALBUM_Cost July_260802_9.jpg)",
+        "cat": "Coconut",
+        "amt": 6700
+      },
+      {
+        "date": "27/07/2026",
+        "desc": "Apple 4 box (LINE_ALBUM_Cost July_260802_10.jpg)",
+        "cat": "Apple",
+        "amt": 1600
+      },
+      {
+        "date": "27/07/2026",
+        "desc": "ฝรั่ง 2 ตะกร้า (LINE_ALBUM_Cost July_260802_11.jpg)",
+        "cat": "Guava",
+        "amt": 2000
+      },
+      {
+        "date": "27/07/2026",
+        "desc": "มะม่วง 2 ลัง (LINE_ALBUM_Cost July_260802_12.jpg)",
+        "cat": "Mango",
+        "amt": 2600
+      },
+      {
+        "date": "27/07/2026",
+        "desc": "แตงโม 40 ลูก (LINE_ALBUM_Cost July_260802_13.jpg)",
+        "cat": "Watermelon",
+        "amt": 3200
+      },
+      {
+        "date": "28/07/2026",
+        "desc": "ฝรั่ง 2 ลัง (LINE_ALBUM_Cost July_260802_15.jpg)",
+        "cat": "Guava",
+        "amt": 2000
+      },
+      {
+        "date": "28/07/2026",
+        "desc": "แอปเปิ้ล 4 ลัง (LINE_ALBUM_Cost July_260802_16.jpg)",
+        "cat": "Apple",
+        "amt": 1600
+      },
+      {
+        "date": "28/07/2026",
+        "desc": "มะม่วง 2 ลัง (LINE_ALBUM_Cost July_260802_17.jpg)",
+        "cat": "Mango",
+        "amt": 2600
+      },
+      {
+        "date": "28/07/2026",
+        "desc": "แตงโม 40 ลูก (LINE_ALBUM_Cost July_260802_18.jpg)",
+        "cat": "Watermelon",
+        "amt": 3200
+      },
+      {
+        "date": "29/07/2026",
+        "desc": "ส้ม 31x22กก 682กกx30 20,460บาท ค่าขนส่ง 31ตกx 50 1550 (LINE_ALBUM_Cost July_260802_20.jpg)",
+        "cat": "Orange",
+        "amt": 22010
+      },
+      {
+        "date": "31/07/2026",
+        "desc": "แอปเปิ้ล 4 ลัง (LINE_ALBUM_Cost July_260802_23.jpg)",
+        "cat": "Apple",
+        "amt": 1200
+      },
+      {
+        "date": "31/07/2026",
+        "desc": "มะม่วง 4 ลัง (LINE_ALBUM_Cost July_260802_24.jpg)",
+        "cat": "Mango",
+        "amt": 4680
+      },
+      {
+        "date": "31/07/2026",
+        "desc": "ฝรั่ง 3 ลัง (LINE_ALBUM_Cost July_260802_26.jpg)",
+        "cat": "Guava",
+        "amt": 3600
+      },
+      {
+        "date": "31/07/2026",
+        "desc": "ทุเรียน 20.6 กิโลกรัม (LINE_ALBUM_Cost July_260802_27.jpg)",
+        "cat": "Other",
+        "amt": 2255
+      },
+      {
+        "date": "02/07/2026",
+        "desc": "ค่าส่งส้มเดือน 6 (LINE_ALBUM_Cost July_260802_29.jpg)",
+        "cat": "Orange",
+        "amt": 1598
+      },
+      {
+        "date": "03/07/2026",
+        "desc": "1 สับปะรด 15 ลูก 750 2 สับปะรด 15 ลูก 729 (LINE_ALBUM_Cost July_260802_30.jpg)",
+        "cat": "Pineapple",
+        "amt": 1479
+      },
+      {
+        "date": "03/07/2026",
+        "desc": "แอปเปิ้ล 3 ลัง (LINE_ALBUM_Cost July_260802_31.jpg)",
+        "cat": "Apple",
+        "amt": 1140
+      },
+      {
+        "date": "03/07/2026",
+        "desc": "มะม่วง 1 ลัง (LINE_ALBUM_Cost July_260802_32.jpg)",
+        "cat": "Mango",
+        "amt": 1040
+      },
+      {
+        "date": "03/07/2026",
+        "desc": "ฝรั่ง 1 ลัง (LINE_ALBUM_Cost July_260802_33.jpg)",
+        "cat": "Guava",
+        "amt": 900
+      },
+      {
+        "date": "06/07/2026",
+        "desc": "สับปะรด 20 ลูก (LINE_ALBUM_Cost July_260802_36.jpg)",
+        "cat": "Pineapple",
+        "amt": 783
+      },
+      {
+        "date": "06/07/2026",
+        "desc": "มะม่วง 2 ลัง (LINE_ALBUM_Cost July_260802_37.jpg)",
+        "cat": "Mango",
+        "amt": 2340
+      },
+      {
+        "date": "06/07/2026",
+        "desc": "ฝรั่ง 1 ตะกร้า (LINE_ALBUM_Cost July_260802_38.jpg)",
+        "cat": "Guava",
+        "amt": 900
+      },
+      {
+        "date": "06/07/2026",
+        "desc": "แอปเปิ้ล 3 ลัง (LINE_ALBUM_Cost July_260802_39.jpg)",
+        "cat": "Apple",
+        "amt": 900
+      },
+      {
+        "date": "08/07/2026",
+        "desc": "แตงโม 3-7-69 36 ลูก ลูกละ 80 บาท 6-7-69 50 ลูก ลูกละ 80 บาท (LINE_ALBUM_Cost July_260802_40.jpg)",
+        "cat": "Watermelon",
+        "amt": 6880
+      },
+      {
+        "date": "09/07/2026",
+        "desc": "น้ำ 25ลิตร ลิตรละ45บาท เนื้อคว้าน 50kg.กิโลละ 100บาท ค่าส่ง350บาท (LINE_ALBUM_Cost July_260802_42.jpg)",
+        "cat": "Coconut",
+        "amt": 6470
+      },
+      {
+        "date": "10/07/2026",
+        "desc": "ฝรั่ง 1 ลัง (LINE_ALBUM_Cost July_260802_43.jpg)",
+        "cat": "Guava",
+        "amt": 900
+      },
+      {
+        "date": "10/07/2026",
+        "desc": "Apple 5 box (LINE_ALBUM_Cost July_260802_44.jpg)",
+        "cat": "Apple",
+        "amt": 1500
+      },
+      {
+        "date": "11/07/2026",
+        "desc": "ฝรั่ง 1 ตะกร้า (LINE_ALBUM_Cost July_260802_45.jpg)",
+        "cat": "Guava",
+        "amt": 900
+      },
+      {
+        "date": "11/07/2026",
+        "desc": "มะม่วง 3 ลัง (LINE_ALBUM_Cost July_260802_46.jpg)",
+        "cat": "Mango",
+        "amt": 4300
+      },
+      {
+        "date": "11/07/2026",
+        "desc": "แอปเปิ้ล 3 ลัง (LINE_ALBUM_Cost July_260802_47.jpg)",
+        "cat": "Apple",
+        "amt": 900
+      },
+      {
+        "date": "13/07/2026",
+        "desc": "ทิชชู4(636) หลอด20 (671) ถุงเล็ก3(605) ถุงใหญ่2(943) (LINE_ALBUM_Cost July_260802_49.jpg)",
+        "cat": "Packaging",
+        "amt": 2855
+      },
+      {
+        "date": "13/07/2026",
+        "desc": "แก้ว98 4ลัง 7656-635 7,021 ฝา635 (LINE_ALBUM_Cost July_260802_50.jpg)",
+        "cat": "Packaging",
+        "amt": 7656
+      },
+      {
+        "date": "14/07/2026",
+        "desc": "11/7/69 10 ลูก 620 14/7/69 25 ลูก 1269 (LINE_ALBUM_Cost July_260802_51.jpg)",
+        "cat": "Pineapple",
+        "amt": 1889
+      },
+      {
+        "date": "14/07/2026",
+        "desc": "Apple 3 ลัง (LINE_ALBUM_Cost July_260802_52.jpg)",
+        "cat": "Apple",
+        "amt": 1200
+      },
+      {
+        "date": "15/07/2026",
+        "desc": "ฝรั่ง 2 ตะกร้า ตะกร้าละ 20 โล (LINE_ALBUM_Cost July_260802_53.jpg)",
+        "cat": "Guava",
+        "amt": 2000
+      },
+      {
+        "date": "16/07/2026",
+        "desc": "รอบ 01/07/69 ส้ม 28x22กก 616กกx30 18,480บาท ค่าขนส่ง 28ตกx 55 1540 (LINE_ALBUM_Cost July_260802_54.jpg)",
+        "cat": "Orange",
+        "amt": 20020
+      },
+      {
+        "date": "17/07/2026",
+        "desc": "ส้ม 125 โล 3450 ค่าส่ง 300 (LINE_ALBUM_Cost July_260802_55.jpg)",
+        "cat": "Orange",
+        "amt": 3750
+      },
+      {
+        "date": "17/07/2026",
+        "desc": "สับปะรด 25 ลูก (LINE_ALBUM_Cost July_260802_56.jpg)",
+        "cat": "Pineapple",
+        "amt": 1539
+      },
+      {
+        "date": "17/07/2026",
+        "desc": "แตงโม 10-7-69 50 ลูก 4000 11-7-69 40 ลูก 3200 (LINE_ALBUM_Cost July_260802_57.jpg)",
+        "cat": "Watermelon",
+        "amt": 7200
+      },
+      {
+        "date": "17/07/2026",
+        "desc": "ทุเรียน 50 โล โลละ 85 รวม 4250 มัดจำตะกร้า 200 (LINE_ALBUM_Cost July_260802_58.jpg)",
+        "cat": "Other",
+        "amt": 4450
+      },
+      {
+        "date": "17/07/2026",
+        "desc": "แตงโม 14-7-69 50 ลูก 4000 (LINE_ALBUM_Cost July_260802_59.jpg)",
         "cat": "Watermelon",
         "amt": 4000
       },
       {
-        "date": "04/06/2026",
-        "desc": "แตงโม 50 ลูก (split from 05/06 batch slip)",
+        "date": "17/07/2026",
+        "desc": "มะม่วง 52 โล(2 ตะกร้า) โลละ 50 (LINE_ALBUM_Cost July_260802_60.jpg)",
+        "cat": "Mango",
+        "amt": 2600
+      },
+      {
+        "date": "17/07/2026",
+        "desc": "ฝรั่ง 2 ตะกร้า (ตะกร้าละ 20 โล) (LINE_ALBUM_Cost July_260802_61.jpg)",
+        "cat": "Guava",
+        "amt": 2000
+      },
+      {
+        "date": "17/07/2026",
+        "desc": "แอปเปิ้ล 5 ลัง (LINE_ALBUM_Cost July_260802_62.jpg)",
+        "cat": "Apple",
+        "amt": 2000
+      },
+      {
+        "date": "17/07/2026",
+        "desc": "น้ำ 30ลิตร ลิตรละ45บาท เนื้อมะพร้าว 50kg.กิโลละ 100บาท ค่าส่ง350 (LINE_ALBUM_Cost July_260802_63.jpg)",
+        "cat": "Coconut",
+        "amt": 6700
+      },
+      {
+        "date": "20/07/2026",
+        "desc": "ฝรั่ง 2 ตะกร้า (LINE_ALBUM_Cost July_260802_64.jpg)",
+        "cat": "Guava",
+        "amt": 2000
+      },
+      {
+        "date": "20/07/2026",
+        "desc": "สับปะรด 20 ลูก (LINE_ALBUM_Cost July_260802_65.jpg)",
+        "cat": "Pineapple",
+        "amt": 1296
+      },
+      {
+        "date": "20/07/2026",
+        "desc": "มะม่วง 2 ลัง (LINE_ALBUM_Cost July_260802_66.jpg)",
+        "cat": "Mango",
+        "amt": 2600
+      },
+      {
+        "date": "20/07/2026",
+        "desc": "แตงโม 17-7-2569 เบอร์ 80บาท 50 ลูก (LINE_ALBUM_Cost July_260802_67.jpg)",
         "cat": "Watermelon",
         "amt": 4000
       },
       {
-        "date": "07/06/2026",
-        "desc": "แตงโม 45 ลูก (split from 14/06 batch slip)",
-        "cat": "Watermelon",
-        "amt": 3600
+        "date": "22/07/2026",
+        "desc": "ส้ม 25x22กก รวม 550กกx30 บ รวม 16500บาท ค่าขนส่ง 25ตกx 50 บ 1250 (LINE_ALBUM_Cost July_260802_69.jpg)",
+        "cat": "Orange",
+        "amt": 17750
       },
       {
-        "date": "12/06/2026",
-        "desc": "แตงโม 45 ลูก (split from 14/06 batch slip)",
-        "cat": "Watermelon",
-        "amt": 3600
+        "date": "22/07/2026",
+        "desc": "แอปเปิ้ล 4 ลัง (LINE_ALBUM_Cost July_260802_70.jpg)",
+        "cat": "Apple",
+        "amt": 1600
       },
       {
-        "date": "22/06/2026",
-        "desc": "แตงโม 30 ลูก (split from 25/06 batch slip)",
-        "cat": "Watermelon",
-        "amt": 2400
+        "date": "22/07/2026",
+        "desc": "มะม่วง 78 กิโล 3 ลัง (LINE_ALBUM_Cost July_260802_71.jpg)",
+        "cat": "Mango",
+        "amt": 3900
       },
       {
-        "date": "25/06/2026",
-        "desc": "แตงโม 40 ลูก (split from 25/06 batch slip)",
+        "date": "22/07/2026",
+        "desc": "Cogs Falcon milk (LINE_ALBUM_Cost July_260802_77.jpg)",
+        "cat": "Stock",
+        "amt": 716
+      },
+      {
+        "date": "23/07/2026",
+        "desc": "20-7-2569 ราคา 80 - 45ลูก 22-7-2569 ราคา 80 - 30 ลูก 23-7-2569 ราคา 80 - 30 ลูก (LINE_ALBUM_Cost July_260802_81.jpg)",
         "cat": "Watermelon",
-        "amt": 3600
+        "amt": 8400
+      },
+      {
+        "date": "23/07/2026",
+        "desc": "ฝรั่ง 2 ลัง ลังละ 20 กิโล กิโลละ 50 บาท รวม 2000 บาท (LINE_ALBUM_Cost July_260802_82.jpg)",
+        "cat": "Guava",
+        "amt": 2000
+      },
+      {
+        "date": "23/07/2026",
+        "desc": "สับปะรด 41 กิโล *27 บาท รวม 1107 บาท (LINE_ALBUM_Cost July_260802_83.jpg)",
+        "cat": "Pineapple",
+        "amt": 1107
       }
     ],
     "fruit_performance": [
       {
         "name": "Orange",
-        "rev": 883260,
-        "cost": 373551,
-        "cups": 14707,
-        "roi": "136.4%"
+        "rev": 999360,
+        "cost": 407801,
+        "cups": 16642,
+        "roi": "145.1%"
       },
       {
         "name": "Watermelon",
-        "rev": 595900,
-        "cost": 204740,
-        "cups": 11918,
-        "roi": "191.1%"
+        "rev": 792050,
+        "cost": 195220,
+        "cups": 15841,
+        "roi": "305.7%"
       },
       {
         "name": "Mango",
-        "rev": 84060,
-        "cost": 35962,
-        "cups": 934,
-        "roi": "133.7%"
+        "rev": 129960,
+        "cost": 68632,
+        "cups": 1444,
+        "roi": "89.4%"
       },
       {
         "name": "Apple",
-        "rev": 74460,
-        "cost": 28251,
-        "cups": 1241,
-        "roi": "163.6%"
+        "rev": 125580,
+        "cost": 41791,
+        "cups": 2093,
+        "roi": "200.5%"
       },
       {
         "name": "Coconut",
-        "rev": 234060,
-        "cost": 33800,
-        "cups": 3901,
-        "roi": "592.5%"
+        "rev": 317580,
+        "cost": 53105,
+        "cups": 5293,
+        "roi": "498.0%"
       },
       {
         "name": "Young Coco",
@@ -4972,18 +5752,687 @@
       },
       {
         "name": "Guava",
-        "rev": 21840,
+        "rev": 38940,
         "cost": 0,
-        "cups": 364,
+        "cups": 649,
         "roi": "N/A"
       },
       {
         "name": "Pineapple",
-        "rev": 23820,
-        "cost": 17800,
-        "cups": 397,
-        "roi": "33.8%"
+        "rev": 38880,
+        "cost": 24085,
+        "cups": 648,
+        "roi": "61.4%"
       }
-    ]
+    ],
+    "b1": {
+      "rev": 1898538,
+      "opex": 243528.75,
+      "rental": 180324,
+      "opex_list": [
+        {
+          "date": "08/01/2026",
+          "month": "Jan26",
+          "bucket": "OPEX",
+          "cat": "Rental",
+          "desc": "ค่าเช่า12,000 น้ำไฟ324 รวม12,324",
+          "amt": 12324,
+          "branch": "B1"
+        },
+        {
+          "date": "31/01/2026",
+          "month": "Jan26",
+          "bucket": "OPEX",
+          "cat": "Salary",
+          "desc": "เงินเดือนเมนมกราคม",
+          "amt": 19000,
+          "branch": "B1"
+        },
+        {
+          "date": "14/02/2026",
+          "month": "Feb26",
+          "bucket": "OPEX",
+          "cat": "Other",
+          "desc": "Unknown",
+          "amt": 4000,
+          "branch": "B1"
+        },
+        {
+          "date": "28/02/2026",
+          "month": "Feb26",
+          "bucket": "OPEX",
+          "cat": "Rental",
+          "desc": "ค่าเช่าสต็อคกพ",
+          "amt": 12000,
+          "branch": "B1"
+        },
+        {
+          "date": "01/01/2026",
+          "month": "Mar26",
+          "bucket": "OPEX",
+          "cat": "Rental",
+          "desc": "Unknown",
+          "amt": 0,
+          "branch": "B1"
+        },
+        {
+          "date": "10/03/2026",
+          "month": "Mar26",
+          "bucket": "CAPEX",
+          "cat": "Investment",
+          "desc": "Unknown",
+          "amt": 6500,
+          "branch": "B1"
+        },
+        {
+          "date": "18/04/2026",
+          "month": "Apr26",
+          "bucket": "OPEX",
+          "cat": "Other",
+          "desc": "16/4/2569",
+          "amt": 4000,
+          "branch": "B1"
+        },
+        {
+          "date": "30/04/2026",
+          "month": "Apr26",
+          "bucket": "OPEX",
+          "cat": "Salary",
+          "desc": "Employee 1",
+          "amt": 19000,
+          "branch": "B1"
+        },
+        {
+          "date": "30/04/2026",
+          "month": "Apr26",
+          "bucket": "OPEX",
+          "cat": "Salary",
+          "desc": "Employee 2",
+          "amt": 12000,
+          "branch": "B1"
+        },
+        {
+          "date": "30/04/2026",
+          "month": "Apr26",
+          "bucket": "OPEX",
+          "cat": "Rental",
+          "desc": "Rent",
+          "amt": 35000,
+          "branch": "B1"
+        },
+        {
+          "date": "04/05/2026",
+          "month": "May26",
+          "bucket": "OPEX",
+          "cat": "Other",
+          "desc": "30-4-2569 เบอร์ 70฿ 60 ลูก",
+          "amt": 7000,
+          "branch": "B1"
+        },
+        {
+          "date": "06/05/2026",
+          "month": "May26",
+          "bucket": "OPEX",
+          "cat": "Other",
+          "desc": "ทิชชู่3แพค 36ห่อ",
+          "amt": 451,
+          "branch": "B1"
+        },
+        {
+          "date": "08/05/2026",
+          "month": "May26",
+          "bucket": "OPEX",
+          "cat": "Other",
+          "desc": "ค่าทำความสะอาดตึกชั้น 1",
+          "amt": 2700,
+          "branch": "B1"
+        },
+        {
+          "date": "08/05/2026",
+          "month": "May26",
+          "bucket": "OPEX",
+          "cat": "Other",
+          "desc": "4-5-2569 เบอร์ 70฿ 60 ลูก ยอด 4,200",
+          "amt": 8200,
+          "branch": "B1"
+        },
+        {
+          "date": "09/05/2026",
+          "month": "May26",
+          "bucket": "OPEX",
+          "cat": "Other",
+          "desc": "พรหมเช็ดเท้า 1 ผืน",
+          "amt": 372,
+          "branch": "B1"
+        },
+        {
+          "date": "10/05/2026",
+          "month": "May26",
+          "bucket": "OPEX",
+          "cat": "Other",
+          "desc": "ไฟ 2อัน 422",
+          "amt": 838,
+          "branch": "B1"
+        },
+        {
+          "date": "13/05/2026",
+          "month": "May26",
+          "bucket": "OPEX",
+          "cat": "Other",
+          "desc": "ที่หนีบ 6ตัว 374 บาท",
+          "amt": 374,
+          "branch": "B1"
+        },
+        {
+          "date": "14/05/2026",
+          "month": "May26",
+          "bucket": "OPEX",
+          "cat": "Other",
+          "desc": "11-5-2569 50 ลูก ยอด 4,000",
+          "amt": 8000,
+          "branch": "B1"
+        },
+        {
+          "date": "14/05/2026",
+          "month": "May26",
+          "bucket": "OPEX",
+          "cat": "Rental",
+          "desc": "ค่าเช่า+สต๊อกร้าน 1",
+          "amt": 47000,
+          "branch": "B1"
+        },
+        {
+          "date": "16/05/2026",
+          "month": "May26",
+          "bucket": "OPEX",
+          "cat": "Other",
+          "desc": "14/05/26 18 ลูก 504 บาท 16/05/26 18 ลูก",
+          "amt": 1008,
+          "branch": "B1"
+        },
+        {
+          "date": "22/05/2026",
+          "month": "May26",
+          "bucket": "OPEX",
+          "cat": "Other",
+          "desc": "16-5-2569ยอด 4,000฿",
+          "amt": 12000,
+          "branch": "B1"
+        },
+        {
+          "date": "25/05/2026",
+          "month": "May26",
+          "bucket": "OPEX",
+          "cat": "Salary",
+          "desc": "เงินเดือนซี เดือนพ.ค.",
+          "amt": 7800,
+          "branch": "B1"
+        },
+        {
+          "date": "27/05/2026",
+          "month": "May26",
+          "bucket": "OPEX",
+          "cat": "Salary",
+          "desc": "เงินเดือนเมน 5/26",
+          "amt": 19000,
+          "branch": "B1"
+        },
+        {
+          "date": "28/05/2026",
+          "month": "May26",
+          "bucket": "CAPEX",
+          "cat": "Investment",
+          "desc": "เครื่องสกัดเย็น 1",
+          "amt": 1065,
+          "branch": "B1"
+        },
+        {
+          "date": "30/05/2026",
+          "month": "May26",
+          "bucket": "OPEX",
+          "cat": "Other",
+          "desc": "Unknown",
+          "amt": 1050,
+          "branch": "B1"
+        },
+        {
+          "date": "01/06/2026",
+          "month": "May26",
+          "bucket": "OPEX",
+          "cat": "Salary",
+          "desc": "Unknown",
+          "amt": 0,
+          "branch": "B1"
+        },
+        {
+          "date": "08/06/2026",
+          "month": "Jun26",
+          "bucket": "OPEX",
+          "cat": "Rental",
+          "desc": "ค่าเช่าร้านเดือน June (06) b1 35000",
+          "amt": 35000,
+          "branch": "B1"
+        },
+        {
+          "date": "27/06/2026",
+          "month": "Jun26",
+          "bucket": "OPEX",
+          "cat": "Other",
+          "desc": "Unknown",
+          "amt": 317,
+          "branch": "B1"
+        },
+        {
+          "date": "29/06/2026",
+          "month": "Jun26",
+          "bucket": "OPEX",
+          "cat": "Other",
+          "desc": "สกัดเย็น1เครื่อง",
+          "amt": 1402,
+          "branch": "B1"
+        },
+        {
+          "date": "29/06/2026",
+          "month": "Jun26",
+          "bucket": "OPEX",
+          "cat": "Other",
+          "desc": "มังคุด 3 ตะกร้า",
+          "amt": 1932,
+          "branch": "B1"
+        },
+        {
+          "date": "29/06/2026",
+          "month": "Jun26",
+          "bucket": "OPEX",
+          "cat": "Other",
+          "desc": "Apple 2 box",
+          "amt": 700,
+          "branch": "B1"
+        },
+        {
+          "date": "30/06/2026",
+          "month": "Jun26",
+          "bucket": "OPEX",
+          "cat": "Salary",
+          "desc": "ค่าแรง 4 คน คนคนละ 12000 และ รายวัน 1",
+          "amt": 48400,
+          "branch": "B1"
+        },
+        {
+          "date": "24/07/2026",
+          "month": "Jul26",
+          "bucket": "OPEX",
+          "cat": "Other",
+          "desc": "Lalamove (LINE_ALBUM_Cost July_260802_5.jpg)",
+          "amt": 2000,
+          "branch": "B1"
+        },
+        {
+          "date": "28/07/2026",
+          "month": "Jul26",
+          "bucket": "OPEX",
+          "cat": "Other",
+          "desc": "Lalamove (LINE_ALBUM_Cost July_260802_14.jpg)",
+          "amt": 1000,
+          "branch": "B1"
+        },
+        {
+          "date": "29/07/2026",
+          "month": "Jul26",
+          "bucket": "OPEX",
+          "cat": "Other",
+          "desc": "ค่าขนส่ง (LINE_ALBUM_Cost July_260802_19.jpg)",
+          "amt": 2000,
+          "branch": "B1"
+        },
+        {
+          "date": "30/07/2026",
+          "month": "Jul26",
+          "bucket": "OPEX",
+          "cat": "Other",
+          "desc": "ตะแกรงคว่ำจาน 6อัน ป้ายไฟ3อัน (LINE_ALBUM_Cost July_260802_21.jpg)",
+          "amt": 1790,
+          "branch": "B1"
+        },
+        {
+          "date": "30/07/2026",
+          "month": "Jul26",
+          "bucket": "OPEX",
+          "cat": "Other",
+          "desc": "ถุงขยะ 5*5แพค (LINE_ALBUM_Cost July_260802_22.jpg)",
+          "amt": 1101,
+          "branch": "B1"
+        },
+        {
+          "date": "31/07/2026",
+          "month": "Jul26",
+          "bucket": "OPEX",
+          "cat": "Other",
+          "desc": "ค่าขนส่ง (LINE_ALBUM_Cost July_260802_25.jpg)",
+          "amt": 2000,
+          "branch": "B1"
+        },
+        {
+          "date": "31/07/2026",
+          "month": "Jul26",
+          "bucket": "OPEX",
+          "cat": "Other",
+          "desc": "ตะกร้าแต่งร้าน 3 (LINE_ALBUM_Cost July_260802_28.jpg)",
+          "amt": 558,
+          "branch": "B1"
+        },
+        {
+          "date": "03/07/2026",
+          "month": "Jul26",
+          "bucket": "OPEX",
+          "cat": "Other",
+          "desc": "ค่าส่ง (LINE_ALBUM_Cost July_260802_34.jpg)",
+          "amt": 2000,
+          "branch": "B1"
+        },
+        {
+          "date": "06/07/2026",
+          "month": "Jul26",
+          "bucket": "OPEX",
+          "cat": "Rental",
+          "desc": "ค่าเช่า stock เดือน june (1/3 split B1) (LINE_ALBUM_Cost July_260802_35.jpg)",
+          "amt": 4000,
+          "branch": "B1"
+        },
+        {
+          "date": "08/07/2026",
+          "month": "Jul26",
+          "bucket": "OPEX",
+          "cat": "Other",
+          "desc": "เต้น (tent) (LINE_ALBUM_Cost July_260802_41.jpg)",
+          "amt": 1342,
+          "branch": "B1"
+        },
+        {
+          "date": "13/07/2026",
+          "month": "Jul26",
+          "bucket": "OPEX",
+          "cat": "Other",
+          "desc": "ค่าขนส่ง (LINE_ALBUM_Cost July_260802_48.jpg)",
+          "amt": 344,
+          "branch": "B1"
+        },
+        {
+          "date": "21/07/2026",
+          "month": "Jul26",
+          "bucket": "OPEX",
+          "cat": "Other",
+          "desc": " (LINE_ALBUM_Cost July_260802_68.jpg)",
+          "amt": 2000,
+          "branch": "B1"
+        },
+        {
+          "date": "22/07/2026",
+          "month": "Jul26",
+          "bucket": "OPEX",
+          "cat": "Other",
+          "desc": "OPEX Avocado milk (LINE_ALBUM_Cost July_260802_74.jpg)",
+          "amt": 440.75,
+          "branch": "B1"
+        },
+        {
+          "date": "22/07/2026",
+          "month": "Jul26",
+          "bucket": "OPEX",
+          "cat": "Other",
+          "desc": "Opex knife (LINE_ALBUM_Cost July_260802_75.jpg)",
+          "amt": 199,
+          "branch": "B1"
+        },
+        {
+          "date": "22/07/2026",
+          "month": "Jul26",
+          "bucket": "OPEX",
+          "cat": "Other",
+          "desc": "Opex equipment (LINE_ALBUM_Cost July_260802_76.jpg)",
+          "amt": 221,
+          "branch": "B1"
+        },
+        {
+          "date": "22/07/2026",
+          "month": "Jul26",
+          "bucket": "OPEX",
+          "cat": "Other",
+          "desc": "Opex B1 police fee 1000 / person (LINE_ALBUM_Cost July_260802_78.jpg)",
+          "amt": 2000,
+          "branch": "B1"
+        },
+        {
+          "date": "22/07/2026",
+          "month": "Jul26",
+          "bucket": "OPEX",
+          "cat": "Other",
+          "desc": "Opex equipments (LINE_ALBUM_Cost July_260802_79.jpg)",
+          "amt": 506,
+          "branch": "B1"
+        },
+        {
+          "date": "22/07/2026",
+          "month": "Jul26",
+          "bucket": "OPEX",
+          "cat": "Other",
+          "desc": "Opex other (LINE_ALBUM_Cost July_260802_80.jpg)",
+          "amt": 1918,
+          "branch": "B1"
+        },
+        {
+          "date": "31/07/2026",
+          "month": "Jul26",
+          "bucket": "OPEX",
+          "cat": "Rental",
+          "desc": "Rent B1",
+          "amt": 35000,
+          "branch": "B1"
+        },
+        {
+          "date": "31/07/2026",
+          "month": "Jul26",
+          "bucket": "OPEX",
+          "cat": "Salary",
+          "desc": "Salary B1",
+          "amt": 35000,
+          "branch": "B1"
+        }
+      ],
+      "cogs": 802887.6376632584,
+      "net": 671797.6123367416,
+      "share": 403078.56740204495,
+      "ming_share": 268719.04493469663,
+      "loss_carry_forward": 0,
+      "adjusted_net": 0
+    },
+    "b2": {
+      "rev": 488371,
+      "opex": 90400,
+      "rental": 125000,
+      "opex_list": [
+        {
+          "date": "30/04/2026",
+          "month": "Apr26",
+          "bucket": "OPEX",
+          "cat": "Salary",
+          "desc": "Employee 3",
+          "amt": 12000,
+          "branch": "B2"
+        },
+        {
+          "date": "30/04/2026",
+          "month": "Apr26",
+          "bucket": "OPEX",
+          "cat": "Salary",
+          "desc": "Employee 4",
+          "amt": 6000,
+          "branch": "B2"
+        },
+        {
+          "date": "30/04/2026",
+          "month": "Apr26",
+          "bucket": "OPEX",
+          "cat": "Rental",
+          "desc": "Rent",
+          "amt": 30000,
+          "branch": "B2"
+        },
+        {
+          "date": "07/05/2026",
+          "month": "May26",
+          "bucket": "OPEX",
+          "cat": "Rental",
+          "desc": "ค่าเช่าร้าน 2 เดือนพฤษภาคม",
+          "amt": 30000,
+          "branch": "B2"
+        },
+        {
+          "date": "31/05/2026",
+          "month": "May26",
+          "bucket": "OPEX",
+          "cat": "Salary",
+          "desc": "Employee 3",
+          "amt": 12000,
+          "branch": "B2"
+        },
+        {
+          "date": "31/05/2026",
+          "month": "May26",
+          "bucket": "OPEX",
+          "cat": "Salary",
+          "desc": "Employee 4",
+          "amt": 6000,
+          "branch": "B2"
+        },
+        {
+          "date": "01/06/2026",
+          "month": "Jun26",
+          "bucket": "OPEX",
+          "cat": "Rental",
+          "desc": "ค่าที่ร้านน้ำส้ม b2 06/26",
+          "amt": 30000,
+          "branch": "B2"
+        },
+        {
+          "date": "30/06/2026",
+          "month": "Jun26",
+          "bucket": "OPEX",
+          "cat": "Salary",
+          "desc": "ค่าแรง 2 คน คนละ 12000 (B2 portion, split from joint payroll transfer ฿48,400 - see B1 for other portion)",
+          "amt": 24000,
+          "branch": "B2"
+        },
+        {
+          "date": "30/06/2026",
+          "month": "Jun26",
+          "bucket": "OPEX",
+          "cat": "Salary",
+          "desc": "รายวัน 1 คน 400 (B2 portion, part of joint payroll transfer ฿48,400)",
+          "amt": 400,
+          "branch": "B2"
+        },
+        {
+          "date": "08/06/2026",
+          "month": "Jun26",
+          "bucket": "OPEX",
+          "cat": "Rental",
+          "desc": "ค่าเช่าสต็อค เดือน June (B2 portion, split from joint ฿12,000 - see B1 for other half)",
+          "amt": 6000,
+          "branch": "B2"
+        },
+        {
+          "date": "22/07/2026",
+          "month": "Jul26",
+          "bucket": "OPEX",
+          "cat": "Salary",
+          "desc": "Salary b2 wei 20days 450/day (LINE_ALBUM_Cost July_260802_72.jpg)",
+          "amt": 9000,
+          "branch": "B2"
+        },
+        {
+          "date": "31/07/2026",
+          "month": "Jul26",
+          "bucket": "OPEX",
+          "cat": "Rental",
+          "desc": "Rent B2",
+          "amt": 25000,
+          "branch": "B2"
+        },
+        {
+          "date": "31/07/2026",
+          "month": "Jul26",
+          "bucket": "OPEX",
+          "cat": "Salary",
+          "desc": "Salary B2 (Remaining)",
+          "amt": 21000,
+          "branch": "B2"
+        },
+        {
+          "date": "06/07/2026",
+          "month": "Jul26",
+          "bucket": "OPEX",
+          "cat": "Rental",
+          "desc": "ค่าเช่า stock เดือน june (1/3 split B2)",
+          "amt": 4000,
+          "branch": "B2"
+        }
+      ],
+      "cogs": 245089.588601997,
+      "net": 27881.41139800298,
+      "share": 31897.035705769056,
+      "ming_share": 13670.15815961531,
+      "loss_carry_forward": 0,
+      "adjusted_net": 0
+    },
+    "b3": {
+      "rev": 171897,
+      "opex": 46500,
+      "rental": 23000,
+      "opex_list": [
+        {
+          "date": "22/07/2026",
+          "month": "Jul26",
+          "bucket": "OPEX",
+          "cat": "Salary",
+          "desc": "Salary b3 mike 15days 500/day (LINE_ALBUM_Cost July_260802_73.jpg)",
+          "amt": 7500,
+          "branch": "B3"
+        },
+        {
+          "date": "31/07/2026",
+          "month": "Jul26",
+          "bucket": "OPEX",
+          "cat": "Rental",
+          "desc": "Rent B3",
+          "amt": 19000,
+          "branch": "B3"
+        },
+        {
+          "date": "31/07/2026",
+          "month": "Jul26",
+          "bucket": "OPEX",
+          "cat": "Salary",
+          "desc": "Salary B3 (Remaining)",
+          "amt": 39000,
+          "branch": "B3"
+        },
+        {
+          "date": "06/07/2026",
+          "month": "Jul26",
+          "bucket": "OPEX",
+          "cat": "Rental",
+          "desc": "ค่าเช่า stock เดือน june (1/3 split B3)",
+          "amt": 4000,
+          "branch": "B3"
+        }
+      ],
+      "cogs": 72846.24373474464,
+      "net": 29550.75626525536,
+      "share": 20685.52938567875,
+      "ming_share": 8865.226879576609,
+      "loss_carry_forward": 0,
+      "adjusted_net": 0
+    }
   }
 }

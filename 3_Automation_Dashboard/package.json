@@ -13,7 +13,7 @@
     "stock-in": "node Sales_System_Automation/scripts/stock_in.js",
     "deploy": "npx vercel --prod",
     "pipeline": "node Sales_System_Automation/agents/Orchestrator.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node test_expense_rules.js && node test_render_finance.js"
   },
   "keywords": [],
   "author": "",

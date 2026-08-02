@@ -39,13 +39,50 @@ const COSTS = {
 
 const PROFIT_SHARE_RATIO = {
     B1: 0.60,
-    B2: 0.70
+    B2: 0.70,
+    B3: 0.70
 };
 
 const MING_SHARE_RATIO = {
     B1: 0.40,
-    B2: 0.30
+    B2: 0.30,
+    B3: 0.30
 };
+
+// Partner profit-share payouts are a distribution OF profit, never a cost of earning it.
+// ponytail: matches the two shapes actually seen in the books — an explicit
+// "ส่วนแบ่งกำไร"/"ปันผล", and a bare "ส่วนแบ่ง" next to a profit-share ratio
+// (60/40 for B1, 70/30 for B2/B3). Widen only if a real payout slips through.
+const PROFIT_SHARE_PATTERNS = [
+    /ส่วนแบ่งกำไร/,
+    /ปันผล/,
+    /profit\s*(share|distribution)/i,
+    /ส่วนแบ่ง.{0,12}(60|40|70|30)\s*(%|เปอ)/
+];
+
+// Buckets that are carried in the raw data for traceability but excluded from P&L.
+const NON_PL_BUCKETS = ['PENDING_REFUND', 'EXCLUDED'];
+
+function isProfitDistribution(desc) {
+    return !!desc && PROFIT_SHARE_PATTERNS.some(p => p.test(desc));
+}
+
+/**
+ * Normalizes a single raw expense row. Returns a NEW object, never mutates input.
+ * Profit-share payouts are reclassed to EXCLUDED / amt 0 so they can never reach
+ * COGS or OPEX, regardless of how they were categorized at data entry.
+ */
+function normalizeExpense(e) {
+    if (!isProfitDistribution(e.desc)) return e;
+    return {
+        ...e,
+        bucket: 'EXCLUDED',
+        cat: 'Profit Distribution',
+        amt: 0,
+        original_amt: e.amt,
+        original_cat: e.cat
+    };
+}
 
 /**
  * Calculates theoretical revenue based on cup counts
@@ -104,7 +141,7 @@ function auditRecord(r) {
  * Compiles P&L reports (including B1/B2 profit sharing, Hybrid COGS, Net Loss Carry-Forward)
  */
 function calculatePL(data) {
-    const branchNames = ['B1', 'B2'];
+    const branchNames = ['B1', 'B2', 'B3'];
     
     // Find all months with sales records across any branch
     const monthsSet = new Set();
@@ -123,13 +160,13 @@ function calculatePL(data) {
     });
 
     const fullReport = {};
-    const lossCarryForward = { B1: 0, B2: 0 };
+    const lossCarryForward = { B1: 0, B2: 0, B3: 0 };
 
     months.forEach(m => {
-        const branchCalcs = {
-            B1: { rev: 0, opex: 0, rental: 0, opex_list: [], raw_usage: {}, cogs: 0, net: 0, share: 0, ming_share: 0, loss_carry_forward: 0, adjusted_net: 0 },
-            B2: { rev: 0, opex: 0, rental: 0, opex_list: [], raw_usage: {}, cogs: 0, net: 0, share: 0, ming_share: 0, loss_carry_forward: 0, adjusted_net: 0 }
-        };
+        const branchCalcs = {};
+        branchNames.forEach(b => {
+            branchCalcs[b] = { rev: 0, opex: 0, rental: 0, opex_list: [], raw_usage: {}, cogs: 0, net: 0, share: 0, ming_share: 0, loss_carry_forward: 0, adjusted_net: 0 };
+        });
         
         let total_rev = 0;
         let total_cogs = 0;
@@ -174,7 +211,7 @@ function calculatePL(data) {
 
         (data.expenses || []).forEach(e => {
             if (e.month === m) {
-                if (e.bucket === 'PENDING_REFUND') {
+                if (NON_PL_BUCKETS.includes(e.bucket)) {
                     // ponytail: excluded from COGS/OPEX, kept in raw data for reconciliation tracking
                 } else if (e.bucket === 'COGS') {
                     total_cogs += e.amt;
@@ -192,27 +229,22 @@ function calculatePL(data) {
                     else if (cat.includes('Guava')) fruit_costs['Guava'] += e.amt;
                     else if (cat.includes('Pineapple') || (e.desc && e.desc.toLowerCase().includes('pineapple'))) fruit_costs['Pineapple'] += e.amt;
                 } else {
-                    if (e.branch === 'B1') {
+                    if (branchCalcs[e.branch]) {
                         if (e.cat === 'Rental') {
-                            branchCalcs.B1.rental += e.amt;
+                            branchCalcs[e.branch].rental += e.amt;
                         } else {
-                            branchCalcs.B1.opex += e.amt;
+                            branchCalcs[e.branch].opex += e.amt;
                         }
-                        branchCalcs.B1.opex_list.push(e);
-                    } else if (e.branch === 'B2') {
-                        if (e.cat === 'Rental') {
-                            branchCalcs.B2.rental += e.amt;
-                        } else {
-                            branchCalcs.B2.opex += e.amt;
-                        }
-                        branchCalcs.B2.opex_list.push(e);
+                        branchCalcs[e.branch].opex_list.push(e);
                     }
                 }
             }
         });
 
-        const b1Ratio = total_rev > 0 ? branchCalcs.B1.rev / total_rev : 0;
-        const b2Ratio = total_rev > 0 ? branchCalcs.B2.rev / total_rev : 0;
+        const branchRatios = {};
+        branchNames.forEach(b => {
+            branchRatios[b] = total_rev > 0 ? branchCalcs[b].rev / total_rev : 0;
+        });
 
         // 3. Allocate COGS proportionally or by usage (ADR 0001)
         cogsExpenses.forEach(e => {
@@ -227,21 +259,52 @@ function calculatePL(data) {
             else if (cat.includes('Pineapple') || (e.desc && e.desc.toLowerCase().includes('pineapple'))) fruitType = 'pineapple';
 
             if (fruitType) {
-                const u1 = branchCalcs.B1.raw_usage[fruitType] || 0;
-                const u2 = branchCalcs.B2.raw_usage[fruitType] || 0;
-                const totUsage = u1 + u2;
+                const usages = {};
+                let totUsage = 0;
+                const activeBranches = [];
+                const passiveBranches = [];
+                let passiveRatioSum = 0;
 
-                if (totUsage > 0) {
-                    branchCalcs.B1.cogs += e.amt * (u1 / totUsage);
-                    branchCalcs.B2.cogs += e.amt * (u2 / totUsage);
+                branchNames.forEach(b => {
+                    const u = branchCalcs[b].raw_usage[fruitType] || 0;
+                    usages[b] = u;
+                    if (u > 0) {
+                        totUsage += u;
+                        activeBranches.push(b);
+                    } else {
+                        // Check if branch has NO raw usage recorded at all for ANY fruit (e.g. B3 POS-only reporting)
+                        const totalRawUsage = Object.values(branchCalcs[b].raw_usage || {}).reduce((s, v) => s + (v || 0), 0);
+                        if (totalRawUsage === 0) {
+                            passiveBranches.push(b);
+                            passiveRatioSum += branchRatios[b];
+                        }
+                    }
+                });
+
+                if (passiveBranches.length > 0 && activeBranches.length > 0) {
+                    // Passive branches take their revenue ratio share of fruit COGS
+                    passiveBranches.forEach(b => {
+                        branchCalcs[b].cogs += e.amt * branchRatios[b];
+                    });
+                    // Active branches split the remaining fruit cost proportionally by actual usage
+                    const remainingAmt = e.amt * (1 - passiveRatioSum);
+                    activeBranches.forEach(b => {
+                        branchCalcs[b].cogs += remainingAmt * (usages[b] / totUsage);
+                    });
+                } else if (totUsage > 0) {
+                    branchNames.forEach(b => {
+                        branchCalcs[b].cogs += e.amt * (usages[b] / totUsage);
+                    });
                 } else {
-                    branchCalcs.B1.cogs += e.amt * b1Ratio;
-                    branchCalcs.B2.cogs += e.amt * b2Ratio;
+                    branchNames.forEach(b => {
+                        branchCalcs[b].cogs += e.amt * branchRatios[b];
+                    });
                 }
             } else {
                 // Packaging, Ice, Transport, etc. are allocated by revenue shares
-                branchCalcs.B1.cogs += e.amt * b1Ratio;
-                branchCalcs.B2.cogs += e.amt * b2Ratio;
+                branchNames.forEach(b => {
+                    branchCalcs[b].cogs += e.amt * branchRatios[b];
+                });
             }
         });
 
@@ -288,46 +351,37 @@ function calculatePL(data) {
         fullReport[m] = {
             total_rev,
             total_cogs,
-            b1: {
-                rev: branchCalcs.B1.rev,
-                rental: branchCalcs.B1.rental,
-                opex: branchCalcs.B1.opex,
-                opex_list: branchCalcs.B1.opex_list,
-                cogs: branchCalcs.B1.cogs,
-                net: branchCalcs.B1.net,
-                loss_carry_forward: branchCalcs.B1.loss_carry_forward,
-                adjusted_net: branchCalcs.B1.adjusted_net,
-                share: branchCalcs.B1.share,
-                ming_share: branchCalcs.B1.ming_share
-            },
-            b2: {
-                rev: branchCalcs.B2.rev,
-                rental: branchCalcs.B2.rental,
-                opex: branchCalcs.B2.opex,
-                opex_list: branchCalcs.B2.opex_list,
-                cogs: branchCalcs.B2.cogs,
-                net: branchCalcs.B2.net,
-                loss_carry_forward: branchCalcs.B2.loss_carry_forward,
-                adjusted_net: branchCalcs.B2.adjusted_net,
-                share: branchCalcs.B2.share,
-                ming_share: branchCalcs.B2.ming_share
-            },
             fruit_summary,
             daily_cogs,
             fruit_performance
         };
+        branchNames.forEach(b => {
+            fullReport[m][b.toLowerCase()] = {
+                rev: branchCalcs[b].rev,
+                rental: branchCalcs[b].rental,
+                opex: branchCalcs[b].opex,
+                opex_list: branchCalcs[b].opex_list,
+                cogs: branchCalcs[b].cogs,
+                net: branchCalcs[b].net,
+                loss_carry_forward: branchCalcs[b].loss_carry_forward,
+                adjusted_net: branchCalcs[b].adjusted_net,
+                share: branchCalcs[b].share,
+                ming_share: branchCalcs[b].ming_share
+            };
+        });
     });
 
     // 5. Add Annual Summary ('all')
     const annual = {
         total_rev: 0,
         total_cogs: 0,
-        b1: { rev: 0, opex: 0, rental: 0, opex_list: [], cogs: 0, net: 0, share: 0, ming_share: 0, loss_carry_forward: 0, adjusted_net: 0 },
-        b2: { rev: 0, opex: 0, rental: 0, opex_list: [], cogs: 0, net: 0, share: 0, ming_share: 0, loss_carry_forward: 0, adjusted_net: 0 },
         fruit_summary: {},
         daily_cogs: [],
         fruit_performance: []
     };
+    branchNames.forEach(b => {
+        annual[b.toLowerCase()] = { rev: 0, opex: 0, rental: 0, opex_list: [], cogs: 0, net: 0, share: 0, ming_share: 0, loss_carry_forward: 0, adjusted_net: 0 };
+    });
 
     months.forEach(m => {
         const r = fullReport[m];
@@ -399,6 +453,9 @@ module.exports = {
     PRICES,
     YIELDS,
     COSTS,
+    NON_PL_BUCKETS,
+    isProfitDistribution,
+    normalizeExpense,
     calculateTheoreticalRevenue,
     calculateContribution,
     auditRecord,
