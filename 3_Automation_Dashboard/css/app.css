@@ -1,0 +1,126 @@
+/* Mobile-first: authored at 390px, widened at breakpoints. */
+:root {
+  --bg: #f4f4f5;
+  --surface: #ffffff;
+  --ink: #18181b;
+  --muted: #71717a;
+  --line: #e4e4e7;
+  --up: #16a34a;
+  --down: #dc2626;
+  --warn: #ca8a04;
+  --radius: 14px;
+  --gap: 10px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #09090b; --surface: #18181b; --ink: #fafafa;
+    --muted: #a1a1aa; --line: #27272a;
+  }
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding: 0 12px 80px;
+  background: var(--bg);
+  color: var(--ink);
+  font: 15px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+header.topbar {
+  display: flex; align-items: baseline; justify-content: space-between;
+  padding: 16px 2px 12px;
+}
+header.topbar h1 { font-size: 17px; margin: 0; }
+
+.card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 14px;
+  margin-bottom: var(--gap);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, .08);
+}
+.card-error { border: 2px solid var(--down); }
+.card-empty { text-align: center; color: var(--muted); }
+
+.label {
+  font-size: 10px; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--muted); font-weight: 700; margin-bottom: 6px;
+}
+.muted { color: var(--muted); font-size: 12px; }
+
+.hero-value { font-size: 30px; font-weight: 800; margin: 4px 0; }
+
+.chip {
+  display: inline-block; border-radius: 20px; padding: 2px 8px;
+  font-size: 11px; font-weight: 700;
+}
+.chip-up { background: rgba(22, 163, 74, .12); color: var(--up); }
+.chip-down { background: rgba(220, 38, 38, .12); color: var(--down); }
+.chip-flat { background: var(--line); color: var(--muted); }
+
+.sparkline { display: flex; align-items: flex-end; gap: 2px; height: 34px; margin-top: 10px; }
+.spark-bar { flex: 1; background: var(--line); border-radius: 2px 2px 0 0; min-height: 2px; }
+.spark-bar-current { background: var(--down); }
+.staleness { color: var(--warn); font-size: 12px; margin: 8px 0 0; }
+
+.branch-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 9px 0; border-bottom: 1px solid var(--line);
+}
+.branch-row:last-child { border-bottom: 0; }
+
+.alert-list { list-style: none; margin: 0; padding: 0; }
+.alert { display: flex; align-items: center; gap: 8px; padding: 6px 0; font-size: 14px; }
+.alert-dot { width: 8px; height: 8px; border-radius: 50%; flex: none; }
+.alert-high .alert-dot { background: var(--down); }
+.alert-warn .alert-dot { background: var(--warn); }
+.alert-info .alert-dot { background: var(--muted); }
+.all-clear { color: var(--up); font-weight: 600; margin: 0; }
+
+.settle-totals { display: flex; gap: 26px; }
+.settle-row {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  padding: 10px 0; border-bottom: 1px solid var(--line);
+}
+.settle-row:last-child { border-bottom: 0; }
+.settle-absorbed { background: rgba(202, 138, 4, .07); border-radius: 8px; padding: 10px 8px; }
+.settle-note { font-size: 12px; color: var(--muted); margin-top: 2px; }
+.settle-figures { text-align: right; white-space: nowrap; }
+
+.moved-list { margin: 0; padding-left: 18px; }
+.moved-list li { padding: 3px 0; }
+
+.statement { width: 100%; border-collapse: collapse; font-size: 13px; }
+.statement th, .statement td { padding: 6px 4px; text-align: left; }
+.statement thead tr { border-bottom: 2px solid var(--ink); }
+.num { text-align: right; }
+.row-cost { color: var(--down); }
+.row-carry { color: var(--warn); }
+.row-payout { background: rgba(22, 163, 74, .08); }
+.row-flagged { background: rgba(202, 138, 4, .1); }
+
+.chart-box { height: 220px; margin-bottom: var(--gap); position: relative; }
+
+/* Bottom tab bar on phones. */
+nav.tabs {
+  position: fixed; bottom: 0; left: 0; right: 0;
+  display: flex; background: var(--surface);
+  border-top: 1px solid var(--line); padding: 6px 0 10px;
+}
+nav.tabs a {
+  flex: 1; text-align: center; text-decoration: none;
+  color: var(--muted); font-size: 11px; font-weight: 700; padding: 4px 0;
+}
+nav.tabs a.active { color: var(--ink); }
+
+@media (min-width: 700px) {
+  body { max-width: 900px; margin: 0 auto; padding-bottom: 24px; }
+  nav.tabs {
+    position: static; border-top: 0; border-bottom: 1px solid var(--line);
+    border-radius: var(--radius); margin-bottom: var(--gap);
+  }
+  .statement { font-size: 14px; }
+}
