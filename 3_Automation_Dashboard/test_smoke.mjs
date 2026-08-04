@@ -3,7 +3,7 @@
 // silently-caught render error. This is the guard against a blank dashboard.
 import assert from 'node:assert';
 import { readFileSync } from 'node:fs';
-import { VIEWS, renderView } from './js/app.js';
+import { VIEWS, renderView } from './js/app.mjs';
 
 const data = JSON.parse(readFileSync('data.json', 'utf8'));
 const reports = JSON.parse(readFileSync('reports_data.json', 'utf8'));

@@ -1,4 +1,4 @@
-import { seriesFor, flattenSales } from './data.js';
+import { seriesFor, flattenSales } from './data.mjs';
 
 const DOW_LABELS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 // Date.getDay() is Sunday-first; this maps it to a Monday-first index.

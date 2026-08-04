@@ -1,7 +1,7 @@
 // Run: node test_monthly.mjs
 import assert from 'node:assert';
 import { readFileSync } from 'node:fs';
-import { buildMonthlyModel, whatMoved, renderMonthly, PROFIT_SHARE, buildOpexRows } from './js/views/monthly.js';
+import { buildMonthlyModel, whatMoved, renderMonthly, PROFIT_SHARE, buildOpexRows } from './js/views/monthly.mjs';
 
 const reports = JSON.parse(readFileSync('reports_data.json', 'utf8'));
 

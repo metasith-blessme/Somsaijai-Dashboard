@@ -1,6 +1,6 @@
-import { BRANCHES, flattenSales, seriesFor } from '../data.js';
-import { baht } from '../format.js';
-import { THRESHOLDS } from '../alerts.js';
+import { BRANCHES, flattenSales, seriesFor } from '../data.mjs';
+import { baht } from '../format.mjs';
+import { THRESHOLDS } from '../alerts.mjs';
 
 // Only these have daily usage recorded, so only these support a real burn rate.
 // `uyco` (young coconut) exists in the schema but is zero across every branch,

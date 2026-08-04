@@ -1,4 +1,4 @@
-import { parseDate } from './format.js';
+import { parseDate } from './format.mjs';
 
 export const BRANCHES = ['B1', 'B2', 'B3'];
 

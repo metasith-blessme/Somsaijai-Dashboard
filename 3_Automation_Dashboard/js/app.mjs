@@ -1,9 +1,9 @@
-import { loadAll } from './data.js';
-import { buildDailyModel, renderDaily } from './views/daily.js';
-import { buildMonthlyModel, renderMonthly } from './views/monthly.js';
-import { buildStockModel, renderStock } from './views/stock.js';
-import { buildLogModel, renderLog } from './views/log.js';
-import { buildChartModels, mountCharts } from './charts.js';
+import { loadAll } from './data.mjs';
+import { buildDailyModel, renderDaily } from './views/daily.mjs';
+import { buildMonthlyModel, renderMonthly } from './views/monthly.mjs';
+import { buildStockModel, renderStock } from './views/stock.mjs';
+import { buildLogModel, renderLog } from './views/log.mjs';
+import { buildChartModels, mountCharts } from './charts.mjs';
 
 export const VIEWS = ['daily', 'monthly', 'stock', 'log'];
 

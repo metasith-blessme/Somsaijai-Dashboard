@@ -4,7 +4,7 @@ import { readFileSync } from 'node:fs';
 import {
   BRANCHES, validateData, validateReports, flattenSales,
   seriesFor, trailingAverage, loadAll
-} from './js/data.js';
+} from './js/data.mjs';
 
 const real = JSON.parse(readFileSync('data.json', 'utf8'));
 const realReports = JSON.parse(readFileSync('reports_data.json', 'utf8'));

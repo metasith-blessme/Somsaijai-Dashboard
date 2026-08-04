@@ -1,6 +1,6 @@
 // Run: node test_format.js
 import assert from 'node:assert';
-import { baht, pct, parseDate, formatDate, delta, daysBetween } from './js/format.js';
+import { baht, pct, parseDate, formatDate, delta, daysBetween } from './js/format.mjs';
 
 // baht — integers only, no decimals, thousands separated
 assert.strictEqual(baht(102497), '฿102,497');

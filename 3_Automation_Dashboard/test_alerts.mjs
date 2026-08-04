@@ -1,10 +1,10 @@
 // Run: node test_alerts.mjs
 import assert from 'node:assert';
 import { readFileSync } from 'node:fs';
-import { flattenSales, seriesFor } from './js/data.js';
+import { flattenSales, seriesFor } from './js/data.mjs';
 import {
   THRESHOLDS, FIXED_MONTHLY, revenueAnomaly, auditVariance, belowBreakEven, buildAlerts
-} from './js/alerts.js';
+} from './js/alerts.mjs';
 
 assert.strictEqual(THRESHOLDS.REVENUE_DEVIATION_PCT, 20);
 assert.deepStrictEqual(FIXED_MONTHLY, { B1: 74000, B2: 59000, B3: 69500 });

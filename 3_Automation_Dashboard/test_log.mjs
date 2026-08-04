@@ -1,7 +1,7 @@
 // Run: node test_log.mjs
 import assert from 'node:assert';
 import { readFileSync } from 'node:fs';
-import { buildLogModel, renderLog } from './js/views/log.js';
+import { buildLogModel, renderLog } from './js/views/log.mjs';
 
 const data = JSON.parse(readFileSync('data.json', 'utf8'));
 

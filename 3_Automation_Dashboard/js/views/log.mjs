@@ -1,5 +1,5 @@
-import { BRANCHES, flattenSales } from '../data.js';
-import { baht, formatDate } from '../format.js';
+import { BRANCHES, flattenSales } from '../data.mjs';
+import { baht, formatDate } from '../format.mjs';
 
 export function buildLogModel({ data, branch, month }) {
   const { rows } = flattenSales(data);

@@ -1,11 +1,11 @@
 // Run: node test_charts.mjs
 import assert from 'node:assert';
 import { readFileSync } from 'node:fs';
-import { flattenSales } from './js/data.js';
+import { flattenSales } from './js/data.mjs';
 import {
   buildRevenueSeries, buildPaymentMix, buildProductMix, buildDayOfWeek,
   buildChartModels, mountCharts
-} from './js/charts.js';
+} from './js/charts.mjs';
 
 const data = JSON.parse(readFileSync('data.json', 'utf8'));
 const { rows } = flattenSales(data);

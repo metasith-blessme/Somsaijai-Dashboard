@@ -1,4 +1,4 @@
-import { BRANCHES, seriesFor, trailingAverage } from './data.js';
+import { BRANCHES, seriesFor, trailingAverage } from './data.mjs';
 
 export const THRESHOLDS = {
   REVENUE_DEVIATION_PCT: 20,

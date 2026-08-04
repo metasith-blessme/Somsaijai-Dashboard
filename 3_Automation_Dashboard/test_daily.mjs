@@ -1,7 +1,7 @@
 // Run: node test_daily.mjs
 import assert from 'node:assert';
 import { readFileSync } from 'node:fs';
-import { buildDailyModel, renderDaily } from './js/views/daily.js';
+import { buildDailyModel, renderDaily } from './js/views/daily.mjs';
 
 const data = JSON.parse(readFileSync('data.json', 'utf8'));
 const reports = JSON.parse(readFileSync('reports_data.json', 'utf8'));

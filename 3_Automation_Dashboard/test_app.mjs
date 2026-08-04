@@ -1,7 +1,7 @@
 // Run: node test_app.mjs
 import assert from 'node:assert';
 import { readFileSync } from 'node:fs';
-import { VIEWS, viewFromHash, safeRender, renderView } from './js/app.js';
+import { VIEWS, viewFromHash, safeRender, renderView } from './js/app.mjs';
 
 assert.deepStrictEqual(VIEWS, ['daily', 'monthly', 'stock', 'log']);
 

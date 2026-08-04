@@ -6,7 +6,7 @@
 // loaded fine and then rendered nothing, which only this level catches.
 import assert from 'node:assert';
 import { readFileSync } from 'node:fs';
-import { start } from './js/app.js';
+import { start } from './js/app.mjs';
 
 const listeners = {};
 globalThis.window = {

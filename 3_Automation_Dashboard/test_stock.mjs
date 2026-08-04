@@ -1,7 +1,7 @@
 // Run: node test_stock.mjs
 import assert from 'node:assert';
 import { readFileSync } from 'node:fs';
-import { buildStockModel, renderStock, MEASURED_ITEMS, UNTRACKED_PRODUCTS } from './js/views/stock.js';
+import { buildStockModel, renderStock, MEASURED_ITEMS, UNTRACKED_PRODUCTS } from './js/views/stock.mjs';
 
 const data = JSON.parse(readFileSync('data.json', 'utf8'));
 

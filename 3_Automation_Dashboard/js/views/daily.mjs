@@ -1,6 +1,6 @@
-import { BRANCHES, flattenSales, seriesFor, trailingAverage } from '../data.js';
-import { buildAlerts, THRESHOLDS } from '../alerts.js';
-import { baht, formatDate, delta, daysBetween } from '../format.js';
+import { BRANCHES, flattenSales, seriesFor, trailingAverage } from '../data.mjs';
+import { buildAlerts, THRESHOLDS } from '../alerts.mjs';
+import { baht, formatDate, delta, daysBetween } from '../format.mjs';
 
 const SPARKLINE_DAYS = 7;
 

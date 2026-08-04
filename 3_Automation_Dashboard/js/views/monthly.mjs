@@ -1,5 +1,5 @@
-import { BRANCHES } from '../data.js';
-import { baht, pct } from '../format.js';
+import { BRANCHES } from '../data.mjs';
+import { baht, pct } from '../format.mjs';
 
 export const PROFIT_SHARE = { B1: 0.6, B2: 0.7, B3: 0.7 };
 
