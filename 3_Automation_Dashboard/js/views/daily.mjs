@@ -4,7 +4,7 @@ import { baht, pct, formatDate, delta, daysBetween } from '../format.mjs';
 
 const SPARKLINE_DAYS = 7;
 
-export function buildDailyModel({ data, reports, today, branch = 'all', month = 'all' }) {
+export function buildDailyModel({ data, reports, today, branch = 'all', month = 'all', day = null }) {
   const all = flattenSales(data).rows;
   // Global filters: month scopes which days exist, branch scopes whose money it is.
   const rows = all.filter(
@@ -14,13 +14,22 @@ export function buildDailyModel({ data, reports, today, branch = 'all', month = 
     return {
       date: null, dateLabel: '', stalenessDays: 0, stalenessNote: null,
       total: 0, totalDelta: null, sparkline: [], branches: [], alerts: [],
-      branch, month, cups: 0, cash: 0, scan: 0, revPerCup: 0
+      branch, month, day, cups: 0, cash: 0, scan: 0, revPerCup: 0
     };
   }
 
   const scope = branch === 'all' ? 'all' : branch;
-  const latest = rows[rows.length - 1].date;
-  const groupSeries = seriesFor(rows, scope);
+  // A chosen day wins; otherwise the newest day that has data. Trailing
+  // averages and the sparkline are computed relative to the chosen day, so
+  // picking 15 July compares it to the 30 days before it, not to today.
+  const chosenRow = day == null
+    ? null
+    : rows.filter((r) => r.date.getDate() === Number(day)).slice(-1)[0];
+  const latest = chosenRow ? chosenRow.date : rows[rows.length - 1].date;
+  const fullSeries = seriesFor(rows, scope);
+  // Everything up to and including the selected day: a day in the middle of the
+  // month must not be compared against days that had not happened yet.
+  const groupSeries = fullSeries.filter((r) => r.date.getTime() <= latest.getTime());
   const latestGroup = groupSeries[groupSeries.length - 1];
   const latestRows = rows.filter((r) => r.date.getTime() === latest.getTime());
   const sumRaw = (key) => latestRows.reduce((s, r) => s + (Number(r.raw[key]) || 0), 0);
@@ -39,7 +48,7 @@ export function buildDailyModel({ data, reports, today, branch = 'all', month = 
 
   const visibleBranches = branch === 'all' ? BRANCHES : [branch];
   const branches = visibleBranches.map((b) => {
-    const series = seriesFor(rows, b);
+    const series = seriesFor(rows, b).filter((r) => r.date.getTime() <= latest.getTime());
     const row = series.filter((r) => r.date.getTime() === latest.getTime())[0];
     const avg = trailingAverage(series, latest, THRESHOLDS.TRAILING_WINDOW_DAYS);
     return {
@@ -63,6 +72,7 @@ export function buildDailyModel({ data, reports, today, branch = 'all', month = 
     branches,
     branch,
     month,
+    day: latest.getDate(),
     cups,
     cash: sumRaw('cash'),
     scan: sumRaw('scan'),

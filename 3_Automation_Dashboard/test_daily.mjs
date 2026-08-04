@@ -70,4 +70,40 @@ assert.deepStrictEqual(empty.alerts, []);
 const emptyHtml = renderDaily(empty);
 assert.ok(/no sales data/i.test(emptyHtml), `expected a friendly empty state, got: ${emptyHtml.slice(0, 120)}`);
 
+// --- picking a specific day shows THAT day's real numbers ---
+const mid = buildDailyModel({ data, reports, today: new Date(2026, 7, 2), month: 'Jul26', day: 15 });
+assert.strictEqual(mid.date.getDate(), 15);
+assert.strictEqual(mid.dateLabel, 'Wed 15 Jul');
+assert.strictEqual(mid.total, 18311, 'B1 5,660 + B2 4,470 + B3 8,181 on 15 Jul');
+assert.strictEqual(mid.branches.find((b) => b.branch === 'B1').rev, 5660);
+assert.strictEqual(mid.branches.find((b) => b.branch === 'B3').rev, 8181);
+assert.strictEqual(mid.day, 15);
+assert.ok(mid.cups > 0);
+assert.strictEqual(mid.cash + mid.scan, mid.total, 'cash and scan reconcile to that day');
+
+// the comparison window must stop at the chosen day, not run to the end of data
+assert.strictEqual(
+  mid.sparkline[mid.sparkline.length - 1], 18311,
+  'the sparkline ends on the selected day'
+);
+assert.ok(
+  mid.sparkline.length === 7,
+  'seven days ending on the selection'
+);
+const midHtml = renderDaily(mid);
+assert.ok(midHtml.includes('฿18,311'));
+assert.ok(midHtml.includes('Wed 15 Jul'));
+
+// a day-specific view of one branch
+const b3day = buildDailyModel({
+  data, reports, today: new Date(2026, 7, 2), month: 'Jul26', branch: 'B3', day: 15
+});
+assert.strictEqual(b3day.total, 8181, 'B3 alone on 15 Jul');
+assert.strictEqual(b3day.branches.length, 1);
+
+// an out-of-range day falls back rather than rendering an empty page
+const bad = buildDailyModel({ data, reports, today: new Date(2026, 7, 2), month: 'Jul26', day: 99 });
+assert.ok(bad.date, 'a nonexistent day must still render something');
+assert.strictEqual(bad.date.getDate(), 31, 'falls back to the newest day');
+
 console.log('✅ daily view OK');

@@ -1,5 +1,5 @@
 import { loadAll } from './data.mjs';
-import { renderControls, monthsFrom, ALL } from './controls.mjs';
+import { renderControls, monthsFrom, daysFrom, resolveDay, ALL } from './controls.mjs';
 import { buildDailyModel, renderDaily } from './views/daily.mjs';
 import { buildMonthlyModel, renderMonthly } from './views/monthly.mjs';
 import { buildStockModel, renderStock } from './views/stock.mjs';
@@ -40,12 +40,12 @@ export function previousMonthKey(month) {
   return idx === 0 ? `Dec${String(Number(m[2]) - 1).padStart(2, '0')}` : `${MONTH_ORDER[idx - 1]}${m[2]}`;
 }
 
-export function renderView({ name, data, reports, today, branch, month }) {
+export function renderView({ name, data, reports, today, branch, month, day }) {
   return safeRender(name, () => {
     if (!data) {
       return `<div class="card card-empty"><p>No data loaded. Run <code>npm run update-dashboard</code>.</p></div>`;
     }
-    if (name === 'daily') return renderDaily(buildDailyModel({ data, reports, today, branch, month }));
+    if (name === 'daily') return renderDaily(buildDailyModel({ data, reports, today, branch, month, day }));
     if (name === 'monthly') {
       return renderMonthly(buildMonthlyModel({
         reports, month, branch, previousMonth: previousMonthKey(month)
@@ -59,14 +59,18 @@ export function renderView({ name, data, reports, today, branch, month }) {
 // The controls are rendered OUTSIDE safeRender's view call on purpose: if a
 // view throws, the owner must still be able to switch to a month or branch
 // that works instead of being stranded on the broken one.
-export function renderPage({ name, data, reports, today, branch, month, errors = [] }) {
+export function renderPage({ name, data, reports, today, branch, month, day = null, errors = [] }) {
   const banner = errors.length
     ? `<div class="card card-error"><div class="label">Data problems</div><ul>${errors.map((e) => `<li>${e}</li>`).join('')}</ul></div>`
     : '';
+  const days = daysFrom(data, month, branch);
   const controls = safeRender('controls', () =>
-    renderControls({ months: monthsFrom(data), month, branch })
+    renderControls({
+      months: monthsFrom(data), month, branch,
+      days, day: resolveDay(days, day), showDay: name === 'daily'
+    })
   );
-  return banner + controls + renderView({ name, data, reports, today, branch, month });
+  return banner + controls + renderView({ name, data, reports, today, branch, month, day });
 }
 
 export async function start(root, deps = {}) {
@@ -79,13 +83,18 @@ export async function start(root, deps = {}) {
   // number the owner is usually checking.
   const state = {
     month: months.length ? months[months.length - 1] : ALL,
-    branch: ALL
+    branch: ALL,
+    day: null
   };
 
   const paint = () => {
     const name = viewFromHash(window.location.hash);
+    // Keep the chosen day only while it still exists in the current month and
+    // branch; otherwise snap to the newest day that does.
+    state.day = resolveDay(daysFrom(data, state.month, state.branch), state.day);
     root.innerHTML = renderPage({
-      name, data, reports, today, branch: state.branch, month: state.month, errors
+      name, data, reports, today,
+      branch: state.branch, month: state.month, day: state.day, errors
     });
     doc.querySelectorAll('[data-view]').forEach((el) => {
       el.classList.toggle('active', el.getAttribute('data-view') === name);
@@ -113,8 +122,8 @@ export async function start(root, deps = {}) {
     const control = event.target && event.target.getAttribute
       ? event.target.getAttribute('data-control')
       : null;
-    if (control !== 'month' && control !== 'branch') return;
-    state[control] = event.target.value;
+    if (control !== 'month' && control !== 'branch' && control !== 'day') return;
+    state[control] = control === 'day' ? Number(event.target.value) : event.target.value;
     paint();
   });
 

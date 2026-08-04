@@ -2,6 +2,7 @@ import { BRANCHES } from '../data.mjs';
 import { FIXED_MONTHLY } from '../alerts.mjs';
 import { baht, pct } from '../format.mjs';
 import { renderStatement } from './statement.mjs';
+import { buildFruitModel, renderFruit } from './fruit.mjs';
 
 export const PROFIT_SHARE = { B1: 0.6, B2: 0.7, B3: 0.7 };
 
@@ -63,6 +64,7 @@ export function buildMonthlyModel({ reports, month, previousMonth, branch = 'all
     branches,
     totals,
     opexRows: buildOpexRows(report, branch),
+    fruit: buildFruitModel({ reports, month, branch }),
     previous: (reports || {})[previousMonth] || null,
     // Fixed cost base for the visible branches — what revenue must cover before
     // anything is distributable.
@@ -208,6 +210,8 @@ export function renderMonthly(model) {
 
 
     ${renderStatement(model)}
+
+    ${renderFruit(model.fruit)}
 
     <section class="card">
       <div class="label">Operating expenses — ${model.month}</div>

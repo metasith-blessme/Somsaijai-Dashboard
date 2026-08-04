@@ -98,4 +98,40 @@ listeners.hashchange();
 assert.ok(/data-control="branch"/.test(root.innerHTML), 'controls stay available on every view');
 assert.ok(root.innerHTML.includes('B2'), 'log respects the branch filter');
 
-console.log('✅ boot OK — start() mounts, tabs repaint, month/branch controls filter every view');
+// --- the daily view has a day picker that shows that specific day ---
+choose('branch', 'all');
+choose('month', 'Jul26');
+window.location.hash = '#daily';
+listeners.hashchange();
+assert.ok(/data-control="day"/.test(root.innerHTML), 'daily must offer a day picker');
+assert.ok(root.innerHTML.includes('฿14,748'), 'defaults to the newest day, 31 Jul');
+
+choose('day', 15);
+assert.ok(root.innerHTML.includes('฿18,311'), '15 Jul group revenue');
+assert.ok(root.innerHTML.includes('Wed 15 Jul'), 'the headline names the chosen day');
+assert.ok(!root.innerHTML.includes('฿14,748'), "31 Jul's figure must be gone");
+
+choose('day', 1);
+assert.ok(/Wed 1 Jul/.test(root.innerHTML), 'the 1st is reachable');
+
+// the day picker is only on daily — it means nothing on a monthly settlement
+window.location.hash = '#monthly';
+listeners.hashchange();
+assert.ok(!/data-control="day"/.test(root.innerHTML), 'no day picker on monthly');
+
+// --- the fruit cost breakdown is on the monthly view ---
+assert.ok(/Fruit cost breakdown/i.test(root.innerHTML));
+assert.ok(root.innerHTML.includes('฿65,128'), 'orange cost');
+assert.ok(/Other material costs/i.test(root.innerHTML));
+
+// --- switching month while on daily snaps to a valid day ---
+window.location.hash = '#daily';
+listeners.hashchange();
+choose('branch', 'B3');
+assert.ok(
+  !/Error rendering/i.test(root.innerHTML),
+  'B3 has no data on 1 July and must snap to a day it does have'
+);
+assert.ok(/Jul/.test(root.innerHTML));
+
+console.log('✅ boot OK — tabs, month/branch/day controls and fruit costs all render');
