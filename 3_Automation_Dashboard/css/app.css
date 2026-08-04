@@ -104,6 +104,37 @@ header.topbar h1 { font-size: 17px; margin: 0; }
 
 .chart-box { height: 220px; margin-bottom: var(--gap); position: relative; }
 
+/* Global month + branch filters. Native selects: correct on every phone,
+   keyboard accessible, and nothing to maintain. */
+.controls { display: flex; gap: 8px; margin-bottom: var(--gap); }
+.control {
+  flex: 1; min-width: 0; padding: 10px 12px;
+  background: var(--surface); color: var(--ink);
+  border: 1px solid var(--line); border-radius: var(--radius);
+  font: inherit; font-weight: 600; font-size: 14px;
+}
+
+/* Dense KPI grid — auto-fits 2 across on a phone, more on a wide screen. */
+.tiles {
+  display: grid; gap: 8px;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+}
+.tile { background: var(--bg); border-radius: 10px; padding: 9px 10px; }
+.tile-label {
+  font-size: 10px; letter-spacing: .05em; text-transform: uppercase;
+  color: var(--muted); font-weight: 700;
+}
+.tile-value { font-size: 17px; font-weight: 700; margin-top: 2px; }
+.tile-value.pos { color: var(--up); }
+.tile-value.neg { color: var(--down); }
+
+.progress {
+  height: 10px; background: var(--line); border-radius: 6px;
+  overflow: hidden; margin: 4px 0 8px;
+}
+.progress-fill { height: 100%; background: var(--warn); border-radius: 6px; }
+.progress-fill.progress-ok { background: var(--up); }
+
 /* Bottom tab bar on phones. */
 nav.tabs {
   position: fixed; bottom: 0; left: 0; right: 0;

@@ -1,4 +1,5 @@
 import { loadAll } from './data.mjs';
+import { renderControls, monthsFrom, ALL } from './controls.mjs';
 import { buildDailyModel, renderDaily } from './views/daily.mjs';
 import { buildMonthlyModel, renderMonthly } from './views/monthly.mjs';
 import { buildStockModel, renderStock } from './views/stock.mjs';
@@ -44,13 +45,28 @@ export function renderView({ name, data, reports, today, branch, month }) {
     if (!data) {
       return `<div class="card card-empty"><p>No data loaded. Run <code>npm run update-dashboard</code>.</p></div>`;
     }
-    if (name === 'daily') return renderDaily(buildDailyModel({ data, reports, today }));
+    if (name === 'daily') return renderDaily(buildDailyModel({ data, reports, today, branch, month }));
     if (name === 'monthly') {
-      return renderMonthly(buildMonthlyModel({ reports, month, previousMonth: previousMonthKey(month) }));
+      return renderMonthly(buildMonthlyModel({
+        reports, month, branch, previousMonth: previousMonthKey(month)
+      }));
     }
-    if (name === 'stock') return renderStock(buildStockModel({ data, asOf: today }));
+    if (name === 'stock') return renderStock(buildStockModel({ data, asOf: today, branch, month }));
     return renderLog(buildLogModel({ data, branch, month }));
   });
+}
+
+// The controls are rendered OUTSIDE safeRender's view call on purpose: if a
+// view throws, the owner must still be able to switch to a month or branch
+// that works instead of being stranded on the broken one.
+export function renderPage({ name, data, reports, today, branch, month, errors = [] }) {
+  const banner = errors.length
+    ? `<div class="card card-error"><div class="label">Data problems</div><ul>${errors.map((e) => `<li>${e}</li>`).join('')}</ul></div>`
+    : '';
+  const controls = safeRender('controls', () =>
+    renderControls({ months: monthsFrom(data), month, branch })
+  );
+  return banner + controls + renderView({ name, data, reports, today, branch, month });
 }
 
 export async function start(root, deps = {}) {
@@ -58,19 +74,19 @@ export async function start(root, deps = {}) {
   const { data, reports, errors } = await loadAll(deps.fetchFn);
   const today = deps.today || new Date();
 
-  const banner = errors.length
-    ? `<div class="card card-error"><div class="label">Data problems</div><ul>${errors.map((e) => `<li>${e}</li>`).join('')}</ul></div>`
-    : '';
-
-  let month = 'Jul26';
-  if (reports) {
-    const keys = Object.keys(reports).filter((k) => k !== 'all');
-    if (keys.length) month = keys[keys.length - 1];
-  }
+  const months = monthsFrom(data);
+  // Open on the most recent month rather than the full year: that is the
+  // number the owner is usually checking.
+  const state = {
+    month: months.length ? months[months.length - 1] : ALL,
+    branch: ALL
+  };
 
   const paint = () => {
     const name = viewFromHash(window.location.hash);
-    root.innerHTML = banner + renderView({ name, data, reports, today, branch: 'all', month });
+    root.innerHTML = renderPage({
+      name, data, reports, today, branch: state.branch, month: state.month, errors
+    });
     doc.querySelectorAll('[data-view]').forEach((el) => {
       el.classList.toggle('active', el.getAttribute('data-view') === name);
     });
@@ -80,12 +96,27 @@ export async function start(root, deps = {}) {
     const ChartCtor = deps.Chart || window.Chart;
     if (name === 'monthly' && data && ChartCtor) {
       try {
-        mountCharts(buildChartModels({ data, month }), ChartCtor, doc);
+        mountCharts(
+          buildChartModels({ data, month: state.month, branch: state.branch }),
+          ChartCtor,
+          doc
+        );
       } catch (err) {
         console.error('[charts] mount failed', err);
       }
     }
   };
+
+  // One delegated listener on the container, so it survives every repaint
+  // instead of needing rebinding after each innerHTML assignment.
+  root.addEventListener('change', (event) => {
+    const control = event.target && event.target.getAttribute
+      ? event.target.getAttribute('data-control')
+      : null;
+    if (control !== 'month' && control !== 'branch') return;
+    state[control] = event.target.value;
+    paint();
+  });
 
   window.addEventListener('hashchange', paint);
   paint();

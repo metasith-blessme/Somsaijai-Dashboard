@@ -15,25 +15,26 @@ const PRODUCTS = [
   { label: 'Pineapple', columns: ['pineapple'] }
 ];
 
-const monthRows = (rows, month) => rows.filter((r) => r.month === month);
+const monthRows = (rows, month, branch = 'all') =>
+  rows.filter((r) => (month === 'all' || r.month === month) && (branch === 'all' || r.branch === branch));
 
-export function buildRevenueSeries({ rows, month }) {
-  const group = seriesFor(monthRows(rows, month), 'all');
+export function buildRevenueSeries({ rows, month, branch = 'all' }) {
+  const group = seriesFor(monthRows(rows, month, branch), 'all');
   return {
     labels: group.map((r) => String(r.date.getDate())),
     data: group.map((r) => r.rev)
   };
 }
 
-export function buildPaymentMix({ rows, month }) {
-  const sel = monthRows(rows, month);
+export function buildPaymentMix({ rows, month, branch = 'all' }) {
+  const sel = monthRows(rows, month, branch);
   const cash = sel.reduce((s, r) => s + (Number(r.raw.cash) || 0), 0);
   const scan = sel.reduce((s, r) => s + (Number(r.raw.scan) || 0), 0);
   return { labels: ['Cash', 'Scan'], data: [cash, scan] };
 }
 
-export function buildProductMix({ rows, month }) {
-  const sel = monthRows(rows, month);
+export function buildProductMix({ rows, month, branch = 'all' }) {
+  const sel = monthRows(rows, month, branch);
   const totals = PRODUCTS.map((p) => ({
     label: p.label,
     value: sel.reduce(
@@ -47,10 +48,10 @@ export function buildProductMix({ rows, month }) {
   return { labels: totals.map((p) => p.label), data: totals.map((p) => p.value) };
 }
 
-export function buildDayOfWeek({ rows, month }) {
+export function buildDayOfWeek({ rows, month, branch = 'all' }) {
   const buckets = [0, 0, 0, 0, 0, 0, 0];
   const counts = [0, 0, 0, 0, 0, 0, 0];
-  seriesFor(monthRows(rows, month), 'all').forEach((r) => {
+  seriesFor(monthRows(rows, month, branch), 'all').forEach((r) => {
     const i = DOW_INDEX[r.date.getDay()];
     buckets[i] += r.rev;
     counts[i] += 1;
@@ -61,13 +62,13 @@ export function buildDayOfWeek({ rows, month }) {
   };
 }
 
-export function buildChartModels({ data, month }) {
+export function buildChartModels({ data, month, branch = 'all' }) {
   const { rows } = flattenSales(data);
   return {
-    revenue: buildRevenueSeries({ rows, month }),
-    payment: buildPaymentMix({ rows, month }),
-    product: buildProductMix({ rows, month }),
-    dayOfWeek: buildDayOfWeek({ rows, month })
+    revenue: buildRevenueSeries({ rows, month, branch }),
+    payment: buildPaymentMix({ rows, month, branch }),
+    product: buildProductMix({ rows, month, branch }),
+    dayOfWeek: buildDayOfWeek({ rows, month, branch })
   };
 }
 

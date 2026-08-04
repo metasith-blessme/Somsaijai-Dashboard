@@ -1,22 +1,24 @@
 import { BRANCHES } from '../data.mjs';
+import { FIXED_MONTHLY } from '../alerts.mjs';
 import { baht, pct } from '../format.mjs';
 
 export const PROFIT_SHARE = { B1: 0.6, B2: 0.7, B3: 0.7 };
 
 const round = (n) => Math.round(Number(n) || 0);
 
-export function buildMonthlyModel({ reports, month, previousMonth }) {
+export function buildMonthlyModel({ reports, month, previousMonth, branch = 'all' }) {
   const report = (reports || {})[month];
   if (!report) {
     return {
-      month, blessmeTotal: 0, mingTotal: 0, branches: [],
+      month, branch, blessmeTotal: 0, mingTotal: 0, branches: [],
       totals: { rev: 0, cogs: 0, gross: 0, rental: 0, opex: 0, net: 0 },
-      previous: null, moved: []
+      previous: null, moved: [], opexRows: []
     };
   }
 
-  const branches = BRANCHES.map((branch) => {
-    const r = report[branch.toLowerCase()];
+  const visible = branch === 'all' ? BRANCHES : BRANCHES.filter((b) => b === branch);
+  const branches = visible.map((branchKey) => {
+    const r = report[branchKey.toLowerCase()];
     if (!r || (!r.rev && !r.cogs)) return null;
 
     const rev = round(r.rev);
@@ -29,7 +31,7 @@ export function buildMonthlyModel({ reports, month, previousMonth }) {
     const lossApplied = Math.max(0, net - distributable);
 
     return {
-      branch,
+      branch: branchKey,
       rev,
       cogs,
       gross: rev - cogs,
@@ -54,12 +56,18 @@ export function buildMonthlyModel({ reports, month, previousMonth }) {
 
   const model = {
     month,
+    branch,
     blessmeTotal: sumOf('blessme'),
     mingTotal: sumOf('ming'),
     branches,
     totals,
-    opexRows: buildOpexRows(report),
-    previous: (reports || {})[previousMonth] || null
+    opexRows: buildOpexRows(report, branch),
+    previous: (reports || {})[previousMonth] || null,
+    // Fixed cost base for the visible branches — what revenue must cover before
+    // anything is distributable.
+    fixedBase: branches.reduce((s, b) => s + (FIXED_MONTHLY[b.branch] || 0), 0),
+    grossMargin: totals.rev > 0 ? (totals.gross / totals.rev) * 100 : 0,
+    netMargin: totals.rev > 0 ? (totals.net / totals.rev) * 100 : 0
   };
   model.moved = whatMoved(model);
   return model;
@@ -102,9 +110,10 @@ export function whatMoved(model) {
 // shown separately as allocated Material Costs, so listing COGS rows here would
 // make the line items disagree with the total — that was a real bug in the old
 // dashboard.
-export function buildOpexRows(report) {
+export function buildOpexRows(report, only = 'all') {
   if (!report) return [];
-  return BRANCHES.flatMap((branch) => {
+  const wanted = only === 'all' ? BRANCHES : BRANCHES.filter((b) => b === only);
+  return wanted.flatMap((branch) => {
     const r = report[branch.toLowerCase()];
     if (!r || !Array.isArray(r.opex_list)) return [];
     return r.opex_list
@@ -151,13 +160,47 @@ export function renderMonthly(model) {
     return `<div class="card card-empty"><p>No data for ${model.month}. Run <code>npm run update-dashboard</code>.</p></div>`;
   }
 
+  const tile = (label, value, cls = '') =>
+    `<div class="tile"><div class="tile-label">${label}</div><div class="tile-value ${cls}">${value}</div></div>`;
+
+  // Break-even: revenue must first cover allocated COGS, then the fixed base.
+  const breakEvenPct = model.fixedBase > 0
+    ? Math.max(0, Math.min(100, (model.totals.gross / model.fixedBase) * 100))
+    : 0;
+  const covered = model.totals.gross >= model.fixedBase;
+
   return `
     <section class="card card-settlement">
-      <div class="label">${model.month} settlement</div>
+      <div class="label">${model.month} settlement · ${model.branch === 'all' ? 'All branches' : model.branch}</div>
       <div class="settle-totals">
         <div><div class="muted">Blessme</div><div class="hero-value">${baht(model.blessmeTotal)}</div></div>
         <div><div class="muted">Ming</div><div class="hero-value">${baht(model.mingTotal)}</div></div>
       </div>
+    </section>
+
+    <section class="card">
+      <div class="label">Key figures</div>
+      <div class="tiles">
+        ${tile('Revenue', baht(model.totals.rev))}
+        ${tile('Material costs', baht(model.totals.cogs))}
+        ${tile('Gross profit', baht(model.totals.gross))}
+        ${tile('Gross margin', pct(model.grossMargin, 1))}
+        ${tile('Operating costs', baht(model.totals.rental + model.totals.opex))}
+        ${tile('Net profit', baht(model.totals.net), model.totals.net < 0 ? 'neg' : 'pos')}
+        ${tile('Net margin', pct(model.netMargin, 1), model.netMargin < 0 ? 'neg' : '')}
+        ${tile('Fixed cost base', baht(model.fixedBase))}
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="label">Break-even progress</div>
+      <div class="progress"><div class="progress-fill${covered ? ' progress-ok' : ''}" style="width:${breakEvenPct.toFixed(1)}%"></div></div>
+      <p class="muted">
+        Gross profit ${baht(model.totals.gross)} against a ${baht(model.fixedBase)} fixed base —
+        ${covered
+          ? `covered, with ${baht(model.totals.gross - model.fixedBase)} above break-even.`
+          : `${baht(model.fixedBase - model.totals.gross)} short of covering rent, salary and utilities.`}
+      </p>
     </section>
 
     <section class="card">

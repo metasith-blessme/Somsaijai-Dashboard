@@ -37,17 +37,20 @@ function rateOver(series, columns, asOf, days) {
   return total / window.length;
 }
 
-export function buildStockModel({ data, asOf }) {
-  const { rows } = flattenSales(data);
+export function buildStockModel({ data, asOf, branch = 'all', month = 'all' }) {
+  const rows = flattenSales(data).rows.filter(
+    (r) => (month === 'all' || r.month === month) && (branch === 'all' || r.branch === branch)
+  );
+  const visible = branch === 'all' ? BRANCHES : BRANCHES.filter((b) => b === branch);
 
   const measured = MEASURED_ITEMS.map((item) => {
     const perBranch = {};
-    BRANCHES.forEach((branch) => {
-      const series = seriesFor(rows, branch);
+    visible.forEach((b) => {
+      const series = seriesFor(rows, b);
       const rate30 = rateOver(series, item.columns, asOf, THRESHOLDS.TRAILING_WINDOW_DAYS);
       const rate7 = rateOver(series, item.columns, asOf, THRESHOLDS.RECENT_WINDOW_DAYS);
       const trend = rate30 > 0 ? ((rate7 - rate30) / rate30) * 100 : 0;
-      perBranch[branch] = { rate30, rate7, trend };
+      perBranch[b] = { rate30, rate7, trend };
     });
     return { ...item, perBranch };
   });
@@ -55,6 +58,7 @@ export function buildStockModel({ data, asOf }) {
   const spendByCat = {};
   (data.expenses || [])
     .filter((e) => e.bucket === 'COGS')
+    .filter((e) => (branch === 'all' || e.branch === branch) && (month === 'all' || e.month === month))
     .forEach((e) => {
       const cat = e.cat || 'Other';
       if (MEASURED_LABELS.includes(cat)) return;
@@ -65,7 +69,7 @@ export function buildStockModel({ data, asOf }) {
     .map(([cat, amount]) => ({ cat, amount }))
     .sort((a, b) => b.amount - a.amount);
 
-  return { measured, spendOnly, untracked: UNTRACKED_PRODUCTS };
+  return { measured, spendOnly, untracked: UNTRACKED_PRODUCTS, branches: visible, branch, month };
 }
 
 const trendChip = (trend) => {
@@ -79,7 +83,7 @@ export function renderStock(model) {
   const measuredRows = model.measured.map((m) => `
     <tr>
       <td>${m.label} <span class="muted">${m.unit}/day</span></td>
-      ${BRANCHES.map((b) => `
+      ${model.branches.map((b) => `
         <td class="num">${m.perBranch[b].rate30.toFixed(1)} ${trendChip(m.perBranch[b].trend)}</td>
       `).join('')}
     </tr>
@@ -93,7 +97,7 @@ export function renderStock(model) {
     <section class="card">
       <div class="label">Measured usage · 30-day daily rate, 7-day trend</div>
       <table class="statement">
-        <thead><tr><th>Item</th>${BRANCHES.map((b) => `<th class="num">${b}</th>`).join('')}</tr></thead>
+        <thead><tr><th>Item</th>${model.branches.map((b) => `<th class="num">${b}</th>`).join('')}</tr></thead>
         <tbody>${measuredRows}</tbody>
       </table>
     </section>
