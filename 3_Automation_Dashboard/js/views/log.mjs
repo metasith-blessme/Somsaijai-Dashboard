@@ -1,5 +1,6 @@
 import { BRANCHES, flattenSales } from '../data.mjs';
 import { baht, formatDate } from '../format.mjs';
+import { buildAuditModel, renderAudit } from '../audit.mjs';
 
 export function buildLogModel({ data, branch, month }) {
   const { rows } = flattenSales(data);
@@ -13,6 +14,7 @@ export function buildLogModel({ data, branch, month }) {
     branch,
     month,
     months,
+    audit: buildAuditModel({ data, branch, month }),
     rows: filtered.map((r) => ({
       branch: r.branch,
       date: r.date,
@@ -30,8 +32,11 @@ export function buildLogModel({ data, branch, month }) {
 
 export function renderLog(model) {
   if (model.rows.length === 0) {
-    return `<div class="card card-empty"><p>No entries for ${model.branch} in ${model.month}.</p></div>`;
+    return renderAudit(model.audit)
+      + `<div class="card card-empty"><p>No entries for ${model.branch} in ${model.month}.</p></div>`;
   }
+
+  const sum = (key) => model.rows.reduce((s, r) => s + r[key], 0);
 
   const body = model.rows.map((r) => `
     <tr${r.flagged ? ' class="row-flagged"' : ''}>
@@ -45,14 +50,24 @@ export function renderLog(model) {
     </tr>
   `).join('');
 
-  return `
+  return renderAudit(model.audit) + `
     <section class="card">
-      <div class="label">Daily operations log · ${model.branch} · ${model.month}</div>
+      <div class="label">Daily operations log · ${model.branch} · ${model.month} · ${model.rows.length} entries</div>
       <table class="statement">
         <thead>
           <tr><th>Date</th><th>Br</th><th class="num">Revenue</th><th class="num">Cash</th><th class="num">Scan</th><th class="num">Cups</th><th class="num">Audit</th></tr>
         </thead>
         <tbody>${body}</tbody>
+        <tfoot>
+          <tr class="row-payout">
+            <td colspan="2"><b>Total</b></td>
+            <td class="num"><b>${baht(sum('rev'))}</b></td>
+            <td class="num"><b>${baht(sum('cash'))}</b></td>
+            <td class="num"><b>${baht(sum('scan'))}</b></td>
+            <td class="num"><b>${sum('cups').toLocaleString('en-US')}</b></td>
+            <td></td>
+          </tr>
+        </tfoot>
       </table>
     </section>
   `;

@@ -23,6 +23,21 @@ export const UNTRACKED_PRODUCTS = ['Mangosteen', 'Mangosteen & Lychee', 'Rambuta
 
 const MEASURED_LABELS = MEASURED_ITEMS.map((i) => i.label);
 
+// Cup columns per product, and the usage column they consume. Yield = cups per
+// unit of raw material, which is what says whether a fruit is being wasted.
+export const PRODUCT_YIELD = [
+  { label: 'Orange', cups: ['or', 'or_100'], usage: ['uo'], unit: 'basket' },
+  { label: 'Watermelon', cups: ['wm'], usage: ['uw'], unit: 'whole' },
+  { label: 'Mango', cups: ['mg'], usage: ['umg'], unit: 'kg' },
+  { label: 'Coconut', cups: ['co'], usage: ['uco_meat'], unit: 'unit' },
+  { label: 'Apple', cups: ['ap'], usage: ['uap'], unit: 'whole' },
+  { label: 'Guava', cups: ['guava'], usage: ['uguava'], unit: 'kg' },
+  { label: 'Pineapple', cups: ['pineapple'], usage: ['upine'], unit: 'whole' }
+];
+
+const sumCols = (rows, cols) =>
+  rows.reduce((s, r) => s + cols.reduce((c, col) => c + (Number(r.raw[col]) || 0), 0), 0);
+
 function rateOver(series, columns, asOf, days) {
   const start = asOf.getTime() - (days * 86400000);
   const window = series.filter((r) => {
@@ -69,7 +84,26 @@ export function buildStockModel({ data, asOf, branch = 'all', month = 'all' }) {
     .map(([cat, amount]) => ({ cat, amount }))
     .sort((a, b) => b.amount - a.amount);
 
-  return { measured, spendOnly, untracked: UNTRACKED_PRODUCTS, branches: visible, branch, month };
+  // Product velocity and material yield over the selected period.
+  const velocity = PRODUCT_YIELD.map((p) => {
+    const cups = sumCols(rows, p.cups);
+    const used = sumCols(rows, p.usage);
+    return {
+      label: p.label,
+      unit: p.unit,
+      cups,
+      used,
+      yield: used > 0 ? cups / used : 0
+    };
+  }).filter((p) => p.cups > 0 || p.used > 0)
+    .sort((a, b) => b.cups - a.cups);
+
+  const totalCups = velocity.reduce((s, p) => s + p.cups, 0);
+
+  return {
+    measured, spendOnly, untracked: UNTRACKED_PRODUCTS,
+    branches: visible, branch, month, velocity, totalCups
+  };
 }
 
 const trendChip = (trend) => {
@@ -99,6 +133,32 @@ export function renderStock(model) {
       <table class="statement">
         <thead><tr><th>Item</th>${model.branches.map((b) => `<th class="num">${b}</th>`).join('')}</tr></thead>
         <tbody>${measuredRows}</tbody>
+      </table>
+    </section>
+
+    <section class="card">
+      <div class="label">Product velocity &amp; material yield</div>
+      <table class="statement">
+        <thead>
+          <tr><th>Product</th><th class="num">Cups</th><th class="num">Share</th><th class="num">Used</th><th class="num">Cups / unit</th></tr>
+        </thead>
+        <tbody>
+          ${model.velocity.map((p) => `
+            <tr>
+              <td>${p.label} <span class="muted">${p.unit}</span></td>
+              <td class="num">${p.cups.toLocaleString('en-US')}</td>
+              <td class="num">${model.totalCups > 0 ? ((p.cups / model.totalCups) * 100).toFixed(0) : 0}%</td>
+              <td class="num">${p.used.toLocaleString('en-US')}</td>
+              <td class="num">${p.used > 0 ? p.yield.toFixed(1) : '<span class="muted">—</span>'}</td>
+            </tr>
+          `).join('')}
+          <tr class="row-payout">
+            <td><b>Total</b></td>
+            <td class="num"><b>${model.totalCups.toLocaleString('en-US')}</b></td>
+            <td class="num"><b>100%</b></td>
+            <td colspan="2"></td>
+          </tr>
+        </tbody>
       </table>
     </section>
 
