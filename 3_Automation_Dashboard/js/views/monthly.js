@@ -58,6 +58,7 @@ export function buildMonthlyModel({ reports, month, previousMonth }) {
     mingTotal: sumOf('ming'),
     branches,
     totals,
+    opexRows: buildOpexRows(report),
     previous: (reports || {})[previousMonth] || null
   };
   model.moved = whatMoved(model);
@@ -95,6 +96,26 @@ export function whatMoved(model) {
   });
 
   return facts.slice(0, 5);
+}
+
+// The report's opex_list holds the raw non-COGS rows for the month. COGS is
+// shown separately as allocated Material Costs, so listing COGS rows here would
+// make the line items disagree with the total — that was a real bug in the old
+// dashboard.
+export function buildOpexRows(report) {
+  if (!report) return [];
+  return BRANCHES.flatMap((branch) => {
+    const r = report[branch.toLowerCase()];
+    if (!r || !Array.isArray(r.opex_list)) return [];
+    return r.opex_list
+      .filter((e) => e.bucket !== 'COGS' && e.bucket !== 'EXCLUDED' && e.bucket !== 'PENDING_REFUND')
+      .map((e) => ({
+        branch,
+        cat: e.cat || 'Other',
+        desc: e.desc || '—',
+        amt: Math.round(Number(e.amt) || 0)
+      }));
+  });
 }
 
 const settlementRow = (b) => `
@@ -178,6 +199,30 @@ export function renderMonthly(model) {
           </tr>
         </tbody>
       </table>
+    </section>
+
+    <section class="card">
+      <div class="label">Operating expenses — ${model.month}</div>
+      <table class="statement">
+        <thead><tr><th>Br</th><th>Category</th><th>Detail</th><th class="num">Amount</th></tr></thead>
+        <tbody>
+          ${model.opexRows.map((e) => `
+            <tr><td>${e.branch}</td><td>${e.cat}</td><td>${e.desc}</td><td class="num">${baht(e.amt)}</td></tr>
+          `).join('')}
+          <tr class="row-payout">
+            <td colspan="3"><b>Total</b></td>
+            <td class="num"><b>${baht(model.opexRows.reduce((s, e) => s + e.amt, 0))}</b></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="card">
+      <div class="label">Charts</div>
+      <div class="chart-box"><canvas id="chartRevenue"></canvas></div>
+      <div class="chart-box"><canvas id="chartPayment"></canvas></div>
+      <div class="chart-box"><canvas id="chartProduct"></canvas></div>
+      <div class="chart-box"><canvas id="chartDayOfWeek"></canvas></div>
     </section>
   `;
 }

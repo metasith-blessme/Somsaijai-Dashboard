@@ -1,7 +1,7 @@
 // Run: node test_monthly.mjs
 import assert from 'node:assert';
 import { readFileSync } from 'node:fs';
-import { buildMonthlyModel, whatMoved, renderMonthly, PROFIT_SHARE } from './js/views/monthly.js';
+import { buildMonthlyModel, whatMoved, renderMonthly, PROFIT_SHARE, buildOpexRows } from './js/views/monthly.js';
 
 const reports = JSON.parse(readFileSync('reports_data.json', 'utf8'));
 
@@ -77,5 +77,29 @@ assert.ok(html.includes('฿549,947'), 'statement total revenue');
 const missing = buildMonthlyModel({ reports, month: 'Dec26', previousMonth: 'Nov26' });
 assert.strictEqual(missing.branches.length, 0);
 assert.ok(/no data/i.test(renderMonthly(missing)));
+
+// --- OPEX breakdown ---
+assert.ok(Array.isArray(model.opexRows));
+assert.ok(model.opexRows.length > 0, 'July has rent and salary rows');
+model.opexRows.forEach((e) => {
+  assert.ok(['B1', 'B2', 'B3'].includes(e.branch));
+  assert.strictEqual(typeof e.amt, 'number');
+});
+const opexTotal = model.opexRows.reduce((s, e) => s + e.amt, 0);
+assert.strictEqual(
+  opexTotal, model.totals.rental + model.totals.opex,
+  'the listed rows must add up to the statement total — they disagreed in the old dashboard'
+);
+assert.ok(
+  !model.opexRows.some((e) => e.cat === 'Orange' || e.cat === 'Ice'),
+  'COGS categories must not appear in the OPEX table'
+);
+assert.deepStrictEqual(buildOpexRows(null), []);
+
+// --- chart canvases are present for mountCharts to find ---
+assert.ok(html.includes('id="chartRevenue"'));
+assert.ok(html.includes('id="chartPayment"'));
+assert.ok(html.includes('id="chartProduct"'));
+assert.ok(html.includes('id="chartDayOfWeek"'));
 
 console.log('✅ monthly view OK');
