@@ -7,6 +7,16 @@ const path = require('path');
 const { dailyRows, parseDate } = require('./sheet_rows');
 
 const BOOKED = { blessme: 41128, ming: 22318 };
+
+// Confirmed by owner 2026-08-05.
+// B1 May payroll: ฿24,000 staff + ฿19,000 Ming. B2 May payroll: ฿17,200.
+const CONFIRMED_SALARY = { B1: 24000 + 19000, B2: 17200 };
+// 21 May traded but was never entered. From the paper tallies (IMG_1358 = B-1, IMG_1357 = B-2),
+// both of which cross-foot exactly against their own line items.
+const DAY_21 = {
+  B1: { revenue: 7300, cash: 1410, scan: 5890, expense: 120, cups: 125 },
+  B2: { revenue: 4150, cash: 2300, scan: 1850, expense: 120, cups: 68 },
+};
 const SHARE = { B1: { blessme: 0.6, ming: 0.4 }, B2: { blessme: 0.7, ming: 0.3 } };
 const MAY = 5;
 
@@ -109,6 +119,38 @@ for (const [name, src, tgt] of [['B1', B1, target.B1], ['B2', B2, target.B2]]) {
 console.log(`\nNote: B1 currently carries the whole group's COGS, so its per-branch shortfall`);
 console.log(`is negative (over-costed) while B2's is large. Allocation per ADR 0001 moves`);
 console.log(`cost from B1 to B2; it does not change the group total.`);
+
+// --- Waterfall: apply every confirmed correction and see where profit lands ---
+console.log(`\n\n=== Waterfall to the booked target ===\n`);
+let rev = groupRevenue;
+let cost = recorded;
+const step = (label, dRev, dCost) => {
+  rev += dRev; cost += dCost;
+  console.log(
+    `${label.padEnd(38)} ${(dRev ? signed(dRev) : '').padStart(9)} ${(dCost ? signed(dCost) : '').padStart(9)}` +
+    ` -> profit ${f(rev - cost).padStart(9)}`
+  );
+};
+console.log('Adjustment                              Revenue      Cost');
+console.log('-------------------------------------- --------- ---------');
+console.log(`${'starting position'.padEnd(38)} ${''.padStart(9)} ${''.padStart(9)} -> profit ${f(rev - cost).padStart(9)}`);
+
+for (const [name, src] of [['B1', B1], ['B2', B2]]) {
+  const got = sumWhere(src.rows, isSalary);
+  step(`${name} payroll -> confirmed ${f(CONFIRMED_SALARY[name])}`, 0, CONFIRMED_SALARY[name] - got);
+}
+for (const [name, d] of Object.entries(DAY_21)) {
+  step(`${name} 21 May sales (was missing)`, d.revenue, d.expense);
+}
+// B2's share of the ฿12,000 stock-storage rent and its utilities were never booked.
+step('B2 stock-storage rent share', 0, 6000);
+step('B2 utilities', 0, 4000);
+
+const finalProfit = rev - cost;
+console.log(`\nAfter all confirmed corrections : ${f(finalProfit)}`);
+console.log(`Owner booked                    : ${f(target.total)}`);
+console.log(`STILL UNEXPLAINED               : ${f(finalProfit - target.total)}`);
+console.log(`  ( ${((finalProfit - target.total) / rev * 100).toFixed(1)}% of revenue — most likely unentered COGS slips )`);
 
 (function selfCheck() {
   const assert = require('assert');
