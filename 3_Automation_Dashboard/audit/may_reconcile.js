@@ -40,8 +40,9 @@ function solveTargets({ blessme, ming }) {
 const target = solveTargets(BOOKED);
 
 // --- Actual: pull May from the ledger ---
+const DASH = process.env.DASH_DIR || path.join(__dirname, '..');
 const load = (branch) => {
-  const wb = XLSX.readFile(path.join(__dirname, '..', `SomSaiJai_Dashboard_${branch}_2026.xlsx`));
+  const wb = XLSX.readFile(path.join(DASH, `SomSaiJai_Dashboard_${branch}_2026.xlsx`));
   const days = dailyRows(wb.Sheets['May26']);
   const rows = XLSX.utils.sheet_to_json(wb.Sheets['Daily_Expenses'], { header: 1 })
     .slice(3)
@@ -140,6 +141,8 @@ for (const [name, src] of [['B1', B1], ['B2', B2]]) {
   step(`${name} payroll -> confirmed ${f(CONFIRMED_SALARY[name])}`, 0, CONFIRMED_SALARY[name] - got);
 }
 for (const [name, d] of Object.entries(DAY_21)) {
+  const present = (name === 'B1' ? B1 : B2).days.some((r) => r.date.day === 21);
+  if (present) { console.log(`${(name + ' 21 May').padEnd(38)} ${'already in ledger'.padStart(19)}`); continue; }
   step(`${name} 21 May sales (was missing)`, d.revenue, d.expense);
 }
 // B2's share of the ฿12,000 stock-storage rent and its utilities were never booked.

@@ -21,6 +21,9 @@ const CORRECTIONS = [
   { branch: 'B1', date: '14/05/2026', match: '50 ลูก',           amount: 8000,  category: 'Watermelon' },
   { branch: 'B1', date: '16/05/2026', match: '18 ลูก',           amount: 1008,  category: 'Watermelon' },
   { branch: 'B1', date: '29/06/2026', match: 'มังคุด 3 ตะกร้า',   amount: 1932,  category: 'Mangosteen' },
+  // Description reads ฿4,000 but the row is booked at ฿12,000. Owner confirmed 2026-08-05:
+  // the ฿12,000 is correct (three deliveries recorded together) and it is watermelon.
+  { branch: 'B1', date: '22/05/2026', match: '16-5-2569',        amount: 12000, category: 'Watermelon' },
 ];
 
 // Deliberately NOT corrected — verified as genuinely OPEX:
