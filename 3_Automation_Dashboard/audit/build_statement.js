@@ -14,7 +14,7 @@ const BRANCHES = ['B1', 'B2', 'B3'];
 
 // ponytail: opening balance is a CLI arg, not config. Owner's sheet shows ต้นทุน 100,000.
 // Override once the real 1-Jan bank figure is known: node build_statement.js 123456
-const OPENING = Number(process.argv[2] ?? SRC._opening_capital.capital_injected);
+const OPENING = Number(process.argv[2] ?? SRC._opening_balance_actual.amount);
 
 // Profit-share rows wrongly filed as COGS/Ice. Excluded here so they are not double-counted
 // against the explicit distribution entries below.
@@ -66,14 +66,14 @@ for (const branch of BRANCHES) {
 }
 
 // --- Money out: owner distributions (the liquidity leak, stated explicitly) ---
-// Paid on the 2nd of the following month, matching the 02/01/2026 entry found in B1.
-const PAYOUT_DATE = { Dec25: '2026-01-02', Jan26: '2026-02-02', Feb26: '2026-03-02', Mar26: '2026-04-02' };
+// Blessme and Ming are paid on separate dates, so each is booked on its own day.
 for (const [month, v] of Object.entries(SRC._distributions)) {
   if (month.startsWith('_')) continue;
-  const key = PAYOUT_DATE[month];
-  if (!key) continue;
-  add(key, 'B1', `ส่วนแบ่งกำไร Blessme 60% (${month})`, 'DISTRIBUTION', 0, v.blessme);
-  add(key, 'B1', `ส่วนแบ่งกำไร Ming 40% (${month})`, 'DISTRIBUTION', 0, v.ming);
+  const dates = SRC._payout_dates[month];
+  if (!dates) continue;
+  const approx = dates.confirmed ? '' : ' [วันที่ประมาณ]';
+  if (v.blessme) add(dates.blessme, 'ALL', `ส่วนแบ่งกำไร Blessme (${month})${approx}`, 'DISTRIBUTION', 0, v.blessme);
+  if (v.ming) add(dates.ming, 'ALL', `ส่วนแบ่งกำไร Ming (${month})${approx}`, 'DISTRIBUTION', 0, v.ming);
 }
 
 entries.sort((a, b) => a.dateKey.localeCompare(b.dateKey) || a.branch.localeCompare(b.branch));
@@ -104,7 +104,7 @@ const unsplit = entries.filter((e) => e.type === 'Sales-Unsplit').reduce((a, e) 
 const f = (n) => Math.round(n).toLocaleString('en-US');
 
 console.log(`Wrote ${outFile}  (${entries.length} entries)`);
-console.log(`Opening balance      : ${f(OPENING)}${process.argv[2] ? '' : '   << ASSUMED from ต้นทุน 100,000 — replace with real 1-Jan figure'}`);
+console.log(`Opening balance      : ${f(OPENING)}${process.argv[2] ? ' (override)' : ' (actual bank balance 1 Jan 2026)'}`);
 console.log(`Total in             : ${f(totalIn)}   (of which unsplit cash/transfer: ${f(unsplit)})`);
 console.log(`Total out            : ${f(totalOut)}   (of which owner distributions: ${f(dist)})`);
 console.log(`Closing balance      : ${f(balance)}`);

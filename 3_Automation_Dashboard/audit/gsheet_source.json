@@ -60,11 +60,29 @@
     "Mar26": {"revenue": 286925, "cogs": 136224, "gp": 150701, "ebitda": 72872.28, "net": 64503.28}
   },
   "_distributions": {
-    "_note": "100% of Net Margin distributed each month. Blessme 60% / Ming 40%. THIS IS THE LIQUIDITY LEAK.",
+    "_note": "Actual owner payouts. Dec25-Mar26 amounts from the sheet's Blessme60/Main40 rows; Apr26 amounts and dates confirmed by owner 2026-08-05. May26 and Jun26: no payout made. Jul26: not yet due.",
     "Dec25": {"blessme": 47961, "ming": 31974, "total": 79935},
     "Jan26": {"blessme": 75767.40, "ming": 50511.60, "total": 126279},
     "Feb26": {"blessme": 85553.40, "ming": 57035.60, "total": 142589},
-    "Mar26": {"blessme": 38701.968, "ming": 25801.312, "total": 64503.28}
+    "Mar26": {"blessme": 38701.968, "ming": 25801.312, "total": 64503.28},
+    "Apr26": {"blessme": 50345, "ming": 45060, "total": 95405},
+    "May26": {"blessme": 0, "ming": 0, "total": 0},
+    "Jun26": {"blessme": 0, "ming": 0, "total": 0}
+  },
+  "_payout_dates": {
+    "_note": "Dec25 confirmed by the two misfiled COGS/Ice rows dated 02/01/2026. Apr26 dates confirmed by owner. Jan-Mar dates NOT confirmed — assumed 2nd of the following month; amounts are right, timing is approximate.",
+    "Dec25": {"blessme": "2026-01-02", "ming": "2026-01-02", "confirmed": true},
+    "Jan26": {"blessme": "2026-02-02", "ming": "2026-02-02", "confirmed": false},
+    "Feb26": {"blessme": "2026-03-02", "ming": "2026-03-02", "confirmed": false},
+    "Mar26": {"blessme": "2026-04-02", "ming": "2026-04-02", "confirmed": false},
+    "Apr26": {"blessme": "2026-05-14", "ming": "2026-05-10", "confirmed": true}
+  },
+  "_opening_balance_actual": {
+    "_note": "Real bank balance at 1 Jan 2026, confirmed by owner 2026-08-05.",
+    "amount": 125655.69
+  },
+  "_cost_method": {
+    "_note": "B2 and B3 have no expense slips by design. Shared purchases are bought centrally and booked against B1, then allocated per ADR 0001 (fruit by actual usage; packaging/ice/generic stock by revenue share). Per-branch cost gaps are therefore ALLOCATION gaps, not missing money — only group-level totals can reveal genuinely unrecorded spend."
   },
   "_opening_capital": {
     "_note": "From Cost tab header: ต้นทุน 100,000 / จ่ายค่าเช่า 35000 / มัดจำ 35000. Dec25 total spend before opening = 217,654.",

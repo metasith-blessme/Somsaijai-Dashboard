@@ -86,8 +86,12 @@ const d = Object.fromEntries(Object.entries(SRC._distributions).filter(([k]) => 
 const total = Object.values(d).reduce((a, x) => a + x.total, 0);
 console.log(`\n===== DISTRIBUTIONS (Dec25-Mar26) =====`);
 for (const [m, v] of Object.entries(d)) {
-  const net = SRC._sheet_pnl[m].net;
-  console.log(`${m}: Blessme ${baht(v.blessme).padStart(9)} + Ming ${baht(v.ming).padStart(9)} = ${baht(v.total).padStart(9)}  (net profit ${baht(net)} -> ${((v.total / net) * 100).toFixed(1)}% paid out)`);
+  // The owner's sheet stops at March, so Apr onward has no net-profit figure to compare against.
+  const net = SRC._sheet_pnl[m]?.net;
+  const ratio = net ? `net profit ${baht(net)} -> ${((v.total / net) * 100).toFixed(1)}% paid out`
+                    : v.total ? 'net profit not recorded in owner sheet'
+                    : 'NO PAYOUT MADE';
+  console.log(`${m}: Blessme ${baht(v.blessme).padStart(9)} + Ming ${baht(v.ming).padStart(9)} = ${baht(v.total).padStart(9)}  (${ratio})`);
 }
 console.log(`TOTAL PAID OUT: ${baht(total)}  | TOTAL RETAINED: ${baht(0)}`);
 
