@@ -179,7 +179,14 @@ for (const [name, d] of Object.entries(DAY_21)) {
 // B2's share of the ฿12,000 stock-storage rent and its utilities were never booked.
 step('B2 stock-storage rent share', 0, 6000);
 step('B2 utilities', 0, 4000);
-for (const c of CLASSIFIED.filter((x) => x.inMay)) step(`bank: ${c.what}`.slice(0, 38), 0, c.amount);
+// Once these are written into Daily_Expenses they are already in `recorded`; adding them
+// again here would double-count. Detect by the [bank] marker the booking script writes.
+const bookedFromBank = [...B1.rows, ...B2.rows].filter((r) => r.desc.includes('[bank]'))
+  .reduce((a, r) => a + r.amount, 0);
+for (const c of CLASSIFIED.filter((x) => x.inMay)) {
+  if (bookedFromBank > 0) { console.log(`${('bank: ' + c.what).slice(0, 38).padEnd(38)} ${'already booked'.padStart(19)}`); continue; }
+  step(`bank: ${c.what}`.slice(0, 38), 0, c.amount);
+}
 
 const finalProfit = rev - cost;
 console.log(`\nAfter all confirmed corrections : ${f(finalProfit)}`);
