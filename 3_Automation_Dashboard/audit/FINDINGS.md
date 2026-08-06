@@ -197,6 +197,53 @@ the CSV; the amounts are from your sheet. Dec and Apr dates are confirmed.
 
 ---
 
+## 6b. Bank reconciliation (added 2026-08-06)
+
+Both KBank statements parse and reconcile **exactly** — SA8285 yields precisely the 220
+withdrawals and 216 deposits printed on its own header, to the satang. Direction and amount are
+derived from the running balance, never from column position.
+
+Jan–Jul, 490 outflows totalling ฿2,471,306:
+
+| | txns | amount |
+|---|---:|---:|
+| Matched to a ledger slip | 373 | 1,421,282 |
+| No ledger entry at all | 115 | 954,618 |
+
+The unbooked money is dominated by three people, and they are not losses:
+
+| Recipient | Total | Role — established from the payment pattern |
+|---|---:|---|
+| นาย ฐนกร ไทย | 367,325 | **Blessme.** 02/02 ฿75,767 and 10/04 ฿38,702 match the owner sheet's Blessme 60% for Jan and Mar exactly |
+| นาย ฐิติภูมิ สิงห์ | 311,802 | **Landlord.** ฿47,000 recurs monthly = ฿35,000 rent + ฿12,000 stock storage |
+| MR. AUNG MIN PHAY | 246,726 | **Ming.** ฿19,000/month salary plus profit share (10/04 ฿25,801 = the sheet's Ming 40%) |
+
+Shopee Pay totals **฿174,971 across 69 transactions**, much of it unbooked — the single largest
+systematic gap in the ledger and the easiest to fix going forward.
+
+### May closed
+
+The ฿29,912 that could not be explained resolves as:
+
+| Item | Amount | Treatment |
+|---|---:|---|
+| Mangosteen (23/05, via ฐนกร) | 28,000 | **May COGS** — was unbooked |
+| Lalamove, cleaning, LINE Pay, sundries | 5,064 | **May OPEX** — was unbooked |
+| B2 rent + deposit (06/05) | 45,000 | Deposit is refundable → **an asset, not expense** |
+| Water guns, Songkran (06/05) | 24,016 | **April** cost — Songkran is 13–15 Apr |
+| Salary (01/05) | 31,000 | **April** payroll, paid on the 1st |
+| Superrich currency (24/05) | 19,190 | **Not a business cost** — being transferred back |
+
+After applying only the genuine May items, group profit lands at **฿60,294** against the booked
+**฿63,446** — a residual of ฿3,152, or 0.7% of revenue. That remainder sits inside two figures
+the owner has not confirmed: B2's share of the stock-storage rent (assumed ฿6,000) and B2's
+utilities (assumed ฿4,000).
+
+**The lesson generalises:** the gap was never missing money. It was owner drawings, a refundable
+deposit, and April costs paid in May all sitting outside the ledger — the same disease as the
+฿79,961 booked as "Ice" in January. The ledger needs an `EXCLUDED` bucket used consistently, and
+costs need to be booked to the month they belong to, not the month the transfer cleared.
+
 ## 7. Still open
 
 - **Actual bank balance today** — compare against the ~฿155,520 realistic figure. Any remaining

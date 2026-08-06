@@ -121,6 +121,37 @@ console.log(`\nNote: B1 currently carries the whole group's COGS, so its per-bra
 console.log(`is negative (over-costed) while B2's is large. Allocation per ADR 0001 moves`);
 console.log(`cost from B1 to B2; it does not change the group total.`);
 
+// Bank outflows the owner classified on 2026-08-06. `accrual` is the month the cost belongs
+// to, which is not always the month it was paid: Songkran falls in mid-April, and payroll paid
+// on the 1st settles the prior month. A cash-basis statement uses the payment date; a P&L must
+// use the accrual month, or May carries April's costs and both months read wrong.
+const CLASSIFIED = [
+  { date: '06/05', amount: 45000, what: 'B2 rent + deposit',        accrual: 'asset/Apr', inMay: false,
+    note: 'deposit is refundable — an asset, not an expense' },
+  { date: '06/05', amount: 24016, what: 'Water guns, Songkran',     accrual: 'Apr',       inMay: false,
+    note: 'Songkran is 13-15 Apr; paid in May' },
+  { date: '01/05', amount: 31000, what: 'Salary',                   accrual: 'Apr',       inMay: false,
+    note: 'paid on the 1st — settles April payroll' },
+  { date: '23/05', amount: 28000, what: 'Mangosteen',               accrual: 'May',       inMay: true,
+    note: 'COGS — genuinely May' },
+  { date: 'various', amount: 5064, what: 'Lalamove, cleaning, LINE Pay, sundries', accrual: 'May', inMay: true,
+    note: 'five small business costs, all May' },
+  { date: '24/05', amount: 19190, what: 'Superrich currency',       accrual: 'none',      inMay: false,
+    note: 'owner is transferring it back — not a business cost' },
+];
+
+console.log(`\n\n=== Bank outflows classified by owner ===\n`);
+console.log('Date     Amount    Belongs to  What');
+console.log('-------- --------- ----------- --------------------------------------------');
+for (const c of CLASSIFIED) {
+  console.log(`${c.date.padEnd(8)} ${f(c.amount).padStart(9)} ${c.accrual.padEnd(11)} ${c.what}`);
+  console.log(`${''.padEnd(30)}${c.note}`);
+}
+const intoMay = CLASSIFIED.filter((c) => c.inMay).reduce((a, c) => a + c.amount, 0);
+const notMay = CLASSIFIED.filter((c) => !c.inMay).reduce((a, c) => a + c.amount, 0);
+console.log(`\nBelongs in May : ${f(intoMay)}`);
+console.log(`Belongs elsewhere or not a cost: ${f(notMay)}`);
+
 // --- Waterfall: apply every confirmed correction and see where profit lands ---
 console.log(`\n\n=== Waterfall to the booked target ===\n`);
 let rev = groupRevenue;
@@ -148,6 +179,7 @@ for (const [name, d] of Object.entries(DAY_21)) {
 // B2's share of the ฿12,000 stock-storage rent and its utilities were never booked.
 step('B2 stock-storage rent share', 0, 6000);
 step('B2 utilities', 0, 4000);
+for (const c of CLASSIFIED.filter((x) => x.inMay)) step(`bank: ${c.what}`.slice(0, 38), 0, c.amount);
 
 const finalProfit = rev - cost;
 console.log(`\nAfter all confirmed corrections : ${f(finalProfit)}`);
