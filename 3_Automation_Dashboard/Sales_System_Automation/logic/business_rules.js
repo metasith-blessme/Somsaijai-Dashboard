@@ -281,7 +281,7 @@ function calculatePL(data) {
             { name: 'Apple', rev: fruit_sales.apple * PRICES.apple, cost: fruit_costs['Apple'], cups: fruit_sales.apple },
             { name: 'Coconut', rev: fruit_sales.coconut * PRICES.coconut, cost: fruit_costs['Coconut'], cups: fruit_sales.coconut },
             { name: 'Young Coco', rev: fruit_sales.young * PRICES.young, cost: 0, cups: fruit_sales.young },
-            { name: 'Guava', rev: fruit_sales.guava * PRICES.guava, cost: 0, cups: fruit_sales.guava },
+            { name: 'Guava', rev: fruit_sales.guava * PRICES.guava, cost: fruit_costs['Guava'], cups: fruit_sales.guava },
             { name: 'Pineapple', rev: fruit_sales.pineapple * PRICES.pineapple, cost: fruit_costs['Pineapple'], cups: fruit_sales.pineapple }
         ].map(f => ({ ...f, roi: f.cost > 0 ? ((f.rev - f.cost) / f.cost * 100).toFixed(1) + '%' : 'N/A' }));
 
@@ -386,7 +386,7 @@ function calculatePL(data) {
         { name: 'Apple', rev: annual_fruit_sales.apple * PRICES.apple, cost: annual_fruit_costs['Apple'], cups: annual_fruit_sales.apple },
         { name: 'Coconut', rev: annual_fruit_sales.coconut * PRICES.coconut, cost: annual_fruit_costs['Coconut'], cups: annual_fruit_sales.coconut },
         { name: 'Young Coco', rev: annual_fruit_sales.young * PRICES.young, cost: 0, cups: annual_fruit_sales.young },
-        { name: 'Guava', rev: annual_fruit_sales.guava * PRICES.guava, cost: 0, cups: annual_fruit_sales.guava },
+        { name: 'Guava', rev: annual_fruit_sales.guava * PRICES.guava, cost: annual_fruit_costs['Guava'], cups: annual_fruit_sales.guava },
         { name: 'Pineapple', rev: annual_fruit_sales.pineapple * PRICES.pineapple, cost: annual_fruit_costs['Pineapple'], cups: annual_fruit_sales.pineapple }
     ].map(f => ({ ...f, roi: f.cost > 0 ? ((f.rev - f.cost) / f.cost * 100).toFixed(1) + '%' : 'N/A' }));
 

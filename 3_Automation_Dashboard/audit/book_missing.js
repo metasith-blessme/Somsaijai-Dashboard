@@ -35,6 +35,17 @@ const ROWS = [
   { branch: 'B1', date: '09/05/2026', month: 'May26', bucket: 'COGS', category: 'Guava',
     desc: 'ฝรั่ง 1 ตะกร้า (นาง ประนอม) [bank]', amount: 600 },
 
+  // --- Guava supplier นาง ประนอม คุ้มเจริญ (X8148), confirmed by owner 2026-08-06 ---
+  // Verified by per-day occurrence count against the bank, not nearest-date matching.
+  // The 25/06 row is the one dedupe_june removed as a 18/06 duplicate: the bank shows only one
+  // ฿800 on the 18th and one on the 25th, so it was a real purchase with the wrong date.
+  { branch: 'B1', date: '22/06/2026', month: 'Jun26', bucket: 'COGS', category: 'Guava',
+    desc: 'ฝรั่ง (นาง ประนอม) [bank]', amount: 100 },
+  { branch: 'B1', date: '25/06/2026', month: 'Jun26', bucket: 'COGS', category: 'Guava',
+    desc: 'ฝรั่ง 1 ตะกร้า (นาง ประนอม) [bank]', amount: 800 },
+  { branch: 'B1', date: '28/07/2026', month: 'Jul26', bucket: 'COGS', category: 'Guava',
+    desc: 'ฝรั่ง (นาง ประนอม) [bank]', amount: 3000 },
+
   // --- April: paid in May, but the cost belongs to April ---
   { branch: 'B1', date: '30/04/2026', month: 'Apr26', bucket: 'OPEX', category: 'Marketing',
     desc: 'ปืนฉีดน้ำ สงกรานต์ (จ่าย 06/05) [bank]', amount: 24016 },
