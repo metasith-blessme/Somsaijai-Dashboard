@@ -4,3 +4,7 @@ node_modules/
 *.log
 pending_verification.json
 
+# Bank statements and extracted text must never be committed.
+*.pdf
+STM_*.txt
+3_Automation_Dashboard/audit/statement_bank*.csv
