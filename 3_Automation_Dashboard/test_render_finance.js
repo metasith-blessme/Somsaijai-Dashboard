@@ -37,6 +37,9 @@ function render(branch, month) {
   return {
     rev: num(rows.match(/Revenue \(Total\)<\/b><\/td><td class="num">฿([\d,]+)/)[1]),
     mat: num(rows.match(/Material Costs<\/b><\/td><td class="num"[^>]*>- ฿([\d,]+)/)[1]),
+    rent: num(rows.match(/Rental Costs<\/b><\/td><td class="num"[^>]*>- ฿([\d,]+)/)[1]),
+    opex: num(rows.match(/Other OPEX<\/b><\/td><td class="num"[^>]*>- ฿([\d,]+)/)[1]),
+    daily: num(rows.match(/Daily Expenses<\/b>[^<]*<span[^>]*>[^<]*<\/span><\/td><td class="num"[^>]*>- ฿([\d,]+)/)[1]),
     net: num(rows.match(/Net Operational Profit<\/b>\s*<\/td>\s*<td class="num"[^>]*>฿(-?[\d,]+)/)[1]),
   };
 }
@@ -50,6 +53,11 @@ for (const m of ['Jan26', 'Apr26', 'Jul26', 'all']) {
     assert.strictEqual(got.rev, Math.round(r.rev), `${m}/${b} revenue`);
     assert.strictEqual(got.mat, Math.round(r.cogs), `${m}/${b} material cost (must be ALLOCATED, not raw)`);
     assert.strictEqual(got.net, Math.round(r.net), `${m}/${b} net`);
+    assert.strictEqual(got.daily, Math.round(r.daily_exp || 0), `${m}/${b} daily expenses (ice) must be shown`);
+    // The column must add up: every cost the net subtracts has to be a visible line.
+    // This is what caught rental being silently dropped from the cost side.
+    assert.ok(Math.abs((got.rev - got.mat - got.rent - got.opex - got.daily) - got.net) <= 1,
+      `${m}/${b} P&L column must reconcile: ${got.rev} - ${got.mat} - ${got.rent} - ${got.opex} - ${got.daily} != ${got.net}`);
     checks++;
   }
   // 'all' view must equal the sum of the branches

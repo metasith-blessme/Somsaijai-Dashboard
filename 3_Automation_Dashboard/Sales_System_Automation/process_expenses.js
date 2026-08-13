@@ -102,7 +102,7 @@ MONTHS.forEach(month => {
 
     let files = [];
     if (dirExists) {
-        files = fs.readdirSync(dir).filter(f => f.endsWith('.jpg') || f.endsWith('.png'));
+        files = fs.readdirSync(dir).filter(f => f.toLowerCase().endsWith('.jpg') || f.toLowerCase().endsWith('.png'));
     }
 
     if (BRANCH === 'B2' && month === 'Jun26') {

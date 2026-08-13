@@ -5,7 +5,7 @@ from google import genai
 
 class DocGenAgent:
     def __init__(self):
-        self.model = 'gemini-3.5-flash'
+        self.model = os.getenv('GEMINI_AGENT_MODEL', 'gemini-3.5-flash')
         # Assumes GEMINI_API_KEY env var is set for genai.Client()
         self.client = genai.Client()
         self.system_instruction = """You are DocGenAgent.

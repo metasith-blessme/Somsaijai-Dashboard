@@ -37,17 +37,33 @@ const COSTS = {
     pineapple: 30
 };
 
-const PROFIT_SHARE_RATIO = {
+const MONTH_ORDER = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+/** 'Jul26' -> a sortable/comparable integer. -1 for anything unparseable. */
+function monthIndex(m) {
+    const mi = MONTH_ORDER.indexOf(String(m).substring(0, 3));
+    if (mi < 0) return -1;
+    const year = parseInt(String(m).replace(/\D+/g, ''), 10) || 0;
+    return year * 12 + mi;
+}
+
+// Profit share went to a flat 70/30 (Blessme/Ming) on every branch from Jul26.
+// B1 ran 60/40 before that, and months already closed must keep reporting the
+// rate that was actually paid — so this is looked up per (branch, month), never
+// applied retroactively.
+const PROFIT_SHARE_EFFECTIVE_MONTH = 'Jul26';
+const PROFIT_SHARE_CURRENT = 0.70;
+const PROFIT_SHARE_LEGACY = {
     B1: 0.60,
     B2: 0.70,
     B3: 0.70
 };
 
-const MING_SHARE_RATIO = {
-    B1: 0.40,
-    B2: 0.30,
-    B3: 0.30
-};
+/** Blessme's cut of net profit for a branch in a given month. Ming gets the rest. */
+function profitShareFor(branch, month) {
+    if (monthIndex(month) >= monthIndex(PROFIT_SHARE_EFFECTIVE_MONTH)) return PROFIT_SHARE_CURRENT;
+    return PROFIT_SHARE_LEGACY[branch] !== undefined ? PROFIT_SHARE_LEGACY[branch] : PROFIT_SHARE_CURRENT;
+}
 
 // Partner profit-share payouts are a distribution OF profit, never a cost of earning it.
 // ponytail: matches the two shapes actually seen in the books — an explicit
@@ -151,13 +167,7 @@ function calculatePL(data) {
         }
     });
 
-    const months = Array.from(monthsSet).sort((a, b) => {
-        const order = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-        const ya = parseInt(a.replace(/\D+/g, '')) || 0;
-        const yb = parseInt(b.replace(/\D+/g, '')) || 0;
-        if (ya !== yb) return ya - yb;
-        return order.indexOf(a.substring(0, 3)) - order.indexOf(b.substring(0, 3));
-    });
+    const months = Array.from(monthsSet).sort((a, b) => monthIndex(a) - monthIndex(b));
 
     const fullReport = {};
     const lossCarryForward = { B1: 0, B2: 0, B3: 0 };
@@ -165,7 +175,7 @@ function calculatePL(data) {
     months.forEach(m => {
         const branchCalcs = {};
         branchNames.forEach(b => {
-            branchCalcs[b] = { rev: 0, opex: 0, rental: 0, opex_list: [], raw_usage: {}, cogs: 0, net: 0, share: 0, ming_share: 0, loss_carry_forward: 0, adjusted_net: 0 };
+            branchCalcs[b] = { rev: 0, opex: 0, rental: 0, daily_exp: 0, opex_list: [], raw_usage: {}, cogs: 0, net: 0, share: 0, ming_share: 0, loss_carry_forward: 0, adjusted_net: 0 };
         });
         
         let total_rev = 0;
@@ -181,7 +191,10 @@ function calculatePL(data) {
             
             salesRecords.forEach(r => {
                 branchCalcs[b].rev += r.rev || 0;
-                
+                // Cash paid out at the stall each day — mostly ice (~฿120/day), which never
+                // reaches the expense ledger. Already branch-specific, so no allocation.
+                branchCalcs[b].daily_exp += r.exp || 0;
+
                 fruit_sales.orange += (r.or || 0);
                 fruit_sales.orange_100 += (r.or_100 || 0);
                 fruit_sales.watermelon += (r.wm || 0);
@@ -311,9 +324,11 @@ function calculatePL(data) {
         // 4. Calculate Net Profit and partner payout with loss carry-forward (ADR 0002)
         branchNames.forEach(b => {
             const branchData = branchCalcs[b];
-            
+            const blessmeRatio = profitShareFor(b, m);
+            branchData.share_pct = blessmeRatio;
+
             // Raw Net Profit
-            branchData.net = branchData.rev - branchData.opex - branchData.rental - branchData.cogs;
+            branchData.net = branchData.rev - branchData.opex - branchData.rental - branchData.cogs - branchData.daily_exp;
             
             // Apply Net Loss Carry-Forward
             branchData.loss_carry_forward = lossCarryForward[b];
@@ -331,9 +346,9 @@ function calculatePL(data) {
                 lossCarryForward[b] -= offset;
                 
                 // Blessme profit share cut
-                branchData.share = branchData.adjusted_net * PROFIT_SHARE_RATIO[b];
+                branchData.share = branchData.adjusted_net * blessmeRatio;
                 // Ming profit share cut
-                branchData.ming_share = branchData.adjusted_net * MING_SHARE_RATIO[b];
+                branchData.ming_share = branchData.adjusted_net * (1 - blessmeRatio);
             }
         });
 
@@ -344,7 +359,7 @@ function calculatePL(data) {
             { name: 'Apple', rev: fruit_sales.apple * PRICES.apple, cost: fruit_costs['Apple'], cups: fruit_sales.apple },
             { name: 'Coconut', rev: fruit_sales.coconut * PRICES.coconut, cost: fruit_costs['Coconut'], cups: fruit_sales.coconut },
             { name: 'Young Coco', rev: fruit_sales.young * PRICES.young, cost: 0, cups: fruit_sales.young },
-            { name: 'Guava', rev: fruit_sales.guava * PRICES.guava, cost: 0, cups: fruit_sales.guava },
+            { name: 'Guava', rev: fruit_sales.guava * PRICES.guava, cost: fruit_costs['Guava'], cups: fruit_sales.guava },
             { name: 'Pineapple', rev: fruit_sales.pineapple * PRICES.pineapple, cost: fruit_costs['Pineapple'], cups: fruit_sales.pineapple }
         ].map(f => ({ ...f, roi: f.cost > 0 ? ((f.rev - f.cost) / f.cost * 100).toFixed(1) + '%' : 'N/A' }));
 
@@ -360,13 +375,15 @@ function calculatePL(data) {
                 rev: branchCalcs[b].rev,
                 rental: branchCalcs[b].rental,
                 opex: branchCalcs[b].opex,
+                daily_exp: branchCalcs[b].daily_exp,
                 opex_list: branchCalcs[b].opex_list,
                 cogs: branchCalcs[b].cogs,
                 net: branchCalcs[b].net,
                 loss_carry_forward: branchCalcs[b].loss_carry_forward,
                 adjusted_net: branchCalcs[b].adjusted_net,
                 share: branchCalcs[b].share,
-                ming_share: branchCalcs[b].ming_share
+                ming_share: branchCalcs[b].ming_share,
+                share_pct: branchCalcs[b].share_pct
             };
         });
     });
@@ -380,7 +397,7 @@ function calculatePL(data) {
         fruit_performance: []
     };
     branchNames.forEach(b => {
-        annual[b.toLowerCase()] = { rev: 0, opex: 0, rental: 0, opex_list: [], cogs: 0, net: 0, share: 0, ming_share: 0, loss_carry_forward: 0, adjusted_net: 0 };
+        annual[b.toLowerCase()] = { rev: 0, opex: 0, rental: 0, daily_exp: 0, opex_list: [], cogs: 0, net: 0, share: 0, ming_share: 0, loss_carry_forward: 0, adjusted_net: 0 };
     });
 
     months.forEach(m => {
@@ -392,8 +409,10 @@ function calculatePL(data) {
             annual[b.toLowerCase()].rev += r[b.toLowerCase()].rev;
             annual[b.toLowerCase()].rental += r[b.toLowerCase()].rental || 0;
             annual[b.toLowerCase()].opex += r[b.toLowerCase()].opex;
+            annual[b.toLowerCase()].daily_exp += r[b.toLowerCase()].daily_exp || 0;
             annual[b.toLowerCase()].cogs += r[b.toLowerCase()].cogs;
             annual[b.toLowerCase()].net += r[b.toLowerCase()].net;
+            annual[b.toLowerCase()].adjusted_net += r[b.toLowerCase()].adjusted_net || 0;
             annual[b.toLowerCase()].share += r[b.toLowerCase()].share;
             annual[b.toLowerCase()].ming_share += r[b.toLowerCase()].ming_share || 0;
             annual[b.toLowerCase()].opex_list = annual[b.toLowerCase()].opex_list.concat(r[b.toLowerCase()].opex_list);
@@ -404,6 +423,13 @@ function calculatePL(data) {
         });
         
         annual.daily_cogs = annual.daily_cogs.concat(r.daily_cogs || []);
+    });
+
+    // B1 paid 60/40 before Jul26 and 70/30 after, so the year-to-date label is the
+    // blended rate actually paid, not whichever rate happens to be current.
+    branchNames.forEach(b => {
+        const a = annual[b.toLowerCase()];
+        a.share_pct = a.adjusted_net > 0 ? a.share / a.adjusted_net : profitShareFor(b, months[months.length - 1]);
     });
 
     // Recalculate annual fruit performance from sums of sales and costs
@@ -440,7 +466,7 @@ function calculatePL(data) {
         { name: 'Apple', rev: annual_fruit_sales.apple * PRICES.apple, cost: annual_fruit_costs['Apple'], cups: annual_fruit_sales.apple },
         { name: 'Coconut', rev: annual_fruit_sales.coconut * PRICES.coconut, cost: annual_fruit_costs['Coconut'], cups: annual_fruit_sales.coconut },
         { name: 'Young Coco', rev: annual_fruit_sales.young * PRICES.young, cost: 0, cups: annual_fruit_sales.young },
-        { name: 'Guava', rev: annual_fruit_sales.guava * PRICES.guava, cost: 0, cups: annual_fruit_sales.guava },
+        { name: 'Guava', rev: annual_fruit_sales.guava * PRICES.guava, cost: annual_fruit_costs['Guava'], cups: annual_fruit_sales.guava },
         { name: 'Pineapple', rev: annual_fruit_sales.pineapple * PRICES.pineapple, cost: annual_fruit_costs['Pineapple'], cups: annual_fruit_sales.pineapple }
     ].map(f => ({ ...f, roi: f.cost > 0 ? ((f.rev - f.cost) / f.cost * 100).toFixed(1) + '%' : 'N/A' }));
 
@@ -454,6 +480,9 @@ module.exports = {
     YIELDS,
     COSTS,
     NON_PL_BUCKETS,
+    PROFIT_SHARE_EFFECTIVE_MONTH,
+    monthIndex,
+    profitShareFor,
     isProfitDistribution,
     normalizeExpense,
     calculateTheoreticalRevenue,

@@ -3,7 +3,7 @@
 //   1. partner profit-share payouts never land in COGS/OPEX
 //   2. EXCLUDED rows are skipped by calculatePL (not swept into OPEX)
 const assert = require('assert');
-const { normalizeExpense, isProfitDistribution, calculatePL } = require('./Sales_System_Automation/logic/business_rules');
+const { normalizeExpense, isProfitDistribution, calculatePL, profitShareFor, monthIndex } = require('./Sales_System_Automation/logic/business_rules');
 
 const row = (over) => ({ date: '02/01/2026', month: 'Jan26', bucket: 'COGS', cat: 'Ice', desc: '', amt: 1000, branch: 'B1', ...over });
 
@@ -68,5 +68,26 @@ const shared = calculatePL({
 assert.strictEqual(shared.b1.cogs + shared.b2.cogs + shared.b3.cogs, shared.total_cogs, 'allocation loses no baht');
 assert.strictEqual(shared.b1.cogs, 600 + 600, 'orange by usage + packaging by revenue');
 assert.strictEqual(shared.b2.cogs, 200 + 400);
+
+// --- profit share: flat 70/30 from Jul26, history keeps the rate actually paid ---
+assert.strictEqual(profitShareFor('B1', 'Jun26'), 0.60, 'B1 was 60/40 before Jul26');
+assert.strictEqual(profitShareFor('B1', 'Jul26'), 0.70, 'B1 switches to 70/30 in Jul26');
+assert.strictEqual(profitShareFor('B1', 'Aug26'), 0.70, 'and stays there');
+assert.strictEqual(profitShareFor('B2', 'Apr26'), 0.70, 'B2 was always 70/30');
+assert.strictEqual(profitShareFor('B3', 'Jul26'), 0.70, 'B3 was always 70/30');
+assert.ok(monthIndex('Jan27') > monthIndex('Dec26'), 'month index crosses the year boundary');
+
+// the switch must show up in the payout, not just the lookup
+const shareRun = calculatePL({
+    branches: { B1: { sales: { Jun26: [{ rev: 10000 }], Jul26: [{ rev: 10000 }] } }, B2: { sales: {} }, B3: { sales: {} } },
+    expenses: []
+});
+const satang = (a, b, msg) => assert.ok(Math.abs(a - b) < 0.01, `${msg} (got ${a}, want ${b})`);
+satang(shareRun.Jun26.b1.share, 6000, 'Jun26 pays Blessme 60%');
+satang(shareRun.Jun26.b1.ming_share, 4000, 'Jun26 pays Ming 40%');
+satang(shareRun.Jul26.b1.share, 7000, 'Jul26 pays Blessme 70%');
+satang(shareRun.Jul26.b1.ming_share, 3000, 'Jul26 pays Ming 30%');
+satang(shareRun.Jun26.b1.share + shareRun.Jun26.b1.ming_share, shareRun.Jun26.b1.adjusted_net, 'split is exhaustive');
+satang(shareRun.all.b1.share_pct, 0.65, 'annual label is the blended rate actually paid');
 
 console.log('✅ expense rules OK');

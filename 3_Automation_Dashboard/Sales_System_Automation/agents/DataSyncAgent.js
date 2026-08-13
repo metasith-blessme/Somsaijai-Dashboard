@@ -5,7 +5,7 @@ const ai = new GoogleGenAI();
 
 class DataSyncAgent {
     constructor() {
-        this.model = 'gemini-3.1-pro';
+        this.model = process.env.GEMINI_AGENT_MODEL || 'gemini-3.1-pro';
         this.systemInstruction = `You are DataSyncAgent.
 Your job is to read pending_verification.json and output a JSON array of exact commands or actions needed to update SomSaiJai_Dashboard_B1_2026.xlsx and data.json.
 Focus on accurate routing (B1 vs B2) and ensuring BUILT_IN data in SomSaiJai_Dashboard.html matches.`;

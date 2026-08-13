@@ -1,6 +1,6 @@
 # Repository Guidelines
 
-Sales data analysis and dashboard system for **Som Sai Jai** — a Thai cold-press juice bar (multi-branch). Data originates from handwritten daily sales report photos uploaded via LINE.
+Sales data analysis and dashboard system for **Som Sai Jai** — a Thai cold-press juice bar (multi-branch B1, B2, B3). Data originates from handwritten daily sales report photos uploaded via LINE and POS daily revenue summaries.
 
 ---
 
@@ -13,6 +13,9 @@ B1/                            — Branch 1 Data (operating since Jan 2026)
 B2/                            — Branch 2 Data (opened 18 Apr 2026)
   1_Sale/<Month>/              — Handwritten sales report images (.jpg)
   2_Expenses/<Month>/          — Expense receipt images + cost_<month>.md
+B3/                            — Branch 3 Data (opened 11 Jul 2026 — Platinum Pop)
+  1_Sale/<Month>/              — Handwritten sales report images (.jpg)
+  2_Expenses/<Month>/          — Expense receipt images + cost_<month>.md
 3_Automation_Dashboard/
   ├── index.html               — Live dashboard (v3.2.2, mobile-responsive, fetches JSON at runtime)
   ├── data.json                — Master sales data (generated from Excel — DO NOT edit directly)
@@ -21,6 +24,7 @@ B2/                            — Branch 2 Data (opened 18 Apr 2026)
   ├── SomSaiJai_Dashboard.html — Standalone backup (embedded BUILT_IN data)
   ├── SomSaiJai_Dashboard_B1_2026.xlsx — Branch 1 Excel (Source of Truth)
   ├── SomSaiJai_Dashboard_B2_2026.xlsx — Branch 2 Excel (Source of Truth)
+  ├── SomSaiJai_Dashboard_B3_2026.xlsx — Branch 3 Excel (Source of Truth)
   ├── Sales_System_Automation/ — Node.js scripts + 4-Agent pipeline + business logic
   ├── pending_verification.json — Staging area before import
   ├── gen_report.js            — P&L report generator → reports_data.json
@@ -32,37 +36,6 @@ B2/                            — Branch 2 Data (opened 18 Apr 2026)
 
 **Critical:** `index.html` is the live dashboard at https://somsaijailive.vercel.app. `SomSaiJai_Dashboard.html` is a backup with hardcoded data — both must stay in sync when adding fields or changing render logic.
 
-**Deployed files** (via .vercelignore): Only `index.html`, `data.json`, `reports_data.json`, `stock_ledger.json`, `SomSaiJai_Dashboard.html`, and `vercel.json` are deployed to Vercel.
-
----
-
-## Key Commands
-
-```bash
-# Deploy dashboard (must run from this exact directory)
-cd 3_Automation_Dashboard
-npx vercel --prod
-
-# Process new sales images (full autonomous pipeline)
-npm run pipeline ../B1/1_Sale/May26/LINE_ALBUM_xxxx.jpg
-
-# Manual OCR workflow
-npm run process-sales Apr26 B1     # OCR process specific month+branch
-npm run verify-sales               # Staging → Excel
-npm run update-dashboard           # Excel → data.json + gen_report + deploy
-npm run sync                       # verify + update + deploy (all-in-one)
-
-# Stock management
-npm run stock-in orange 50         # Record raw material purchase
-npm run audit-stock                # Stock reconciliation audit
-
-# Expense processing
-npm run process-expenses           # OCR expense receipt images
-
-# Utility
-npm run deploy                     # Direct Vercel deploy only
-```
-
 ---
 
 ## Data Flow
@@ -73,127 +46,26 @@ npm run deploy                     # Direct Vercel deploy only
 LINE images → Visual OCR → pending_verification.json → verify-sales → Excel → update-dashboard → data.json + reports_data.json + Vercel deploy
 ```
 
-**Preferred method is visual OCR**, not scripts. When new sales images arrive:
-
-1. Present the plan for the batch and wait for approval before touching any files.
-2. Read the image — extract `rev`, `cash`, `scan`, `exp`, cup counts, raw materials used.
-3. Verify: `cash + scan = rev`. If mismatch, derive `scan = rev - cash`.
-4. If a circled/written total disagrees with the sum of individual cup counts, ask the user which to use — never decide unilaterally.
-5. Calculate `theoretical_rev` (mandatory anti-cheat: sum of cups × prices).
-6. Present an audit table before writing anything.
-7. If the user reports an updated cost figure, ask whether it replaces the existing value or is additive before writing.
-8. Write to Excel (Branch-specific `.xlsx` file).
-9. Run `npm run update-dashboard` to regenerate `data.json` + `reports_data.json`.
-10. Deploy to Vercel.
-
 ---
 
 ## Business Rules & Profit Sharing
 
-- **Branch 1 (B1):** Profit shared at **60%** of Net Profit to Blessme, and **40%** to Ming.
-- **Branch 2 (B2):** Profit shared at **70%** of Net Profit to Blessme, and **30%** to Ming.
+- **Profit share is effective-dated.** From **Jul26 onward it is 70% Blessme / 30% Ming on every branch**. Before Jul26, B1 was 60/40 and B2/B3 were 70/30. `profitShareFor(branch, month)` in `business_rules.js` is the only place this is decided; each month's report carries the rate it was paid at as `share_pct`. Never rewrite a historical rate — move the effective month instead.
 - **Shared COGS:** Split into two types (see ADR 0001):
-  - **Fruit COGS** — allocated by actual branch usage from daily sales.
-  - **Revenue-Proportional COGS** (Ice + Packaging) — allocated by revenue share.
+  - **Fruit COGS** — allocated by actual branch usage from daily sales. For POS-only reporting branches without daily paper tallies (like B3), raw material usage is derived from revenue and sales mix so that fruit COGS is allocated fairly.
+  - **Revenue-Proportional COGS & Shared Rental** (Ice + Packaging + Stock Rent) — allocated by revenue share or explicitly partitioned (e.g. ฿12k Stock rent split ฿4k per branch).
 - **Net Loss Carry-Forward** (see ADR 0002): Branch losses are quarantined per-branch, carried forward to offset future profits of that branch only.
-- **Fixed costs** are hardcoded in `PARAMS.fixed` in `index.html`:
-  - B1: Rent ฿31,000 + Salary ฿35,000 + Utilities ฿6,000 = **฿72,000/month**
-  - B2: Rent ฿18,000 + Salary ฿30,000 + Utilities ฿6,000 = **฿54,000/month**
-
-### Known Expense-Categorization Pitfalls (learned from Jan–Jun26 audit, Jul 2026)
-
-- **Generic "Stock" bulk-purchase entries are COGS, category `Stock`** — not `OPEX/Investment` and not `CAPEX`. `CAPEX/Investment` is reserved for genuine equipment/fixtures only (kiosk build-out, signage, extraction machine, renovation). A slip matching คีออส/ป้าย/เครื่องสกัด/ตกแต่ง that's really a bulk ice/packaging restock is `COGS/Stock`, not `Investment`.
-- **Partner profit-share payouts must never be recorded as an expense** (not COGS, not OPEX). Transfers noting a % split (e.g. "ส่วนแบ่ง60เปอ") are distributions made *after* net profit is calculated — booking them as an expense double-subtracts them before `PROFIT_SHARE_RATIO` even runs. If found miscategorized, zero the amount and set bucket `EXCLUDED` / category `Profit Distribution` rather than recoding to another expense bucket.
-- **A legacy/unexplained "Ice" mis-tag existed on ~24 historical rows (Jan–Jun26)** with no ice content at all (tolls, medical bills, hardware, electricity, a pushcart, even profit-share payouts) — `categorize()` in `process_expenses.js` doesn't currently produce this behavior for those inputs, so any `COGS/Ice` row with a non-ice description is suspect; verify against the source slip image before trusting it.
-- Correction trail: Jul 2026 cleanup touched `Daily_Expenses` sheets in both branch Excels + `Sales_System_Automation/manual_expenses.json` (34 corrections, Jan–Jun26 B1/B2) — see git log around that date for the exact diffs.
+- **Fixed costs** are configured in `PARAMS.fixed` in `index.html`:
+  - **B1:** Rent ฿35,000 + Salary ฿35,000 + Utilities ฿4,000 = **฿74,000/month**
+  - **B2:** Rent ฿25,000 (Jul–Sep discounted rate, normally ฿30,000) + Salary ฿30,000 + Utilities ฿4,000 = **฿59,000/month**
+  - **B3:** Rent ฿19,000 + Salary ฿46,500 (3 staff × ฿500/day × 31 days) + Utilities ฿4,000 = **฿69,500/month**
 
 ---
 
-## Product SKUs & Prices
-
-| SKU | Data Field (cups) | Material Field | Price (฿) | Material Unit |
-|-----|-------------------|----------------|-----------|---------------|
-| Orange | `or` | `uo` | 60 | Basket (฿700) |
-| Orange Premium | `or_100` | — | 100 | — |
-| Watermelon | `wm` | `uw` | 50 | Pcs (฿35) |
-| Mango | `mg` | `umg` | 90 | Kg (฿150) |
-| Coconut | `co` | `uco_raw` | 60 | Pcs (฿35) |
-| Young Coconut | `yco` | `uyco` | 90 | — |
-| Apple | `ap` | `uap` | 60 | Pcs (฿30) |
-| Guava | `guava` | `uguava` | 60 | Pcs |
-| Pineapple | `pineapple` | `upine` | — | Pcs |
-
-**Coconut sub-fields:** `uco_meat`, `uco_water`, `uco_conden`, `uco_raw` — never use the old single `uco` field.
-**Bottles:** `bb` (bottled big), `bs` (bottled small) — tracked in data but not in dashboard UI.
-
----
-
-## Data Conventions
-
-- **Date format:** `DD/MM/YYYY`
-- **Adding a new field:** backfill all existing entries with `0` so charts don't get `undefined`.
-- **Image filenames:** `LINE_ALBUM_..._YYMMDD_seq.jpg` — upload date is typically +1 day from sales date.
-- **Audit fields per record:** `audit.theoretical_rev`, `audit.rev_diff`, `audit.is_flagged`
-- **Expense fields:** `{ date, month, bucket, cat, desc, amt, branch }` where `bucket` = "COGS" or "OPEX"
-
----
-
-## data.json Structure
-
-```json
-{
-  "branches": {
-    "B1": { "sales": { "Jan26": [...], "Feb26": [...], "Mar26": [...], "Apr26": [...], "May26": [...] } },
-    "B2": { "sales": { "Apr26": [...], "May26": [...] } }
-  },
-  "expenses": [{ "date", "month", "bucket", "cat", "desc", "amt", "branch" }]
-}
-```
-
-Each sales record: `{ d, day, rev, cash, exp, net, scan, or, or_100, wm, mg, co, ap, yco, guava, pineapple, tot, bb, bs, uo, uw, umg, uco_meat, uco_water, uco_conden, uco_raw, uap, uguava, upine, uyco, audit: { theoretical_rev, rev_diff, is_flagged } }`
-
----
-
-## Domain Glossary (from CONTEXT.md)
-
-- **Wastage** — physical loss/spoil in raw material inventory (avoid: loss, shrinkage)
-- **Wastage Allocation** — distributing wastage proportionally by branch usage
-- **Theoretical Yield Ratio** — historical avg cups per raw material unit (conversion standard)
-- **Derived Usage** — auto-calculated material consumption when reports have missing/invalid entries
-- **Inventory Deficit** — negative stock ledger balance (allowed, shown in red, not an error)
-- **Stock-In** — purchase logging event via `npm run stock-in`
-
----
-
-## Coding Style
+## Coding Style & Architecture
 
 - All dashboard logic lives in `index.html` as a single-file app (vanilla JS + Chart.js 4.4.1).
-- CDN: Chart.js 4.4.1 + SheetJS 0.18.5 (SheetJS loaded but unused in index.html currently)
-- Match the existing inline style pattern — no build tools, no frameworks.
-- Dashboard is mobile-responsive with hamburger menu (≤768px) and tablet sidebar (≤1024px).
-- CSS classes: `glass-card` (glassmorphism container), `kpi-row` (auto-fit grid), `kpi-premium` (KPI card), `dashboard-grid` (2-col layout), `premium-table` (data table), `badge-b1`/`badge-b2` (branch labels)
-- 7 Chart.js charts: `chartRevPay` (line), `chartBreakEven` (line), `chartVariance` (bar), `chartYield` (horizontal bar), `chartProductMix` (doughnut), `chartDayHeatmap` (bar), `chartPayMix` (pie)
-- 5 nav views: `finance` (default), `report`, `inventory`, `analytics`, `log`
-- When adding a new cup SKU or data field, update in order: Excel → `data.json` (via update-dashboard) → `index.html` (renderLog hdr + renderInventory ingredients) → `SomSaiJai_Dashboard.html` (renderTable hdr + BUILT_IN).
-
----
-
-## Architecture Decisions
-
-- **ADR 0001 (docs/adr/):** Hybrid Shared COGS Allocation — Fruit by actual usage, Ice+Packaging by revenue proportion.
-- **ADR 0002 (docs/adr/):** Net Loss Carry-Forward — Branch losses quarantined per-branch only.
-
----
-
-## Agent-Specific Notes
-
-- **Never reintroduce `uco`** — it has been split into 4 sub-fields as of Apr 2026.
-- Each branch has its own Excel file for safety and isolation.
-- `update_dashboard.js` dynamically maps columns (handles format changes between Q1 and Q2).
-- `gen_report.js` generates `reports_data.json` with monthly + annual P&L.
-- `sync_dashboard_html.js` syncs `data.json` into `SomSaiJai_Dashboard.html`.
-- Business logic module at `Sales_System_Automation/logic/business_rules.js` — exports PRICES, YIELDS, COSTS.
-- Audit thresholds at `Sales_System_Automation/config/audit_params.json` (revenue: ±500฿/±5%, stock: ±10%).
-- Environment: `GEMINI_API_KEY` required for all OCR/pipeline scripts.
-- Pipeline agents use: `gemini-3.1-pro` (ImageExtractor, DataSync), `gemini-3.5-flash` (QADeployer, DocGen).
+- Single source of truth for P&L math: `Sales_System_Automation/logic/business_rules.js`.
+- Branch switcher dynamically enumerates `DATA.branches` (`['B1', 'B2', 'B3']`).
+- When adding a new field or branch, update: Branch Excels → `business_rules.js` → `update_dashboard.js` → `index.html` → `SomSaiJai_Dashboard.html`.
 - Live URL: **https://somsaijailive.vercel.app**

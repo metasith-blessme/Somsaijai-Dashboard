@@ -6,7 +6,7 @@ const ai = new GoogleGenAI(); // Assumes GEMINI_API_KEY is in env
 
 class ImageExtractorAgent {
     constructor() {
-        this.model = 'gemini-3.1-pro';
+        this.model = process.env.GEMINI_OCR_MODEL || 'gemini-3.1-pro';
         this.systemInstruction = `You are ImageExtractorAgent for SomSaiJai.
 Extract sales data from handwritten daily report images.
 Return JSON ONLY.

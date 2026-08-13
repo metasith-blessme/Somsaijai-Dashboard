@@ -781,11 +781,20 @@ let charts = {};
 
 const PARAMS = {
     prices: { orange: 60, orange_premium: 100, watermelon: 50, apple: 60, mango: 90, coconut: 60, young: 90, guava: 60 },
-    profitShare: { B1: 0.60, B2: 0.70, B3: 0.70 },
+    // Current rate — flat 70/30 on every branch from Jul26. Historical months kept
+    // their own rate (B1 was 60/40); those come from report share_pct via sharePct().
+    profitShare: { B1: 0.70, B2: 0.70, B3: 0.70 },
     fixed: { B1: 35000 + 35000 + 4000, B2: 25000 + 30000 + 4000, B3: 19000 + 46500 + 4000 }
 };
 
 const fmt = v => (v || 0).toLocaleString(undefined, {minimumFractionDigits:0, maximumFractionDigits:0});
+// The share a branch was actually paid at in the period on screen. Falls back to the
+// current rate only when the report has no share_pct (pre-Jul26 reports_data.json).
+const sharePct = bk => {
+    const r = REPORTS_DATA && REPORTS_DATA[currentMonth];
+    const b = r && r[bk.toLowerCase()];
+    return (b && typeof b.share_pct === 'number') ? b.share_pct : (PARAMS.profitShare[bk] || 0);
+};
 const sum = (arr, k) => arr.reduce((s, r) => s + (Number(r[k]) || 0), 0);
 const MONTH_ORDER = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 const monthSort = (a, b) => {
@@ -954,9 +963,9 @@ function renderKPIs(sales) {
 
 function renderFinance(sales, expenses) {
     const branchKeys = Object.keys(DATA.branches);
-    let tRev = 0, tMat = 0, tExp = 0, tRent = 0, tOpex = 0, tNet = 0, tFix = 0;
-    const bd = {}; // per-branch data: bd.B1 = { rev, mat, rent, opex, exp, net, share, mingShare, lossCF }
-    branchKeys.forEach(bk => { bd[bk] = { rev: 0, mat: 0, rent: 0, opex: 0, exp: 0, net: 0, share: 0, mingShare: 0, lossCF: 0 }; });
+    let tRev = 0, tMat = 0, tExp = 0, tRent = 0, tOpex = 0, tNet = 0, tFix = 0, tDaily = 0;
+    const bd = {}; // per-branch data: bd.B1 = { rev, mat, rent, opex, daily, exp, net, share, mingShare, lossCF }
+    branchKeys.forEach(bk => { bd[bk] = { rev: 0, mat: 0, rent: 0, opex: 0, daily: 0, exp: 0, net: 0, share: 0, mingShare: 0, lossCF: 0 }; });
     
     // Totals must cover only the branches on screen, otherwise selecting B2 shows
     // group revenue against B2's rent. bd[] already holds ADR-0001 allocated COGS.
@@ -969,13 +978,14 @@ function renderFinance(sales, expenses) {
             if (r[bl]) {
                 bd[bk].rev = r[bl].rev; bd[bk].mat = r[bl].cogs;
                 bd[bk].rent = r[bl].rental || 0; bd[bk].opex = r[bl].opex || 0;
+                bd[bk].daily = r[bl].daily_exp || 0;
                 bd[bk].exp = bd[bk].rent + bd[bk].opex;
                 bd[bk].net = r[bl].net; bd[bk].share = r[bl].share;
                 bd[bk].mingShare = r[bl].ming_share || 0;
                 bd[bk].lossCF = r[bl].loss_carry_forward || 0;
             }
         });
-        visibleKeys.forEach(bk => { tRev += bd[bk].rev; tMat += bd[bk].mat; tRent += bd[bk].rent; tOpex += bd[bk].opex; tExp += bd[bk].exp; tNet += bd[bk].net; });
+        visibleKeys.forEach(bk => { tRev += bd[bk].rev; tMat += bd[bk].mat; tRent += bd[bk].rent; tOpex += bd[bk].opex; tDaily += bd[bk].daily; tExp += bd[bk].exp; tNet += bd[bk].net; });
     } else {
         branchKeys.forEach(bk => {
             const bs = sales.filter(s => s.branch === bk);
@@ -983,12 +993,13 @@ function renderFinance(sales, expenses) {
             bd[bk].mat = bs.reduce((s, r) => s + ((r.uo||0)*700 + (r.uw||0)*35 + (r.uap||0)*30 + (r.umg||0)*150 + (r.uco_raw||0)*35), 0);
             bd[bk].rent = expenses.filter(e => e.branch === bk && e.cat === 'Rental').reduce((s,e) => s + e.amt, 0);
             bd[bk].opex = expenses.filter(e => e.branch === bk && e.cat !== 'Rental').reduce((s,e) => s + e.amt, 0);
+            bd[bk].daily = sum(bs, 'exp');
             bd[bk].exp = bd[bk].rent + bd[bk].opex;
-            bd[bk].net = bd[bk].rev - bd[bk].mat - bd[bk].exp;
+            bd[bk].net = bd[bk].rev - bd[bk].mat - bd[bk].exp - bd[bk].daily;
             bd[bk].share = Math.max(0, bd[bk].net * (PARAMS.profitShare[bk] || 0));
             bd[bk].mingShare = Math.max(0, bd[bk].net * (1 - (PARAMS.profitShare[bk] || 0)));
         });
-        visibleKeys.forEach(bk => { tRev += bd[bk].rev; tMat += bd[bk].mat; tRent += bd[bk].rent; tOpex += bd[bk].opex; tExp += bd[bk].exp; tNet += bd[bk].net; });
+        visibleKeys.forEach(bk => { tRev += bd[bk].rev; tMat += bd[bk].mat; tRent += bd[bk].rent; tOpex += bd[bk].opex; tDaily += bd[bk].daily; tExp += bd[bk].exp; tNet += bd[bk].net; });
     }
 
     const activeMonths = currentMonth === 'all' ? [...new Set(sales.map(s => s.month))] : [currentMonth];
@@ -1009,7 +1020,9 @@ function renderFinance(sales, expenses) {
         <tr style="color:var(--muted)"><td>&nbsp;&nbsp;${bk} Rental</td><td class="num">฿${fmt(bd[bk].rent)}</td><td class="num">${tRev?(bd[bk].rent/tRev*100).toFixed(1)+'%':''}</td></tr>`).join('') : ''}
 
         <tr><td><b>Other OPEX</b></td><td class="num" style="color:var(--red)">- ฿${fmt(tOpex)}</td><td class="num">${tRev?(tOpex/tRev*100).toFixed(1)+'%':''}</td></tr>
-        
+
+        <tr><td><b>Daily Expenses</b> <span style="color:var(--muted); font-weight:400">(ice etc., from sales sheets)</span></td><td class="num" style="color:var(--red)">- ฿${fmt(tDaily)}</td><td class="num">${tRev?(tDaily/tRev*100).toFixed(1)+'%':''}</td></tr>
+
         <tr style="background:rgba(0,0,0,0.05); font-weight:800">
             <td><b>Net Operational Profit</b></td>
             <td class="num" style="color:${tNet>=0?'var(--green)':'var(--red)'}">฿${fmt(tNet)}</td>
@@ -1018,7 +1031,7 @@ function renderFinance(sales, expenses) {
     `;
 
     document.getElementById('profitShareBody').innerHTML = visibleKeys.map(bk => {
-        const pct = Math.round((PARAMS.profitShare[bk] || 0) * 100);
+        const pct = Math.round(sharePct(bk) * 100);
         const mingPct = 100 - pct;
         return `<tr>
             <td><span class="badge badge-${bk.toLowerCase()}">${bk}</span> (${pct}% / ${mingPct}%)</td>
@@ -1484,7 +1497,7 @@ function renderReport(sales) {
                         const bl = bk.toLowerCase();
                         const bd = r[bl] || {};
                         const gp = (bd.rev || 0) - (bd.cogs || 0);
-                        const pct = Math.round((PARAMS.profitShare[bk] || 0) * 100);
+                        const pct = Math.round(sharePct(bk) * 100);
                         const lcf = bd.loss_carry_forward || 0;
                         const lossOffset = lcf > 0 ? Math.min(bd.net >= 0 ? bd.net : 0, lcf) : 0;
                         totalLossOffset += lossOffset;
@@ -1650,8 +1663,8 @@ function renderReport(sales) {
     } else if (sales.length > 0) {
         insights.push(`Audit: All <b>${sales.length}</b> trading days passed audit — no flagged variances.`);
     }
-    insights.push(`Blessme total share: <b style="color:var(--accent)">฿${fmt(totalShare)}</b> (${branchKeys.map(bk => `${bk}: ฿${fmt((r[bk.toLowerCase()]||{}).share||0)} @ ${Math.round((PARAMS.profitShare[bk]||0)*100)}%`).join(' | ')}).`);
-    insights.push(`Ming total share: <b style="color:var(--accent)">฿${fmt(totalMingShare)}</b> (${branchKeys.map(bk => `${bk}: ฿${fmt((r[bk.toLowerCase()]||{}).ming_share||0)} @ ${Math.round((1-(PARAMS.profitShare[bk]||0))*100)}%`).join(' | ')}).`);
+    insights.push(`Blessme total share: <b style="color:var(--accent)">฿${fmt(totalShare)}</b> (${branchKeys.map(bk => `${bk}: ฿${fmt((r[bk.toLowerCase()]||{}).share||0)} @ ${Math.round(sharePct(bk)*100)}%`).join(' | ')}).`);
+    insights.push(`Ming total share: <b style="color:var(--accent)">฿${fmt(totalMingShare)}</b> (${branchKeys.map(bk => `${bk}: ฿${fmt((r[bk.toLowerCase()]||{}).ming_share||0)} @ ${Math.round((1-sharePct(bk))*100)}%`).join(' | ')}).`);
 
     const sec7 = `
         <div class="glass-card" style="padding:20px; border:none; background:rgba(0,0,0,0.02)">

@@ -1,19 +1,22 @@
 # SomSaiJai Automation System (Multi-Branch)
 
-This project automates data extraction and visualization for SomSaiJai across multiple branches.
+This project automates data extraction and visualization for SomSaiJai across multiple branches (B1, B2, B3).
 **Live dashboard:** https://somsaijailive.vercel.app (v3.2.2 — mobile-responsive)
 
 ## Project Structure
-- `B1/`: Branch 1 Data
+- `B1/`: Branch 1 Data (operating since Jan 2026)
   - `1_Sale/`: Monthly sales report images (LINE photos).
   - `2_Expenses/`: Monthly expense receipt images.
-- `B2/`: Branch 2 Data
+- `B2/`: Branch 2 Data (opened 18 Apr 2026)
+  - `1_Sale/`: Monthly sales report images.
+  - `2_Expenses/`: Monthly expense receipt images.
+- `B3/`: Branch 3 Data (opened 11 Jul 2026 — Platinum Pop)
   - `1_Sale/`: Monthly sales report images.
   - `2_Expenses/`: Monthly expense receipt images.
 - `3_Automation_Dashboard/`: 
   - Automation scripts (`Sales_System_Automation/`).
-  - Master Excels (`SomSaiJai_Dashboard_B[X]_2026.xlsx`) — **Source of Truth per Branch**.
-  - HTML Dashboard (`index.html`) — Unified "Premium Glass" UI, mobile-responsive with hamburger nav.
+  - Master Excels (`SomSaiJai_Dashboard_B1_2026.xlsx`, `SomSaiJai_Dashboard_B2_2026.xlsx`, `SomSaiJai_Dashboard_B3_2026.xlsx`) — **Source of Truth per Branch**.
+  - HTML Dashboard (`index.html`) — Unified "Premium Glass" UI, mobile-responsive with multi-branch toggles.
   - Deployment Config (`vercel.json`) — Essential for routing and cache stability.
   - Data storage (`data.json`, `reports_data.json`, `pending_verification.json`, `stock_ledger.json`).
 
@@ -32,61 +35,40 @@ When processing new sale images:
 5. If the user reports an updated cost figure, ask whether it replaces the existing value or is additive before writing.
 
 ## Business Rules & Profit Sharing
-- **Branch 1 (B1):** Profit shared at **60%** of Net Profit to Blessme, and **40%** to Ming. Rent is ฿31,000, Salary ฿35,000, Utilities ฿6,000.
-- **Branch 2 (B2):** Profit shared at **70%** of Net Profit to Blessme, and **30%** to Ming. Rent is ฿18,000, Salary ฿30,000, Utilities ฿6,000.
-- **Shared COGS (ADR 0001):** 
+- **Profit share (effective-dated):** From **Jul26 onward, 70% Blessme / 30% Ming on all branches**. Before Jul26, B1 was 60/40; B2/B3 were already 70/30. Decided solely by `profitShareFor(branch, month)` in `business_rules.js`; never apply a new rate retroactively to a closed month.
+- **Branch 1 (B1):** Rent ฿35,000, Salary ฿35,000, Utilities ฿4,000 (Total fixed: ฿74,000/mo).
+- **Branch 2 (B2):** Rent ฿25,000 (Jul–Sep discounted rate, normally ฿30,000), Salary ฿30,000, Utilities ฿4,000 (Total fixed: ฿59,000/mo).
+- **Branch 3 (B3 - Platinum Pop):** Rent ฿19,000, Salary ฿46,500 (3 staff × ฿500/day × 31 days), Utilities ฿4,000 (Total fixed: ฿69,500/mo).
+- **Shared Costs & Stock Rental (ADR 0001):** 
   - Fruits (Orange, Watermelon, Mango, Apple, Coconut, Guava, Pineapple) are allocated proportionally by **actual usage count** of each branch.
-  - Packaging, Ice, and generic Stock (e.g. ฿12k Stock split) are allocated proportionally by **revenue share**.
+  - For POS-only reporting branches without daily paper tallies (like B3), raw material usage is derived from revenue and product mix so that fruit COGS is allocated fairly.
+  - Packaging, Ice, and generic Stock / Shared Rentals (e.g. ฿12k Stock Rent split ฿4k B1 / ฿4k B2 / ฿4k B3) are allocated proportionally by **revenue share** or explicitly partitioned.
 - **OPEX Rental Separation:**
-  - OPEX expenses categorized as `Rental` are separated from other general operating expenses (Other OPEX) in the dashboard P&L summaries and management report sections.
-  - Split slips (e.g., slip #15 containing ฿35k B1 Rent and ฿12k Stock) are divided into distinct daily expense rows.
+  - OPEX expenses categorized as `Rental` are separated from general operating expenses (Other OPEX) in P&L summaries and management reports.
 - **Net Loss Carry-Forward (ADR 0002):** Branch losses carried forward to offset future profit of that branch only.
 
-### Known Expense-Categorization Pitfalls (learned from Jan–Jun26 audit, Jul 2026)
+### Known Expense-Categorization Pitfalls (learned from Jan–Jul26 audit)
 - **Generic "Stock" bulk-purchase entries are COGS, category `Stock`** — not `OPEX/Investment` and not `CAPEX`. `CAPEX/Investment` is reserved for genuine equipment/fixtures only (kiosk build-out, signage, extraction machine, renovation).
-- **Partner profit-share payouts must NEVER be recorded as an expense** (not COGS, not OPEX). Transfers noting a % split (e.g. "ส่วนแบ่ง60เปอ") are distributions made *after* net profit is calculated — booking them as an expense double-subtracts them before the profit-share ratio even runs. If found miscategorized, zero the amount and mark bucket `EXCLUDED` / category `Profit Distribution`.
-- **A legacy/unexplained "Ice" mis-tag existed on ~24 historical rows (Jan–Jun26)** with no ice content at all (tolls, medical bills, hardware, electricity, a pushcart, even profit-share payouts). Treat any `COGS/Ice` row with a non-ice-sounding description as suspect and verify against the source slip image.
+- **Partner profit-share payouts must NEVER be recorded as an expense** (not COGS, not OPEX). Transfers noting a % split (e.g. "ส่วนแบ่ง60เปอ") are distributions made *after* net profit is calculated — set bucket `EXCLUDED` / category `Profit Distribution`.
 
 ## Execution Workflow (from `3_Automation_Dashboard/`)
 
 **Autonomous 4-Agent Pipeline**
-We have consolidated the workflow into a single command that runs 4 specialized AI agents (ImageExtractor, DataSync, DocGen, QADeployer) in sequence.
-
-To process new sales images and deploy the entire system automatically:
 ```bash
 cd 3_Automation_Dashboard
 npm run pipeline ../B1/1_Sale/May26/LINE_ALBUM_xxxx.jpg
 ```
 
-**What this command does:**
-1. **Agent 1:** OCR extracts data & derives math.
-2. **Agent 2:** Syncs to B1/B2 Excel and `data.json`.
-3. **Agent 3:** Rebuilds Word documents via Python.
-4. **Agent 4:** Deploys live to Vercel and runs sanity checks.
-
 **Manual commands:**
 ```bash
 cd 3_Automation_Dashboard
-npm run process-sales Mar26     # OCR process specific month
-npm run verify-sales            # Verify pending data
-npm run update-dashboard        # Rebuild data.json from Excel
-npm run deploy                  # Deploy to Vercel
+npm run process-sales Jul26 B1   # OCR process specific month+branch
+npm run verify-sales             # Verify pending data
+npm run update-dashboard         # Rebuild data.json from Excel & deploy
+npm run deploy                   # Deploy to Vercel
 ```
 
 ## Dashboard Features
-- **Multi-Branch Toggling:** View Branch 1, Branch 2, or Aggregated "All Branches" data.
+- **Multi-Branch Toggling:** View Branch 1, Branch 2, Branch 3, or Aggregated "All Branches" data.
 - **Mobile-Responsive:** Hamburger menu on phones (≤768px), collapsed sidebar on tablets (≤1024px).
-- **Advanced BI Analytics:**
-  - **Product Velocity:** Revenue mix % per SKU.
-  - **Liquidity Ratio:** Cash vs. Scan ratio.
-  - **Inventory Yield:** Cups sold per raw material unit.
-  - **Net Contribution:** Revenue minus Variable Costs (Ice + Raw Materials).
-- **Management Reports:** 8-section P&L with COGS breakdown, audit reconciliation, fruit ROI analysis.
-- **Shared Stock System:** Live inventory deductions combine usage from ALL branches.
-
-## Architecture Notes
-- Each branch has its own Excel file for safety and isolation.
-- `update_dashboard.js` dynamically maps columns (handles format changes between Q1 and Q2).
-- `stock_ledger.json` is the global pool for physical checks and purchases.
-- Dashboard CSS includes `glass-card`, `kpi-row`, responsive breakpoints at 1024px and 768px.
-- Fixed costs are in `PARAMS.fixed` object in `index.html` — update when rent/salary changes.
+- **Management Reports:** 8-section P&L with COGS breakdown, audit reconciliation, fruit ROI analysis across B1, B2, B3.

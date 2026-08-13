@@ -1,3 +1,4 @@
+require('dotenv').config();
 const ImageExtractorAgent = require('./ImageExtractorAgent');
 const DataSyncAgent = require('./DataSyncAgent');
 const QADeployerAgent = require('./QADeployerAgent');

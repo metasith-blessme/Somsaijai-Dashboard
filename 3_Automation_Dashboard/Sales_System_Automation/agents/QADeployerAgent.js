@@ -5,7 +5,7 @@ const ai = new GoogleGenAI();
 
 class QADeployerAgent {
     constructor() {
-        this.model = 'gemini-3.5-flash';
+        this.model = process.env.GEMINI_AGENT_MODEL || 'gemini-3.5-flash';
         this.systemInstruction = `You are QADeployerAgent.
 Analyze deployment logs and provide a quick GO/NO-GO JSON response.`;
     }

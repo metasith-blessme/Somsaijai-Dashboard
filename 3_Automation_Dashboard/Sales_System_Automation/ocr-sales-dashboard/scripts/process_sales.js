@@ -104,7 +104,7 @@ async function processImages() {
         try { stagingData = JSON.parse(fs.readFileSync(STAGING_FILE, 'utf8')); } catch(e) {}
     }
 
-    const files = fs.readdirSync(SALES_DIR).filter(f => f.endsWith('.jpg') || f.endsWith('.png'));
+    const files = fs.readdirSync(SALES_DIR).filter(f => f.toLowerCase().endsWith('.jpg') || f.toLowerCase().endsWith('.png'));
     console.log(`🚀 Turbo Processing ${files.length} images for ${BRANCH}...`);
 
     const processedSales = [];
@@ -120,8 +120,9 @@ async function processImages() {
         const filePath = path.join(SALES_DIR, file);
         console.log(`📦 Processing ${file}...`);
 
-        // --- ATTEMPT: FLASH LITE (FAST) ---
-        let data = await callGemini(filePath, "gemini-3.1-flash-lite-preview", 0); // No retries to keep it fast
+        // --- ATTEMPT: GEMINI OCR MODEL ---
+        const ocrModel = process.env.GEMINI_OCR_MODEL || "gemini-3.5-flash";
+        let data = await callGemini(filePath, ocrModel, 0); // No retries to keep it fast
         
         if (data) {
             // Local Date Correction (Fix 2086 -> 2026)
@@ -143,8 +144,8 @@ async function processImages() {
             console.error(`  ❌ Failed to process ${file} (Rate limited or Error).`);
         }
         
-        // Very small delay
-        await new Promise(r => setTimeout(r, 500));
+        // ponytail: free-tier Gemini caps at 15 req/min; 5s spacing stays under it. Drop if on a paid key.
+        await new Promise(r => setTimeout(r, 5000));
     }
 
     // Deduplication & Sync
