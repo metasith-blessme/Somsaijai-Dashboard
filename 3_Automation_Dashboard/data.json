@@ -9981,10 +9981,10 @@
           {
             "d": "15/06/2026",
             "day": "Mon",
-            "rev": 3860,
-            "cash": 2370,
+            "rev": 4260,
+            "cash": 2770,
             "exp": 90,
-            "net": 2280,
+            "net": 2680,
             "scan": 1490,
             "or": 12,
             "or_100": 0,
@@ -10011,7 +10011,7 @@
             "uyco": 0,
             "audit": {
               "theoretical_rev": 3960,
-              "rev_diff": -100,
+              "rev_diff": 300,
               "is_flagged": false
             }
           },
@@ -10055,10 +10055,10 @@
           {
             "d": "17/06/2026",
             "day": "Wed",
-            "rev": 5650,
-            "cash": 4540,
+            "rev": 5050,
+            "cash": 3940,
             "exp": 60,
-            "net": 4480,
+            "net": 3880,
             "scan": 1110,
             "or": 18,
             "or_100": 0,
@@ -10085,7 +10085,7 @@
             "uyco": 0,
             "audit": {
               "theoretical_rev": 5500,
-              "rev_diff": 150,
+              "rev_diff": -450,
               "is_flagged": false
             }
           },
@@ -14919,9 +14919,9 @@
       "date": "04/06/2026",
       "month": "Jun26",
       "bucket": "COGS",
-      "cat": "Pineapple",
-      "desc": "Watermelon 750+pineapple - 750",
-      "amt": 5750,
+      "cat": "Watermelon",
+      "desc": "สลิปรวม: แตงโม 750 (audit fix, was bundled into Pineapple line)",
+      "amt": 750,
       "branch": "B1"
     },
     {
@@ -15523,17 +15523,17 @@
       "month": "Jul26",
       "bucket": "COGS",
       "cat": "Mango",
-      "desc": "Cogs มะม่วง 3 ลัง 3900 และ งบลงทุน 810 (LINE_ALBUM_Cost July_260802_8.jpg)",
-      "amt": 4710,
+      "desc": "มะม่วง 3 ลัง 3900 (LINE_ALBUM_Cost July_260802_8.jpg)",
+      "amt": 3900,
       "branch": "B1"
     },
     {
-      "date": "26/07/2026",
+      "date": "27/07/2026",
       "month": "Jul26",
       "bucket": "COGS",
       "cat": "Coconut",
-      "desc": "น้ำมะพร้าว 30ลิตร 1350 เนื้อ 50kg 5000 ค่าส่ง 350 (LINE_ALBUM_Cost July_260802_9.jpg)",
-      "amt": 6700,
+      "desc": "น้ำมะพร้าว 30ลิตร 1350 เนื้อ 50kg 5000 น้ำมะพร้าวขวด 920 ค่าส่ง 350 (LINE_ALBUM_Cost July_260802_14.jpg, audit fix - was dated 26/07 citing wrong image, missing ฿920 bottles line)",
+      "amt": 7620,
       "branch": "B1"
     },
     {
@@ -15595,8 +15595,8 @@
       "month": "Jul26",
       "bucket": "COGS",
       "cat": "Apple",
-      "desc": "แอปเปิ้ล 4 ลัง (LINE_ALBUM_Cost July_260802_16.jpg)",
-      "amt": 1600,
+      "desc": "แอปเปิ้ล 5 ลัง (LINE_ALBUM_Cost July_260802_16.jpg, audit fix - was recorded as 4 ลัง/฿1600)",
+      "amt": 2150,
       "branch": "B1"
     },
     {
@@ -16484,18 +16484,18 @@
     {
       "date": "26/07/2026",
       "month": "Jul26",
-      "bucket": "COGS",
-      "cat": "Packaging",
-      "desc": "Shopee (ทีมจัดซื้อ) [bank SA5601]",
+      "bucket": "CAPEX",
+      "cat": "Investment",
+      "desc": "เครื่องสกัดเย็น 1 เครื่อง (Shopee, audit fix - was COGS/Packaging)",
       "amt": 1015,
       "branch": "B1"
     },
     {
       "date": "26/07/2026",
       "month": "Jul26",
-      "bucket": "COGS",
-      "cat": "Packaging",
-      "desc": "Shopee (ทีมจัดซื้อ) [bank SA5601]",
+      "bucket": "CAPEX",
+      "cat": "Investment",
+      "desc": "เครื่องสกัดเย็น 1 เครื่อง (Shopee, audit fix - was COGS/Packaging)",
       "amt": 1087,
       "branch": "B1"
     },
@@ -16614,6 +16614,78 @@
       "cat": "Transportation",
       "desc": "ค่ารถ (แยกจากใบเสร็จผ้าปิดร้าน 416)",
       "amt": 198,
+      "branch": "B1"
+    },
+    {
+      "date": "04/06/2026",
+      "month": "Jun26",
+      "bucket": "COGS",
+      "cat": "Pineapple",
+      "desc": "สลิปรวม: สับปะรด 750 (audit fix, was bundled)",
+      "amt": 750,
+      "branch": "B1"
+    },
+    {
+      "date": "04/06/2026",
+      "month": "Jun26",
+      "bucket": "COGS",
+      "cat": "Orange",
+      "desc": "สลิปรวม: ส้ม 2250 (audit fix, was bundled into Pineapple line)",
+      "amt": 2250,
+      "branch": "B1"
+    },
+    {
+      "date": "04/06/2026",
+      "month": "Jun26",
+      "bucket": "OPEX",
+      "cat": "Other",
+      "desc": "ค่าปรับตำรวจ 2 คน (police fee, audit fix - was miscategorized as COGS/Pineapple)",
+      "amt": 2000,
+      "branch": "B1"
+    },
+    {
+      "date": "26/07/2026",
+      "month": "Jul26",
+      "bucket": "CAPEX",
+      "cat": "Investment",
+      "desc": "งบลงทุน - ทดลองอื่นๆ (LINE_ALBUM_Cost July_260802_8.jpg, audit fix - was bundled into COGS/Mango)",
+      "amt": 810,
+      "branch": "B1"
+    },
+    {
+      "date": "26/07/2026",
+      "month": "Jul26",
+      "bucket": "OPEX",
+      "cat": "Other",
+      "desc": "ค่าส่งของ (LINE_ALBUM_Cost July_260802_11.jpg, audit fix - missing entry)",
+      "amt": 212,
+      "branch": "B1"
+    },
+    {
+      "date": "28/07/2026",
+      "month": "Jul26",
+      "bucket": "COGS",
+      "cat": "Pineapple",
+      "desc": "สับปะรด 30 ลูก (LINE_ALBUM_Cost July_260802_17.jpg, audit fix - missing entry)",
+      "amt": 1188,
+      "branch": "B1"
+    },
+    {
+      "date": "28/07/2026",
+      "month": "Jul26",
+      "bucket": "OPEX",
+      "cat": "Other",
+      "desc": "ค่าขนส่ง (LINE_ALBUM_Cost July_260802_19.jpg, audit fix - missing entry)",
+      "amt": 100,
+      "branch": "B1"
+    },
+    {
+      "date": "31/07/2026",
+      "month": "Jul26",
+      "bucket": "OPEX",
+      "cat": "Other",
+      "desc": "Lalamove (LINE_ALBUM_Cost July_260802_25.jpg, audit fix - missing entry)",
+      "amt": 2000,
       "branch": "B1"
     },
     {

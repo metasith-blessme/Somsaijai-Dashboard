@@ -2480,16 +2480,16 @@
     }
   },
   "Jun26": {
-    "total_rev": 307490,
-    "total_cogs": 191067,
+    "total_rev": 307290,
+    "total_cogs": 189067,
     "fruit_summary": {
-      "Pineapple": 11042,
+      "Pineapple": 6042,
       "Guava": 6700,
-      "Watermelon": 35700,
+      "Watermelon": 36450,
       "Mango": 6312,
       "Apple": 6650,
       "Packaging": 46393,
-      "Orange": 48560,
+      "Orange": 50810,
       "Transportation": 4000,
       "Stock": 6000,
       "Coconut Water": 11300,
@@ -2518,9 +2518,9 @@
       },
       {
         "date": "04/06/2026",
-        "desc": "Watermelon 750+pineapple - 750",
-        "cat": "Pineapple",
-        "amt": 5750
+        "desc": "สลิปรวม: แตงโม 750 (audit fix, was bundled into Pineapple line)",
+        "cat": "Watermelon",
+        "amt": 750
       },
       {
         "date": "04/06/2026",
@@ -2935,22 +2935,34 @@
         "desc": "ฝรั่ง 1 ตะกร้า (นาง ประนอม) [bank]",
         "cat": "Guava",
         "amt": 800
+      },
+      {
+        "date": "04/06/2026",
+        "desc": "สลิปรวม: สับปะรด 750 (audit fix, was bundled)",
+        "cat": "Pineapple",
+        "amt": 750
+      },
+      {
+        "date": "04/06/2026",
+        "desc": "สลิปรวม: ส้ม 2250 (audit fix, was bundled into Pineapple line)",
+        "cat": "Orange",
+        "amt": 2250
       }
     ],
     "fruit_performance": [
       {
         "name": "Orange",
         "rev": 86720,
-        "cost": 48560,
+        "cost": 50810,
         "cups": 1442,
-        "roi": "78.6%"
+        "roi": "70.7%"
       },
       {
         "name": "Watermelon",
         "rev": 101550,
-        "cost": 35700,
+        "cost": 36450,
         "cups": 2031,
-        "roi": "184.5%"
+        "roi": "178.6%"
       },
       {
         "name": "Mango",
@@ -2990,15 +3002,15 @@
       {
         "name": "Pineapple",
         "rev": 10680,
-        "cost": 11042,
+        "cost": 6042,
         "cups": 178,
-        "roi": "-3.3%"
+        "roi": "76.8%"
       }
     ],
     "b1": {
       "rev": 191720,
       "rental": 35000,
-      "opex": 50819,
+      "opex": 52819,
       "daily_exp": 3270,
       "opex_list": [
         {
@@ -3045,10 +3057,19 @@
           "desc": "ค่าแรง 4 คน คนคนละ 12000 และ รายวัน 1",
           "amt": 48400,
           "branch": "B1"
+        },
+        {
+          "date": "04/06/2026",
+          "month": "Jun26",
+          "bucket": "OPEX",
+          "cat": "Other",
+          "desc": "ค่าปรับตำรวจ 2 คน (police fee, audit fix - was miscategorized as COGS/Pineapple)",
+          "amt": 2000,
+          "branch": "B1"
         }
       ],
-      "cogs": 109809.05766608576,
-      "net": -7178.057666085762,
+      "cogs": 111812.52732166146,
+      "net": -11181.527321661459,
       "loss_carry_forward": 0,
       "adjusted_net": 0,
       "share": 0,
@@ -3056,7 +3077,7 @@
       "share_pct": 0.6
     },
     "b2": {
-      "rev": 115770,
+      "rev": 115570,
       "rental": 36000,
       "opex": 24400,
       "daily_exp": 2370,
@@ -3098,8 +3119,8 @@
           "branch": "B2"
         }
       ],
-      "cogs": 81257.94233391427,
-      "net": -28257.942333914267,
+      "cogs": 77254.47267833857,
+      "net": -24454.47267833857,
       "loss_carry_forward": 0,
       "adjusted_net": 0,
       "share": 0,
@@ -3123,18 +3144,18 @@
   },
   "Jul26": {
     "total_rev": 549947,
-    "total_cogs": 262349,
+    "total_cogs": 262095,
     "fruit_summary": {
       "Stock": 8133,
-      "Apple": 15640,
+      "Apple": 16190,
       "Guava": 24200,
-      "Mango": 31370,
-      "Coconut": 19870,
+      "Mango": 30560,
+      "Coconut": 20790,
       "Watermelon": 36880,
       "Orange": 65128,
       "Other": 6705,
-      "Pineapple": 8093,
-      "Packaging": 46330
+      "Pineapple": 9281,
+      "Packaging": 44228
     },
     "daily_cogs": [
       {
@@ -3175,15 +3196,15 @@
       },
       {
         "date": "26/07/2026",
-        "desc": "Cogs มะม่วง 3 ลัง 3900 และ งบลงทุน 810 (LINE_ALBUM_Cost July_260802_8.jpg)",
+        "desc": "มะม่วง 3 ลัง 3900 (LINE_ALBUM_Cost July_260802_8.jpg)",
         "cat": "Mango",
-        "amt": 4710
+        "amt": 3900
       },
       {
-        "date": "26/07/2026",
-        "desc": "น้ำมะพร้าว 30ลิตร 1350 เนื้อ 50kg 5000 ค่าส่ง 350 (LINE_ALBUM_Cost July_260802_9.jpg)",
+        "date": "27/07/2026",
+        "desc": "น้ำมะพร้าว 30ลิตร 1350 เนื้อ 50kg 5000 น้ำมะพร้าวขวด 920 ค่าส่ง 350 (LINE_ALBUM_Cost July_260802_14.jpg, audit fix - was dated 26/07 citing wrong image, missing ฿920 bottles line)",
         "cat": "Coconut",
-        "amt": 6700
+        "amt": 7620
       },
       {
         "date": "27/07/2026",
@@ -3217,9 +3238,9 @@
       },
       {
         "date": "28/07/2026",
-        "desc": "แอปเปิ้ล 4 ลัง (LINE_ALBUM_Cost July_260802_16.jpg)",
+        "desc": "แอปเปิ้ล 5 ลัง (LINE_ALBUM_Cost July_260802_16.jpg, audit fix - was recorded as 4 ลัง/฿1600)",
         "cat": "Apple",
-        "amt": 1600
+        "amt": 2150
       },
       {
         "date": "28/07/2026",
@@ -3546,18 +3567,6 @@
         "amt": 7410
       },
       {
-        "date": "26/07/2026",
-        "desc": "Shopee (ทีมจัดซื้อ) [bank SA5601]",
-        "cat": "Packaging",
-        "amt": 1015
-      },
-      {
-        "date": "26/07/2026",
-        "desc": "Shopee (ทีมจัดซื้อ) [bank SA5601]",
-        "cat": "Packaging",
-        "amt": 1087
-      },
-      {
         "date": "27/07/2026",
         "desc": "Shopee (ทีมจัดซื้อ) [bank SA5601]",
         "cat": "Packaging",
@@ -3574,6 +3583,12 @@
         "desc": "ฝรั่ง (นาง ประนอม) [bank]",
         "cat": "Guava",
         "amt": 3000
+      },
+      {
+        "date": "28/07/2026",
+        "desc": "สับปะรด 30 ลูก (LINE_ALBUM_Cost July_260802_17.jpg, audit fix - missing entry)",
+        "cat": "Pineapple",
+        "amt": 1188
       }
     ],
     "fruit_performance": [
@@ -3594,23 +3609,23 @@
       {
         "name": "Mango",
         "rev": 45900,
-        "cost": 31370,
+        "cost": 30560,
         "cups": 510,
-        "roi": "46.3%"
+        "roi": "50.2%"
       },
       {
         "name": "Apple",
         "rev": 51120,
-        "cost": 15640,
+        "cost": 16190,
         "cups": 852,
-        "roi": "226.9%"
+        "roi": "215.8%"
       },
       {
         "name": "Coconut",
         "rev": 83520,
-        "cost": 19870,
+        "cost": 20790,
         "cups": 1392,
-        "roi": "320.3%"
+        "roi": "301.7%"
       },
       {
         "name": "Young Coco",
@@ -3629,15 +3644,15 @@
       {
         "name": "Pineapple",
         "rev": 15060,
-        "cost": 8093,
+        "cost": 9281,
         "cups": 251,
-        "roi": "86.1%"
+        "roi": "62.3%"
       }
     ],
     "b1": {
       "rev": 242090,
       "rental": 39000,
-      "opex": 56419.75,
+      "opex": 61643.75,
       "daily_exp": 4140,
       "opex_list": [
         {
@@ -3819,14 +3834,68 @@
           "desc": "Salary B1",
           "amt": 35000,
           "branch": "B1"
+        },
+        {
+          "date": "26/07/2026",
+          "month": "Jul26",
+          "bucket": "CAPEX",
+          "cat": "Investment",
+          "desc": "เครื่องสกัดเย็น 1 เครื่อง (Shopee, audit fix - was COGS/Packaging)",
+          "amt": 1015,
+          "branch": "B1"
+        },
+        {
+          "date": "26/07/2026",
+          "month": "Jul26",
+          "bucket": "CAPEX",
+          "cat": "Investment",
+          "desc": "เครื่องสกัดเย็น 1 เครื่อง (Shopee, audit fix - was COGS/Packaging)",
+          "amt": 1087,
+          "branch": "B1"
+        },
+        {
+          "date": "26/07/2026",
+          "month": "Jul26",
+          "bucket": "CAPEX",
+          "cat": "Investment",
+          "desc": "งบลงทุน - ทดลองอื่นๆ (LINE_ALBUM_Cost July_260802_8.jpg, audit fix - was bundled into COGS/Mango)",
+          "amt": 810,
+          "branch": "B1"
+        },
+        {
+          "date": "26/07/2026",
+          "month": "Jul26",
+          "bucket": "OPEX",
+          "cat": "Other",
+          "desc": "ค่าส่งของ (LINE_ALBUM_Cost July_260802_11.jpg, audit fix - missing entry)",
+          "amt": 212,
+          "branch": "B1"
+        },
+        {
+          "date": "28/07/2026",
+          "month": "Jul26",
+          "bucket": "OPEX",
+          "cat": "Other",
+          "desc": "ค่าขนส่ง (LINE_ALBUM_Cost July_260802_19.jpg, audit fix - missing entry)",
+          "amt": 100,
+          "branch": "B1"
+        },
+        {
+          "date": "31/07/2026",
+          "month": "Jul26",
+          "bucket": "OPEX",
+          "cat": "Other",
+          "desc": "Lalamove (LINE_ALBUM_Cost July_260802_25.jpg, audit fix - missing entry)",
+          "amt": 2000,
+          "branch": "B1"
         }
       ],
-      "cogs": 99107.09561720175,
-      "net": 43423.15438279825,
-      "loss_carry_forward": 7178.057666085762,
-      "adjusted_net": 36245.09671671249,
-      "share": 25371.567701698743,
-      "ming_share": 10873.529015013748,
+      "cogs": 98345.33487205219,
+      "net": 38960.91512794781,
+      "loss_carry_forward": 11181.527321661459,
+      "adjusted_net": 27779.38780628635,
+      "share": 19445.571464400444,
+      "ming_share": 8333.816341885906,
       "share_pct": 0.7
     },
     "b2": {
@@ -3872,9 +3941,9 @@
           "branch": "B2"
         }
       ],
-      "cogs": 78393.6874092962,
-      "net": -3563.6874092961953,
-      "loss_carry_forward": 28257.942333914267,
+      "cogs": 78830.63128415379,
+      "net": -4000.6312841537874,
+      "loss_carry_forward": 24454.47267833857,
       "adjusted_net": 0,
       "share": 0,
       "ming_share": 0,
@@ -3923,31 +3992,31 @@
           "branch": "B3"
         }
       ],
-      "cogs": 84848.21697350206,
-      "net": 15238.783026497942,
+      "cogs": 84919.03384379401,
+      "net": 15167.966156205992,
       "loss_carry_forward": 0,
-      "adjusted_net": 15238.783026497942,
-      "share": 10667.148118548559,
-      "ming_share": 4571.634907949383,
+      "adjusted_net": 15167.966156205992,
+      "share": 10617.576309344193,
+      "ming_share": 4550.389846861798,
       "share_pct": 0.7
     }
   },
   "all": {
-    "total_rev": 2570256,
-    "total_cogs": 1229448,
+    "total_rev": 2570056,
+    "total_cogs": 1227194,
     "fruit_summary": {
-      "Packaging": 199949,
+      "Packaging": 197847,
       "Transportation": 50575,
-      "Watermelon": 238628,
-      "Orange": 440916,
+      "Watermelon": 239378,
+      "Orange": 443166,
       "Other": 7931,
-      "Apple": 41791,
-      "Mango": 68112,
+      "Apple": 42341,
+      "Mango": 67302,
       "Coconut Water": 15200,
       "Water": 2800,
-      "Coconut": 31605,
+      "Coconut": 32525,
       "Milk/Conden": 10707,
-      "Pineapple": 26269,
+      "Pineapple": 22457,
       "Stock": 26133,
       "Guava": 35400,
       "Coconut Meat": 3500,
@@ -5402,9 +5471,9 @@
       },
       {
         "date": "04/06/2026",
-        "desc": "Watermelon 750+pineapple - 750",
-        "cat": "Pineapple",
-        "amt": 5750
+        "desc": "สลิปรวม: แตงโม 750 (audit fix, was bundled into Pineapple line)",
+        "cat": "Watermelon",
+        "amt": 750
       },
       {
         "date": "04/06/2026",
@@ -5821,6 +5890,18 @@
         "amt": 800
       },
       {
+        "date": "04/06/2026",
+        "desc": "สลิปรวม: สับปะรด 750 (audit fix, was bundled)",
+        "cat": "Pineapple",
+        "amt": 750
+      },
+      {
+        "date": "04/06/2026",
+        "desc": "สลิปรวม: ส้ม 2250 (audit fix, was bundled into Pineapple line)",
+        "cat": "Orange",
+        "amt": 2250
+      },
+      {
         "date": "24/07/2026",
         "desc": "ฝา 1 ลัง 509 นมข้นหวาน 1 ลัง 785 นมข้นจืด 2 ลัง 1342 บาท (LINE_ALBUM_Cost July_260802_1.jpg)",
         "cat": "Stock",
@@ -5858,15 +5939,15 @@
       },
       {
         "date": "26/07/2026",
-        "desc": "Cogs มะม่วง 3 ลัง 3900 และ งบลงทุน 810 (LINE_ALBUM_Cost July_260802_8.jpg)",
+        "desc": "มะม่วง 3 ลัง 3900 (LINE_ALBUM_Cost July_260802_8.jpg)",
         "cat": "Mango",
-        "amt": 4710
+        "amt": 3900
       },
       {
-        "date": "26/07/2026",
-        "desc": "น้ำมะพร้าว 30ลิตร 1350 เนื้อ 50kg 5000 ค่าส่ง 350 (LINE_ALBUM_Cost July_260802_9.jpg)",
+        "date": "27/07/2026",
+        "desc": "น้ำมะพร้าว 30ลิตร 1350 เนื้อ 50kg 5000 น้ำมะพร้าวขวด 920 ค่าส่ง 350 (LINE_ALBUM_Cost July_260802_14.jpg, audit fix - was dated 26/07 citing wrong image, missing ฿920 bottles line)",
         "cat": "Coconut",
-        "amt": 6700
+        "amt": 7620
       },
       {
         "date": "27/07/2026",
@@ -5900,9 +5981,9 @@
       },
       {
         "date": "28/07/2026",
-        "desc": "แอปเปิ้ล 4 ลัง (LINE_ALBUM_Cost July_260802_16.jpg)",
+        "desc": "แอปเปิ้ล 5 ลัง (LINE_ALBUM_Cost July_260802_16.jpg, audit fix - was recorded as 4 ลัง/฿1600)",
         "cat": "Apple",
-        "amt": 1600
+        "amt": 2150
       },
       {
         "date": "28/07/2026",
@@ -6229,18 +6310,6 @@
         "amt": 7410
       },
       {
-        "date": "26/07/2026",
-        "desc": "Shopee (ทีมจัดซื้อ) [bank SA5601]",
-        "cat": "Packaging",
-        "amt": 1015
-      },
-      {
-        "date": "26/07/2026",
-        "desc": "Shopee (ทีมจัดซื้อ) [bank SA5601]",
-        "cat": "Packaging",
-        "amt": 1087
-      },
-      {
         "date": "27/07/2026",
         "desc": "Shopee (ทีมจัดซื้อ) [bank SA5601]",
         "cat": "Packaging",
@@ -6257,43 +6326,49 @@
         "desc": "ฝรั่ง (นาง ประนอม) [bank]",
         "cat": "Guava",
         "amt": 3000
+      },
+      {
+        "date": "28/07/2026",
+        "desc": "สับปะรด 30 ลูก (LINE_ALBUM_Cost July_260802_17.jpg, audit fix - missing entry)",
+        "cat": "Pineapple",
+        "amt": 1188
       }
     ],
     "fruit_performance": [
       {
         "name": "Orange",
         "rev": 1003200,
-        "cost": 440916,
+        "cost": 443166,
         "cups": 16706,
-        "roi": "127.5%"
+        "roi": "126.4%"
       },
       {
         "name": "Watermelon",
         "rev": 795150,
-        "cost": 238628,
+        "cost": 239378,
         "cups": 15903,
-        "roi": "233.2%"
+        "roi": "232.2%"
       },
       {
         "name": "Mango",
         "rev": 130860,
-        "cost": 98044,
+        "cost": 97234,
         "cups": 1454,
-        "roi": "33.5%"
+        "roi": "34.6%"
       },
       {
         "name": "Apple",
         "rev": 126420,
-        "cost": 41791,
+        "cost": 42341,
         "cups": 2107,
-        "roi": "202.5%"
+        "roi": "198.6%"
       },
       {
         "name": "Coconut",
         "rev": 320040,
-        "cost": 50305,
+        "cost": 51225,
         "cups": 5334,
-        "roi": "536.2%"
+        "roi": "524.8%"
       },
       {
         "name": "Young Coco",
@@ -6312,14 +6387,14 @@
       {
         "name": "Pineapple",
         "rev": 39060,
-        "cost": 26269,
+        "cost": 22457,
         "cups": 651,
-        "roi": "48.7%"
+        "roi": "73.9%"
       }
     ],
     "b1": {
       "rev": 1905838,
-      "opex": 344436.22,
+      "opex": 351660.22,
       "rental": 286324,
       "daily_exp": 32260,
       "opex_list": [
@@ -6756,6 +6831,15 @@
           "branch": "B1"
         },
         {
+          "date": "04/06/2026",
+          "month": "Jun26",
+          "bucket": "OPEX",
+          "cat": "Other",
+          "desc": "ค่าปรับตำรวจ 2 คน (police fee, audit fix - was miscategorized as COGS/Pineapple)",
+          "amt": 2000,
+          "branch": "B1"
+        },
+        {
           "date": "24/07/2026",
           "month": "Jul26",
           "bucket": "OPEX",
@@ -6934,18 +7018,72 @@
           "desc": "Salary B1",
           "amt": 35000,
           "branch": "B1"
+        },
+        {
+          "date": "26/07/2026",
+          "month": "Jul26",
+          "bucket": "CAPEX",
+          "cat": "Investment",
+          "desc": "เครื่องสกัดเย็น 1 เครื่อง (Shopee, audit fix - was COGS/Packaging)",
+          "amt": 1015,
+          "branch": "B1"
+        },
+        {
+          "date": "26/07/2026",
+          "month": "Jul26",
+          "bucket": "CAPEX",
+          "cat": "Investment",
+          "desc": "เครื่องสกัดเย็น 1 เครื่อง (Shopee, audit fix - was COGS/Packaging)",
+          "amt": 1087,
+          "branch": "B1"
+        },
+        {
+          "date": "26/07/2026",
+          "month": "Jul26",
+          "bucket": "CAPEX",
+          "cat": "Investment",
+          "desc": "งบลงทุน - ทดลองอื่นๆ (LINE_ALBUM_Cost July_260802_8.jpg, audit fix - was bundled into COGS/Mango)",
+          "amt": 810,
+          "branch": "B1"
+        },
+        {
+          "date": "26/07/2026",
+          "month": "Jul26",
+          "bucket": "OPEX",
+          "cat": "Other",
+          "desc": "ค่าส่งของ (LINE_ALBUM_Cost July_260802_11.jpg, audit fix - missing entry)",
+          "amt": 212,
+          "branch": "B1"
+        },
+        {
+          "date": "28/07/2026",
+          "month": "Jul26",
+          "bucket": "OPEX",
+          "cat": "Other",
+          "desc": "ค่าขนส่ง (LINE_ALBUM_Cost July_260802_19.jpg, audit fix - missing entry)",
+          "amt": 100,
+          "branch": "B1"
+        },
+        {
+          "date": "31/07/2026",
+          "month": "Jul26",
+          "bucket": "OPEX",
+          "cat": "Other",
+          "desc": "Lalamove (LINE_ALBUM_Cost July_260802_25.jpg, audit fix - missing entry)",
+          "amt": 2000,
+          "branch": "B1"
         }
       ],
-      "cogs": 861835.6049942155,
-      "net": 380982.17500578455,
-      "share": 232213.814675142,
-      "ming_share": 148768.36033064258,
+      "cogs": 863077.3139046417,
+      "net": 372516.4660953584,
+      "share": 226287.8184378437,
+      "ming_share": 146228.64765751475,
       "loss_carry_forward": 0,
-      "adjusted_net": 380982.1750057846,
-      "share_pct": 0.6095135938357646
+      "adjusted_net": 372516.4660953584,
+      "share_pct": 0.607457224132255
     },
     "b2": {
-      "rev": 492521,
+      "rev": 492321,
       "opex": 89600,
       "rental": 131000,
       "daily_exp": 9190,
@@ -7095,8 +7233,8 @@
           "branch": "B2"
         }
       ],
-      "cogs": 282764.17803228245,
-      "net": -20033.17803228245,
+      "cogs": 279197.6522515643,
+      "net": -16666.652251564345,
       "share": 8251.916197649609,
       "ming_share": 3536.5355132784043,
       "loss_carry_forward": 0,
@@ -7146,12 +7284,12 @@
           "branch": "B3"
         }
       ],
-      "cogs": 84848.21697350206,
-      "net": 15238.783026497942,
-      "share": 10667.148118548559,
-      "ming_share": 4571.634907949383,
+      "cogs": 84919.03384379401,
+      "net": 15167.966156205992,
+      "share": 10617.576309344193,
+      "ming_share": 4550.389846861798,
       "loss_carry_forward": 0,
-      "adjusted_net": 15238.783026497942,
+      "adjusted_net": 15167.966156205992,
       "share_pct": 0.7
     }
   }
