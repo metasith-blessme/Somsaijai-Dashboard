@@ -50,17 +50,28 @@ un-tracked pass before this session started:
 ## Running cash statement (`statement.csv`, Jan–Jul26)
 
 Opening ฿125,656 (1 Jan, confirmed actual balance) → closing ฿29,852.
-**Lowest point: -฿43,193 on 15/05/2026** — driven mainly by the ฿41,000 May shop+stock rent
-landing in one lump on 14/05 against thin daily cash sales. Not necessarily a data error, but
-see the open item below for one row that may be contributing to it incorrectly.
+**Lowest point: -฿43,193 on 15/05/2026** — driven by the ฿41,000 May shop+stock rent landing in
+one lump on 14/05, compounded by a settled fruit-purchase row on 15/05 (see item 1), against
+thin daily cash sales. Confirmed a real cash-flow squeeze, not a data artifact — see below.
+
+## Resolved
+
+1. **B1 15/05/2026 row is correctly dated, not a mis-entry.**
+   `COGS/Orange, "05/05/69 ส้ม 30x22กก 660กกx30", ฿21,450` — date column says 15/05/2026 while
+   the description references 05/05. Checked whether this kind of mismatch is normal for this
+   ledger by comparing every row with a date embedded in its description against its own Date
+   column, across all of B1: **20 mismatches vs. only 3 exact matches**, and every mismatch
+   follows the same direction — the Date column is always on or after the date named in the
+   description (e.g. row 199: column 04/05, description "30-4-2569"; row 241: column 22/05,
+   description "16-5-2569"; rows 376 and 404 even fold multiple purchase dates into one row,
+   filed under the latest one). This is a systematic convention — this fruit supplier is paid
+   on credit and the ledger books the settlement date, preserving the receipt's original date
+   in the description. Row 229's 10-day gap is longer than the typical 1-6 days elsewhere but
+   fits the same pattern. **Not moved — moving it would break the ledger's own convention.**
 
 ## Open items — need owner input before further changes
 
-1. **Possible mis-dated row, B1 15/05/2026**: `COGS/Orange, "05/05/69 ส้ม 30x22กก 660กกx30", ฿21,450`
-   — the date column says 15/05/2026 but the description says 05/05. If the purchase was
-   actually on 5 May, this row should move there. Not changed — no receipt to confirm against.
-
-2. **Profit distributions are consistently paid ~1 month after the month they're booked for**,
+1. **Profit distributions are consistently paid ~1 month after the month they're booked for**,
    confirmed against the real bank statements:
 
    | Paid (bank) | Blessme | Ming | Total | For month |
@@ -76,12 +87,12 @@ see the open item below for one row that may be contributing to it incorrectly.
    purchases, which is why large distribution-sized transfers and many small ones share one
    account.
 
-3. **~฿280,000 across Feb-Apr26, small transfers through the manager's account**, presumed real
+2. **~฿280,000 across Feb-Apr26, small transfers through the manager's account**, presumed real
    business spend (urgent purchases) per the owner, but not individually categorizable from the
    bank statement alone — no line-item description beyond the payee. Needs the manager's
    receipts before booking to COGS/OPEX. Not booked in this pass.
 
-4. **Two large transfers that don't match any known distribution figure**:
+3. **Two large transfers that don't match any known distribution figure**:
    - 02/02/2026: ฿70,000, same day and channel as the matched Jan26 Blessme payout above, but
      doesn't match Jan26's Ming figure (50,512) or anything else identified so far.
    - 05/03/2026: ฿97,553 + ฿19,000 — doesn't cleanly match Feb26's distribution (85,553 + 57,036)
