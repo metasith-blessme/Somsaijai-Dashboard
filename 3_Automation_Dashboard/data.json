@@ -16692,6 +16692,15 @@
       "date": "30/04/2026",
       "month": "Apr26",
       "bucket": "OPEX",
+      "cat": "Rental",
+      "desc": "ค่าเช่า stock เม.ย. (B1 ครึ่งหนึ่ง)",
+      "amt": 6000,
+      "branch": "B1"
+    },
+    {
+      "date": "30/04/2026",
+      "month": "Apr26",
+      "bucket": "OPEX",
       "cat": "Salary",
       "desc": "Employee 3",
       "amt": 12000,
@@ -16847,6 +16856,15 @@
       "bucket": "OPEX",
       "cat": "Rental",
       "desc": "ค่าเช่า stock พ.ค. (B2 ครึ่งหนึ่ง)",
+      "amt": 6000,
+      "branch": "B2"
+    },
+    {
+      "date": "30/04/2026",
+      "month": "Apr26",
+      "bucket": "OPEX",
+      "cat": "Rental",
+      "desc": "ค่าเช่า stock เม.ย. (B2 ครึ่งหนึ่ง)",
       "amt": 6000,
       "branch": "B2"
     },
