@@ -1,0 +1,93 @@
+{
+  "_source": "Google Sheet 'ส้มใส่ใจ' id=1TBRwQlXtp1mqEreH_DqX1zHt8XnTJlm36HOsNVIl6xc, read 2026-08-05. Owner's independent hand-kept record for B1, Dec25-Mar26.",
+  "_cols": ["day", "revenue", "cash", "scan", "cups"],
+  "Jan26": [
+    [1,13690,8590,5100,191],[2,11045,6040,5005,152],[3,10090,6050,4040,135],
+    [4,6840,4120,2720,85],[5,7200,4840,2360,89],[6,6020,3600,2420,82],
+    [7,6430,3730,2700,82],[8,5910,4160,1750,82],[9,9080,4790,4290,130],
+    [10,9860,5330,4530,134],[11,7540,4310,3290,99],[12,9420,6640,2780,116],
+    [13,7170,3880,3290,95],[14,6400,3810,2590,91],[15,6700,3910,2790,97],
+    [16,8580,5440,3140,129],[17,11640,5670,5970,197],[18,9280,5260,4020,154],
+    [19,7690,5650,2040,127],[20,7470,4060,3410,120],[21,8950,4840,4710,141],
+    [22,7400,3630,3770,120],[23,9800,5630,4170,162],[24,11950,6270,5680,197],
+    [25,11210,6160,5050,180],[26,7740,5390,2350,136],[27,9070,4240,4830,154],
+    [28,8290,5180,3110,138],[29,10490,7170,3320,165],[30,8710,4450,4260,144],
+    [31,12740,6180,6560,217]
+  ],
+  "Feb26": [
+    [1,11720,6500,5220,186],[2,9830,6840,2990,169],[3,10960,6570,4390,184],
+    [4,9370,5960,3410,169],[5,9690,3830,5860,184],[6,10890,6280,4610,165],
+    [7,12360,4890,7470,202],[8,8750,5280,3470,145],[9,11100,6680,4420,188],
+    [10,12785,7820,4965,220],[11,12350,7230,5030,208],[12,11820,8030,3790,192],
+    [13,12670,7390,5280,212],[14,12320,6420,5900,208],[15,13410,7480,5930,216],
+    [16,10380,6630,3750,178],[17,12720,7150,5570,217],[18,14600,10140,4460,249],
+    [19,15420,8900,6520,265],[20,16750,10900,5850,272],[21,16630,9720,6910,278],
+    [22,15820,10170,5650,264],[23,12730,7800,4930,217],[24,13320,7930,5390,217],
+    [25,9560,6460,3100,156],[26,8280,5280,3000,139],[27,11325,5370,5940,185],
+    [28,10500,4440,6060,174]
+  ],
+  "_Mar26_note": "Sheet rows 15-21 are row-shifted in the source (cash+scan of day N appears as revenue of day N+1). Days 23-31 have no cash/scan split at all. Treated as unreliable below; revenue column only.",
+  "Mar26": [
+    [1,10130,4670,5460,170],[2,10590,7300,3290,176],[3,11600,6520,5080,196],
+    [4,5350,3970,1380,97],[5,8760,4670,4550,152],[6,12790,7200,5590,225],
+    [7,14495,2480,11840,251],[8,11370,4580,6790,196],[9,7750,5040,2710,133],
+    [10,9760,5450,4310,167],[11,10310,5250,5060,166],[12,8570,3910,4540,145],
+    [13,10070,5550,4520,171],[14,11030,4740,6290,191],[15,9790,null,null,123],
+    [16,7630,null,null,125],[17,7310,null,null,95],[18,5520,null,null,125],
+    [19,8730,null,null,95],[20,7920,null,null,145],[21,10480,null,null,131],
+    [22,9140,5250,3890,159],[23,6210,null,null,null],[24,6520,null,null,null],
+    [25,7240,null,null,null],[26,8150,null,null,null],[27,9570,null,null,null],
+    [28,12110,null,null,null],[29,9700,null,null,null],[30,6960,null,null,null],
+    [31,11370,null,null,null]
+  ],
+  "_sheet_stated_totals": {
+    "Dec25": {"revenue": 266190, "cups": 3923},
+    "Jan26": {"revenue": 274405, "cups": 4141},
+    "Feb26": {"revenue": 338060, "cups": 5659},
+    "Mar26": {"revenue": 286925, "cups": 3434}
+  },
+  "_sheet_fixed_costs_SGA": {
+    "_note": "Real contracted fixed costs per owner's sheet. 12324/12000 is WAREHOUSE rent (ค่าเช่าคลัง), NOT shop rent.",
+    "Dec25": {"rent": 30000, "labour": 19000, "warehouse": 12000, "utilities": 0, "total": 61000},
+    "Jan26": {"rent": 30000, "labour": 19000, "warehouse": 12324, "utilities": 0, "total": 61324},
+    "Feb26": {"rent": 35000, "labour": 19000, "warehouse": 12000, "utilities": 0, "total": 66000},
+    "Mar26": {"rent": 35000, "labour": 27600, "warehouse": 12000, "utilities": 3228.72, "total": 77828.72}
+  },
+  "_sheet_pnl": {
+    "Dec25": {"revenue": 266190, "cogs": 104470, "gp": 161720, "ebitda": 100720, "net": 79935},
+    "Jan26": {"revenue": 274405, "cogs": 85951, "gp": 188454, "ebitda": 127130, "net": 126279},
+    "Feb26": {"revenue": 338060, "cogs": 128403, "gp": 209657, "ebitda": 143657, "net": 142589},
+    "Mar26": {"revenue": 286925, "cogs": 136224, "gp": 150701, "ebitda": 72872.28, "net": 64503.28}
+  },
+  "_distributions": {
+    "_note": "Actual owner payouts. Dec25-Mar26 amounts from the sheet's Blessme60/Main40 rows; Apr26 amounts and dates confirmed by owner 2026-08-05. May26 and Jun26: no payout made. Jul26: not yet due.",
+    "Dec25": {"blessme": 47961, "ming": 31974, "total": 79935},
+    "Jan26": {"blessme": 75767.40, "ming": 50511.60, "total": 126279},
+    "Feb26": {"blessme": 85553.40, "ming": 57035.60, "total": 142589},
+    "Mar26": {"blessme": 38701.968, "ming": 25801.312, "total": 64503.28},
+    "Apr26": {"blessme": 50345, "ming": 45060, "total": 95405},
+    "May26": {"blessme": 0, "ming": 0, "total": 0},
+    "Jun26": {"blessme": 0, "ming": 0, "total": 0}
+  },
+  "_payout_dates": {
+    "_note": "Dec25 confirmed by the two misfiled COGS/Ice rows dated 02/01/2026. Apr26 dates confirmed by owner. Jan-Mar dates NOT confirmed — assumed 2nd of the following month; amounts are right, timing is approximate.",
+    "Dec25": {"blessme": "2026-01-02", "ming": "2026-01-02", "confirmed": true},
+    "Jan26": {"blessme": "2026-02-02", "ming": "2026-02-02", "confirmed": false},
+    "Feb26": {"blessme": "2026-03-02", "ming": "2026-03-02", "confirmed": false},
+    "Mar26": {"blessme": "2026-04-02", "ming": "2026-04-02", "confirmed": false},
+    "Apr26": {"blessme": "2026-05-14", "ming": "2026-05-10", "confirmed": true}
+  },
+  "_opening_balance_actual": {
+    "_note": "Real bank balance at 1 Jan 2026, confirmed by owner 2026-08-05.",
+    "amount": 125655.69
+  },
+  "_cost_method": {
+    "_note": "B2 and B3 have no expense slips by design. Shared purchases are bought centrally and booked against B1, then allocated per ADR 0001 (fruit by actual usage; packaging/ice/generic stock by revenue share). Per-branch cost gaps are therefore ALLOCATION gaps, not missing money — only group-level totals can reveal genuinely unrecorded spend."
+  },
+  "_opening_capital": {
+    "_note": "From Cost tab header: ต้นทุน 100,000 / จ่ายค่าเช่า 35000 / มัดจำ 35000. Dec25 total spend before opening = 217,654.",
+    "capital_injected": 100000,
+    "rent_deposit": 35000,
+    "dec25_total_expenses": 217654
+  }
+}
