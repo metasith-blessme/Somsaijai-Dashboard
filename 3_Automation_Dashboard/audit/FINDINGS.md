@@ -25,6 +25,11 @@ BANK_DIR=<dir with extracted .txt statements> node audit/reconcile_bank.js   # M
   owner's own sheet.
 - **`fix_stock_rent.js`** — April's ฿12,000 shared stock-storage rent was never split between B1
   and B2; added ฿6,000 to each. (May/June splits were already correct.)
+- **`fix_march_salary.js`** — the manager's March salary (฿19,000, matching the 05/03/2026 bank
+  transfer) had no ledger row; owner confirmed B1's existing March Salary line (฿27,600,
+  "ค่าแรงคนงาน Mar26") is a different employee's wages, not the manager's. Added B1 `05/03/2026
+  Salary "เงินเดือนเมน 3/26" ฿19,000`, matching the Jan26/May26 rows' format. Applied and
+  verified idempotent.
 
 ## Bug found and fixed
 
@@ -96,10 +101,7 @@ thin daily cash sales. Confirmed a real cash-flow squeeze, not a data artifact �
    purchases, which is why large distribution-sized transfers and many small ones share one
    account.
 
-2. **March's manager salary (฿19,000, 05/03/2026) may be unbooked** — see Resolved below; needs
-   owner confirmation of whether it's folded into the March worker-wage lump or missing.
-
-3. **~฿280,000 across Feb-Apr26, small transfers through the manager's account**, presumed real
+2. **~฿280,000 across Feb-Apr26, small transfers through the manager's account**, presumed real
    business spend (urgent purchases) per the owner, but not individually categorizable from the
    bank statement alone — no line-item description beyond the payee. Needs the manager's
    receipts before booking to COGS/OPEX. Not booked in this pass.
@@ -119,10 +121,9 @@ thin daily cash sales. Confirmed a real cash-flow squeeze, not a data artifact �
   confirmed by owner.** Matches what `fix_stock_rent.js` already documented; no change needed.
 
 - **฿19,000 recurring transfers to the manager's channel (X7485 MR. AUNG MIN PHAY) = manager's
-  monthly salary, confirmed by owner.** Two of the three found in the bank data are already
-  booked in the ledger: `31/01/2026 Salary "เงินเดือนเมนมกราคม" ฿19,000` (B1 row 53) and
-  `27/05/2026 Salary "เงินเดือนเมน 5/26" ฿19,000` (B1 row 254). **The third, 05/03/2026, has no
-  matching Salary row** — March's only nearby salary-category entry is `31/03/2026 "ค่าแรงคนงาน
-  Mar26 (ปรับตามงบการเงินเจ้าของ)" ฿27,600`, a different label and figure, so it's unclear
-  whether March's manager salary is folded into that lump or simply unbooked. Needs the owner to
-  confirm before adding a March manager-salary row.
+  monthly salary, confirmed by owner.** All three found in the bank data are now booked:
+  `31/01/2026 Salary "เงินเดือนเมนมกราคม" ฿19,000` (B1 row 53), `27/05/2026 Salary "เงินเดือนเมน
+  5/26" ฿19,000` (B1 row 254), and `05/03/2026 Salary "เงินเดือนเมน 3/26" ฿19,000` (added by
+  `fix_march_salary.js` — owner confirmed B1's existing March Salary row, ฿27,600 "ค่าแรงคนงาน
+  Mar26", is a different employee's wages, not the manager's, so the manager's March salary had
+  genuinely never been booked).

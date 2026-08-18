@@ -11,7 +11,7 @@ const os = require('os');
 const path = require('path');
 
 const DASH = path.join(__dirname, '..');
-const FIX_SCRIPTS = ['fix_categories', 'fix_guava', 'fix_payroll', 'fix_q1', 'fix_stock_rent'];
+const FIX_SCRIPTS = ['fix_categories', 'fix_guava', 'fix_payroll', 'fix_q1', 'fix_stock_rent', 'fix_march_salary'];
 const BRANCHES = ['B1', 'B2', 'B3'];
 
 const hashFile = (f) => fs.existsSync(f)
