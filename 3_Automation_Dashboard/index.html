@@ -220,11 +220,13 @@ body {
 .stock-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 16px; }
 .stock-card { background: rgba(0,0,0,0.02); padding: 20px; border-radius: 20px; border: 1px solid var(--glass-border); }
 .stock-card .qty { font-size: 1.8em; font-weight: 800; font-family: var(--mono); margin: 8px 0; }
-.premium-table { width: 100%; border-collapse: collapse; }
-.premium-table th { text-align: left; padding: 16px; font-size: 0.7em; font-weight: 800; color: var(--muted); text-transform: uppercase; border-bottom: 1px solid var(--glass-border); }
-.premium-table td { padding: 18px 16px; border-bottom: 1px solid var(--glass-border); font-size: 0.95em; font-weight: 500; }
+.premium-table { width: 100%; min-width: max-content; border-collapse: collapse; }
+.premium-table th { text-align: left; padding: 16px; font-size: 0.7em; font-weight: 800; color: var(--muted); text-transform: uppercase; border-bottom: 1px solid var(--glass-border); white-space: nowrap; }
+.premium-table td { padding: 18px 16px; border-bottom: 1px solid var(--glass-border); font-size: 0.95em; font-weight: 500; white-space: nowrap; }
 .num { font-family: var(--mono); text-align: right; }
+/* ponytail: grid items must have min-width: 0 to allow child scroll wrappers to calculate overflow */
 .dashboard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(400px, 100%), 1fr)); gap: 32px; }
+.dashboard-grid > *, .glass-card, .section, .main { min-width: 0; max-width: 100%; }
 .section { display: none; }
 .section.active { display: block; animation: fadeIn 0.4s ease; }
 @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
@@ -265,11 +267,32 @@ body {
     transition: opacity 0.3s ease;
 }
 .sidebar-overlay.visible { opacity: 1; pointer-events: auto; }
+/* ponytail: native smooth horizontal table sliding container with touch gestures and scrollbar */
 .table-responsive-wrapper {
     width: 100%;
+    max-width: 100%;
     overflow-x: auto;
+    overflow-y: hidden;
     -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+    touch-action: pan-x pan-y;
     margin-bottom: 1rem;
+    display: block;
+    scrollbar-width: thin;
+}
+.table-responsive-wrapper::-webkit-scrollbar {
+    height: 5px;
+}
+.table-responsive-wrapper::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.04);
+    border-radius: 3px;
+}
+.table-responsive-wrapper::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.18);
+    border-radius: 3px;
+}
+[data-theme="dark"] .table-responsive-wrapper::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
 }
 .chart-container {
     position: relative;
@@ -284,7 +307,7 @@ body {
 }
 @media (max-width: 768px) {
     html, body { overflow-x: hidden; max-width: 100%; }
-    body { font-size: 17px; flex-direction: column; }
+    body { font-size: 17px; flex-direction: column; padding-bottom: env(safe-area-inset-bottom, 0px); }
     .dashboard-grid { grid-template-columns: 1fr; gap: 20px; }
     .sidebar {
         position: fixed;
@@ -299,12 +322,12 @@ body {
     .sidebar.open .logo-area,
     .sidebar.open .nav-item span,
     .sidebar.open .theme-toggle span { display: block; }
-    /* ponytail: redesigned mobile header — clean, blurred, premium feel */
+    /* ponytail: redesigned mobile header with safe-area support */
     .mobile-header {
         display: flex;
         width: 100%;
-        height: 56px;
-        padding: 0 16px;
+        height: calc(56px + env(safe-area-inset-top, 0px));
+        padding: env(safe-area-inset-top, 0px) 16px 0 16px;
         background: var(--card);
         backdrop-filter: blur(24px);
         -webkit-backdrop-filter: blur(24px);
@@ -322,7 +345,7 @@ body {
         letter-spacing: -0.3px;
     }
     .main { margin-left: 0; padding: 16px; padding-top: 12px; }
-    /* ponytail: command-center as clean floating pill strip — no heavy card background */
+    /* ponytail: command-center as clean floating pill strip */
     .command-center {
         flex-direction: row;
         gap: 8px;
@@ -343,18 +366,22 @@ body {
         flex-wrap: nowrap;
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
+        overscroll-behavior-x: contain;
+        touch-action: pan-x;
         gap: 6px;
         width: 100%;
         padding-bottom: 2px;
-        scrollbar-width: none; /* Firefox */
+        scrollbar-width: none;
     }
-    .selector-group::-webkit-scrollbar { display: none; } /* hide scrollbar */
+    .selector-group::-webkit-scrollbar { display: none; }
     #monthSelector {
         display: flex;
         flex-wrap: nowrap;
         gap: 6px;
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
+        overscroll-behavior-x: contain;
+        touch-action: pan-x;
         width: 100%;
         scrollbar-width: none;
     }
@@ -365,7 +392,7 @@ body {
     .btn {
         padding: 8px 14px;
         font-size: 0.78em;
-        min-height: 36px;
+        min-height: 38px;
         display: inline-flex;
         align-items: center;
         justify-content: center;
@@ -394,19 +421,19 @@ body {
     .dashboard-grid { grid-template-columns: 1fr; gap: 16px; }
     .glass-card { padding: 20px; border-radius: 18px; margin-bottom: 16px; }
     .glass-card h3 { font-size: 1.15em; margin-bottom: 14px; }
-    /* Tables */
-    .premium-table th { padding: 10px 8px; font-size: 0.68em; }
-    .premium-table td { padding: 12px 8px; font-size: 0.85em; }
-    .table-responsive-wrapper { position: relative; }
-    .table-responsive-wrapper::after {
-        content: '';
-        position: absolute;
-        top: 0; right: 0;
-        width: 24px; height: 100%;
-        background: linear-gradient(to right, transparent, var(--bg));
-        pointer-events: none;
-        border-radius: 0 16px 16px 0;
-        opacity: 0.7;
+    /* ponytail: mobile table padding and sticky first column */
+    .premium-table th { padding: 10px 12px; font-size: 0.72em; }
+    .premium-table td { padding: 12px 12px; font-size: 0.85em; }
+    .table-responsive-wrapper table th:first-child,
+    .table-responsive-wrapper table td:first-child {
+        position: sticky;
+        left: 0;
+        z-index: 2;
+        background: var(--card);
+        box-shadow: 2px 0 6px -2px rgba(0,0,0,0.08);
+    }
+    .table-responsive-wrapper table th:first-child {
+        z-index: 3;
     }
     .chart-container { height: 280px !important; }
     /* Finance */
@@ -875,6 +902,9 @@ function updateUI() {
 function wrapTables() {
     document.querySelectorAll('table.premium-table').forEach(table => {
         if (table.parentElement.classList.contains('table-responsive-wrapper')) return;
+        if (table.parentElement.style && table.parentElement.style.overflowX === 'auto') {
+            table.parentElement.style.overflowX = 'visible';
+        }
         const wrapper = document.createElement('div');
         wrapper.className = 'table-responsive-wrapper';
         table.parentNode.insertBefore(wrapper, table);
@@ -1359,7 +1389,7 @@ function renderOverall(sales, expenses) {
 function renderDailyLog(sales) {
     const rows = sales.slice().reverse();
     document.getElementById('dailyLogGrid').innerHTML = `
-        <div class="glass-card" style="grid-column:1/-1; overflow-x:auto">
+        <div class="glass-card" style="grid-column:1/-1">
             <h3 style="margin-bottom:16px">Daily Operations Log</h3>
             <table class="premium-table" style="min-width:1200px">
                 <thead><tr>

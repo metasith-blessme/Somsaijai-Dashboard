@@ -33,29 +33,33 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);color:var(--te
 .chart-card{background:var(--card);border-radius:12px;padding:20px;box-shadow:0 2px 8px rgba(0,0,0,.06)}
 .chart-card h3{font-size:1em;color:var(--primary);margin-bottom:12px}
 .chart-card canvas{width:100%!important;max-height:300px}
-.table-wrap{background:var(--card);border-radius:12px;padding:20px;box-shadow:0 2px 8px rgba(0,0,0,.06);overflow-x:auto;margin-bottom:24px}
+.container, .grid > *, .table-wrap, .chart-card { min-width: 0; max-width: 100%; }
+.table-wrap{background:var(--card);border-radius:12px;padding:20px;box-shadow:0 2px 8px rgba(0,0,0,.06);overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;touch-action:pan-x pan-y;margin-bottom:24px;scrollbar-width:thin}
 .table-wrap h3{font-size:1em;color:var(--primary);margin-bottom:12px}
-table{width:100%;border-collapse:collapse;font-size:.85em}
+table{width:100%;min-width:max-content;border-collapse:collapse;font-size:.85em}
 th{background:var(--primary);color:#fff;padding:10px 8px;text-align:center;white-space:nowrap}
-td{padding:8px;text-align:center;border-bottom:1px solid var(--border)}
+td{padding:8px;text-align:center;border-bottom:1px solid var(--border);white-space:nowrap}
 tr:nth-child(even){background:#f8fafc}
 tr:hover{background:#e8f0fe}
 .total-row td{background:#d6e4f0!important;font-weight:700;color:var(--primary)}
 @media(max-width:900px){.charts{grid-template-columns:1fr}.grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:500px){
+    body{padding-bottom:env(safe-area-inset-bottom,0px)}
     .grid{grid-template-columns:1fr}
     .kpi{padding:16px}
     .kpi .value{font-size:1.5em}
     .kpi .label{font-size:0.75em}
-    .header{padding:14px 16px;flex-direction:column;text-align:center}
+    .header{padding:14px 16px;flex-direction:column;text-align:center;padding-top:calc(14px + env(safe-area-inset-top,0px))}
     .header h1{font-size:1.3em}
     .container{padding:12px}
     .chart-card{padding:14px}
     .chart-card canvas{max-height:220px}
-    .table-wrap{padding:14px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+    .table-wrap{padding:14px}
+    .table-wrap table th:first-child, .table-wrap table td:first-child { position:sticky; left:0; z-index:2; background:var(--card); }
+    .table-wrap table th:first-child { background:var(--primary); z-index:3; }
     table{font-size:0.78em}
-    th{padding:8px 6px}
-    td{padding:6px}
+    th{padding:8px 10px}
+    td{padding:8px 10px}
     .tab{padding:8px 14px;font-size:0.85em;min-height:44px}
     .drop-zone{padding:10px 16px;font-size:0.8em}
 }
@@ -10088,10 +10092,10 @@ const BUILT_IN = {
           {
             "d": "15/06/2026",
             "day": "Mon",
-            "rev": 3860,
-            "cash": 2370,
+            "rev": 4260,
+            "cash": 2770,
             "exp": 90,
-            "net": 2280,
+            "net": 2680,
             "scan": 1490,
             "or": 12,
             "or_100": 0,
@@ -10118,7 +10122,7 @@ const BUILT_IN = {
             "uyco": 0,
             "audit": {
               "theoretical_rev": 3960,
-              "rev_diff": -100,
+              "rev_diff": 300,
               "is_flagged": false
             }
           },
@@ -10162,10 +10166,10 @@ const BUILT_IN = {
           {
             "d": "17/06/2026",
             "day": "Wed",
-            "rev": 5650,
-            "cash": 4540,
+            "rev": 5050,
+            "cash": 3940,
             "exp": 60,
-            "net": 4480,
+            "net": 3880,
             "scan": 1110,
             "or": 18,
             "or_100": 0,
@@ -10192,7 +10196,7 @@ const BUILT_IN = {
             "uyco": 0,
             "audit": {
               "theoretical_rev": 5500,
-              "rev_diff": 150,
+              "rev_diff": -450,
               "is_flagged": false
             }
           },
@@ -15026,9 +15030,9 @@ const BUILT_IN = {
       "date": "04/06/2026",
       "month": "Jun26",
       "bucket": "COGS",
-      "cat": "Pineapple",
-      "desc": "Watermelon 750+pineapple - 750",
-      "amt": 5750,
+      "cat": "Watermelon",
+      "desc": "สลิปรวม: แตงโม 750 (audit fix, was bundled into Pineapple line)",
+      "amt": 750,
       "branch": "B1"
     },
     {
@@ -15630,17 +15634,17 @@ const BUILT_IN = {
       "month": "Jul26",
       "bucket": "COGS",
       "cat": "Mango",
-      "desc": "Cogs มะม่วง 3 ลัง 3900 และ งบลงทุน 810 (LINE_ALBUM_Cost July_260802_8.jpg)",
-      "amt": 4710,
+      "desc": "มะม่วง 3 ลัง 3900 (LINE_ALBUM_Cost July_260802_8.jpg)",
+      "amt": 3900,
       "branch": "B1"
     },
     {
-      "date": "26/07/2026",
+      "date": "27/07/2026",
       "month": "Jul26",
       "bucket": "COGS",
       "cat": "Coconut",
-      "desc": "น้ำมะพร้าว 30ลิตร 1350 เนื้อ 50kg 5000 ค่าส่ง 350 (LINE_ALBUM_Cost July_260802_9.jpg)",
-      "amt": 6700,
+      "desc": "น้ำมะพร้าว 30ลิตร 1350 เนื้อ 50kg 5000 น้ำมะพร้าวขวด 920 ค่าส่ง 350 (LINE_ALBUM_Cost July_260802_14.jpg, audit fix - was dated 26/07 citing wrong image, missing ฿920 bottles line)",
+      "amt": 7620,
       "branch": "B1"
     },
     {
@@ -15702,8 +15706,8 @@ const BUILT_IN = {
       "month": "Jul26",
       "bucket": "COGS",
       "cat": "Apple",
-      "desc": "แอปเปิ้ล 4 ลัง (LINE_ALBUM_Cost July_260802_16.jpg)",
-      "amt": 1600,
+      "desc": "แอปเปิ้ล 5 ลัง (LINE_ALBUM_Cost July_260802_16.jpg, audit fix - was recorded as 4 ลัง/฿1600)",
+      "amt": 2150,
       "branch": "B1"
     },
     {
@@ -16591,18 +16595,18 @@ const BUILT_IN = {
     {
       "date": "26/07/2026",
       "month": "Jul26",
-      "bucket": "COGS",
-      "cat": "Packaging",
-      "desc": "Shopee (ทีมจัดซื้อ) [bank SA5601]",
+      "bucket": "CAPEX",
+      "cat": "Investment",
+      "desc": "เครื่องสกัดเย็น 1 เครื่อง (Shopee, audit fix - was COGS/Packaging)",
       "amt": 1015,
       "branch": "B1"
     },
     {
       "date": "26/07/2026",
       "month": "Jul26",
-      "bucket": "COGS",
-      "cat": "Packaging",
-      "desc": "Shopee (ทีมจัดซื้อ) [bank SA5601]",
+      "bucket": "CAPEX",
+      "cat": "Investment",
+      "desc": "เครื่องสกัดเย็น 1 เครื่อง (Shopee, audit fix - was COGS/Packaging)",
       "amt": 1087,
       "branch": "B1"
     },
@@ -16721,6 +16725,87 @@ const BUILT_IN = {
       "cat": "Transportation",
       "desc": "ค่ารถ (แยกจากใบเสร็จผ้าปิดร้าน 416)",
       "amt": 198,
+      "branch": "B1"
+    },
+    {
+      "date": "04/06/2026",
+      "month": "Jun26",
+      "bucket": "COGS",
+      "cat": "Pineapple",
+      "desc": "สลิปรวม: สับปะรด 750 (audit fix, was bundled)",
+      "amt": 750,
+      "branch": "B1"
+    },
+    {
+      "date": "04/06/2026",
+      "month": "Jun26",
+      "bucket": "COGS",
+      "cat": "Orange",
+      "desc": "สลิปรวม: ส้ม 2250 (audit fix, was bundled into Pineapple line)",
+      "amt": 2250,
+      "branch": "B1"
+    },
+    {
+      "date": "04/06/2026",
+      "month": "Jun26",
+      "bucket": "OPEX",
+      "cat": "Other",
+      "desc": "ค่าปรับตำรวจ 2 คน (police fee, audit fix - was miscategorized as COGS/Pineapple)",
+      "amt": 2000,
+      "branch": "B1"
+    },
+    {
+      "date": "26/07/2026",
+      "month": "Jul26",
+      "bucket": "CAPEX",
+      "cat": "Investment",
+      "desc": "งบลงทุน - ทดลองอื่นๆ (LINE_ALBUM_Cost July_260802_8.jpg, audit fix - was bundled into COGS/Mango)",
+      "amt": 810,
+      "branch": "B1"
+    },
+    {
+      "date": "26/07/2026",
+      "month": "Jul26",
+      "bucket": "OPEX",
+      "cat": "Other",
+      "desc": "ค่าส่งของ (LINE_ALBUM_Cost July_260802_11.jpg, audit fix - missing entry)",
+      "amt": 212,
+      "branch": "B1"
+    },
+    {
+      "date": "28/07/2026",
+      "month": "Jul26",
+      "bucket": "COGS",
+      "cat": "Pineapple",
+      "desc": "สับปะรด 30 ลูก (LINE_ALBUM_Cost July_260802_17.jpg, audit fix - missing entry)",
+      "amt": 1188,
+      "branch": "B1"
+    },
+    {
+      "date": "28/07/2026",
+      "month": "Jul26",
+      "bucket": "OPEX",
+      "cat": "Other",
+      "desc": "ค่าขนส่ง (LINE_ALBUM_Cost July_260802_19.jpg, audit fix - missing entry)",
+      "amt": 100,
+      "branch": "B1"
+    },
+    {
+      "date": "31/07/2026",
+      "month": "Jul26",
+      "bucket": "OPEX",
+      "cat": "Other",
+      "desc": "Lalamove (LINE_ALBUM_Cost July_260802_25.jpg, audit fix - missing entry)",
+      "amt": 2000,
+      "branch": "B1"
+    },
+    {
+      "date": "30/04/2026",
+      "month": "Apr26",
+      "bucket": "OPEX",
+      "cat": "Rental",
+      "desc": "ค่าเช่า stock เม.ย. (B1 ครึ่งหนึ่ง)",
+      "amt": 6000,
       "branch": "B1"
     },
     {
@@ -16882,6 +16967,15 @@ const BUILT_IN = {
       "bucket": "OPEX",
       "cat": "Rental",
       "desc": "ค่าเช่า stock พ.ค. (B2 ครึ่งหนึ่ง)",
+      "amt": 6000,
+      "branch": "B2"
+    },
+    {
+      "date": "30/04/2026",
+      "month": "Apr26",
+      "bucket": "OPEX",
+      "cat": "Rental",
+      "desc": "ค่าเช่า stock เม.ย. (B2 ครึ่งหนึ่ง)",
       "amt": 6000,
       "branch": "B2"
     },
