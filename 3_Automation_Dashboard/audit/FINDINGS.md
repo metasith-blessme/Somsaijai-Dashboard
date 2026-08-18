@@ -101,13 +101,27 @@ thin daily cash sales. Confirmed a real cash-flow squeeze, not a data artifact �
    bank statement alone — no line-item description beyond the payee. Needs the manager's
    receipts before booking to COGS/OPEX. Not booked in this pass.
 
-3. **Two transfers still don't match anything**:
-   - 02/02/2026 21:04, ฿70,000 to Blessme's channel (TTB X6747 นาย ฐนกร) — sent 3 minutes after
-     the 21:01 transfer that exactly matches the Jan26 Blessme distribution (75,767.40) to the
-     *same* recipient. Round number, no ledger or distribution-schedule match found. Needs the
-     owner to say what this was (loan/advance to Blessme? a second payout leg?).
-   - ฿19,000 to the manager's channel (X7485 MR. AUNG MIN PHAY) — recurs at the **exact same
-     amount** on three separate dates: 31/01, 05/03, and 27/05/2026. Doesn't match any
-     distribution figure and isn't a one-off, so it reads as a fixed recurring payment (rent
-     sublease? loan repayment? retainer?) rather than an ad hoc urgent purchase. Needs the owner
-     to identify what recurs on this cadence before it can be booked.
+3. **02/02/2026 21:04, ฿70,000 to TTB X6747 นาย ฐนกร — owner recalled it as rent, but the
+   recipient doesn't match the landlord.** Sent 3 minutes after the 21:01 transfer that exactly
+   matches the Jan26 Blessme distribution (75,767.40), to the same account. The confirmed
+   landlord — the recipient of every ฿47,000 shop+stock rent payment found in the bank data
+   (10/04, and again in May and 08/06) — is a *different* person and account: SCB X0159 นาย
+   ฐิติภูมิ สิงห์, not TTB X6747 นาย ฐนกร. So this ฿70,000 went to the same channel as the
+   owner's own Jan26 distribution, not to the landlord. Still open — owner to reconcile the
+   rent recollection against the actual recipient, or identify the real purpose.
+
+   (Side note, not an error: นาย ฐิติภูมิ สิงห์ is also the name tagged as Ming's Jan26
+   distribution channel, item 1 above — but that transfer went to a *different* account,
+   PromptPay X8850, not the landlord's SCB X0159. Reads as the same real person holding two
+   accounts — landlord and profit-share recipient — not a data problem.)
+
+## Resolved (this pass)
+
+- **฿19,000 recurring transfers to the manager's channel (X7485 MR. AUNG MIN PHAY) = manager's
+  monthly salary, confirmed by owner.** Two of the three found in the bank data are already
+  booked in the ledger: `31/01/2026 Salary "เงินเดือนเมนมกราคม" ฿19,000` (B1 row 53) and
+  `27/05/2026 Salary "เงินเดือนเมน 5/26" ฿19,000` (B1 row 254). **The third, 05/03/2026, has no
+  matching Salary row** — March's only nearby salary-category entry is `31/03/2026 "ค่าแรงคนงาน
+  Mar26 (ปรับตามงบการเงินเจ้าของ)" ฿27,600`, a different label and figure, so it's unclear
+  whether March's manager salary is folded into that lump or simply unbooked. Needs the owner to
+  confirm before adding a March manager-salary row.
