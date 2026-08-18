@@ -101,10 +101,26 @@ thin daily cash sales. Confirmed a real cash-flow squeeze, not a data artifact �
    purchases, which is why large distribution-sized transfers and many small ones share one
    account.
 
-2. **~฿280,000 across Feb-Apr26, small transfers through the manager's account**, presumed real
-   business spend (urgent purchases) per the owner, but not individually categorizable from the
-   bank statement alone — no line-item description beyond the payee. Needs the manager's
-   receipts before booking to COGS/OPEX. Not booked in this pass.
+2. **Correction: the "~฿280,000" figure below was wrong** — it summed *all* unexplained Feb-Apr26
+   bank outflows (~฿418,130 before this session's fixes), not specifically the manager's
+   channel. Re-checked against `reconcile_bank.js` after this pass's fixes; the real total
+   still routed through the manager's account (X7485 MR. AUNG MIN PHAY) with no ledger entry is:
+
+   | Date | Amount |
+   |---|---:|
+   | 20/02/2026 | ฿416 |
+   | 27/02/2026 | ฿5,000 |
+   | 18/03/2026 | ฿230 |
+   | 01/04/2026 | ฿24,600 |
+   | **Total** | **฿30,246** |
+
+   Presumed real business spend (urgent purchases) per the owner, but not individually
+   categorizable from the bank statement alone — no line-item description beyond the payee.
+   Needs the manager's receipts before booking to COGS/OPEX. Not booked in this pass.
+
+3. **฿9,341 on 18/04/2026 to TTB X4482 นาย ฐนกร (PromptPay variant of Blessme's channel)** —
+   doesn't match any known distribution or rent figure. Surfaced while re-checking item 2 above;
+   needs the owner to identify it.
 
 ## Resolved (this pass)
 
