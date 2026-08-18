@@ -85,48 +85,46 @@ thin daily cash sales. Confirmed a real cash-flow squeeze, not a data artifact �
 
 ## Open items — need owner input before further changes
 
-1. **Profit distributions are consistently paid ~1 month after the month they're booked for**,
-   confirmed against the real bank statements:
-
-   | Paid (bank) | Blessme | Ming | Total | For month |
-   |---|---:|---:|---:|---|
-   | 02/01/2026 | 47,961 | 32,000 | 79,961 | Dec25 (owed 79,935) |
-   | 02/02/2026 | 75,767 | — | 75,767 | Jan26 Blessme (exact) |
-   | 10/04/2026 | 38,702 | 25,801 | 64,503 | Mar26 (exact) |
-   | 10-14/05/2026 | 50,345 | 45,060 | 95,405 | Apr26 (exact, already known) |
-
-   Blessme's channel is "นาย ฐนกร" (TTB/พร้อมเพย์). Ming's channel was "นาย ฐิติภูมิ สิงห์" in
-   January, then switched to "MR. AUNG MIN PHAY" from February onward — confirmed by the owner
-   to be the shop manager's account, used both to route payout money and to fund urgent
-   purchases, which is why large distribution-sized transfers and many small ones share one
-   account.
-
-2. **Correction: the "~฿280,000" figure below was wrong** — it summed *all* unexplained Feb-Apr26
-   bank outflows (~฿418,130 before this session's fixes), not specifically the manager's
-   channel. Re-checked against `reconcile_bank.js` after this pass's fixes; the real total
-   still routed through the manager's account (X7485 MR. AUNG MIN PHAY) with no ledger entry is:
-
-   | Date | Amount |
-   |---|---:|
-   | 20/02/2026 | ฿416 |
-   | 27/02/2026 | ฿5,000 |
-   | 18/03/2026 | ฿230 |
-   | 01/04/2026 | ฿24,600 |
-   | **Total** | **฿30,246** |
-
-   Presumed real business spend (urgent purchases) per the owner, but not individually
-   categorizable from the bank statement alone — no line-item description beyond the payee.
-   Needs the manager's receipts before booking to COGS/OPEX. Not booked in this pass. Checked
-   the bank statement itself for a memo/note field on these 4 slips — none of the K PLUS
-   transfer lines to X7485 carry any note beyond the truncated payee name (unlike e.g. the
-   Lalamove entries, which do carry an account-name line); the PDF has nothing more to extract.
+None remaining as of this pass — every item below started here and was closed out.
 
 ## Resolved (this pass)
 
+- **Profit distributions are consistently paid ~1 month after the month they're booked for**,
+  confirmed against the real bank statements:
+
+  | Paid (bank) | Blessme | Ming | Total | For month |
+  |---|---:|---:|---:|---|
+  | 02/01/2026 | 47,961 | 32,000 | 79,961 | Dec25 (owed 79,935) |
+  | 02/02/2026 | 75,767 | — | 75,767 | Jan26 Blessme (exact) |
+  | 10/04/2026 | 38,702 | 25,801 | 64,503 | Mar26 (exact) |
+  | 10-14/05/2026 | 50,345 | 45,060 | 95,405 | Apr26 (exact, already known) |
+
+  Blessme's channel is "นาย ฐนกร" (TTB/พร้อมเพย์). Ming's channel was "นาย ฐิติภูมิ สิงห์" in
+  January, then switched to "MR. AUNG MIN PHAY" from February onward — confirmed by the owner
+  to be the shop manager's account, used both to route payout money and to fund urgent
+  purchases, which is why large distribution-sized transfers and many small ones share one
+  account.
+
+- **Manager-account slips (Feb-Apr26) fully resolved from the owner's own K PLUS transaction
+  notes.** The "~฿280,000" figure in an earlier draft of this file was wrong — it summed *all*
+  unexplained Feb-Apr26 bank outflows (~฿418,130 before this session's other fixes), not
+  specifically the manager's channel (X7485 MR. AUNG MIN PHAY). The real total was ฿30,246
+  across 4 slips:
+  - **20/02/2026 ฿416** — turned out to already be fully booked, just split across two rows
+    added at different times: B1 row 75 `Other "ผ้าปิดร้าน" ฿218` + row 454 `Transportation
+    "ค่ารถ (แยกจากใบเสร็จผ้าปิดร้าน 416)" ฿198`. `reconcile_bank.js` missed this because it
+    matches one bank line against one ledger row, not a 1-to-2 split — worth remembering if the
+    script is extended later.
+  - **27/02/2026 ฿5,000** (equipment) — added, `fix_manager_receipts_q1.js`, B1 Investment.
+  - **18/03/2026 ฿230** (milk + condensed milk) — added, same script, B1 Milk/Conden.
+  - **01/04/2026 ฿24,600** (March salary, 3 employees) — added, same script, B1 Salary.
+  Applied and verified idempotent, including via `test_idempotent.js`.
 - **฿9,341 on 18/04/2026 to TTB X4482 นาย ฐนกร — a personal loan from the owner (Thanakorn,
   ฐนกร) to fund OPEX purchases (packaging, tissue, etc.), confirmed by owner.** Owner could not
-  recall an itemized breakdown, so — like the manager's ฿30,246 bucket above — it can't be
-  categorized to specific expense lines from this alone. Not booked in this pass.
+  recall an itemized breakdown, so it can't be categorized to specific expense lines from this
+  alone. Not booked in this pass. Checked the bank statement PDF for a memo/note field (the
+  owner's own K PLUS app shows one) — not present anywhere in the exported statement text, so
+  it only exists in the app itself, not this file.
 
 - **02/02/2026 21:04, ฿70,000 to TTB X6747 นาย ฐนกร = B1's February rent (฿35,000) + deposit
   (฿35,000), confirmed by owner.** The ฿35,000 rent portion is already correctly booked
