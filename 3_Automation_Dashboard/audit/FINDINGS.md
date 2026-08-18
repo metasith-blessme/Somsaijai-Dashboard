@@ -56,7 +56,16 @@ thin daily cash sales. Confirmed a real cash-flow squeeze, not a data artifact �
 
 ## Resolved
 
-1. **B1 15/05/2026 row is correctly dated, not a mis-entry.**
+1. **05/03/2026 ฿97,553.40 transfer to Blessme's channel = Feb26 distribution + rent reimbursement.**
+   ฿85,553 (Feb26 Blessme distribution) + ฿12,000 (Feb26 stock rent, booked in the ledger
+   28/02/2026, `COGS/Rental "ค่าเช่าสต็อคกพ"`) = ฿97,553 — off by 40 satang, likely a rounding
+   or transfer-fee artifact. Bank narration (`STM_SA8285`, 05-03-26 21:26, TTB X6747 นาย ฐนกร)
+   confirms it went to Blessme's known distribution channel. Read as one lump payment covering
+   both, not booked separately in the ledger since the rent side was already recorded on the
+   28th. No ledger change needed — this closes one of the two open unmatched-transfer items
+   below.
+
+2. **B1 15/05/2026 row is correctly dated, not a mis-entry.**
    `COGS/Orange, "05/05/69 ส้ม 30x22กก 660กกx30", ฿21,450` — date column says 15/05/2026 while
    the description references 05/05. Checked whether this kind of mismatch is normal for this
    ledger by comparing every row with a date embedded in its description against its own Date
@@ -92,8 +101,13 @@ thin daily cash sales. Confirmed a real cash-flow squeeze, not a data artifact �
    bank statement alone — no line-item description beyond the payee. Needs the manager's
    receipts before booking to COGS/OPEX. Not booked in this pass.
 
-3. **Two large transfers that don't match any known distribution figure**:
-   - 02/02/2026: ฿70,000, same day and channel as the matched Jan26 Blessme payout above, but
-     doesn't match Jan26's Ming figure (50,512) or anything else identified so far.
-   - 05/03/2026: ฿97,553 + ฿19,000 — doesn't cleanly match Feb26's distribution (85,553 + 57,036)
-     or any other known figure.
+3. **Two transfers still don't match anything**:
+   - 02/02/2026 21:04, ฿70,000 to Blessme's channel (TTB X6747 นาย ฐนกร) — sent 3 minutes after
+     the 21:01 transfer that exactly matches the Jan26 Blessme distribution (75,767.40) to the
+     *same* recipient. Round number, no ledger or distribution-schedule match found. Needs the
+     owner to say what this was (loan/advance to Blessme? a second payout leg?).
+   - ฿19,000 to the manager's channel (X7485 MR. AUNG MIN PHAY) — recurs at the **exact same
+     amount** on three separate dates: 31/01, 05/03, and 27/05/2026. Doesn't match any
+     distribution figure and isn't a one-off, so it reads as a fixed recurring payment (rent
+     sublease? loan repayment? retainer?) rather than an ad hoc urgent purchase. Needs the owner
+     to identify what recurs on this cadence before it can be booked.
