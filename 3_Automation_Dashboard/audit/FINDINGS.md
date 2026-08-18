@@ -116,13 +116,17 @@ thin daily cash sales. Confirmed a real cash-flow squeeze, not a data artifact �
 
    Presumed real business spend (urgent purchases) per the owner, but not individually
    categorizable from the bank statement alone — no line-item description beyond the payee.
-   Needs the manager's receipts before booking to COGS/OPEX. Not booked in this pass.
-
-3. **฿9,341 on 18/04/2026 to TTB X4482 นาย ฐนกร (PromptPay variant of Blessme's channel)** —
-   doesn't match any known distribution or rent figure. Surfaced while re-checking item 2 above;
-   needs the owner to identify it.
+   Needs the manager's receipts before booking to COGS/OPEX. Not booked in this pass. Checked
+   the bank statement itself for a memo/note field on these 4 slips — none of the K PLUS
+   transfer lines to X7485 carry any note beyond the truncated payee name (unlike e.g. the
+   Lalamove entries, which do carry an account-name line); the PDF has nothing more to extract.
 
 ## Resolved (this pass)
+
+- **฿9,341 on 18/04/2026 to TTB X4482 นาย ฐนกร — a personal loan from the owner (Thanakorn,
+  ฐนกร) to fund OPEX purchases (packaging, tissue, etc.), confirmed by owner.** Owner could not
+  recall an itemized breakdown, so — like the manager's ฿30,246 bucket above — it can't be
+  categorized to specific expense lines from this alone. Not booked in this pass.
 
 - **02/02/2026 21:04, ฿70,000 to TTB X6747 นาย ฐนกร = B1's February rent (฿35,000) + deposit
   (฿35,000), confirmed by owner.** The ฿35,000 rent portion is already correctly booked
