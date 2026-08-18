@@ -96,26 +96,27 @@ thin daily cash sales. Confirmed a real cash-flow squeeze, not a data artifact �
    purchases, which is why large distribution-sized transfers and many small ones share one
    account.
 
-2. **~฿280,000 across Feb-Apr26, small transfers through the manager's account**, presumed real
+2. **March's manager salary (฿19,000, 05/03/2026) may be unbooked** — see Resolved below; needs
+   owner confirmation of whether it's folded into the March worker-wage lump or missing.
+
+3. **~฿280,000 across Feb-Apr26, small transfers through the manager's account**, presumed real
    business spend (urgent purchases) per the owner, but not individually categorizable from the
    bank statement alone — no line-item description beyond the payee. Needs the manager's
    receipts before booking to COGS/OPEX. Not booked in this pass.
 
-3. **02/02/2026 21:04, ฿70,000 to TTB X6747 นาย ฐนกร — owner recalled it as rent, but the
-   recipient doesn't match the landlord.** Sent 3 minutes after the 21:01 transfer that exactly
-   matches the Jan26 Blessme distribution (75,767.40), to the same account. The confirmed
-   landlord — the recipient of every ฿47,000 shop+stock rent payment found in the bank data
-   (10/04, and again in May and 08/06) — is a *different* person and account: SCB X0159 นาย
-   ฐิติภูมิ สิงห์, not TTB X6747 นาย ฐนกร. So this ฿70,000 went to the same channel as the
-   owner's own Jan26 distribution, not to the landlord. Still open — owner to reconcile the
-   rent recollection against the actual recipient, or identify the real purpose.
-
-   (Side note, not an error: นาย ฐิติภูมิ สิงห์ is also the name tagged as Ming's Jan26
-   distribution channel, item 1 above — but that transfer went to a *different* account,
-   PromptPay X8850, not the landlord's SCB X0159. Reads as the same real person holding two
-   accounts — landlord and profit-share recipient — not a data problem.)
-
 ## Resolved (this pass)
+
+- **02/02/2026 21:04, ฿70,000 to TTB X6747 นาย ฐนกร = B1's February rent (฿35,000) + deposit
+  (฿35,000), confirmed by owner.** The ฿35,000 rent portion is already correctly booked
+  (`28/02/2026 Rental "ค่าเช่าร้าน Feb26 (ปรับตามงบการเงินเจ้าของ)" ฿35,000`, added by
+  `fix_q1.js`). The remaining ฿35,000 is the deposit, which is correctly *not* booked as an
+  expense — same treatment already established for B2's `06/05 ฿45,000 rent + deposit` transfer
+  in `book_missing.js`/`may_reconcile.js` ("deposit is refundable — an asset, not an expense").
+  No ledger change needed; this account (TTB X6747 นาย ฐนกร) is confirmed to be Blessme
+  personally, who both takes profit distributions and receives B1's rent/deposit — explains why
+  a rent+deposit payment and a distribution landed in the same account 3 minutes apart.
+- **฿47,000 monthly shop+stock rent (10/04, May, 08/06) = ฿35,000 rent + ฿12,000 stock,
+  confirmed by owner.** Matches what `fix_stock_rent.js` already documented; no change needed.
 
 - **฿19,000 recurring transfers to the manager's channel (X7485 MR. AUNG MIN PHAY) = manager's
   monthly salary, confirmed by owner.** Two of the three found in the bank data are already
