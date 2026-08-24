@@ -695,7 +695,7 @@
     "b1": {
       "rev": 340060,
       "rental": 47000,
-      "opex": 23607,
+      "opex": 28607,
       "daily_exp": 3540,
       "opex_list": [
         {
@@ -751,14 +751,23 @@
           "desc": "ค่าแรงคนงาน Feb26 (ปรับตามงบการเงินเจ้าของ)",
           "amt": 19000,
           "branch": "B1"
+        },
+        {
+          "date": "27/02/2026",
+          "month": "Feb26",
+          "bucket": "OPEX",
+          "cat": "Investment",
+          "desc": "อุปกรณ์ (จากสลิปโอนผู้จัดการ)",
+          "amt": 5000,
+          "branch": "B1"
         }
       ],
       "cogs": 132511,
-      "net": 133402,
+      "net": 128402,
       "loss_carry_forward": 0,
-      "adjusted_net": 133402,
-      "share": 80041.2,
-      "ming_share": 53360.8,
+      "adjusted_net": 128402,
+      "share": 77041.2,
+      "ming_share": 51360.8,
       "share_pct": 0.6
     },
     "b2": {
@@ -1039,7 +1048,7 @@
     "b1": {
       "rev": 286925,
       "rental": 47000,
-      "opex": 41977.47,
+      "opex": 61207.47,
       "daily_exp": 9250,
       "opex_list": [
         {
@@ -1122,14 +1131,32 @@
           "desc": "ค่าน้ำ + ค่าไฟ Mar26 (ปรับตามงบการเงินเจ้าของ)",
           "amt": 3229,
           "branch": "B1"
+        },
+        {
+          "date": "05/03/2026",
+          "month": "Mar26",
+          "bucket": "OPEX",
+          "cat": "Salary",
+          "desc": "เงินเดือนเมน 3/26",
+          "amt": 19000,
+          "branch": "B1"
+        },
+        {
+          "date": "18/03/2026",
+          "month": "Mar26",
+          "bucket": "OPEX",
+          "cat": "Milk/Conden",
+          "desc": "นม + นมข้นหวาน (จากสลิปโอนผู้จัดการ)",
+          "amt": 230,
+          "branch": "B1"
         }
       ],
       "cogs": 133748,
-      "net": 54949.53,
+      "net": 35719.53,
       "loss_carry_forward": 0,
-      "adjusted_net": 54949.53,
-      "share": 32969.718,
-      "ming_share": 21979.812,
+      "adjusted_net": 35719.53,
+      "share": 21431.717999999997,
+      "ming_share": 14287.812,
       "share_pct": 0.6
     },
     "b2": {
@@ -1163,7 +1190,7 @@
   },
   "Apr26": {
     "total_rev": 383118,
-    "total_cogs": 220097,
+    "total_cogs": 221597,
     "fruit_summary": {
       "Apple": 9800,
       "Mango": 10540,
@@ -1177,7 +1204,7 @@
       "Transportation": 6730,
       "Pineapple": 1500,
       "Stock": 12000,
-      "Other": 0
+      "Guava": 1500
     },
     "daily_cogs": [
       {
@@ -1524,9 +1551,9 @@
       },
       {
         "date": "30/04/2026",
-        "desc": "Pineapple (duplicate of 30/04/2026 slip entry, zeroed to avoid double-count)",
-        "cat": "Other",
-        "amt": 0
+        "desc": "ฝรั่ง ตะกร้าแรก (นาง ประนอม, BBL X8148) [bank 30/04 22:50]",
+        "cat": "Guava",
+        "amt": 1500
       },
       {
         "date": "04/04/2026",
@@ -1611,9 +1638,9 @@
       {
         "name": "Guava",
         "rev": 2700,
-        "cost": 0,
+        "cost": 1500,
         "cups": 45,
-        "roi": "N/A"
+        "roi": "80.0%"
       },
       {
         "name": "Pineapple",
@@ -1626,7 +1653,7 @@
     "b1": {
       "rev": 313858,
       "rental": 41000,
-      "opex": 90016,
+      "opex": 114616,
       "daily_exp": 4890,
       "opex_list": [
         {
@@ -1691,10 +1718,19 @@
           "desc": "ค่าเช่า stock เม.ย. (B1 ครึ่งหนึ่ง)",
           "amt": 6000,
           "branch": "B1"
+        },
+        {
+          "date": "01/04/2026",
+          "month": "Apr26",
+          "bucket": "OPEX",
+          "cat": "Salary",
+          "desc": "เงินเดือนพนักงาน 3 คน มี.ค. 26",
+          "amt": 24600,
+          "branch": "B1"
         }
       ],
-      "cogs": 181670.20699153037,
-      "net": -3718.2069915303728,
+      "cogs": 182899.03727358446,
+      "net": -29547.037273584458,
       "loss_carry_forward": 0,
       "adjusted_net": 0,
       "share": 0,
@@ -1744,8 +1780,8 @@
           "branch": "B2"
         }
       ],
-      "cogs": 38426.79300846958,
-      "net": -24456.793008469584,
+      "cogs": 38697.9627264155,
+      "net": -24727.9627264155,
       "loss_carry_forward": 0,
       "adjusted_net": 0,
       "share": 0,
@@ -1769,7 +1805,7 @@
   },
   "May26": {
     "total_rev": 427311,
-    "total_cogs": 200220,
+    "total_cogs": 172220,
     "fruit_summary": {
       "Guava": 4500,
       "Milk/Conden": 1907,
@@ -1783,8 +1819,7 @@
       "Coconut Meat": 3500,
       "Orange": 53440,
       "Coconut": 3355,
-      "Stock": 0,
-      "Mangosteen": 28000
+      "Stock": 0
     },
     "daily_cogs": [
       {
@@ -2142,12 +2177,6 @@
         "amt": -4830
       },
       {
-        "date": "23/05/2026",
-        "desc": "มังคุด (โอน ฐนกร 23/05) [bank]",
-        "cat": "Mangosteen",
-        "amt": 28000
-      },
-      {
         "date": "01/05/2026",
         "desc": "ลาลามูฟ Lalamove [bank]",
         "cat": "Transportation",
@@ -2196,9 +2225,9 @@
       {
         "name": "Mango",
         "rev": 23310,
-        "cost": 39615,
+        "cost": 11615,
         "cups": 259,
-        "roi": "-41.2%"
+        "roi": "100.7%"
       },
       {
         "name": "Apple",
@@ -2414,12 +2443,12 @@
           "branch": "B1"
         }
       ],
-      "cogs": 115534.24471939757,
-      "net": 32418.755280602432,
-      "loss_carry_forward": 3718.2069915303728,
-      "adjusted_net": 28700.54828907206,
-      "share": 17220.328973443236,
-      "ming_share": 11480.219315628825,
+      "cogs": 98663.95183236829,
+      "net": 49289.048167631714,
+      "loss_carry_forward": 29547.037273584458,
+      "adjusted_net": 19742.010894047256,
+      "share": 11845.206536428354,
+      "ming_share": 7896.804357618903,
       "share_pct": 0.6
     },
     "b2": {
@@ -2474,12 +2503,12 @@
           "branch": "B2"
         }
       ],
-      "cogs": 84685.7552806024,
-      "net": 30245.244719397597,
-      "loss_carry_forward": 24456.793008469584,
-      "adjusted_net": 5788.451710928013,
-      "share": 4051.916197649609,
-      "ming_share": 1736.5355132784043,
+      "cogs": 73556.0481676317,
+      "net": 41374.9518323683,
+      "loss_carry_forward": 24727.9627264155,
+      "adjusted_net": 16646.9891059528,
+      "share": 11652.89237416696,
+      "ming_share": 4994.096731785841,
       "share_pct": 0.7
     },
     "b3": {
@@ -2499,7 +2528,7 @@
   },
   "Jun26": {
     "total_rev": 307290,
-    "total_cogs": 189067,
+    "total_cogs": 187135,
     "fruit_summary": {
       "Pineapple": 6042,
       "Guava": 6700,
@@ -2512,8 +2541,7 @@
       "Stock": 6000,
       "Coconut Water": 11300,
       "Other": 18,
-      "Milk/Conden": 6460,
-      "Mangosteen": 1932
+      "Milk/Conden": 6460
     },
     "daily_cogs": [
       {
@@ -2848,12 +2876,6 @@
       },
       {
         "date": "29/06/2026",
-        "desc": "มังคุด 3 ตะกร้า",
-        "cat": "Mangosteen",
-        "amt": 1932
-      },
-      {
-        "date": "29/06/2026",
         "desc": "สับปะรด 15 ลูก",
         "cat": "Pineapple",
         "amt": 675
@@ -2985,9 +3007,9 @@
       {
         "name": "Mango",
         "rev": 22410,
-        "cost": 8244,
+        "cost": 6312,
         "cups": 249,
-        "roi": "171.8%"
+        "roi": "255.0%"
       },
       {
         "name": "Apple",
@@ -3086,8 +3108,8 @@
           "branch": "B1"
         }
       ],
-      "cogs": 111812.52732166146,
-      "net": -11181.527321661459,
+      "cogs": 110657.16255739347,
+      "net": -10026.162557393473,
       "loss_carry_forward": 0,
       "adjusted_net": 0,
       "share": 0,
@@ -3137,8 +3159,8 @@
           "branch": "B2"
         }
       ],
-      "cogs": 77254.47267833857,
-      "net": -24454.47267833857,
+      "cogs": 76477.83744260657,
+      "net": -23677.83744260657,
       "loss_carry_forward": 0,
       "adjusted_net": 0,
       "share": 0,
@@ -3910,10 +3932,10 @@
       ],
       "cogs": 98345.33487205219,
       "net": 38960.91512794781,
-      "loss_carry_forward": 11181.527321661459,
-      "adjusted_net": 27779.38780628635,
-      "share": 19445.571464400444,
-      "ming_share": 8333.816341885906,
+      "loss_carry_forward": 10026.162557393473,
+      "adjusted_net": 28934.752570554338,
+      "share": 20254.326799388036,
+      "ming_share": 8680.425771166303,
       "share_pct": 0.7
     },
     "b2": {
@@ -3961,7 +3983,7 @@
       ],
       "cogs": 78830.63128415379,
       "net": -4000.6312841537874,
-      "loss_carry_forward": 24454.47267833857,
+      "loss_carry_forward": 23677.83744260657,
       "adjusted_net": 0,
       "share": 0,
       "ming_share": 0,
@@ -4021,7 +4043,7 @@
   },
   "all": {
     "total_rev": 2570056,
-    "total_cogs": 1227194,
+    "total_cogs": 1198762,
     "fruit_summary": {
       "Packaging": 197847,
       "Transportation": 50575,
@@ -4036,9 +4058,8 @@
       "Milk/Conden": 10707,
       "Pineapple": 22457,
       "Stock": 26133,
-      "Guava": 35400,
-      "Coconut Meat": 3500,
-      "Mangosteen": 29932
+      "Guava": 36900,
+      "Coconut Meat": 3500
     },
     "daily_cogs": [
       {
@@ -5039,9 +5060,9 @@
       },
       {
         "date": "30/04/2026",
-        "desc": "Pineapple (duplicate of 30/04/2026 slip entry, zeroed to avoid double-count)",
-        "cat": "Other",
-        "amt": 0
+        "desc": "ฝรั่ง ตะกร้าแรก (นาง ประนอม, BBL X8148) [bank 30/04 22:50]",
+        "cat": "Guava",
+        "amt": 1500
       },
       {
         "date": "04/04/2026",
@@ -5434,12 +5455,6 @@
         "amt": -4830
       },
       {
-        "date": "23/05/2026",
-        "desc": "มังคุด (โอน ฐนกร 23/05) [bank]",
-        "cat": "Mangosteen",
-        "amt": 28000
-      },
-      {
         "date": "01/05/2026",
         "desc": "ลาลามูฟ Lalamove [bank]",
         "cat": "Transportation",
@@ -5798,12 +5813,6 @@
         "desc": "ฝรั่ง 1 ตะกร้า",
         "cat": "Guava",
         "amt": 800
-      },
-      {
-        "date": "29/06/2026",
-        "desc": "มังคุด 3 ตะกร้า",
-        "cat": "Mangosteen",
-        "amt": 1932
       },
       {
         "date": "29/06/2026",
@@ -6370,9 +6379,9 @@
       {
         "name": "Mango",
         "rev": 130860,
-        "cost": 97234,
+        "cost": 67302,
         "cups": 1454,
-        "roi": "34.6%"
+        "roi": "94.4%"
       },
       {
         "name": "Apple",
@@ -6398,9 +6407,9 @@
       {
         "name": "Guava",
         "rev": 39000,
-        "cost": 35400,
+        "cost": 36900,
         "cups": 650,
-        "roi": "10.2%"
+        "roi": "5.7%"
       },
       {
         "name": "Pineapple",
@@ -6412,7 +6421,7 @@
     ],
     "b1": {
       "rev": 1905838,
-      "opex": 351660.22,
+      "opex": 400490.22,
       "rental": 292324,
       "daily_exp": 32260,
       "opex_list": [
@@ -6498,6 +6507,15 @@
           "branch": "B1"
         },
         {
+          "date": "27/02/2026",
+          "month": "Feb26",
+          "bucket": "OPEX",
+          "cat": "Investment",
+          "desc": "อุปกรณ์ (จากสลิปโอนผู้จัดการ)",
+          "amt": 5000,
+          "branch": "B1"
+        },
+        {
           "date": "01/01/2026",
           "month": "Mar26",
           "bucket": "OPEX",
@@ -6579,6 +6597,24 @@
           "branch": "B1"
         },
         {
+          "date": "05/03/2026",
+          "month": "Mar26",
+          "bucket": "OPEX",
+          "cat": "Salary",
+          "desc": "เงินเดือนเมน 3/26",
+          "amt": 19000,
+          "branch": "B1"
+        },
+        {
+          "date": "18/03/2026",
+          "month": "Mar26",
+          "bucket": "OPEX",
+          "cat": "Milk/Conden",
+          "desc": "นม + นมข้นหวาน (จากสลิปโอนผู้จัดการ)",
+          "amt": 230,
+          "branch": "B1"
+        },
+        {
           "date": "18/04/2026",
           "month": "Apr26",
           "bucket": "OPEX",
@@ -6639,6 +6675,15 @@
           "cat": "Rental",
           "desc": "ค่าเช่า stock เม.ย. (B1 ครึ่งหนึ่ง)",
           "amt": 6000,
+          "branch": "B1"
+        },
+        {
+          "date": "01/04/2026",
+          "month": "Apr26",
+          "bucket": "OPEX",
+          "cat": "Salary",
+          "desc": "เงินเดือนพนักงาน 3 คน มี.ค. 26",
+          "amt": 24600,
           "branch": "B1"
         },
         {
@@ -7101,13 +7146,13 @@
           "branch": "B1"
         }
       ],
-      "cogs": 863077.3139046417,
-      "net": 366516.4660953584,
-      "share": 222687.8184378437,
-      "ming_share": 143828.64765751475,
+      "cogs": 846280.4865353983,
+      "net": 334483.2934646016,
+      "share": 203583.4513358164,
+      "ming_share": 130899.84212878523,
       "loss_carry_forward": 0,
-      "adjusted_net": 366516.4660953584,
-      "share_pct": 0.6075793014437335
+      "adjusted_net": 334483.2934646016,
+      "share_pct": 0.6086505822969053
     },
     "b2": {
       "rev": 492321,
@@ -7269,12 +7314,12 @@
           "branch": "B2"
         }
       ],
-      "cogs": 279197.6522515643,
-      "net": -22666.652251564345,
-      "share": 4051.916197649609,
-      "ming_share": 1736.5355132784043,
+      "cogs": 267562.4796208076,
+      "net": -11031.479620807557,
+      "share": 11652.89237416696,
+      "ming_share": 4994.096731785841,
       "loss_carry_forward": 0,
-      "adjusted_net": 5788.451710928013,
+      "adjusted_net": 16646.9891059528,
       "share_pct": 0.7
     },
     "b3": {

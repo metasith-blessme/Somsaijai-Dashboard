@@ -25,17 +25,6 @@ if (fs.existsSync(PARAMS_PATH)) {
 const PRICES = params.prices;
 const YIELDS = params.yields;
 
-// Costs per unit (baskets/pcs) for contribution calculation
-const COSTS = {
-    orange: 700,
-    watermelon: 35,
-    apple: 30,
-    mango: 150,
-    coconut: 35,
-    young: 50,
-    guava: 30,
-    pineapple: 30
-};
 
 const MONTH_ORDER = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
@@ -120,25 +109,6 @@ function calculateTheoreticalRevenue(r) {
     );
 }
 
-/**
- * Calculates unit economics (contribution margin) for a record
- */
-function calculateContribution(r) {
-    const revenue = r.rev || 0;
-    const variableCosts = 
-        (r.uo || 0) * COSTS.orange +
-        (r.uw || 0) * COSTS.watermelon +
-        (r.uap || 0) * COSTS.apple +
-        (r.umg || 0) * COSTS.mango +
-        (r.exp || 0); // Include ice/staff as variable ops cost
-
-    return {
-        revenue,
-        costs: variableCosts,
-        margin: revenue - variableCosts,
-        margin_pct: revenue > 0 ? ((revenue - variableCosts) / revenue) * 100 : 0
-    };
-}
 
 /**
  * Run audit verification on a single sales record
@@ -478,7 +448,6 @@ function calculatePL(data) {
 module.exports = {
     PRICES,
     YIELDS,
-    COSTS,
     NON_PL_BUCKETS,
     PROFIT_SHARE_EFFECTIVE_MONTH,
     monthIndex,
@@ -486,7 +455,6 @@ module.exports = {
     isProfitDistribution,
     normalizeExpense,
     calculateTheoreticalRevenue,
-    calculateContribution,
     auditRecord,
     calculatePL
 };

@@ -14190,9 +14190,9 @@
       "date": "30/04/2026",
       "month": "Apr26",
       "bucket": "COGS",
-      "cat": "Other",
-      "desc": "Pineapple (duplicate of 30/04/2026 slip entry, zeroed to avoid double-count)",
-      "amt": 0,
+      "cat": "Guava",
+      "desc": "ฝรั่ง ตะกร้าแรก (นาง ประนอม, BBL X8148) [bank 30/04 22:50]",
+      "amt": 1500,
       "branch": "B1"
     },
     {
@@ -15413,10 +15413,10 @@
     {
       "date": "29/06/2026",
       "month": "Jun26",
-      "bucket": "COGS",
-      "cat": "Mangosteen",
-      "desc": "มังคุด 3 ตะกร้า",
-      "amt": 1932,
+      "bucket": "EXCLUDED",
+      "cat": "Pass-Through",
+      "desc": "มังคุด 3 ตะกร้า (จ่ายแทน 1,932 แล้ว ฐนกร โอนคืน 29/06 13:56) - ไม่ใช่ต้นทุน SSJ [bank]",
+      "amt": 0,
       "branch": "B1"
     },
     {
@@ -16205,10 +16205,10 @@
     {
       "date": "23/05/2026",
       "month": "May26",
-      "bucket": "COGS",
-      "cat": "Mangosteen",
-      "desc": "มังคุด (โอน ฐนกร 23/05) [bank]",
-      "amt": 28000,
+      "bucket": "EXCLUDED",
+      "cat": "Pass-Through",
+      "desc": "มังคุด (รับเงินสด 28,000 แล้วโอนต่อ ฐนกร 23/05 17:23) - ไม่ใช่ต้นทุน SSJ [bank]",
+      "amt": 0,
       "branch": "B1"
     },
     {
@@ -16695,6 +16695,42 @@
       "cat": "Rental",
       "desc": "ค่าเช่า stock เม.ย. (B1 ครึ่งหนึ่ง)",
       "amt": 6000,
+      "branch": "B1"
+    },
+    {
+      "date": "05/03/2026",
+      "month": "Mar26",
+      "bucket": "OPEX",
+      "cat": "Salary",
+      "desc": "เงินเดือนเมน 3/26",
+      "amt": 19000,
+      "branch": "B1"
+    },
+    {
+      "date": "27/02/2026",
+      "month": "Feb26",
+      "bucket": "OPEX",
+      "cat": "Investment",
+      "desc": "อุปกรณ์ (จากสลิปโอนผู้จัดการ)",
+      "amt": 5000,
+      "branch": "B1"
+    },
+    {
+      "date": "18/03/2026",
+      "month": "Mar26",
+      "bucket": "OPEX",
+      "cat": "Milk/Conden",
+      "desc": "นม + นมข้นหวาน (จากสลิปโอนผู้จัดการ)",
+      "amt": 230,
+      "branch": "B1"
+    },
+    {
+      "date": "01/04/2026",
+      "month": "Apr26",
+      "bucket": "OPEX",
+      "cat": "Salary",
+      "desc": "เงินเดือนพนักงาน 3 คน มี.ค. 26",
+      "amt": 24600,
       "branch": "B1"
     },
     {
