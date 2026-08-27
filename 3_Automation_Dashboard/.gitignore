@@ -1,3 +1,7 @@
 .vercel
 .env*.local
 \n.env
+
+# Pre-change ledger snapshots written by the audit scripts.
+# Kept on disk (19 of 22 hold states git never captured) but never committed.
+*.bak*

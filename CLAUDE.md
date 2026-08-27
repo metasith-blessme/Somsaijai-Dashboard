@@ -6,11 +6,6 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 Sales data analysis and unified dashboard for **Som Sai Jai** Juice Bar (Branches B1, B2, and B3).
 **Live dashboard:** https://somsaijailive.vercel.app
 
-## Tech Stack
-- **Frontend:** Vanilla JS, Chart.js (client-side dynamic aggregation), no build step.
-- **Backend:** Node.js (automation scripts), `xlsx` (Excel processing).
-- **OCR:** Swift-based `ocr_bin` + Gemini Vision AI (`@google/genai`) for image extraction.
-
 ## Commands (run from `3_Automation_Dashboard/`)
 
 ```bash
