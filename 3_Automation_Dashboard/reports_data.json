@@ -779,9 +779,9 @@
     "total_rev": 286925,
     "total_cogs": 133748,
     "fruit_summary": {
-      "Watermelon": 24440,
+      "Watermelon": 32140,
       "Mango": 7775,
-      "Orange": 85933,
+      "Orange": 78233,
       "Transportation": 6220,
       "Packaging": 8530,
       "Apple": 350,
@@ -802,8 +802,8 @@
       },
       {
         "date": "05/03/2026",
-        "desc": "แตงโม 51 ยอด3,500",
-        "cat": "Orange",
+        "desc": "แตงโม 51 ยอด3,500 (แก้หมวด: เดิมลง Orange ผิด)",
+        "cat": "Watermelon",
         "amt": 7700
       },
       {
@@ -967,16 +967,16 @@
       {
         "name": "Orange",
         "rev": 177480,
-        "cost": 85933,
+        "cost": 78233,
         "cups": 2958,
-        "roi": "106.5%"
+        "roi": "126.9%"
       },
       {
         "name": "Watermelon",
         "rev": 81750,
-        "cost": 24440,
+        "cost": 32140,
         "cups": 1635,
-        "roi": "234.5%"
+        "roi": "154.4%"
       },
       {
         "name": "Mango",
@@ -3996,8 +3996,8 @@
     "fruit_summary": {
       "Packaging": 197847,
       "Transportation": 49689,
-      "Watermelon": 235378,
-      "Orange": 440929,
+      "Watermelon": 243078,
+      "Orange": 433229,
       "Other": 7931,
       "Apple": 42341,
       "Mango": 67302,
@@ -4481,8 +4481,8 @@
       },
       {
         "date": "05/03/2026",
-        "desc": "แตงโม 51 ยอด3,500",
-        "cat": "Orange",
+        "desc": "แตงโม 51 ยอด3,500 (แก้หมวด: เดิมลง Orange ผิด)",
+        "cat": "Watermelon",
         "amt": 7700
       },
       {
@@ -6290,16 +6290,16 @@
       {
         "name": "Orange",
         "rev": 1003200,
-        "cost": 440929,
+        "cost": 433229,
         "cups": 16706,
-        "roi": "127.5%"
+        "roi": "131.6%"
       },
       {
         "name": "Watermelon",
         "rev": 795150,
-        "cost": 235378,
+        "cost": 243078,
         "cups": 15903,
-        "roi": "237.8%"
+        "roi": "227.1%"
       },
       {
         "name": "Mango",
