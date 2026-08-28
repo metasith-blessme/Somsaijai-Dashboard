@@ -55,6 +55,24 @@ were unbooked spending the business would show a ฿337k loss, which it does not
 So: absence of a bank record proves nothing. Never treat "not in the statement" as
 "not real". Ask the owner instead.
 
+## Jan–Mar 26 is the owner's own bookkeeping — do not "fix" it
+
+The owner kept January, February and March by hand, without any AI involvement, and has
+confirmed those months are accurate. Rows there marked `(ปรับตามงบการเงินเจ้าของ)` come
+straight from his own accounts.
+
+**Never move a row into Jan/Feb/Mar, and never restate one, without asking him first.**
+On 2026-08-28 a ฿24,600 payroll row was moved Apr26 → Mar26 on the strength of its own
+description ("เงินเดือนพนักงาน 3 คน มี.ค. 26"). His March wage figure is ฿27,600 and was
+already complete; the move was reverted.
+
+Corollary: when a bank slip and the owner's Q1 book describe the same cost, the book wins
+and the slip is the duplicate — not the other way round. The 01/04 ฿24,600 transfer and
+his 31/03 ฿27,600 line are very likely the same three workers' March wages recorded twice
+from two sources; that one is still open.
+
+Months from Apr26 onward are OCR- and audit-assembled and are fair game to correct.
+
 ## Which month a cost belongs to
 
 Book to the month the cost was **incurred**, not the month the transfer cleared. Payroll

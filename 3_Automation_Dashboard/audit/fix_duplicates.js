@@ -10,8 +10,8 @@
 //   rows 181-2  Apr26 — "Employee 1" ฿19,000 + "Employee 2" ฿12,000 = the ฿31,000
 //                       payroll transfer already booked from the bank slip (row 416).
 //                       Keeping the [bank] row: it is the one tied to a statement line.
-//   row  467    Apr26 -> Mar26 — the row says "เงินเดือนพนักงาน 3 คน มี.ค. 26"; it is
-//                       March payroll settled on 01/04 and belongs to March.
+//   (ถอนออก)   the 01/04 ฿24,600 row was briefly moved Apr26 -> Mar26. Reverted: the owner
+//                       keeps Jan-Mar by hand and confirmed those months are correct.
 //
 // Dry run by default. Pass --apply to write; the workbook is backed up first.
 const XLSX = require('xlsx');
@@ -41,7 +41,8 @@ const DELETE_SPLIT = [
 ];
 
 const REMONTH = [
-  { date: '01/04/2026', cat: 'Salary', amt: 24600, from: 'Apr26', to: 'Mar26' },
+  // ถอนออก 2026-08-28: เจ้าของทำบัญชี ม.ค.-มี.ค. เองและยืนยันว่าถูกแล้ว
+  // ห้ามย้ายรายการเข้าไปในสามเดือนนั้น ดู SKILL.md "Q1 is the owner's own books"
 ];
 
 const file = path.join(DASH, 'SomSaiJai_Dashboard_B1_2026.xlsx');
