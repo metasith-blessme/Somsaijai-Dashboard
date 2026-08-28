@@ -66,10 +66,17 @@ On 2026-08-28 a ฿24,600 payroll row was moved Apr26 → Mar26 on the strength 
 description ("เงินเดือนพนักงาน 3 คน มี.ค. 26"). His March wage figure is ฿27,600 and was
 already complete; the move was reverted.
 
-Corollary: when a bank slip and the owner's Q1 book describe the same cost, the book wins
-and the slip is the duplicate — not the other way round. The 01/04 ฿24,600 transfer and
-his 31/03 ฿27,600 line are very likely the same three workers' March wages recorded twice
-from two sources; that one is still open.
+"Do not fix it silently" is the rule — not "the book is always right". Ask, and let the
+evidence decide. When a bank slip and a Q1 book line describe the same cost, search the
+statements for **both** figures before choosing:
+
+> Mar26 wages: his book said ฿27,600, a slip said ฿24,600. ฿27,600 appears **nowhere** in
+> 863 transactions across both accounts; ฿24,600 is on the statement (01/04 15:12 to AUNG
+> MIN PHAY). Owner chose the slip. The ฿27,600 line was removed and the ฿24,600 moved into
+> Mar26, giving March wages of ฿43,600 (฿24,600 + Ming's ฿19,000).
+
+So a Q1 figure with no bank trace is not automatically wrong — cash is normal here — but
+it is not automatically right either. Put both numbers in front of him and let him pick.
 
 Months from Apr26 onward are OCR- and audit-assembled and are fair game to correct.
 
