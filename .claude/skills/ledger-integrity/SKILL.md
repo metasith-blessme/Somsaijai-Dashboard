@@ -80,6 +80,25 @@ it is not automatically right either. Put both numbers in front of him and let h
 
 Months from Apr26 onward are OCR- and audit-assembled and are fair game to correct.
 
+## Always write quantity + unit on a fruit purchase
+
+COGS is allocated by **actual usage** (owner's choice, 2026-08-28), so a purchase row is
+only useful if it says how much was bought, not just what it cost. Today 30% of fruit spend
+(฿266,273) cannot be tied to any quantity because the description is only a date:
+
+```
+bad   รอบ 27/04/69                    ← ฿21,600 for an unknown amount of orange
+good  ส้ม 30x22กก 660กกx30 19,800บาท   ← crates × kg, total kg, ฿/kg
+```
+
+Orange is the worst at 44% unquantified. Run `node audit/fruit_purchases.js` for the
+current per-month, per-fruit picture; it normalises units and reports what it could not
+parse rather than guessing.
+
+Known conversions: **1 orange ลัง / ตะกร้า = 22 kg** (owner-confirmed). The supplier writes
+crate-maths inline (`30x22กก` = 660 kg), so parsers must handle the compound form — a plain
+"first number before กก" reads 22 and undercounts thirty-fold.
+
 ## Which month a cost belongs to
 
 Book to the month the cost was **incurred**, not the month the transfer cleared. Payroll
