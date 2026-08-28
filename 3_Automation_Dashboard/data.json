@@ -35,9 +35,9 @@
             "upine": 0,
             "uyco": 0,
             "audit": {
-              "theoretical_rev": 10320,
-              "rev_diff": 3370,
-              "is_flagged": true
+              "theoretical_rev": 13620,
+              "rev_diff": 70,
+              "is_flagged": false
             }
           },
           {
@@ -72,9 +72,9 @@
             "upine": 0,
             "uyco": 0,
             "audit": {
-              "theoretical_rev": 8630,
-              "rev_diff": 2475,
-              "is_flagged": true
+              "theoretical_rev": 11425,
+              "rev_diff": -320,
+              "is_flagged": false
             }
           },
           {
@@ -109,9 +109,9 @@
             "upine": 0,
             "uyco": 0,
             "audit": {
-              "theoretical_rev": 7680,
-              "rev_diff": 2410,
-              "is_flagged": true
+              "theoretical_rev": 10170,
+              "rev_diff": -80,
+              "is_flagged": false
             }
           },
           {
@@ -146,9 +146,9 @@
             "upine": 0,
             "uyco": 0,
             "audit": {
-              "theoretical_rev": 4860,
-              "rev_diff": 1980,
-              "is_flagged": true
+              "theoretical_rev": 6440,
+              "rev_diff": 400,
+              "is_flagged": false
             }
           },
           {
@@ -183,9 +183,9 @@
             "upine": 0,
             "uyco": 0,
             "audit": {
-              "theoretical_rev": 5120,
-              "rev_diff": 2080,
-              "is_flagged": true
+              "theoretical_rev": 6790,
+              "rev_diff": 410,
+              "is_flagged": false
             }
           },
           {
@@ -220,9 +220,9 @@
             "upine": 0,
             "uyco": 0,
             "audit": {
-              "theoretical_rev": 4630,
-              "rev_diff": 1390,
-              "is_flagged": true
+              "theoretical_rev": 6125,
+              "rev_diff": -105,
+              "is_flagged": false
             }
           },
           {
@@ -257,9 +257,9 @@
             "upine": 0,
             "uyco": 0,
             "audit": {
-              "theoretical_rev": 4700,
-              "rev_diff": 1730,
-              "is_flagged": true
+              "theoretical_rev": 6230,
+              "rev_diff": 200,
+              "is_flagged": false
             }
           },
           {
@@ -294,9 +294,9 @@
             "upine": 0,
             "uyco": 0,
             "audit": {
-              "theoretical_rev": 4580,
-              "rev_diff": 1330,
-              "is_flagged": true
+              "theoretical_rev": 6050,
+              "rev_diff": -140,
+              "is_flagged": false
             }
           },
           {
@@ -331,8 +331,8 @@
             "upine": 0,
             "uyco": 0,
             "audit": {
-              "theoretical_rev": 7260,
-              "rev_diff": 1820,
+              "theoretical_rev": 9590,
+              "rev_diff": -510,
               "is_flagged": true
             }
           },
@@ -368,9 +368,9 @@
             "upine": 0,
             "uyco": 0,
             "audit": {
-              "theoretical_rev": 7580,
-              "rev_diff": 2280,
-              "is_flagged": true
+              "theoretical_rev": 10030,
+              "rev_diff": -170,
+              "is_flagged": false
             }
           },
           {
@@ -405,9 +405,9 @@
             "upine": 0,
             "uyco": 0,
             "audit": {
-              "theoretical_rev": 5490,
-              "rev_diff": 2050,
-              "is_flagged": true
+              "theoretical_rev": 7245,
+              "rev_diff": 295,
+              "is_flagged": false
             }
           },
           {
@@ -442,8 +442,8 @@
             "upine": 0,
             "uyco": 0,
             "audit": {
-              "theoretical_rev": 6510,
-              "rev_diff": 2910,
+              "theoretical_rev": 8605,
+              "rev_diff": 815,
               "is_flagged": true
             }
           },
@@ -479,9 +479,9 @@
             "upine": 0,
             "uyco": 0,
             "audit": {
-              "theoretical_rev": 5210,
-              "rev_diff": 1960,
-              "is_flagged": true
+              "theoretical_rev": 6865,
+              "rev_diff": 305,
+              "is_flagged": false
             }
           },
           {
@@ -516,9 +516,9 @@
             "upine": 0,
             "uyco": 0,
             "audit": {
-              "theoretical_rev": 4980,
-              "rev_diff": 1420,
-              "is_flagged": true
+              "theoretical_rev": 6560,
+              "rev_diff": -160,
+              "is_flagged": false
             }
           },
           {
@@ -553,9 +553,9 @@
             "upine": 0,
             "uyco": 0,
             "audit": {
-              "theoretical_rev": 5310,
-              "rev_diff": 1390,
-              "is_flagged": true
+              "theoretical_rev": 6995,
+              "rev_diff": -295,
+              "is_flagged": false
             }
           },
           {
@@ -590,8 +590,8 @@
             "upine": 0,
             "uyco": 0,
             "audit": {
-              "theoretical_rev": 7330,
-              "rev_diff": 1250,
+              "theoretical_rev": 9705,
+              "rev_diff": -1125,
               "is_flagged": true
             }
           },

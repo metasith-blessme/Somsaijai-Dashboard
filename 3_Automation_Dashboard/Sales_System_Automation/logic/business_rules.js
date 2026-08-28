@@ -89,10 +89,32 @@ function normalizeExpense(e) {
     };
 }
 
+// B1 opened on higher prices and cut them on 17 Jan 2026 (owner-confirmed 2026-08-28).
+// Days 1-16 average ฿74.0/cup against ฿56.2 at today's list; from the 17th it settles at
+// ฿60.6 and stays there. Only orange and watermelon were on the menu in that window.
+// Without this, every one of those 16 days trips the anti-cheat flag for a price change
+// that was deliberate — ฿31,845 of "unexplained" revenue that was never unexplained.
+const PRICE_ERAS = [
+  { until: '17/01/2026', prices: { orange: 80, watermelon: 65 } },
+];
+
+/** Prices in force on a record's date. Falls back to the current list. */
+function pricesOn(dateStr) {
+  const [d, m, y] = String(dateStr || '').split('/').map(Number);
+  if (!d || !m || !y) return PRICES;
+  const stamp = y * 10000 + m * 100 + d;
+  for (const era of PRICE_ERAS) {
+    const [ed, em, ey] = era.until.split('/').map(Number);
+    if (stamp < ey * 10000 + em * 100 + ed) return { ...PRICES, ...era.prices };
+  }
+  return PRICES;
+}
+
 /**
  * Calculates theoretical revenue based on cup counts
  */
 function calculateTheoreticalRevenue(r) {
+  const PRICES = pricesOn(r.d);
     const or_100 = r.or_100 || 0;
     const or_60 = Math.max(0, (r.or || 0) - or_100);
     
@@ -454,6 +476,7 @@ module.exports = {
     profitShareFor,
     isProfitDistribution,
     normalizeExpense,
+    pricesOn,
     calculateTheoreticalRevenue,
     auditRecord,
     calculatePL

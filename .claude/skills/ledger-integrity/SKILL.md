@@ -146,3 +146,33 @@ Follow `audit/fix_passthrough.js` and `audit/fix_duplicates.js`:
   `fix_q1.js` once double-booked ฿100,000 because it hardcoded "already booked" as `0`
 - then `npm test` → `npm run update-dashboard -- --no-deploy` → check the numbers →
   `npm run deploy`
+
+## Feb26 cup counts are derived, not counted
+
+The orange:watermelon ratio in Feb26 sits at 1.43–1.46 on **every one of 28 days**
+(σ = 0.009). Every other month swings 0.7–3.5 (σ ≈ 0.5). Real customers do not behave
+that way — February's daily cup counts were back-calculated from revenue at a flat
+฿60/cup and split on a fixed ratio.
+
+The monthly **total** is sound: 5,643 in the ledger against 5,659 the owner counted, a
+0.28% gap. What is synthetic is the daily distribution and the per-fruit split.
+
+Consequences:
+- Feb26's ฿24,560 revenue-vs-cups gap is an artifact of that generation, not a real one
+- Feb26 fruit *usage* is modelled too, so per-SKU cost conclusions drawn from it are
+  circular — they return the assumption they were built on
+- Do not use Feb26 for SKU-level margin work. Monthly totals are fine.
+
+A tempting fix — setting watermelon to ฿60 — makes February fit to 0.4% and pushes every
+other month to −2%…−5%. It fits because ฿60/cup is exactly what generated February. It is
+not a real price. Left at ฿50.
+
+## Menu prices are effective-dated
+
+B1 opened dearer and cut prices on **17 Jan 2026**: orange ฿80 → ฿60, watermelon ฿65 → ฿50
+(owner-confirmed). `PRICE_ERAS` / `pricesOn(date)` in `business_rules.js` handles this the
+same way `profitShareFor()` handles the share change — add an era, never edit a historical
+price.
+
+Before this, all 16 pre-change days tripped the anti-cheat flag over a deliberate price
+cut. Jan26's gap fell from 15.2% to 3.5% and flagged days from 26 to 13.
