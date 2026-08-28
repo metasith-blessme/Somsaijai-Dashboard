@@ -815,6 +815,44 @@ const PARAMS = {
 };
 
 const fmt = v => (v || 0).toLocaleString(undefined, {minimumFractionDigits:0, maximumFractionDigits:0});
+
+// "Other OPEX" is everything that is neither COGS nor Rental, so it silently mixes three
+// unlike things: wages, day-to-day running costs, and equipment bought outright (CAPEX,
+// which business_rules.js folds in because it only special-cases Rental). Split them for
+// display — this changes nothing about the arithmetic, only what the reader can see.
+const OPEX_FREIGHT = /ค่าส่ง|ขนส่ง|lalamove|ลาลามูฟ/i;
+function opexBreakdown(rows) {
+    const out = { salary: 0, other: 0, capex: 0, items: [] };
+    const byLabel = {};
+    (rows || []).forEach(e => {
+        const amt = e.amt || 0;
+        // opex_list carries Rental rows too — business_rules.js pushes every non-COGS row
+        // into it and only splits Rental out when summing. They belong to Rental Costs.
+        if (e.cat === 'Rental') return;
+        if (e.cat === 'Salary') { out.salary += amt; return; }
+        if (e.bucket === 'CAPEX' || e.cat === 'Investment') { out.capex += amt; return; }
+        out.other += amt;
+        // Delivery is charged in many small slips (8 rows in Jul26); itemising each one
+        // buries the fact that freight is the single biggest running cost. Roll them up.
+        const label = OPEX_FREIGHT.test(e.desc || '')
+            ? 'ค่าขนส่ง / Lalamove'
+            : ((e.desc || '').replace(/\s*\(LINE_ALBUM[^)]*\)/g, '').trim() || `ไม่ระบุรายละเอียด (${e.date || '-'})`);
+        byLabel[label] = (byLabel[label] || 0) + amt;
+    });
+    out.items = Object.entries(byLabel).map(([label, amt]) => ({ label, amt })).sort((a, b) => b.amt - a.amt);
+    return out;
+}
+
+/** opex_list rows for the branches currently on screen, for the month on screen. */
+function opexRowsFor(report, keys) {
+    return keys.reduce((acc, bk) => acc.concat(((report || {})[bk.toLowerCase()] || {}).opex_list || []), []);
+}
+
+function toggleOpexItems(el) {
+    const open = el.classList.toggle('open');
+    el.querySelector('.opex-caret').textContent = open ? '▾' : '▸';
+    document.querySelectorAll('.' + el.dataset.target).forEach(tr => { tr.style.display = open ? '' : 'none'; });
+}
 // The share a branch was actually paid at in the period on screen. Falls back to the
 // current rate only when the report has no share_pct (pre-Jul26 reports_data.json).
 const sharePct = bk => {
@@ -1050,6 +1088,20 @@ function renderFinance(sales, expenses) {
         <tr style="color:var(--muted)"><td>&nbsp;&nbsp;${bk} Rental</td><td class="num">฿${fmt(bd[bk].rent)}</td><td class="num">${tRev?(bd[bk].rent/tRev*100).toFixed(1)+'%':''}</td></tr>`).join('') : ''}
 
         <tr><td><b>Other OPEX</b></td><td class="num" style="color:var(--red)">- ฿${fmt(tOpex)}</td><td class="num">${tRev?(tOpex/tRev*100).toFixed(1)+'%':''}</td></tr>
+        ${(() => {
+            const ob = opexBreakdown(opexRowsFor(REPORTS_DATA && REPORTS_DATA[currentMonth], visibleKeys));
+            if (!(ob.salary || ob.other || ob.capex)) return '';
+            const pct = v => tRev ? (v / tRev * 100).toFixed(1) + '%' : '';
+            const sub = (label, v, extra = '') => v ? `
+        <tr style="color:var(--muted)"${extra}><td>&nbsp;&nbsp;${label}</td><td class="num">฿${fmt(v)}</td><td class="num">${pct(v)}</td></tr>` : '';
+            return sub('ค่าแรง', ob.salary)
+                + (ob.other ? `
+        <tr class="opex-toggle" style="color:var(--muted); cursor:pointer" data-target="cf-opex-item" onclick="toggleOpexItems(this)">
+            <td>&nbsp;&nbsp;<span class="opex-caret">▸</span> ค่าใช้จ่ายจิปาถะ</td><td class="num">฿${fmt(ob.other)}</td><td class="num">${pct(ob.other)}</td></tr>`
+                + ob.items.map(it => `
+        <tr class="cf-opex-item" style="display:none; color:var(--muted); font-size:0.9em"><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${it.label}</td><td class="num">฿${fmt(it.amt)}</td><td class="num"></td></tr>`).join('') : '')
+                + sub('งบลงทุน (CAPEX)', ob.capex);
+        })()}
 
         <tr><td><b>Daily Expenses</b> <span style="color:var(--muted); font-weight:400">(ice etc., from sales sheets)</span></td><td class="num" style="color:var(--red)">- ฿${fmt(tDaily)}</td><td class="num">${tRev?(tDaily/tRev*100).toFixed(1)+'%':''}</td></tr>
 
@@ -1492,6 +1544,19 @@ function renderReport(sales) {
                     <tr style="background:rgba(0,0,0,0.03)"><td><b>Gross Profit</b></td>${branchKeys.map(bk => `<td class="num">฿${fmt(branchGP[bk])}</td>`).join('')}<td class="num"><b>฿${fmt(grossProfit)}</b></td><td class="num" style="color:${grossMargin>=50?'var(--green)':'var(--accent)'}">${grossMargin.toFixed(1)}%</td></tr>
                     <tr style="color:var(--red)"><td>Less: Rental</td>${branchKeys.map(bk => `<td class="num">(฿${fmt((r[bk.toLowerCase()]||{}).rental||0)})</td>`).join('')}<td class="num">(฿${fmt(totalRental)})</td><td class="num">${r.total_rev?(totalRental/r.total_rev*100).toFixed(1):'0'}%</td></tr>
                     <tr style="color:var(--red)"><td>Less: Other OPEX</td>${branchKeys.map(bk => `<td class="num">(฿${fmt((r[bk.toLowerCase()]||{}).opex||0)})</td>`).join('')}<td class="num">(฿${fmt(totalOpex)})</td><td class="num">${r.total_rev?(totalOpex/r.total_rev*100).toFixed(1):'0'}%</td></tr>
+                    ${(() => {
+                        const per = {}; branchKeys.forEach(bk => per[bk] = opexBreakdown(((r[bk.toLowerCase()]||{}).opex_list) || []));
+                        const all = opexBreakdown(opexRowsFor(r, branchKeys));
+                        if (!(all.salary || all.other || all.capex)) return '';
+                        const row = (label, key) => all[key] ? `
+                    <tr style="color:var(--muted)"><td>&nbsp;&nbsp;${label}</td>${branchKeys.map(bk => `<td class="num">฿${fmt(per[bk][key])}</td>`).join('')}<td class="num">฿${fmt(all[key])}</td><td class="num">${r.total_rev?(all[key]/r.total_rev*100).toFixed(1):'0'}%</td></tr>` : '';
+                        return row('ค่าแรง', 'salary')
+                            + (all.other ? `
+                    <tr class="opex-toggle" style="color:var(--muted); cursor:pointer" data-target="rep-opex-item" onclick="toggleOpexItems(this)"><td>&nbsp;&nbsp;<span class="opex-caret">▸</span> ค่าใช้จ่ายจิปาถะ</td>${branchKeys.map(bk => `<td class="num">฿${fmt(per[bk].other)}</td>`).join('')}<td class="num">฿${fmt(all.other)}</td><td class="num">${r.total_rev?(all.other/r.total_rev*100).toFixed(1):'0'}%</td></tr>`
+                            + all.items.map(it => `
+                    <tr class="rep-opex-item" style="display:none; color:var(--muted); font-size:0.9em"><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${it.label}</td><td class="num" colspan="${branchKeys.length}"></td><td class="num">฿${fmt(it.amt)}</td><td class="num"></td></tr>`).join('') : '')
+                            + row('งบลงทุน (CAPEX)', 'capex');
+                    })()}
                     <tr style="background:rgba(0,0,0,0.05); font-weight:800">
                         <td><b>Net Operational Profit</b></td>
                         ${branchKeys.map(bk => { const net = (r[bk.toLowerCase()]||{}).net||0; return `<td class="num" style="color:${net>=0?'var(--green)':'var(--red)'}">฿${fmt(net)}</td>`; }).join('')}
