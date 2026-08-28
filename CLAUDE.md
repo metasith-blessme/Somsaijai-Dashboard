@@ -86,6 +86,25 @@ Excel (Sale sheets per month + Daily_Expenses sheet)
 - **Before Jul26:** B1 was 60/40; B2 and B3 were already 70/30.
 - Owned by `profitShareFor(branch, month)` in `business_rules.js`. Closed months must keep reporting the rate that was actually paid, so change the effective month — never edit a historical rate.
 
+### Why the rate changed at Jul26 — Ming's salary
+Ming (เมน, MR. AUNG MIN PHAY, K-Bank X7485) is **both a partner and an employee**, so he
+draws a wage *and* a profit share. The two are linked:
+
+| Period | Ming's wage | Ming's share of B1 |
+|---|---|---|
+| Jan–May 26 | ฿19,000/month | 40% |
+| Jun–Jul 26 | **suspended** — no profit and a cash squeeze, Ming agreed to waive it | 40% → **30% from Jul26** |
+| **Aug 26 onward** | **฿20,000/month** | 30% |
+
+Dropping him 40% → 30% was the trade for suspending the wage. So the absence of a ฿19,000
+row in Jun26 and Jul26 is **correct, not a missing cost** — don't "fix" it.
+
+From Aug26 the ฿20,000 wage resumes and must be booked monthly as B1 `OPEX/Salary`.
+
+Ming is Burmese and is often paid in **cash**, so his wage and share frequently have no
+bank trace: Feb26's ฿19,000 and his Jan/Feb profit shares (฿50,511.60 / ฿57,035.60) appear
+nowhere in the statements. Absence of a bank record is not evidence of non-payment here.
+
 ## Branch Specifics
 - **B1:** Main branch (operating since Jan 2026). Fixed costs: Rent ฿35,000, Salary ฿35,000, Utilities ฿4,000.
 - **B2:** Branch 2 (opened April 18, 2026). Fixed costs: Rent ฿25,000 (Jul–Sep discounted rate, normally ฿30,000), Salary ฿30,000, Utilities ฿4,000.
