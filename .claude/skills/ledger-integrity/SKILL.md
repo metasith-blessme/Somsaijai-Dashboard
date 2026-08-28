@@ -234,3 +234,35 @@ Orange specifics worth knowing:
 - the arithmetic is `crates × 22kg × ฿/kg + crates × freight/crate`, e.g. ฿16,445 =
   23×22×30 + 23×55. Solving it recovers a crate count when the memo is missing, but it is
   ambiguous for most amounts — verify against the slip, never book a solved figure alone
+
+## Recovering a quantity that parseNote dropped
+
+`ocr_bin` still works and is far cheaper than reading slip images by eye:
+
+```bash
+cd 3_Automation_Dashboard
+find ../B1/2_Expenses/<Month> -iname '*.jpg' -print0 | while IFS= read -r -d '' f; do
+  ./ocr_bin "$f" > "$OUT/$(basename "$f").txt"; done
+grep -l "16,445.00" "$OUT"/*.txt | xargs grep -A6 บันทึกช่วยจำ
+```
+
+269 images take a couple of minutes and the memo comes out intact, quantity lines and
+all. `audit/restore_orange_qty.js` used this to put the quantities back on ten orange rows
+and split two mixed-fruit slips; orange spend without a quantity fell from 44% to 12%.
+
+What is genuinely unrecoverable: the ฿49,560 slip of 02/04 has **no memo written on it at
+all**, and the ฿2,250 Jun26 row came from an audit un-bundling, not a slip.
+
+## Orange suppliers
+
+| Who | Sells | Price incl. freight |
+|---|---|---|
+| นาย ชัยวัฒน์ เศวตโชติ (BBL X2813) | main supplier, trucked from อ.ฝาง, by the 22 kg crate | ฿16 → ฿32.5/kg |
+| นาง ศิริพร สวัสดิ์กว้าน (KTB X3340) | mainly watermelon; sells orange by the kilo when the main supplier runs short | ฿30.2/kg |
+
+Two of ศิริพร's slips carry watermelon **and** orange on one transfer and must be split —
+฿7,700 (05/03) and ฿5,890 (23/03). Reading only the first line of those memos books the
+whole amount as watermelon, which is exactly what happened before 2026-08-28.
+
+The main supplier's price is remarkably stable within an era: every slip from Apr–Jul
+lands at ฿32.3–32.7/kg. A slip far off that band is worth a second look.
