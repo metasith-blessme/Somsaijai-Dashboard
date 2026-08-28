@@ -108,7 +108,15 @@ nowhere in the statements. Absence of a bank record is not evidence of non-payme
 ## Branch Specifics
 - **B1:** Main branch (operating since Jan 2026). Fixed costs: Rent ฿35,000, Salary ฿35,000, Utilities ฿4,000.
 - **B2:** Branch 2 (opened April 18, 2026). Fixed costs: Rent ฿25,000 (Jul–Sep discounted rate, normally ฿30,000), Salary ฿30,000, Utilities ฿4,000.
-- **B3 (Platinum Pop):** Branch 3 (opened July 11, 2026). Fixed costs: Rent ฿19,000, Salary ฿46,500 (3 staff × ฿500/day × 31 days), Utilities ฿4,000.
+- **B3 (Platinum Pop):** Branch 3 (opened July 11, 2026). Salary ฿46,500 (3 staff × ฿500/day × 31 days), Utilities ฿4,000. **Rent is set by the lease, not a round figure** — quotation MWA01, unit 6.04 m², lessee นายฐิติภูมิ สิงห์สา, term 10 Jul 2026 – 9 Jul 2027. Each amount below is rent + 7% VAT + common area (฿340/m²) + insurance (฿230/m²):
+
+  | Period | Monthly rent | **Total payable** |
+  |---|---:|---:|
+  | 10–31 Jul 2026 (part month) | 10,570 | **13,146.16** |
+  | 1 Aug 2026 – 30 Jun 2027 | 15,100 | **18,780.22** |
+  | 1–9 Jul 2027 | 4,530 | 5,634.07 |
+
+  Deposit ฿48,471, due 16 Jun 2026, paid by ฐิติภูมิ on 15 Jun — an asset, not an expense, and part of the B3 investment total. The ฿19,000 previously carried here was a round-number guess; July's real figure is ฿13,146.16.
 - **Switching:** UI handles branch switching dynamically via `currentBranch` state (`all`, `B1`, `B2`, `B3`).
 
 ## Sales Data Verification Workflow

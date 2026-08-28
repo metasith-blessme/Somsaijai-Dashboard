@@ -176,3 +176,29 @@ price.
 
 Before this, all 16 pre-change days tripped the anti-cheat flag over a deliberate price
 cut. Jan26's gap fell from 15.2% to 3.5% and flagged days from 26 to 13.
+
+## There is a third payment account you cannot see
+
+The two statements in `Bank Statement/` are the K-Bank business accounts (SA8285, SA5601).
+Money also moves from the owner's **personal SCB account, xxx-xxx904-2** — B2's July rent
+(฿25,000, 20 Jul, memo "ค่าเช่าที่ b2 เดือน 7") and part of the B3 fit-out were paid from
+it, and neither appears in any statement here.
+
+On 2026-08-28 this produced a false alarm: ฿79,000 of July rent was reported as "booked
+with no payment" when B2's ฿25,000 was simply paid from an account not in evidence. The
+rule two sections up — *absence of a bank record proves nothing* — applies to this too.
+
+So say "not in the K-Bank statements", never "not paid". Ask for the slip.
+
+## Rent comes from the lease, not from a round number
+
+`CLAUDE.md`'s per-branch "fixed costs" are a summary, not a source. B3's July rent was
+booked at ฿19,000 from that line while the lease says ฿13,146.16 — a ฿5,854 overstatement
+that made B3's first month look worse than it was (net 15,168 -> 21,022 once corrected).
+
+The B3 lease (quotation MWA01, `~/Downloads/platinumpopcontract.JPG`) prices three periods
+and each total is rent + 7% VAT + common area + insurance, so the payable is never the
+headline rent. From Aug 2026 it is ฿18,780.22/month, not ฿19,000.
+
+Before booking rent, check the lease or the slip. A round number in the ledger with a
+generic description ("Rent B3") is a template entry and should be treated as unverified.
