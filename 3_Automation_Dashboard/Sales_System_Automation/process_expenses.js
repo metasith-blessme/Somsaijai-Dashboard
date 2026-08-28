@@ -47,9 +47,32 @@ function parseAmount(text) {
     return null;
 }
 
+// The memo is where the quantity lives, and it is routinely MULTI-LINE. A K PLUS slip
+// from the orange supplier reads:
+//
+//     บันทึกช่วยจำ: รอบ 09/06/69
+//     ส้ม 23x22กก  506กกx30  15,180บาท
+//     ค่าขนส่ง 23ตะกร้า x 55  1265
+//
+// `.` does not match newlines in JS, so the old single-line capture kept "รอบ 09/06/69"
+// and silently dropped both quantity lines. That is why 44% of orange spend (฿194,201)
+// carries no quantity and cannot be priced per kilo — the data was on the slip all along.
+// Take every line until a blank line or the slip footer.
+const NOTE_END = /^\s*$|ผู้รับเงินสามารถ|สแกนตรวจสอบสลิป|ตรวจสอบสถานะ|เลขที่รายการ|ค่าธรรมเนียม/;
+
 function parseNote(text) {
-    const match = text.match(/บันทึกช่วยจำ:\s*(.*)/);
-    return match ? match[1].trim() : 'Unknown';
+    const lines = text.split('\n');
+    const start = lines.findIndex(l => l.includes('บันทึกช่วยจำ'));
+    if (start < 0) return 'Unknown';
+
+    const first = lines[start].split('บันทึกช่วยจำ:').pop().trim();
+    const out = first ? [first] : [];
+    for (let i = start + 1; i < lines.length; i++) {
+        if (NOTE_END.test(lines[i])) break;
+        const l = lines[i].trim();
+        if (l) out.push(l);
+    }
+    return out.length ? out.join(' ') : 'Unknown';
 }
 
 function categorize(note, fullText) {
@@ -91,6 +114,14 @@ function categorize(note, fullText) {
 
     return { cat, bucket };
 }
+
+// Pure parsers are exported so they can be tested without running the OCR pipeline;
+// the pipeline itself only runs when this file is executed directly. Before this,
+// requiring the module kicked off a full ocr_bin sweep, so parseNote had no test and
+// the single-line-memo bug went unnoticed for months.
+module.exports = { parseThaiDate, parseAmount, parseNote, categorize };
+
+if (require.main !== module) return;
 
 const allExpenses = [];
 

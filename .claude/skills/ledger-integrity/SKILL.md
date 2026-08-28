@@ -202,3 +202,35 @@ headline rent. From Aug 2026 it is ฿18,780.22/month, not ฿19,000.
 
 Before booking rent, check the lease or the slip. A round number in the ledger with a
 generic description ("Rent B3") is a template entry and should be treated as unverified.
+
+## The quantity was never missing — the parser dropped it
+
+`process_expenses.js` `parseNote()` captured the memo with `/บันทึกช่วยจำ:\s*(.*)/`. `.` does
+not match newlines in JS, so on a multi-line memo it kept line 1 and discarded the rest:
+
+```
+บันทึกช่วยจำ: รอบ 09/06/69          ← kept
+ส้ม 23x22กก  506กกx30  15,180บาท     ← dropped
+ค่าขนส่ง 23ตะกร้า x 55  1265         ← dropped
+```
+
+That single regex is why 44% of orange spend (฿194,201) has no quantity: the orange
+supplier puts crates, kilos and unit price on lines 2-3, exactly the lines that were lost.
+Fixed to read to the blank line or slip footer, covered by `test_parse_note.js`.
+
+The file also had no `module.exports` and ran its whole OCR sweep on `require`, so none of
+its parsers could be tested — which is how the bug survived. Parsers are exported now and
+the pipeline is behind `require.main === module`.
+
+**Historic rows are not repaired by this.** Feb–Jun 26 entries still carry only a date;
+their quantities have to be read back off the slip images in `B1/2_Expenses/<month>/`.
+Jul26 onward is already complete.
+
+Orange specifics worth knowing:
+- main supplier is **นาย ชัยวัฒน์ เศวตโชติ** (BBL X2813), fruit trucked from อ.ฝาง, so each
+  payment is fruit + freight in one transfer — 26 payments, ฿393,843 across Jan–Jul
+- other names appear when orange runs short at short notice; don't assume every orange row
+  is his
+- the arithmetic is `crates × 22kg × ฿/kg + crates × freight/crate`, e.g. ฿16,445 =
+  23×22×30 + 23×55. Solving it recovers a crate count when the memo is missing, but it is
+  ambiguous for most amounts — verify against the slip, never book a solved figure alone
