@@ -230,7 +230,11 @@ function calculatePL(data) {
                     else if (cat.includes('Watermelon')) fruit_costs['Watermelon'] += e.amt;
                     else if (cat.includes('Mango')) fruit_costs['Mango'] += e.amt;
                     else if (cat.includes('Apple')) fruit_costs['Apple'] += e.amt;
-                    else if (cat.includes('Coconut')) fruit_costs['Coconut'] += e.amt;
+                    // A coconut cup is meat + water + sweetened condensed (Goodwill) +
+                    // evaporated (Falcon). Milk/Conden is bought only for it, so it is part
+                    // of coconut's cost — excluding it read as a 525% ROI when the real
+                    // figure is 312%. Owner-confirmed 2026-08-28.
+                    else if (cat.includes('Coconut') || cat === 'Milk/Conden') fruit_costs['Coconut'] += e.amt;
                     else if (cat.includes('Guava')) fruit_costs['Guava'] += e.amt;
                     else if (cat.includes('Pineapple') || (e.desc && e.desc.toLowerCase().includes('pineapple'))) fruit_costs['Pineapple'] += e.amt;
                 } else {
@@ -259,7 +263,7 @@ function calculatePL(data) {
             else if (cat.includes('Watermelon')) fruitType = 'watermelon';
             else if (cat.includes('Mango')) fruitType = 'mango';
             else if (cat.includes('Apple')) fruitType = 'apple';
-            else if (cat.includes('Coconut')) fruitType = 'coconut';
+            else if (cat.includes('Coconut') || cat === 'Milk/Conden') fruitType = 'coconut';
             else if (cat.includes('Guava')) fruitType = 'guava';
             else if (cat.includes('Pineapple') || (e.desc && e.desc.toLowerCase().includes('pineapple'))) fruitType = 'pineapple';
 

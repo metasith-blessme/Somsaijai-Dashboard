@@ -783,9 +783,10 @@
       "Mango": 7775,
       "Orange": 78993,
       "Transportation": 6220,
-      "Packaging": 8530,
+      "Packaging": 4794,
       "Apple": 350,
-      "Coconut Water": 500
+      "Coconut Water": 500,
+      "Milk/Conden": 3736
     },
     "daily_cogs": [
       {
@@ -940,14 +941,14 @@
       },
       {
         "date": "30/03/2026",
-        "desc": "นมข้นจืดสามลังหนึ่งลังมี 12 กล่อง 36 กล่อง",
-        "cat": "Packaging",
+        "desc": "นมข้นจืด 3 ลัง (36 กล่อง)",
+        "cat": "Milk/Conden",
         "amt": 1720
       },
       {
         "date": "30/03/2026",
         "desc": "นมข้นหวาน 3 ลัง 24 ถุง",
-        "cat": "Packaging",
+        "cat": "Milk/Conden",
         "amt": 2016
       },
       {
@@ -1007,9 +1008,9 @@
       {
         "name": "Coconut",
         "rev": 7080,
-        "cost": 500,
+        "cost": 4236,
         "cups": 118,
-        "roi": "1316.0%"
+        "roi": "67.1%"
       },
       {
         "name": "Young Coco",
@@ -1183,12 +1184,12 @@
       "Apple": 9800,
       "Mango": 10540,
       "Water": 1700,
-      "Packaging": 50347,
+      "Packaging": 48107,
       "Coconut": 8380,
       "Orange": 78760,
       "Watermelon": 34600,
       "Coconut Water": 3400,
-      "Milk/Conden": 2340,
+      "Milk/Conden": 4580,
       "Transportation": 6730,
       "Pineapple": 1500,
       "Stock": 12000,
@@ -1509,9 +1510,15 @@
       },
       {
         "date": "29/04/2026",
-        "desc": "นมข้นหวาน2ลัง 1602",
+        "desc": "นมข้นหวาน 2 ลัง 1,602 + นมข้นจืด 1 ลัง 638",
+        "cat": "Milk/Conden",
+        "amt": 2240
+      },
+      {
+        "date": "29/04/2026",
+        "desc": "ถุงขยะ 15 แพค 970",
         "cat": "Packaging",
-        "amt": 3210
+        "amt": 970
       },
       {
         "date": "29/04/2026",
@@ -1612,9 +1619,9 @@
       {
         "name": "Coconut",
         "rev": 93960,
-        "cost": 11780,
+        "cost": 16360,
         "cups": 1566,
-        "roi": "697.6%"
+        "roi": "474.3%"
       },
       {
         "name": "Young Coco",
@@ -1690,12 +1697,12 @@
           "branch": "B1"
         }
       ],
-      "cogs": 182899.03727358446,
-      "net": 26052.962726415542,
+      "cogs": 182038.5295497065,
+      "net": 26913.470450293506,
       "loss_carry_forward": 0,
-      "adjusted_net": 26052.962726415542,
-      "share": 15631.777635849325,
-      "ming_share": 10421.185090566218,
+      "adjusted_net": 26913.470450293506,
+      "share": 16148.082270176103,
+      "ming_share": 10765.388180117403,
       "share_pct": 0.6
     },
     "b2": {
@@ -1741,8 +1748,8 @@
           "branch": "B2"
         }
       ],
-      "cogs": 38697.9627264155,
-      "net": -24727.9627264155,
+      "cogs": 39558.47045029346,
+      "net": -25588.470450293462,
       "loss_carry_forward": 0,
       "adjusted_net": 0,
       "share": 0,
@@ -1766,14 +1773,14 @@
   },
   "May26": {
     "total_rev": 427311,
-    "total_cogs": 172220,
+    "total_cogs": 171734,
     "fruit_summary": {
       "Guava": 4500,
-      "Milk/Conden": 1907,
+      "Milk/Conden": 5468,
       "Mango": 11615,
       "Apple": 8500,
       "Pineapple": 5634,
-      "Packaging": 27906,
+      "Packaging": 23859,
       "Watermelon": 40208,
       "Transportation": 10555,
       "Water": 1100,
@@ -1881,15 +1888,21 @@
       },
       {
         "date": "09/05/2026",
-        "desc": "นมข้นจืด 1ลัง 636",
+        "desc": "นมข้นจืด 1 ลัง 636",
         "cat": "Milk/Conden",
-        "amt": 1122
+        "amt": 636
       },
       {
         "date": "09/05/2026",
-        "desc": "นมข้น 3 ลัง 2568",
+        "desc": "นมข้น 3 ลัง 2,568 + นมข้นจืด 2 ลัง 1,479",
+        "cat": "Milk/Conden",
+        "amt": 4047
+      },
+      {
+        "date": "09/05/2026",
+        "desc": "ฝา 1 ลัง 828",
         "cat": "Packaging",
-        "amt": 4875
+        "amt": 828
       },
       {
         "date": "09/05/2026",
@@ -2200,9 +2213,9 @@
       {
         "name": "Coconut",
         "rev": 87960,
-        "cost": 6855,
+        "cost": 12323,
         "cups": 1466,
-        "roi": "1183.2%"
+        "roi": "613.8%"
       },
       {
         "name": "Young Coco",
@@ -2229,7 +2242,7 @@
     "b1": {
       "rev": 255780,
       "rental": 41000,
-      "opex": 62597,
+      "opex": 63083,
       "daily_exp": 4230,
       "opex_list": [
         {
@@ -2302,6 +2315,15 @@
           "cat": "Other",
           "desc": "พรหมเช็ดเท้า 1 ผืน",
           "amt": 372,
+          "branch": "B1"
+        },
+        {
+          "date": "09/05/2026",
+          "month": "May26",
+          "bucket": "OPEX",
+          "cat": "Other",
+          "desc": "ลิ้นชักเก็บเงิน 486",
+          "amt": 486,
           "branch": "B1"
         },
         {
@@ -2404,12 +2426,12 @@
           "branch": "B1"
         }
       ],
-      "cogs": 98663.95183236829,
-      "net": 49289.048167631714,
+      "cogs": 98467.91863323319,
+      "net": 48999.08136676681,
       "loss_carry_forward": 0,
-      "adjusted_net": 49289.048167631714,
-      "share": 29573.428900579027,
-      "ming_share": 19715.619267052687,
+      "adjusted_net": 48999.08136676681,
+      "share": 29399.448820060086,
+      "ming_share": 19599.632546706725,
       "share_pct": 0.6
     },
     "b2": {
@@ -2464,12 +2486,12 @@
           "branch": "B2"
         }
       ],
-      "cogs": 73556.0481676317,
-      "net": 41374.9518323683,
-      "loss_carry_forward": 24727.9627264155,
-      "adjusted_net": 16646.9891059528,
-      "share": 11652.89237416696,
-      "ming_share": 4994.096731785841,
+      "cogs": 73266.0813667668,
+      "net": 41664.9186332332,
+      "loss_carry_forward": 25588.470450293462,
+      "adjusted_net": 16076.448182939741,
+      "share": 11253.513728057818,
+      "ming_share": 4822.934454881923,
       "share_pct": 0.7
     },
     "b3": {
@@ -2982,9 +3004,9 @@
       {
         "name": "Coconut",
         "rev": 47520,
-        "cost": 11300,
+        "cost": 17760,
         "cups": 792,
-        "roi": "320.5%"
+        "roi": "167.6%"
       },
       {
         "name": "Young Coco",
@@ -3078,8 +3100,8 @@
           "branch": "B1"
         }
       ],
-      "cogs": 110657.16255739347,
-      "net": -16026.162557393473,
+      "cogs": 110864.72681280547,
+      "net": -16233.726812805471,
       "loss_carry_forward": 0,
       "adjusted_net": 0,
       "share": 0,
@@ -3129,8 +3151,8 @@
           "branch": "B2"
         }
       ],
-      "cogs": 76477.83744260657,
-      "net": -23677.83744260657,
+      "cogs": 76270.27318719454,
+      "net": -23470.273187194543,
       "loss_carry_forward": 0,
       "adjusted_net": 0,
       "share": 0,
@@ -3156,7 +3178,9 @@
     "total_rev": 549947,
     "total_cogs": 262095,
     "fruit_summary": {
-      "Stock": 8133,
+      "Milk/Conden": 6176,
+      "Packaging": 45713,
+      "Stock": 472,
       "Apple": 16190,
       "Guava": 24200,
       "Mango": 30560,
@@ -3164,27 +3188,44 @@
       "Watermelon": 36880,
       "Orange": 65128,
       "Other": 6705,
-      "Pineapple": 9281,
-      "Packaging": 44228
+      "Pineapple": 9281
     },
     "daily_cogs": [
       {
         "date": "24/07/2026",
-        "desc": "ฝา 1 ลัง 509 นมข้นหวาน 1 ลัง 785 นมข้นจืด 2 ลัง 1342 บาท (LINE_ALBUM_Cost July_260802_1.jpg)",
-        "cat": "Stock",
-        "amt": 2636
+        "desc": "นมข้นหวาน 1 ลัง 785 + นมข้นจืด 2 ลัง 1,342",
+        "cat": "Milk/Conden",
+        "amt": 2127
       },
       {
         "date": "24/07/2026",
-        "desc": "ฝา 1 ลัง 502 บาท นมข้นหวาน 3 ลัง 2582 บาท (LINE_ALBUM_Cost July_260802_2.jpg)",
-        "cat": "Stock",
-        "amt": 3084
+        "desc": "ฝา 1 ลัง 509",
+        "cat": "Packaging",
+        "amt": 509
       },
       {
         "date": "24/07/2026",
-        "desc": "ฝา 1 ลัง 474 นมข้นจืด 1 ลัง 751 (LINE_ALBUM_Cost July_260802_3.jpg)",
-        "cat": "Stock",
-        "amt": 1225
+        "desc": "นมข้นหวาน 3 ลัง 2,582",
+        "cat": "Milk/Conden",
+        "amt": 2582
+      },
+      {
+        "date": "24/07/2026",
+        "desc": "ฝา 1 ลัง 502",
+        "cat": "Packaging",
+        "amt": 502
+      },
+      {
+        "date": "24/07/2026",
+        "desc": "นมข้นจืด 1 ลัง 751",
+        "cat": "Milk/Conden",
+        "amt": 751
+      },
+      {
+        "date": "24/07/2026",
+        "desc": "ฝา 1 ลัง 474",
+        "cat": "Packaging",
+        "amt": 474
       },
       {
         "date": "24/07/2026",
@@ -3524,8 +3565,8 @@
       },
       {
         "date": "22/07/2026",
-        "desc": "Cogs Falcon milk (LINE_ALBUM_Cost July_260802_77.jpg)",
-        "cat": "Stock",
+        "desc": "นมข้นจืด Falcon (LINE_ALBUM_Cost July_260802_77.jpg)",
+        "cat": "Milk/Conden",
         "amt": 716
       },
       {
@@ -3633,9 +3674,9 @@
       {
         "name": "Coconut",
         "rev": 83520,
-        "cost": 20790,
+        "cost": 26966,
         "cups": 1392,
-        "roi": "301.7%"
+        "roi": "209.7%"
       },
       {
         "name": "Young Coco",
@@ -3891,12 +3932,12 @@
           "branch": "B1"
         }
       ],
-      "cogs": 98345.33487205219,
-      "net": 40960.91512794781,
-      "loss_carry_forward": 16026.162557393473,
-      "adjusted_net": 24934.752570554338,
-      "share": 17454.326799388036,
-      "ming_share": 7480.425771166302,
+      "cogs": 97118.02575104815,
+      "net": 42188.224248951854,
+      "loss_carry_forward": 16233.726812805471,
+      "adjusted_net": 25954.497436146383,
+      "share": 18168.148205302467,
+      "ming_share": 7786.349230843916,
       "share_pct": 0.7
     },
     "b2": {
@@ -3942,9 +3983,9 @@
           "branch": "B2"
         }
       ],
-      "cogs": 78830.63128415379,
-      "net": -4000.6312841537874,
-      "loss_carry_forward": 23677.83744260657,
+      "cogs": 78505.31517953273,
+      "net": -3675.3151795327285,
+      "loss_carry_forward": 23470.273187194543,
       "adjusted_net": 0,
       "share": 0,
       "ming_share": 0,
@@ -3993,20 +4034,20 @@
           "branch": "B3"
         }
       ],
-      "cogs": 84919.03384379401,
-      "net": 21021.80615620599,
+      "cogs": 86471.65906941913,
+      "net": 19469.18093058087,
       "loss_carry_forward": 0,
-      "adjusted_net": 21021.80615620599,
-      "share": 14715.264309344191,
-      "ming_share": 6306.541846861797,
+      "adjusted_net": 19469.18093058087,
+      "share": 13628.42665140661,
+      "ming_share": 5840.754279174263,
       "share_pct": 0.7
     }
   },
   "all": {
     "total_rev": 2569056,
-    "total_cogs": 1191639,
+    "total_cogs": 1191153,
     "fruit_summary": {
-      "Packaging": 197847,
+      "Packaging": 189309,
       "Transportation": 49689,
       "Watermelon": 242318,
       "Orange": 433989,
@@ -4014,11 +4055,11 @@
       "Apple": 42341,
       "Mango": 67302,
       "Coconut Water": 15200,
+      "Milk/Conden": 26420,
       "Water": 2800,
       "Coconut": 32525,
-      "Milk/Conden": 10707,
       "Pineapple": 22457,
-      "Stock": 26133,
+      "Stock": 18472,
       "Guava": 36900,
       "Coconut Meat": 3500
     },
@@ -4631,14 +4672,14 @@
       },
       {
         "date": "30/03/2026",
-        "desc": "นมข้นจืดสามลังหนึ่งลังมี 12 กล่อง 36 กล่อง",
-        "cat": "Packaging",
+        "desc": "นมข้นจืด 3 ลัง (36 กล่อง)",
+        "cat": "Milk/Conden",
         "amt": 1720
       },
       {
         "date": "30/03/2026",
         "desc": "นมข้นหวาน 3 ลัง 24 ถุง",
-        "cat": "Packaging",
+        "cat": "Milk/Conden",
         "amt": 2016
       },
       {
@@ -4979,9 +5020,15 @@
       },
       {
         "date": "29/04/2026",
-        "desc": "นมข้นหวาน2ลัง 1602",
+        "desc": "นมข้นหวาน 2 ลัง 1,602 + นมข้นจืด 1 ลัง 638",
+        "cat": "Milk/Conden",
+        "amt": 2240
+      },
+      {
+        "date": "29/04/2026",
+        "desc": "ถุงขยะ 15 แพค 970",
         "cat": "Packaging",
-        "amt": 3210
+        "amt": 970
       },
       {
         "date": "29/04/2026",
@@ -5147,15 +5194,21 @@
       },
       {
         "date": "09/05/2026",
-        "desc": "นมข้นจืด 1ลัง 636",
+        "desc": "นมข้นจืด 1 ลัง 636",
         "cat": "Milk/Conden",
-        "amt": 1122
+        "amt": 636
       },
       {
         "date": "09/05/2026",
-        "desc": "นมข้น 3 ลัง 2568",
+        "desc": "นมข้น 3 ลัง 2,568 + นมข้นจืด 2 ลัง 1,479",
+        "cat": "Milk/Conden",
+        "amt": 4047
+      },
+      {
+        "date": "09/05/2026",
+        "desc": "ฝา 1 ลัง 828",
         "cat": "Packaging",
-        "amt": 4875
+        "amt": 828
       },
       {
         "date": "09/05/2026",
@@ -5879,21 +5932,39 @@
       },
       {
         "date": "24/07/2026",
-        "desc": "ฝา 1 ลัง 509 นมข้นหวาน 1 ลัง 785 นมข้นจืด 2 ลัง 1342 บาท (LINE_ALBUM_Cost July_260802_1.jpg)",
-        "cat": "Stock",
-        "amt": 2636
+        "desc": "นมข้นหวาน 1 ลัง 785 + นมข้นจืด 2 ลัง 1,342",
+        "cat": "Milk/Conden",
+        "amt": 2127
       },
       {
         "date": "24/07/2026",
-        "desc": "ฝา 1 ลัง 502 บาท นมข้นหวาน 3 ลัง 2582 บาท (LINE_ALBUM_Cost July_260802_2.jpg)",
-        "cat": "Stock",
-        "amt": 3084
+        "desc": "ฝา 1 ลัง 509",
+        "cat": "Packaging",
+        "amt": 509
       },
       {
         "date": "24/07/2026",
-        "desc": "ฝา 1 ลัง 474 นมข้นจืด 1 ลัง 751 (LINE_ALBUM_Cost July_260802_3.jpg)",
-        "cat": "Stock",
-        "amt": 1225
+        "desc": "นมข้นหวาน 3 ลัง 2,582",
+        "cat": "Milk/Conden",
+        "amt": 2582
+      },
+      {
+        "date": "24/07/2026",
+        "desc": "ฝา 1 ลัง 502",
+        "cat": "Packaging",
+        "amt": 502
+      },
+      {
+        "date": "24/07/2026",
+        "desc": "นมข้นจืด 1 ลัง 751",
+        "cat": "Milk/Conden",
+        "amt": 751
+      },
+      {
+        "date": "24/07/2026",
+        "desc": "ฝา 1 ลัง 474",
+        "cat": "Packaging",
+        "amt": 474
       },
       {
         "date": "24/07/2026",
@@ -6233,8 +6304,8 @@
       },
       {
         "date": "22/07/2026",
-        "desc": "Cogs Falcon milk (LINE_ALBUM_Cost July_260802_77.jpg)",
-        "cat": "Stock",
+        "desc": "นมข้นจืด Falcon (LINE_ALBUM_Cost July_260802_77.jpg)",
+        "cat": "Milk/Conden",
         "amt": 716
       },
       {
@@ -6342,9 +6413,9 @@
       {
         "name": "Coconut",
         "rev": 320040,
-        "cost": 51225,
+        "cost": 77645,
         "cups": 5334,
-        "roi": "524.8%"
+        "roi": "312.2%"
       },
       {
         "name": "Young Coco",
@@ -6370,7 +6441,7 @@
     ],
     "b1": {
       "rev": 1904838,
-      "opex": 339890.22,
+      "opex": 340376.22,
       "rental": 298324,
       "daily_exp": 32260,
       "opex_list": [
@@ -6678,6 +6749,15 @@
           "cat": "Other",
           "desc": "พรหมเช็ดเท้า 1 ผืน",
           "amt": 372,
+          "branch": "B1"
+        },
+        {
+          "date": "09/05/2026",
+          "month": "May26",
+          "bucket": "OPEX",
+          "cat": "Other",
+          "desc": "ลิ้นชักเก็บเงิน 486",
+          "amt": 486,
           "branch": "B1"
         },
         {
@@ -7068,13 +7148,13 @@
           "branch": "B1"
         }
       ],
-      "cogs": 839157.4865353983,
-      "net": 395206.2934646016,
-      "share": 239617.25133581637,
-      "ming_share": 155589.04212878522,
+      "cogs": 837081.2007467933,
+      "net": 396796.5792532067,
+      "share": 240673.39729553863,
+      "ming_share": 156123.18195766804,
       "loss_carry_forward": 0,
-      "adjusted_net": 395206.2934646016,
-      "share_pct": 0.6063093004800004
+      "adjusted_net": 396796.5792532067,
+      "share_pct": 0.6065410083637802
     },
     "b2": {
       "rev": 492321,
@@ -7236,12 +7316,12 @@
           "branch": "B2"
         }
       ],
-      "cogs": 267562.4796208076,
-      "net": -11031.479620807557,
-      "share": 11652.89237416696,
-      "ming_share": 4994.096731785841,
+      "cogs": 267600.14018378756,
+      "net": -11069.140183787531,
+      "share": 11253.513728057818,
+      "ming_share": 4822.934454881923,
       "loss_carry_forward": 0,
-      "adjusted_net": 16646.9891059528,
+      "adjusted_net": 16076.448182939741,
       "share_pct": 0.7
     },
     "b3": {
@@ -7287,12 +7367,12 @@
           "branch": "B3"
         }
       ],
-      "cogs": 84919.03384379401,
-      "net": 21021.80615620599,
-      "share": 14715.264309344191,
-      "ming_share": 6306.541846861797,
+      "cogs": 86471.65906941913,
+      "net": 19469.18093058087,
+      "share": 13628.42665140661,
+      "ming_share": 5840.754279174263,
       "loss_carry_forward": 0,
-      "adjusted_net": 21021.80615620599,
+      "adjusted_net": 19469.18093058087,
       "share_pct": 0.7
     }
   }

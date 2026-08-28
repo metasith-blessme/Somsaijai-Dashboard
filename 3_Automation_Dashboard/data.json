@@ -13569,8 +13569,8 @@
       "date": "30/03/2026",
       "month": "Mar26",
       "bucket": "COGS",
-      "cat": "Packaging",
-      "desc": "นมข้นจืดสามลังหนึ่งลังมี 12 กล่อง 36 กล่อง",
+      "cat": "Milk/Conden",
+      "desc": "นมข้นจืด 3 ลัง (36 กล่อง)",
       "amt": 1720,
       "branch": "B1"
     },
@@ -13578,7 +13578,7 @@
       "date": "30/03/2026",
       "month": "Mar26",
       "bucket": "COGS",
-      "cat": "Packaging",
+      "cat": "Milk/Conden",
       "desc": "นมข้นหวาน 3 ลัง 24 ถุง",
       "amt": 2016,
       "branch": "B1"
@@ -14100,9 +14100,18 @@
       "date": "29/04/2026",
       "month": "Apr26",
       "bucket": "COGS",
+      "cat": "Milk/Conden",
+      "desc": "นมข้นหวาน 2 ลัง 1,602 + นมข้นจืด 1 ลัง 638",
+      "amt": 2240,
+      "branch": "B1"
+    },
+    {
+      "date": "29/04/2026",
+      "month": "Apr26",
+      "bucket": "COGS",
       "cat": "Packaging",
-      "desc": "นมข้นหวาน2ลัง 1602",
-      "amt": 3210,
+      "desc": "ถุงขยะ 15 แพค 970",
+      "amt": 970,
       "branch": "B1"
     },
     {
@@ -14380,8 +14389,26 @@
       "month": "May26",
       "bucket": "COGS",
       "cat": "Milk/Conden",
-      "desc": "นมข้นจืด 1ลัง 636",
-      "amt": 1122,
+      "desc": "นมข้นจืด 1 ลัง 636",
+      "amt": 636,
+      "branch": "B1"
+    },
+    {
+      "date": "09/05/2026",
+      "month": "May26",
+      "bucket": "OPEX",
+      "cat": "Other",
+      "desc": "ลิ้นชักเก็บเงิน 486",
+      "amt": 486,
+      "branch": "B1"
+    },
+    {
+      "date": "09/05/2026",
+      "month": "May26",
+      "bucket": "COGS",
+      "cat": "Milk/Conden",
+      "desc": "นมข้น 3 ลัง 2,568 + นมข้นจืด 2 ลัง 1,479",
+      "amt": 4047,
       "branch": "B1"
     },
     {
@@ -14389,8 +14416,8 @@
       "month": "May26",
       "bucket": "COGS",
       "cat": "Packaging",
-      "desc": "นมข้น 3 ลัง 2568",
-      "amt": 4875,
+      "desc": "ฝา 1 ลัง 828",
+      "amt": 828,
       "branch": "B1"
     },
     {
@@ -15423,27 +15450,54 @@
       "date": "24/07/2026",
       "month": "Jul26",
       "bucket": "COGS",
-      "cat": "Stock",
-      "desc": "ฝา 1 ลัง 509 นมข้นหวาน 1 ลัง 785 นมข้นจืด 2 ลัง 1342 บาท (LINE_ALBUM_Cost July_260802_1.jpg)",
-      "amt": 2636,
+      "cat": "Milk/Conden",
+      "desc": "นมข้นหวาน 1 ลัง 785 + นมข้นจืด 2 ลัง 1,342",
+      "amt": 2127,
       "branch": "B1"
     },
     {
       "date": "24/07/2026",
       "month": "Jul26",
       "bucket": "COGS",
-      "cat": "Stock",
-      "desc": "ฝา 1 ลัง 502 บาท นมข้นหวาน 3 ลัง 2582 บาท (LINE_ALBUM_Cost July_260802_2.jpg)",
-      "amt": 3084,
+      "cat": "Packaging",
+      "desc": "ฝา 1 ลัง 509",
+      "amt": 509,
       "branch": "B1"
     },
     {
       "date": "24/07/2026",
       "month": "Jul26",
       "bucket": "COGS",
-      "cat": "Stock",
-      "desc": "ฝา 1 ลัง 474 นมข้นจืด 1 ลัง 751 (LINE_ALBUM_Cost July_260802_3.jpg)",
-      "amt": 1225,
+      "cat": "Milk/Conden",
+      "desc": "นมข้นหวาน 3 ลัง 2,582",
+      "amt": 2582,
+      "branch": "B1"
+    },
+    {
+      "date": "24/07/2026",
+      "month": "Jul26",
+      "bucket": "COGS",
+      "cat": "Packaging",
+      "desc": "ฝา 1 ลัง 502",
+      "amt": 502,
+      "branch": "B1"
+    },
+    {
+      "date": "24/07/2026",
+      "month": "Jul26",
+      "bucket": "COGS",
+      "cat": "Milk/Conden",
+      "desc": "นมข้นจืด 1 ลัง 751",
+      "amt": 751,
+      "branch": "B1"
+    },
+    {
+      "date": "24/07/2026",
+      "month": "Jul26",
+      "bucket": "COGS",
+      "cat": "Packaging",
+      "desc": "ฝา 1 ลัง 474",
+      "amt": 474,
       "branch": "B1"
     },
     {
@@ -16089,8 +16143,8 @@
       "date": "22/07/2026",
       "month": "Jul26",
       "bucket": "COGS",
-      "cat": "Stock",
-      "desc": "Cogs Falcon milk (LINE_ALBUM_Cost July_260802_77.jpg)",
+      "cat": "Milk/Conden",
+      "desc": "นมข้นจืด Falcon (LINE_ALBUM_Cost July_260802_77.jpg)",
       "amt": 716,
       "branch": "B1"
     },

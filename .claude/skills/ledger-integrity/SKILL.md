@@ -266,3 +266,29 @@ whole amount as watermelon, which is exactly what happened before 2026-08-28.
 
 The main supplier's price is remarkably stable within an era: every slip from Apr–Jul
 lands at ฿32.3–32.7/kg. A slip far off that band is worth a second look.
+
+## A coconut cup costs four things, not one
+
+เนื้อมะพร้าว + น้ำมะพร้าว + นมข้นหวาน (**Goodwill**) + นมข้นจืด (**Falcon**). Condensed milk is
+bought for the coconut drink only, so it is part of coconut's cost.
+
+Two faults hid that, and they compounded:
+
+1. `business_rules.js` maps fruit cost with `cat.includes('Coconut')`, and `Milk/Conden`
+   does not contain the word — so milk was never charged to coconut at all.
+2. Condensed milk was scattered across `Packaging` and `Stock` as well as `Milk/Conden`,
+   usually bundled with ฝา or ถุงขยะ on the same slip. ฿16,835 sat outside its own category.
+
+Result: coconut read **525% ROI**. Corrected it is **312%** on ฿77,875 of real cost —
+still the best SKU, but not by the margin the dashboard was claiming.
+
+When a slip bundles items, split it by the memo's own sub-totals rather than filing the
+whole amount under whichever item is named first. The memos carry the arithmetic:
+
+```
+นมข้น 3 ลัง 2568 / ฝา 1 ลัง 828 / นมข้นจืด2 ลัง 1479     -> ฿4,047 milk + ฿828 packaging
+ฝา 1 ลัง 509 นมข้นหวาน 1 ลัง 785 นมข้นจืด 2 ลัง 1342     -> ฿2,127 milk + ฿509 packaging
+```
+
+Watch for the same shape elsewhere: `Stock` and `Packaging` are the two categories that
+collect whatever a bundled slip was filed under.
