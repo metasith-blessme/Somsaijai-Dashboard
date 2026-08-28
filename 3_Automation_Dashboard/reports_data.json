@@ -1,11 +1,11 @@
 {
   "Jan26": {
     "total_rev": 275405,
-    "total_cogs": 89456,
+    "total_cogs": 84570,
     "fruit_summary": {
       "Packaging": 8436,
-      "Transportation": 8008,
-      "Watermelon": 26800,
+      "Transportation": 7122,
+      "Watermelon": 22800,
       "Orange": 45301,
       "Other": 60,
       "Apple": 851
@@ -252,24 +252,6 @@
         "amt": 4000
       },
       {
-        "date": "28/01/2026",
-        "desc": "Unknown",
-        "cat": "Transportation",
-        "amt": 400
-      },
-      {
-        "date": "28/01/2026",
-        "desc": "ค่าส่ง",
-        "cat": "Transportation",
-        "amt": 486
-      },
-      {
-        "date": "28/01/2026",
-        "desc": "แตงโม 50 ลูก",
-        "cat": "Watermelon",
-        "amt": 4000
-      },
-      {
         "date": "30/01/2026",
         "desc": "แตงโม 25 ลูก",
         "cat": "Watermelon",
@@ -293,9 +275,9 @@
       {
         "name": "Watermelon",
         "rev": 77250,
-        "cost": 26800,
+        "cost": 22800,
         "cups": 1545,
-        "roi": "188.2%"
+        "roi": "238.8%"
       },
       {
         "name": "Mango",
@@ -374,12 +356,12 @@
           "branch": "B1"
         }
       ],
-      "cogs": 89456,
-      "net": 121685,
+      "cogs": 84570,
+      "net": 126571,
       "loss_carry_forward": 0,
-      "adjusted_net": 121685,
-      "share": 73011,
-      "ming_share": 48674,
+      "adjusted_net": 126571,
+      "share": 75942.59999999999,
+      "ming_share": 50628.4,
       "share_pct": 0.6
     },
     "b2": {
@@ -413,9 +395,9 @@
   },
   "Feb26": {
     "total_rev": 340060,
-    "total_cogs": 132511,
+    "total_cogs": 130274,
     "fruit_summary": {
-      "Orange": 63794,
+      "Orange": 61557,
       "Watermelon": 40000,
       "Transportation": 15062,
       "Packaging": 12007,
@@ -605,12 +587,6 @@
       },
       {
         "date": "28/02/2026",
-        "desc": "ค่าส่งส้ม",
-        "cat": "Orange",
-        "amt": 2237
-      },
-      {
-        "date": "28/02/2026",
         "desc": "แตงโม 50 ลูก",
         "cat": "Watermelon",
         "amt": 4000
@@ -638,9 +614,9 @@
       {
         "name": "Orange",
         "rev": 200100,
-        "cost": 63794,
+        "cost": 61557,
         "cups": 3335,
-        "roi": "213.7%"
+        "roi": "225.1%"
       },
       {
         "name": "Watermelon",
@@ -762,12 +738,12 @@
           "branch": "B1"
         }
       ],
-      "cogs": 132511,
-      "net": 128402,
+      "cogs": 130274,
+      "net": 130639,
       "loss_carry_forward": 0,
-      "adjusted_net": 128402,
-      "share": 77041.2,
-      "ming_share": 51360.8,
+      "adjusted_net": 130639,
+      "share": 78383.4,
+      "ming_share": 52255.600000000006,
       "share_pct": 0.6
     },
     "b2": {
@@ -1048,7 +1024,7 @@
     "b1": {
       "rev": 286925,
       "rental": 47000,
-      "opex": 61207.47,
+      "opex": 85807.47,
       "daily_exp": 9250,
       "opex_list": [
         {
@@ -1149,14 +1125,23 @@
           "desc": "นม + นมข้นหวาน (จากสลิปโอนผู้จัดการ)",
           "amt": 230,
           "branch": "B1"
+        },
+        {
+          "date": "01/04/2026",
+          "month": "Mar26",
+          "bucket": "OPEX",
+          "cat": "Salary",
+          "desc": "เงินเดือนพนักงาน 3 คน มี.ค. 26",
+          "amt": 24600,
+          "branch": "B1"
         }
       ],
       "cogs": 133748,
-      "net": 35719.53,
+      "net": 11119.529999999999,
       "loss_carry_forward": 0,
-      "adjusted_net": 35719.53,
-      "share": 21431.717999999997,
-      "ming_share": 14287.812,
+      "adjusted_net": 11119.529999999999,
+      "share": 6671.717999999999,
+      "ming_share": 4447.812,
       "share_pct": 0.6
     },
     "b2": {
@@ -1653,7 +1638,7 @@
     "b1": {
       "rev": 313858,
       "rental": 41000,
-      "opex": 114616,
+      "opex": 59016,
       "daily_exp": 4890,
       "opex_list": [
         {
@@ -1663,24 +1648,6 @@
           "cat": "Other",
           "desc": "16/4/2569",
           "amt": 4000,
-          "branch": "B1"
-        },
-        {
-          "date": "30/04/2026",
-          "month": "Apr26",
-          "bucket": "OPEX",
-          "cat": "Salary",
-          "desc": "Employee 1",
-          "amt": 19000,
-          "branch": "B1"
-        },
-        {
-          "date": "30/04/2026",
-          "month": "Apr26",
-          "bucket": "OPEX",
-          "cat": "Salary",
-          "desc": "Employee 2",
-          "amt": 12000,
           "branch": "B1"
         },
         {
@@ -1718,23 +1685,14 @@
           "desc": "ค่าเช่า stock เม.ย. (B1 ครึ่งหนึ่ง)",
           "amt": 6000,
           "branch": "B1"
-        },
-        {
-          "date": "01/04/2026",
-          "month": "Apr26",
-          "bucket": "OPEX",
-          "cat": "Salary",
-          "desc": "เงินเดือนพนักงาน 3 คน มี.ค. 26",
-          "amt": 24600,
-          "branch": "B1"
         }
       ],
       "cogs": 182899.03727358446,
-      "net": -29547.037273584458,
+      "net": 26052.962726415542,
       "loss_carry_forward": 0,
-      "adjusted_net": 0,
-      "share": 0,
-      "ming_share": 0,
+      "adjusted_net": 26052.962726415542,
+      "share": 15631.777635849325,
+      "ming_share": 10421.185090566218,
       "share_pct": 0.6
     },
     "b2": {
@@ -2445,10 +2403,10 @@
       ],
       "cogs": 98663.95183236829,
       "net": 49289.048167631714,
-      "loss_carry_forward": 29547.037273584458,
-      "adjusted_net": 19742.010894047256,
-      "share": 11845.206536428354,
-      "ming_share": 7896.804357618903,
+      "loss_carry_forward": 0,
+      "adjusted_net": 49289.048167631714,
+      "share": 29573.428900579027,
+      "ming_share": 19715.619267052687,
       "share_pct": 0.6
     },
     "b2": {
@@ -3692,7 +3650,7 @@
     "b1": {
       "rev": 242090,
       "rental": 39000,
-      "opex": 61643.75,
+      "opex": 59643.75,
       "daily_exp": 4140,
       "opex_list": [
         {
@@ -3919,23 +3877,14 @@
           "desc": "ค่าขนส่ง (LINE_ALBUM_Cost July_260802_19.jpg, audit fix - missing entry)",
           "amt": 100,
           "branch": "B1"
-        },
-        {
-          "date": "31/07/2026",
-          "month": "Jul26",
-          "bucket": "OPEX",
-          "cat": "Other",
-          "desc": "Lalamove (LINE_ALBUM_Cost July_260802_25.jpg, audit fix - missing entry)",
-          "amt": 2000,
-          "branch": "B1"
         }
       ],
       "cogs": 98345.33487205219,
-      "net": 38960.91512794781,
+      "net": 40960.91512794781,
       "loss_carry_forward": 10026.162557393473,
-      "adjusted_net": 28934.752570554338,
-      "share": 20254.326799388036,
-      "ming_share": 8680.425771166303,
+      "adjusted_net": 30934.752570554338,
+      "share": 21654.326799388036,
+      "ming_share": 9280.425771166303,
       "share_pct": 0.7
     },
     "b2": {
@@ -4043,12 +3992,12 @@
   },
   "all": {
     "total_rev": 2570056,
-    "total_cogs": 1198762,
+    "total_cogs": 1191639,
     "fruit_summary": {
       "Packaging": 197847,
-      "Transportation": 50575,
-      "Watermelon": 239378,
-      "Orange": 443166,
+      "Transportation": 49689,
+      "Watermelon": 235378,
+      "Orange": 440929,
       "Other": 7931,
       "Apple": 42341,
       "Mango": 67302,
@@ -4303,24 +4252,6 @@
         "amt": 4000
       },
       {
-        "date": "28/01/2026",
-        "desc": "Unknown",
-        "cat": "Transportation",
-        "amt": 400
-      },
-      {
-        "date": "28/01/2026",
-        "desc": "ค่าส่ง",
-        "cat": "Transportation",
-        "amt": 486
-      },
-      {
-        "date": "28/01/2026",
-        "desc": "แตงโม 50 ลูก",
-        "cat": "Watermelon",
-        "amt": 4000
-      },
-      {
         "date": "30/01/2026",
         "desc": "แตงโม 25 ลูก",
         "cat": "Watermelon",
@@ -4505,12 +4436,6 @@
         "desc": "ค่าขวดใหญ่",
         "cat": "Packaging",
         "amt": 319
-      },
-      {
-        "date": "28/02/2026",
-        "desc": "ค่าส่งส้ม",
-        "cat": "Orange",
-        "amt": 2237
       },
       {
         "date": "28/02/2026",
@@ -6365,16 +6290,16 @@
       {
         "name": "Orange",
         "rev": 1003200,
-        "cost": 443166,
+        "cost": 440929,
         "cups": 16706,
-        "roi": "126.4%"
+        "roi": "127.5%"
       },
       {
         "name": "Watermelon",
         "rev": 795150,
-        "cost": 239378,
+        "cost": 235378,
         "cups": 15903,
-        "roi": "232.2%"
+        "roi": "237.8%"
       },
       {
         "name": "Mango",
@@ -6421,7 +6346,7 @@
     ],
     "b1": {
       "rev": 1905838,
-      "opex": 400490.22,
+      "opex": 367490.22,
       "rental": 292324,
       "daily_exp": 32260,
       "opex_list": [
@@ -6615,30 +6540,21 @@
           "branch": "B1"
         },
         {
+          "date": "01/04/2026",
+          "month": "Mar26",
+          "bucket": "OPEX",
+          "cat": "Salary",
+          "desc": "เงินเดือนพนักงาน 3 คน มี.ค. 26",
+          "amt": 24600,
+          "branch": "B1"
+        },
+        {
           "date": "18/04/2026",
           "month": "Apr26",
           "bucket": "OPEX",
           "cat": "Other",
           "desc": "16/4/2569",
           "amt": 4000,
-          "branch": "B1"
-        },
-        {
-          "date": "30/04/2026",
-          "month": "Apr26",
-          "bucket": "OPEX",
-          "cat": "Salary",
-          "desc": "Employee 1",
-          "amt": 19000,
-          "branch": "B1"
-        },
-        {
-          "date": "30/04/2026",
-          "month": "Apr26",
-          "bucket": "OPEX",
-          "cat": "Salary",
-          "desc": "Employee 2",
-          "amt": 12000,
           "branch": "B1"
         },
         {
@@ -6675,15 +6591,6 @@
           "cat": "Rental",
           "desc": "ค่าเช่า stock เม.ย. (B1 ครึ่งหนึ่ง)",
           "amt": 6000,
-          "branch": "B1"
-        },
-        {
-          "date": "01/04/2026",
-          "month": "Apr26",
-          "bucket": "OPEX",
-          "cat": "Salary",
-          "desc": "เงินเดือนพนักงาน 3 คน มี.ค. 26",
-          "amt": 24600,
           "branch": "B1"
         },
         {
@@ -7135,24 +7042,15 @@
           "desc": "ค่าขนส่ง (LINE_ALBUM_Cost July_260802_19.jpg, audit fix - missing entry)",
           "amt": 100,
           "branch": "B1"
-        },
-        {
-          "date": "31/07/2026",
-          "month": "Jul26",
-          "bucket": "OPEX",
-          "cat": "Other",
-          "desc": "Lalamove (LINE_ALBUM_Cost July_260802_25.jpg, audit fix - missing entry)",
-          "amt": 2000,
-          "branch": "B1"
         }
       ],
-      "cogs": 846280.4865353983,
-      "net": 334483.2934646016,
-      "share": 203583.4513358164,
-      "ming_share": 130899.84212878523,
+      "cogs": 839157.4865353983,
+      "net": 374606.2934646016,
+      "share": 227857.25133581637,
+      "ming_share": 146749.04212878522,
       "loss_carry_forward": 0,
-      "adjusted_net": 334483.2934646016,
-      "share_pct": 0.6086505822969053
+      "adjusted_net": 374606.2934646016,
+      "share_pct": 0.608257937229097
     },
     "b2": {
       "rev": 492321,
