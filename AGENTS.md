@@ -1,6 +1,14 @@
 # Repository Guidelines
 
+**Before starting any task, every agent must read [`CLAUDE.md`](CLAUDE.md) in full and follow it.**
+
 Sales data analysis and dashboard system for **Som Sai Jai** — a Thai cold-press juice bar (multi-branch B1, B2, B3). Data originates from handwritten daily sales report photos uploaded via LINE and POS daily revenue summaries.
+
+## Mandatory OCR accuracy policy
+
+Before reading or importing any sales report, POS summary, expense slip, invoice, payroll, rent or stock document, read and follow [`docs/OCR_RULES.md`](docs/OCR_RULES.md). It governs OCR/review/import procedure over older workflow notes. For the ordered path from source intake through Excel, generation, deployment and live readback, follow [`docs/OCR_TO_DASHBOARD_WORKFLOW.md`](docs/OCR_TO_DASHBOARD_WORKFLOW.md). Preserve raw evidence; unknown is not zero; never force totals to balance; human approval is required before financial writes and deployment.
+
+**Current safety warning:** the legacy `verify-sales`, `process-expenses`, `sync` and `pipeline` commands bypass review or overwrite data. Do not use them on production records until the gaps in [`OCR_PIPELINE_REVIEW.md`](3_Automation_Dashboard/audit/OCR_PIPELINE_REVIEW.md) are fixed and tested. `process-sales` also modifies shared staging and is not a safe preview. The data-flow diagram below describes architecture, not permission to run unsafe commands.
 
 ---
 

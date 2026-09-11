@@ -5,6 +5,12 @@ description: Rules for adding, changing, or auditing rows in the Som Sai Jai exp
 
 # Ledger integrity
 
+## OCR policy precedence
+
+Before source extraction, expense review or import, follow [`docs/OCR_RULES.md`](../../../docs/OCR_RULES.md) and the [pipeline-gap review](../../../3_Automation_Dashboard/audit/OCR_PIPELINE_REVIEW.md). They supersede older procedural shortcuts below: do not infer missing quantities, automatically move a cost because its memo names a month, or treat legacy verification flags as human approval. Cross-branch parent/split checks and source-bound approval are required. The legacy production import commands are on a procedural safety hold until fixed and tested.
+
+Historical amounts, percentages, completeness claims and ROI figures below are context from earlier audits, not current measurements or OCR-accuracy scores. Recheck current evidence before quoting them. Preserve the owner's explicit-approval requirement for Jan–Mar changes and the rule that missing bank evidence does not prove nonpayment.
+
 The Excel `Daily_Expenses` sheets are the source of truth for money. Every rule here exists
 because the books were already broken that way once.
 

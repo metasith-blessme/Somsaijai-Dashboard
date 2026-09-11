@@ -8,6 +8,8 @@ Sales data analysis and unified dashboard for **Som Sai Jai** Juice Bar (Branche
 
 ## Commands (run from `3_Automation_Dashboard/`)
 
+**OCR safety prerequisite:** before any document extraction, review, financial import, dashboard regeneration or deployment, read and follow [`docs/OCR_RULES.md`](docs/OCR_RULES.md) and the ordered [`docs/OCR_TO_DASHBOARD_WORKFLOW.md`](docs/OCR_TO_DASHBOARD_WORKFLOW.md). The rules define evidence/approval safeguards; the workflow defines the required gates from batch intake through live readback. They take precedence over older OCR workflow instructions, including the staging steps below. The current `verify-sales`, `process-expenses`, `sync` and `pipeline` commands are unsafe for production imports until the documented gaps are fixed and tested; `process-sales` changes shared staging and is not a preview. See [`OCR_PIPELINE_REVIEW.md`](3_Automation_Dashboard/audit/OCR_PIPELINE_REVIEW.md). The command list is a reference, not authorization to bypass these gates.
+
 ```bash
 # Process sales images for a specific branch/month
 npm run process-sales Jul26 B1
@@ -121,11 +123,8 @@ nowhere in the statements. Absence of a bank record is not evidence of non-payme
 
 ## Sales Data Verification Workflow
 
-1. **Plan before executing.** Present the step-by-step plan for a new batch of images and wait for approval before touching any files.
-2. **Never write directly to `data.json`.** It is fully overwritten by `npm run update-dashboard`, which reads from master Excel files.
-3. **Staging flow for new sales data:**
-   - Write records to `3_Automation_Dashboard/pending_verification.json`
-   - Run `npm run verify-sales` (pushes to master Excel)
-   - Run `npm run update-dashboard` (Excel → `data.json` → deploy)
-4. **Audit table required.** Present: `Date | Revenue | Cash | Scan | Expense | Net | Verify ✓/✗` before writing.
-5. **Partner profit-share payouts must NEVER be recorded as an expense.** Set bucket `EXCLUDED` / category `Profit Distribution` (amt 0).
+Follow [`docs/OCR_TO_DASHBOARD_WORKFLOW.md`](docs/OCR_TO_DASHBOARD_WORKFLOW.md). Read-only inventory and extraction may begin once the batch scope is recorded; owner approval is mandatory for the exact financial write and again for deployment.
+
+The legacy staging/import commands listed above are historical interfaces only and must not be used on production records while the safety hold remains. `data.json` is generated from the branch Excel workbooks and must never be edited directly. After an approved safe import and exact Excel readback, regenerate with `npm run update-dashboard -- --no-deploy`, run `npm test`, inspect the generated diff, obtain deployment approval, and deploy separately with `npm run deploy`.
+
+Partner profit-share payouts are not operating expenses. Their P&L representation remains `EXCLUDED` / `Profit Distribution` / amount 0 while the actual payment is preserved in restricted settlement evidence.
