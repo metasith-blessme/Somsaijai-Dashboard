@@ -1,0 +1,204 @@
+{
+  "month": "2026-08",
+  "branch": "B1",
+  "summary": {
+    "total_revenue": 162330,
+    "days_reported": 23,
+    "missing_dates": [
+      "2026-08-06",
+      "2026-08-07",
+      "2026-08-09",
+      "2026-08-10",
+      "2026-08-11",
+      "2026-08-13",
+      "2026-08-14",
+      "2026-08-15"
+    ]
+  },
+  "daily_records": [
+    {
+      "date": "2026-08-01",
+      "branch": "B1",
+      "cash_sales": 6360,
+      "scan_sales": 3420,
+      "total_revenue": 9780,
+      "note": ""
+    },
+    {
+      "date": "2026-08-02",
+      "branch": "B1",
+      "cash_sales": 5370,
+      "scan_sales": 2480,
+      "total_revenue": 7850,
+      "note": ""
+    },
+    {
+      "date": "2026-08-03",
+      "branch": "B1",
+      "cash_sales": 4070,
+      "scan_sales": 3190,
+      "total_revenue": 7810,
+      "note": ""
+    },
+    {
+      "date": "2026-08-04",
+      "branch": "B1",
+      "cash_sales": 3270,
+      "scan_sales": 2270,
+      "total_revenue": 5540,
+      "note": "reconciled from cash+scan (3270+2270); sheet's own total cell had a correction/strikethrough"
+    },
+    {
+      "date": "2026-08-05",
+      "branch": "B1",
+      "cash_sales": 3270,
+      "scan_sales": 1820,
+      "total_revenue": 5090,
+      "note": ""
+    },
+    {
+      "date": "2026-08-08",
+      "branch": "B1",
+      "cash_sales": 4230,
+      "scan_sales": 3460,
+      "total_revenue": 7690,
+      "note": ""
+    },
+    {
+      "date": "2026-08-12",
+      "branch": "B1",
+      "cash_sales": 6490,
+      "scan_sales": 2790,
+      "total_revenue": 9280,
+      "note": ""
+    },
+    {
+      "date": "2026-08-16",
+      "branch": "B1",
+      "cash_sales": 7200,
+      "scan_sales": 4340,
+      "total_revenue": 11540,
+      "note": ""
+    },
+    {
+      "date": "2026-08-17",
+      "branch": "B1",
+      "cash_sales": 2960,
+      "scan_sales": 1190,
+      "total_revenue": 4150,
+      "note": ""
+    },
+    {
+      "date": "2026-08-18",
+      "branch": "B1",
+      "cash_sales": 5100,
+      "scan_sales": 2280,
+      "total_revenue": 7380,
+      "note": ""
+    },
+    {
+      "date": "2026-08-19",
+      "branch": "B1",
+      "cash_sales": 4390,
+      "scan_sales": 2150,
+      "total_revenue": 6540,
+      "note": ""
+    },
+    {
+      "date": "2026-08-20",
+      "branch": "B1",
+      "cash_sales": 4470,
+      "scan_sales": 2190,
+      "total_revenue": 6660,
+      "note": ""
+    },
+    {
+      "date": "2026-08-21",
+      "branch": "B1",
+      "cash_sales": 4640,
+      "scan_sales": 2689,
+      "total_revenue": 7329,
+      "note": ""
+    },
+    {
+      "date": "2026-08-22",
+      "branch": "B1",
+      "cash_sales": 3675,
+      "scan_sales": 2264,
+      "total_revenue": 5939,
+      "note": ""
+    },
+    {
+      "date": "2026-08-23",
+      "branch": "B1",
+      "cash_sales": 7823,
+      "scan_sales": 3660,
+      "total_revenue": 11483,
+      "note": "uncertain (nonstandard handwritten note)"
+    },
+    {
+      "date": "2026-08-24",
+      "branch": "B1",
+      "cash_sales": 4469,
+      "scan_sales": 1464,
+      "total_revenue": 5933,
+      "note": ""
+    },
+    {
+      "date": "2026-08-25",
+      "branch": "B1",
+      "cash_sales": 3734,
+      "scan_sales": 2848,
+      "total_revenue": 6582,
+      "note": ""
+    },
+    {
+      "date": "2026-08-26",
+      "branch": "B1",
+      "cash_sales": 5282,
+      "scan_sales": 1898,
+      "total_revenue": 7180,
+      "note": ""
+    },
+    {
+      "date": "2026-08-27",
+      "branch": "B1",
+      "cash_sales": 5388,
+      "scan_sales": 2048,
+      "total_revenue": 7436,
+      "note": ""
+    },
+    {
+      "date": "2026-08-28",
+      "branch": "B1",
+      "cash_sales": 1645,
+      "scan_sales": 2259,
+      "total_revenue": 3904,
+      "note": ""
+    },
+    {
+      "date": "2026-08-29",
+      "branch": "B1",
+      "cash_sales": 3460,
+      "scan_sales": 3317,
+      "total_revenue": 6777,
+      "note": ""
+    },
+    {
+      "date": "2026-08-30",
+      "branch": "B1",
+      "cash_sales": 4875,
+      "scan_sales": 2892,
+      "total_revenue": 7767,
+      "note": ""
+    },
+    {
+      "date": "2026-08-31",
+      "branch": "B1",
+      "cash_sales": 2000,
+      "scan_sales": 690,
+      "total_revenue": 2690,
+      "note": ""
+    }
+  ]
+}

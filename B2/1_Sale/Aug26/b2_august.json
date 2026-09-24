@@ -1,0 +1,193 @@
+{
+  "month": "2026-08",
+  "branch": "B2",
+  "summary": {
+    "total_revenue": 130973,
+    "days_reported": 30,
+    "missing_dates": [
+      "2026-08-06"
+    ]
+  },
+  "daily_records": [
+    {
+      "date": "2026-08-01",
+      "branch": "B2",
+      "total_revenue": 6020,
+      "note": ""
+    },
+    {
+      "date": "2026-08-02",
+      "branch": "B2",
+      "total_revenue": 3460,
+      "note": ""
+    },
+    {
+      "date": "2026-08-03",
+      "branch": "B2",
+      "total_revenue": 4990,
+      "note": ""
+    },
+    {
+      "date": "2026-08-04",
+      "branch": "B2",
+      "total_revenue": 3660,
+      "note": ""
+    },
+    {
+      "date": "2026-08-05",
+      "branch": "B2",
+      "total_revenue": 2900,
+      "note": ""
+    },
+    {
+      "date": "2026-08-07",
+      "branch": "B2",
+      "total_revenue": 4670,
+      "note": ""
+    },
+    {
+      "date": "2026-08-08",
+      "branch": "B2",
+      "total_revenue": 4880,
+      "note": ""
+    },
+    {
+      "date": "2026-08-09",
+      "branch": "B2",
+      "total_revenue": 7810,
+      "note": ""
+    },
+    {
+      "date": "2026-08-10",
+      "branch": "B2",
+      "total_revenue": 5150,
+      "note": ""
+    },
+    {
+      "date": "2026-08-11",
+      "branch": "B2",
+      "total_revenue": 6010,
+      "note": ""
+    },
+    {
+      "date": "2026-08-12",
+      "branch": "B2",
+      "total_revenue": 4950,
+      "note": ""
+    },
+    {
+      "date": "2026-08-13",
+      "branch": "B2",
+      "total_revenue": 5110,
+      "note": ""
+    },
+    {
+      "date": "2026-08-14",
+      "branch": "B2",
+      "total_revenue": 5170,
+      "note": ""
+    },
+    {
+      "date": "2026-08-15",
+      "branch": "B2",
+      "total_revenue": 5550,
+      "note": ""
+    },
+    {
+      "date": "2026-08-16",
+      "branch": "B2",
+      "total_revenue": 5010,
+      "note": ""
+    },
+    {
+      "date": "2026-08-17",
+      "branch": "B2",
+      "total_revenue": 2500,
+      "note": ""
+    },
+    {
+      "date": "2026-08-18",
+      "branch": "B2",
+      "total_revenue": 4190,
+      "note": ""
+    },
+    {
+      "date": "2026-08-19",
+      "branch": "B2",
+      "total_revenue": 3640,
+      "note": ""
+    },
+    {
+      "date": "2026-08-20",
+      "branch": "B2",
+      "total_revenue": 3270,
+      "note": ""
+    },
+    {
+      "date": "2026-08-21",
+      "branch": "B2",
+      "total_revenue": 4140,
+      "note": ""
+    },
+    {
+      "date": "2026-08-22",
+      "branch": "B2",
+      "total_revenue": 4810,
+      "note": ""
+    },
+    {
+      "date": "2026-08-23",
+      "branch": "B2",
+      "total_revenue": 4038,
+      "note": ""
+    },
+    {
+      "date": "2026-08-24",
+      "branch": "B2",
+      "total_revenue": 4715,
+      "note": ""
+    },
+    {
+      "date": "2026-08-25",
+      "branch": "B2",
+      "total_revenue": 4825,
+      "note": ""
+    },
+    {
+      "date": "2026-08-26",
+      "branch": "B2",
+      "total_revenue": 4100,
+      "note": ""
+    },
+    {
+      "date": "2026-08-27",
+      "branch": "B2",
+      "total_revenue": 4340,
+      "note": ""
+    },
+    {
+      "date": "2026-08-28",
+      "branch": "B2",
+      "total_revenue": 2170,
+      "note": ""
+    },
+    {
+      "date": "2026-08-29",
+      "branch": "B2",
+      "total_revenue": 3125,
+      "note": ""
+    },
+    {
+      "date": "2026-08-30",
+      "branch": "B2",
+      "total_revenue": 4265,
+      "note": ""
+    },
+    {
+      "date": "2026-08-31",
+      "branch": "B2",
+      "total_revenue": 1505,
+      "note": ""
+    }
+  ]
+}
