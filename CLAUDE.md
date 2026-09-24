@@ -10,6 +10,21 @@ Sales data analysis and unified dashboard for **Som Sai Jai** Juice Bar (Branche
 
 **OCR safety prerequisite:** before any document extraction, review, financial import, dashboard regeneration or deployment, read and follow [`docs/OCR_RULES.md`](docs/OCR_RULES.md) and the ordered [`docs/OCR_TO_DASHBOARD_WORKFLOW.md`](docs/OCR_TO_DASHBOARD_WORKFLOW.md). The rules define evidence/approval safeguards; the workflow defines the required gates from batch intake through live readback. They take precedence over older OCR workflow instructions, including the staging steps below. The current `verify-sales`, `process-expenses`, `sync` and `pipeline` commands are unsafe for production imports until the documented gaps are fixed and tested; `process-sales` changes shared staging and is not a preview. See [`OCR_PIPELINE_REVIEW.md`](3_Automation_Dashboard/audit/OCR_PIPELINE_REVIEW.md). The command list is a reference, not authorization to bypass these gates.
 
+**Use the safe-write tools, not the legacy commands.** The legacy importers above are still unsafe. Financial writes now go through purpose-built scripts in `3_Automation_Dashboard/`, each of which validates the whole batch first and fails closed, backs up every workbook it touches, reads every written value back, and refuses to leave a half-written file:
+
+```bash
+node safe_import_expenses.js <change_list.json>            # dry run (default)
+node safe_import_expenses.js <change_list.json> --commit   # append Daily_Expenses rows
+node safe_import_sales.js   <sales_change_list.json> [--commit]  # append month Sale rows
+node void_expense_rows.js   <voids.json> [--commit]        # reverse a row (amount -> 0 + reason, never deleted)
+node correct_sales_cells.js <corrections.json> [--commit]  # edit named cells, guarded by expected old value
+node redact_personal_data.js [--commit]                    # strip names/account digits from published descriptions
+node test_safe_import.js                                   # 17 acceptance tests, runs in a throwaway sandbox
+```
+
+Every one is idempotent: re-running a batch writes zero rows. `xlsx` 0.18.5 round-trips these workbooks with zero diffs on values, styles, number formats and column widths, so no extra dependency is needed.
+
+
 ```bash
 # Process sales images for a specific branch/month
 npm run process-sales Jul26 B1
@@ -101,11 +116,37 @@ draws a wage *and* a profit share. The two are linked:
 Dropping him 40% → 30% was the trade for suspending the wage. So the absence of a ฿19,000
 row in Jun26 and Jul26 is **correct, not a missing cost** — don't "fix" it.
 
-From Aug26 the ฿20,000 wage resumes and must be booked monthly as B1 `OPEX/Salary`.
+From Aug26 the ฿20,000 wage resumes and must be booked monthly as `OPEX/Salary`,
+**split equally across B1, B2 and B3** (฿6,666.67 / ฿6,666.67 / ฿6,666.66) — Ming manages all
+three branches, so the wage is a shared cost, not a B1 cost. Owner-confirmed 19 Sep 2026;
+earlier guidance booking the whole ฿20,000 to B1 is superseded.
 
 Ming is Burmese and is often paid in **cash**, so his wage and share frequently have no
 bank trace: Feb26's ฿19,000 and his Jan/Feb profit shares (฿50,511.60 / ฿57,035.60) appear
 nowhere in the statements. Absence of a bank record is not evidence of non-payment here.
+
+## Audit artifacts
+
+Completed reviews live in `3_Automation_Dashboard/audit/`. Read the relevant one before re-opening a question it already settled:
+
+| Folder / file | What it settles |
+|---|---|
+| `batch_2026-09-14_AugExpenses/` | All 113 August expense slips: manifest with SHA-256, per-slip transcription, owner decisions (10 rounds), the approved change list, and the July corrections |
+| `batch_2026-09-25_JunJulSalesAudit/FINAL_REPORT.md` | All 122 Jun/Jul sale reports checked against the books. Revenue reconciled on 121 of 122 days; the one real error (B2 18/06, ฿30) was corrected 25 Sep |
+| `batch_2026-09-25_JunJulSalesAudit/FINDING_B2_0107_0407.md` | B2 01/07 confirmed correct. B2 04/07 **unresolved** — no form supports its ฿5,200 and it looks copied from 01/07, but ฿5,200 fits the Saturday pattern. Needs the physical form's date |
+| `duplicate_review_2026-09-25/` | The 5 duplicate warnings `update-dashboard` prints are all genuine separate payments, verified against the bank PDFs. Do not "fix" them |
+
+**`audit/statement.csv` cannot be used to verify the books.** `build_statement.js` generates it *from* the Excel, so checking the Excel against it is circular, and its running balance is computed rather than the bank's. The real evidence is the password-protected PDFs in `Bank Statement/`.
+
+## Data provenance and known limits
+
+**Aug26 B1/B2 sales rest on OCR JSON, not source images.** The original LINE photos expired and staff deleted the originals, so `b1_august_1.json` / `b2_august_1.json` are the only surviving record. They carry daily revenue and a partial cash/scan split, but no cup counts — so `auditRecord()` flags every August day, which is correct reporting, not a data error. B3 August is a POS export and is complete.
+
+**Nine August days are estimates, not observations.** B1 is missing 8 days (6,7,9,10,11,13,14,15 Aug) and B2 one (6 Aug). Those rows carry `[ESTIMATED]` in the `Source Note` column of the Aug26 sheet — the owner approved booking them as a same-weekday mean, on the record that they are replaced the moment real data arrives. Never treat them as observed.
+
+**The ice deduction is the single biggest source of noise in the sale reports.** Staff write gross cash, subtract the ice bought from that cash, and the summary line is inconsistent about which figure feeds the day's total. Revenue is gross cash + scan; the ice is an expense paid out of it. `update_dashboard.js` derives scan as `revenue - cash` ONLY when a cash figure was actually recorded — if both cells are empty the split is unknown and scan stays 0, because deriving it would fabricate "100% scan" (OCR_RULES §4.1).
+
+**Published JSON must carry no supplier names or account digits.** Twelve such descriptions were redacted on 23 Sep 2026; re-scan before every deploy. Full identity stays in the slips and the batch review artifacts, which are not published.
 
 ## Branch Specifics
 - **B1:** Main branch (operating since Jan 2026). Fixed costs: Rent ฿35,000, Salary ฿35,000, Utilities ฿4,000.
@@ -125,6 +166,6 @@ nowhere in the statements. Absence of a bank record is not evidence of non-payme
 
 Follow [`docs/OCR_TO_DASHBOARD_WORKFLOW.md`](docs/OCR_TO_DASHBOARD_WORKFLOW.md). Read-only inventory and extraction may begin once the batch scope is recorded; owner approval is mandatory for the exact financial write and again for deployment.
 
-The legacy staging/import commands listed above are historical interfaces only and must not be used on production records while the safety hold remains. `data.json` is generated from the branch Excel workbooks and must never be edited directly. After an approved safe import and exact Excel readback, regenerate with `npm run update-dashboard -- --no-deploy`, run `npm test`, inspect the generated diff, obtain deployment approval, and deploy separately with `npm run deploy`.
+The legacy staging/import commands listed above are historical interfaces only and must not be used on production records while the safety hold remains. `data.json` is generated from the branch Excel workbooks and must never be edited directly. After an approved safe import and exact Excel readback, regenerate with `npm run update-dashboard -- --no-deploy`, run `npm test`, inspect the generated diff, obtain deployment approval, and deploy separately with `npx vercel --prod --scope parn` — **the `--scope parn` is required**; without it Vercel answers `Not authorized` even though the CLI is logged in, because the project is linked to that team. Then read the live `reports_data.json` back and confirm the figures.
 
 Partner profit-share payouts are not operating expenses. Their P&L representation remains `EXCLUDED` / `Profit Distribution` / amount 0 while the actual payment is preserved in restricted settlement evidence.

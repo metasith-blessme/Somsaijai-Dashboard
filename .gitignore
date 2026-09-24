@@ -8,3 +8,10 @@ pending_verification.json
 !.env.example
 
 .superpowers/
+
+# Workbook snapshots written by the safe-write tools. The receipts beside them are the
+# audit trail; the .xlsx themselves are recovery copies that git history already provides.
+3_Automation_Dashboard/audit/backups/**/*.xlsx
+
+ponytail/
+~$*.xlsx

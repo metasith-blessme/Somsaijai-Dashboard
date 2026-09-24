@@ -36,7 +36,12 @@ function extractSheetData(filePath, sheetName) {
       const rev = Number(r[col['Revenue (฿)']] || r[2]) || 0;
       const cash = Number(r[col['Cash (฿)']] || r[3]) || 0;
       const exp = Number(r[col['Expenses (฿)']] || r[4]) || 0;
-      const scan = Number(r[col['Scan/Transfer (฿)']] || r[6]) || (rev - cash);
+      // Scan may be derived as revenue - cash ONLY when cash was actually recorded.
+      // If both cells are empty the channel split is unknown, and deriving it would set
+      // scan = full revenue, i.e. fabricate an observation (OCR_RULES 4.1). Leave it 0.
+      const cashCell = r[col['Cash (฿)']] != null ? r[col['Cash (฿)']] : r[3];
+      const cashRecorded = cashCell !== null && cashCell !== undefined && cashCell !== '';
+      const scan = Number(r[col['Scan/Transfer (฿)']] || r[6]) || (cashRecorded ? rev - cash : 0);
       const net = Number(r[col['Cash-Exp (฿)']] || r[5]) || (cash - exp);
       
       const or = Number(r[col['Orange']] || r[7]) || 0;
@@ -56,6 +61,7 @@ function extractSheetData(filePath, sheetName) {
         or, or_100, wm, mg, co, ap, yco, guava, pineapple, tot,
         bb: Number(r[col['Bot Big']]) || 0,
         bs: Number(r[col['Bot Small']]) || 0,
+        bottle_rev: Number(r[col['Bottle Revenue (฿)']]) || 0,
         uo: Number(r[col['Used Orange (basket)']]) || 0,
         uw: Number(r[col['Used Watermelon (pcs)']]) || 0,
         umg: Number(r[col['Used Mango']]) || 0,
@@ -141,7 +147,7 @@ function calculateAudit(result) {
   Object.keys(result.branches).forEach(branch => {
     Object.keys(result.branches[branch].sales).forEach(month => {
         result.branches[branch].sales[month].forEach(r => {
-          r.audit = auditRecord(r);
+          r.audit = auditRecord(r, branch);
         });
     });
   });
@@ -172,13 +178,11 @@ function update() {
     fs.writeFileSync(DATA_JSON, JSON.stringify(result, null, 2));
     console.log(`✅ Updated ${DATA_JSON}`);
 
-    // Sync backup html
-    console.log('--- Syncing SomSaiJai_Dashboard.html ---');
-    execSync(`cd "${DASHBOARD_DIR}" && node sync_dashboard_html.js`, { stdio: 'inherit' });
-
     // Generate full report data
     console.log('--- Generating reports_data.json ---');
     execSync(`cd "${DASHBOARD_DIR}" && node gen_report.js`, { stdio: 'inherit' });
+    // Embed the newly calculated reports, not the previous run's P&L.
+    execSync(`cd "${DASHBOARD_DIR}" && node sync_dashboard_html.js`, { stdio: 'inherit' });
 
     if (process.argv.includes('--no-deploy')) {
       console.log('--- Skipping deploy (--no-deploy). Run `npm run deploy` when the numbers look right. ---');
@@ -187,6 +191,7 @@ function update() {
     execSync(`cd "${DASHBOARD_DIR}" && npx vercel --prod`, { stdio: 'inherit' });
   } catch (err) {
     console.error('❌ Update failed: ' + err.message);
+    process.exitCode = 1;
   }
 }
 update();
