@@ -1,0 +1,154 @@
+{
+  "batch_id": "BATCH-2026-09-14-AUG-EXPENSES",
+  "round": 2,
+  "decided_on": "2026-09-14",
+  "decided_by": "owner (Metasith Jumpatip)",
+  "import_allowed": false,
+  "note": "Round-2 owner answers on Group A. Owner also directed a careful re-read of the slip footers/notes; slips 18, 49 and 97 were re-opened at full size and re-verified. Findings recorded below.",
+  "decisions": [
+    {
+      "slip": 8,
+      "memo": "เมนไปทำใบขับขี่",
+      "amount": 4250.00,
+      "owner_answer": "book as OPEX",
+      "resolution": "OPEX",
+      "proposed_category": "Other OPEX",
+      "status": "resolved",
+      "note": "Driving licence for Ming treated as an operating cost rather than a staff advance/receivable. Branch still not stated."
+    },
+    {
+      "slip": 18,
+      "memo": null,
+      "memo_state": "confirmed_absent",
+      "amount": 2377.00,
+      "owner_answer": "as OPEX",
+      "resolution": "OPEX",
+      "proposed_category": "Other OPEX",
+      "status": "resolved_with_caveat",
+      "reread_finding": "Re-opened at full size. The complete Bangkok Bank slip card is visible from header through เลขที่อ้างอิง and QR, and there is NO memo/note row rendered at all — unlike other Bangkok Bank slips in this batch, which do show one. The absence is confirmed, not a crop artefact.",
+      "additional_observation": "The recipient line reads 'MR. AUNG MIN PHAY SON - / เติมเงินพร้อมเพย์ / G-Wallet / K Plus Wallet, e-wallet 00499-915-311-5661'. This is a WALLET TOP-UP, not a standard account transfer. A top-up moves funds into a wallet; it does not itself evidence what the funds were later spent on.",
+      "caveat": "Booked to OPEX on owner instruction. The business purpose remains unevidenced by any document in this batch. This is an owner-approved classification, not an observation (OCR_RULES 7 — approval never turns an unknown into an observation)."
+    },
+    {
+      "slip": 19,
+      "memo": "ข้าวเหนียวมูน 5 กิโล",
+      "amount": 900.00,
+      "owner_answer": "as CAPX",
+      "resolution": "REJECTED_PENDING_CLARIFICATION",
+      "status": "blocked",
+      "why": "Slip 19 is a ฿900 sticky-rice purchase from นาง เพ็ญวิไล สถานทรัพย์ on 30/08/2026 — an ingredient, not a capital item. Booking it as CAPEX would be plainly wrong and has NOT been applied.",
+      "likely_intent": "Probable slip-number typo. The nearest CAPEX candidate in the list presented to the owner is slip 41, 'Durian shop invest : acylic box 1 pcs', ฿1,500. Not assumed — awaiting the owner's corrected slip number."
+    },
+    {
+      "slip": 25,
+      "memo": "ค่าแรงพนักงานเดือนสิงหาคม",
+      "amount": 11500.00,
+      "owner_answer": "no it's not [a different person] — i use own acc to withdraw cash",
+      "resolution": "OPEX",
+      "proposed_category": "Salary",
+      "status": "resolved_with_caveat",
+      "interpretation": "The transfer moves funds between the owner's own accounts so cash can be withdrawn and paid to staff. The bank transfer is the funding mechanism; the economic event is an August staff wage cost of ฿11,500, which is a genuine OPEX expense.",
+      "caveat": "DOUBLE-BOOKING WATCH: because the slip funds a cash payment rather than paying a payee directly, this ฿11,500 must not be booked alongside any separate evidence of the same cash wages. Must be reconciled against slips 26, 27, 101, 111 and 72 and against existing Daily_Expenses rows before import.",
+      "consistent_with": "CLAUDE.md — cash payments to staff frequently have no bank trace; absence of a direct payee record is not evidence of non-payment."
+    },
+    {
+      "slip": 49,
+      "memo_verbatim": "สับปะรด 55 กิโล (35 ลูก) โลละ 50 บาท รวม 1925",
+      "amount": 1925.00,
+      "owner_answer": "1925 are pineapple 35 pcs",
+      "resolution": "COGS / Pineapple",
+      "status": "resolved",
+      "reread_finding": "Footer re-verified character by character at full size; the memo is transcribed correctly as recorded.",
+      "resolved_quantities": {
+        "quantity": 35,
+        "unit": "ลูก",
+        "weight": 55,
+        "weight_unit": "กิโล",
+        "total": 1925.00,
+        "implied_price_per_piece": 55.00,
+        "implied_price_per_kg": 35.00
+      },
+      "check_update": {
+        "previous_status": "fail (55 * 50 = 2750 vs 1925 paid, difference 825)",
+        "new_status": "resolved_by_owner",
+        "explanation": "The written unit price 'โลละ 50 บาท' is an error in the note. The quantity (35 ลูก / 55 กิโล) and the total (฿1,925) are correct and agree with the amount paid. The ฿825 discrepancy was caused by the mis-written unit price, not by a wrong quantity or a wrong payment.",
+        "note": "The erroneous raw text is preserved; it was not overwritten."
+      }
+    },
+    {
+      "slip": 50,
+      "memo": "ข้าวเหนียวมูน 2 โล + กะทิ",
+      "amount": 360.00,
+      "owner_answer": "is Sticky rice",
+      "resolution": "COGS / Sticky Rice",
+      "status": "resolved",
+      "allocation_state": "resolved_by_owner",
+      "note": "Full ฿360 booked to Sticky Rice; the กะทิ (coconut milk) is part of the sticky-rice preparation and is not split out as a separate coconut cost."
+    },
+    {
+      "slip": 60,
+      "memo": "ฝา439 / ทิชชู456",
+      "amount": 895.00,
+      "owner_answer": "ฝา = lids or caps, ทิชชู่ = tissue, book as cogs",
+      "resolution": "COGS",
+      "status": "resolved",
+      "allocation_state": "resolved_by_evidenced_subtotals",
+      "items": [
+        {"item": "ฝา (lids/caps)", "amount": 439.00, "category": "Packaging"},
+        {"item": "ทิชชู (tissue)", "amount": 456.00, "category": "Packaging"}
+      ],
+      "note": "Both components booked to COGS per owner instruction; tissue treated as consumable packaging rather than a shop supply."
+    },
+    {
+      "slip": 97,
+      "memo_verbatim": ["น้ำ 50ลิตร ลิตรละ45บาท", "เนื้อคว้าน 50kg.กิโลละ 100บาท", "ค่าส่ง350บาท"],
+      "annotation_verbatim": ["น้ำมะพร้าว และเนื้อมะพร้าว"],
+      "amount": 8100.00,
+      "owner_answer": "8100 = น้ำมะพร้าว 50 ลิตร ลิตรละ 45 บาท / เนื้อมะพร้าว 50 กิโล กิโลละ 100 บาท / ค่าส่ง 350 บาท",
+      "resolution": "STILL_UNRESOLVED",
+      "status": "blocked",
+      "reread_finding": "Footer re-opened at full size and verified character by character. The note does read 50 ลิตร and 50 kg exactly as transcribed. The owner's restatement matches the note — but the note's own figures do not reach the amount paid.",
+      "arithmetic": {
+        "water": "50 * 45 = 2250",
+        "meat": "50 * 100 = 5000",
+        "freight": "350",
+        "sum_of_written_lines": 7600.00,
+        "amount_paid": 8100.00,
+        "difference": 500.00
+      },
+      "why_still_blocked": "Restating the note does not close the ฿500 gap, because the gap is between the note and the bank, not a transcription error. Two candidate explanations remain and they produce different books: (a) a quantity on the day exceeded what was written — 55 kg of meat would give exactly 8,100 — making the whole ฿8,100 coconut COGS; (b) the ฿500 overpayment the owner raised earlier, leaving ฿7,600 as COGS and ฿500 as a supplier advance. A reading has NOT been selected on the grounds that it balances (OCR_RULES 3).",
+      "certain": ["฿8,100.00 was paid", "the written lines account for ฿7,600.00"],
+      "questions_for_owner": [
+        "Was the actual delivery larger than the note states (e.g. 55 kg of coconut meat rather than 50)?",
+        "Or was ฿500 an overpayment — and if so, was it credited against a later delivery?"
+      ]
+    },
+    {
+      "slip": 102,
+      "memo": "Police fee 2000 other equipment 1721",
+      "amount": 3721.00,
+      "owner_answer": "opex",
+      "resolution": "OPEX",
+      "proposed_category": "Other OPEX",
+      "status": "resolved",
+      "note": "Both components booked to OPEX per owner instruction, including the ฿1,721 'other equipment' which is therefore expensed rather than capitalised."
+    },
+    {
+      "slip": 105,
+      "memo": "ค่ายกของ",
+      "amount": 150.00,
+      "owner_answer": "opex",
+      "resolution": "OPEX",
+      "proposed_category": "Other OPEX",
+      "status": "resolved",
+      "note": "Porterage booked to OPEX rather than COGS/Transportation."
+    }
+  ],
+  "summary": {
+    "resolved_this_round": 8,
+    "blocked_this_round": 2,
+    "blocked_slips": [19, 97],
+    "still_unanswered_from_group_b": [41, 42, 45, 46, 63, 70, 81, 84],
+    "branch_allocation_still_open": "Most resolved slips still carry no stated branch. Shared-pool COGS is allocated downstream by rule, but the OPEX/Salary rows (8, 18, 25, 102, 105) need a branch before import."
+  }
+}

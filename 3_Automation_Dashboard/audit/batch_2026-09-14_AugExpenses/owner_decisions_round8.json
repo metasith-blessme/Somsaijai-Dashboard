@@ -1,0 +1,47 @@
+{
+  "batch_id": "BATCH-2026-09-14-AUG-EXPENSES",
+  "round": 8,
+  "decided_on": "2026-09-19",
+  "decided_by": "owner (Metasith Jumpatip)",
+  "import_allowed": false,
+  "decisions": [
+    {
+      "ref": "C-B3-salary-overlap",
+      "owner_answer": "B3's ฿39,000 does not include those",
+      "resolution": "The ฿5,000 advance (slip 72) and ฿3,500 seven-day payment (slip 111) are IN ADDITION to the ฿39,000 allocation.",
+      "status": "resolved",
+      "b3_august_salary": {
+        "from_91500_pool": 39000.00,
+        "slip_72_pre_salary_advance": 5000.00,
+        "slip_111_seven_day": 3500.00,
+        "subtotal_before_ming": 47500.00,
+        "ming_manager_wage_share": 6666.66,
+        "total": 54166.66
+      },
+      "sanity_check": {
+        "configured": "B3 Salary ฿46,500 (3 staff × ฿500/day × 31 days) per CLAUDE.md",
+        "evidenced_excluding_ming": 47500.00,
+        "difference": 1000.00,
+        "assessment": "Within ฿1,000 of the configured figure — consistent. The configured ฿46,500 is a fixed-cost estimate; ฿47,500 is what the slips actually evidence. No conflict, but the evidenced figure should be what is booked.",
+        "note": "No double-count: slips 72 and 111 are now confirmed as separate payments rather than components of the ฿39,000."
+      }
+    }
+  ],
+  "august_salary_picture": {
+    "B1": {"from_pool": 24300.00, "ming_share": 6666.67, "total": 30966.67},
+    "B2": {"from_pool": 23200.00, "ming_share": 6666.67, "total": 29866.67},
+    "B3": {"from_pool": 39000.00, "advance": 5000.00, "seven_day": 3500.00, "ming_share": 6666.66, "total": 54166.66},
+    "combined": 115000.00,
+    "excluded_from_pl": {"cash_float": 5000.00, "note": "withdrawn as cash, asset not expense"},
+    "not_yet_allocated": {"slip_51": 300.00, "slip_101": 2400.00, "note": "two further salary payments still without a branch"}
+  },
+  "remaining_branch_questions": [
+    {"slip": 18, "date": "29/08/2026", "amount": 2377.00, "bucket": "COGS / Other", "memo": "(no memo)"},
+    {"slip": 42, "date": "24/08/2026", "amount": 3065.00, "bucket": "OPEX / Other OPEX", "memo": "เครื่องสกัดเย็น 1142 + เต็นท์ 1923"},
+    {"slip": 101, "date": "04/08/2026", "amount": 2400.00, "bucket": "OPEX / Salary", "memo": "Salary trainee k 800 chang 1200 mai 400"},
+    {"slip": 51, "date": "08/08/2026", "amount": 300.00, "bucket": "OPEX / Salary", "memo": "Salary special event 300 1 person"},
+    {"slip": 21, "date": "30/08/2026", "amount": 190.00, "bucket": "OPEX / Other OPEX", "memo": "ค่าปริ้นเอกสาร"},
+    {"slip": 35, "date": "21/08/2026", "amount": 145.00, "bucket": "OPEX / Other OPEX", "memo": "ป้าย qr code ใหม่ 4 อัน"}
+  ],
+  "remaining_total": 8477.00
+}

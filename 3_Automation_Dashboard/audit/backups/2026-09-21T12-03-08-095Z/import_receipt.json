@@ -1,0 +1,36 @@
+{
+  "batch_id": "BATCH-2026-09-14-AUG-EXPENSES",
+  "change_list": "/Users/metasithjumpatip/Desktop/Blessme/Somsaijai/3_Automation_Dashboard/audit/batch_2026-09-14_AugExpenses/change_list.json",
+  "imported_at": "2026-09-21T12:03:08.096Z",
+  "rows_written": 133,
+  "rows_skipped": 0,
+  "branches": {
+    "B1": {
+      "file": "SomSaiJai_Dashboard_B1_2026.xlsx",
+      "rows_added": 103,
+      "amount": 287942.86,
+      "backup": "audit/backups/2026-09-21T12-03-08-095Z/SomSaiJai_Dashboard_B1_2026.xlsx",
+      "hash_before": "fc9005cd1df1987348cc7b746a0b87c7969a8733a5318f131b4955f135ed40c0",
+      "hash_after": "fb7db207a1e42f6573f5f860345ee6f982e4a9b6446e3788961cbd58c2f2bb44",
+      "readback": "verified"
+    },
+    "B2": {
+      "file": "SomSaiJai_Dashboard_B2_2026.xlsx",
+      "rows_added": 16,
+      "amount": 65405.33,
+      "backup": "audit/backups/2026-09-21T12-03-08-095Z/SomSaiJai_Dashboard_B2_2026.xlsx",
+      "hash_before": "7eb9dfa85e13985b8118bde5b0f29c94f67e4daa5c990ffc55bca18498b7890e",
+      "hash_after": "80d9a767eec627652527ee2061bfb84ab6385e1b354c2b4f468fd37da2f5ef40",
+      "readback": "verified"
+    },
+    "B3": {
+      "file": "SomSaiJai_Dashboard_B3_2026.xlsx",
+      "rows_added": 14,
+      "amount": 79318.03,
+      "backup": "audit/backups/2026-09-21T12-03-08-095Z/SomSaiJai_Dashboard_B3_2026.xlsx",
+      "hash_before": "d428c3b96c91858bc1702b62b7746d30afb70ce526f78c1021dfdf7e986494e3",
+      "hash_after": "7956ee54ef7833d4eef048e656e70b00a26345331c0807fb5fc3e0bfb9f0e195",
+      "readback": "verified"
+    }
+  }
+}

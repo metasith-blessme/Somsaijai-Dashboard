@@ -1,0 +1,103 @@
+{
+  "batch_id": "BATCH-2026-09-14-AUG-EXPENSES",
+  "round": 5,
+  "decided_on": "2026-09-15",
+  "decided_by": "owner (Metasith Jumpatip)",
+  "import_allowed": false,
+  "scope": "Group B final splits and the slip-42 occlusion question.",
+  "material_finding": {
+    "title": "Annotations outside the bank memo box are owner-typed supplements, not third-party marks",
+    "owner_statement": "Bangkok Bank imposes a length limit on the transfer note, so the owner types the item breakdown onto the screenshot himself.",
+    "why_this_matters": [
+      "It establishes the PROVENANCE of every annotation found outside a memo box in this batch (slips 42, 48, 97, 110 and others). They are the owner's own contemporaneous record of what a payment covered, not unattributed writing.",
+      "It explains why the richest item detail in this batch sits outside the bank memo field rather than inside it — and confirms that any parser reading only the bank memo would systematically lose the itemisation on Bangkok Bank payments.",
+      "It resolves the slip-42 occlusion question: the annotation is complete as authored, so no hidden fifth line exists.",
+      "Annotation provenance is now 'owner_authored_supplement'. This is stronger evidence than an anonymous mark, but it is still a self-reported breakdown rather than a supplier document — recorded as such."
+    ]
+  },
+  "decisions": [
+    {
+      "slips": [45, 46],
+      "combined_amount": 4486.00,
+      "owner_answer": "1,495.50 to B1 and B3",
+      "resolution": "RESOLVED — one security camera per branch",
+      "status": "resolved",
+      "allocation": [
+        {"slip": 45, "branch": "B1", "amount": 1495.50},
+        {"slip": 45, "branch": "B3", "amount": 1495.50},
+        {"slip": 46, "branch": "B2", "amount": 1495.00}
+      ],
+      "checks": {
+        "slip_45_conservation": {"result": "pass", "formula": "1495.50 + 1495.50 = 2991.00", "difference": 0},
+        "slip_46_conservation": {"result": "pass", "formula": "1495.00 = 1495.00", "difference": 0},
+        "combined": {"result": "pass", "formula": "1495.50 + 1495.50 + 1495.00 = 4486.00", "difference": 0}
+      },
+      "note": "B2 takes the single-camera slip and therefore bears ฿1,495.00 against ฿1,495.50 for B1 and B3. Derived by elimination from the owner naming B1 and B3 for slip 45; each payment's allocation stays inside that payment."
+    },
+    {
+      "slip": 81,
+      "amount": 2440.00,
+      "memo": "ค่าลงทุนอุปกรณ์ตกแต่งร้าน",
+      "owner_answer": "50 : 50",
+      "resolution": "OPEX / Other OPEX — split evenly between B1 and B2",
+      "status": "resolved",
+      "allocation": [
+        {"branch": "B1", "amount": 1220.00},
+        {"branch": "B2", "amount": 1220.00}
+      ],
+      "allocation_basis": "owner_approved_even_split",
+      "checks": {"conservation": {"result": "pass", "formula": "1220.00 + 1220.00 = 2440.00", "difference": 0}},
+      "note": "The slip carries no line subtotals. The even split is an explicit owner approval, not an inference — recorded as owner_approved_even_split so it is never mistaken for evidenced allocation."
+    },
+    {
+      "slip": 84,
+      "amount": 802.00,
+      "memo": "โต๊ะ594 / เขียง208(3อัน)",
+      "owner_answer": "split equally; item is a cutting board",
+      "resolution": "OPEX / Other OPEX — split evenly between B1 and B2",
+      "status": "resolved",
+      "allocation": [
+        {"branch": "B1", "amount": 401.00},
+        {"branch": "B2", "amount": 401.00}
+      ],
+      "allocation_basis": "owner_approved_even_split",
+      "checks": {"conservation": {"result": "pass", "formula": "401.00 + 401.00 = 802.00", "difference": 0}},
+      "items_note": "Item subtotals โต๊ะ ฿594 and เขียง ฿208 remain recorded. The even split is applied to the ฿802 parent rather than to each item, because a single table cannot be halved physically and the owner directed an equal division of the payment.",
+      "transcription_resolved": "Owner confirms เขียง = cutting board. The round-4 'knife' discrepancy is closed; the memo text stands as written."
+    },
+    {
+      "slip": 42,
+      "amount": 5769.00,
+      "owner_answer": "The note is my own typing — Bangkok Bank limits the note field, so I typed: เครื่องสกัดเย็น 1142, เต็นท์ 1923, หลอดเล็ก 1318, หลอดใหญ่ 1386",
+      "resolution": "OCCLUSION RESOLVED — memo is complete, four lines, no hidden fifth line",
+      "status": "resolved_pending_branch",
+      "memo_state": "confirmed_complete_by_author",
+      "occluded_field_resolved": {
+        "field": "หลอดใหญ่",
+        "previous_state": "partially_occluded behind the QR code",
+        "confirmed_value": 1386.00,
+        "confirmed_by": "owner, as author of the annotation"
+      },
+      "items": [
+        {"item_raw": "หลอดเล็ก (small straws)", "amount": 1318.00, "bucket": "COGS", "category": "Packaging"},
+        {"item_raw": "หลอดใหญ่ (large straws)", "amount": 1386.00, "bucket": "COGS", "category": "Packaging"},
+        {"item_raw": "เครื่องสกัดเย็น (cold-press machine)", "amount": 1142.00, "bucket": "OPEX", "category": "Other OPEX"},
+        {"item_raw": "เต็นท์ (tent)", "amount": 1923.00, "bucket": "OPEX", "category": "Other OPEX"}
+      ],
+      "checks": {
+        "cogs_subtotal": {"formula": "1318 + 1386 = 2704"},
+        "opex_subtotal": {"formula": "1142 + 1923 = 3065"},
+        "conservation": {"result": "pass", "formula": "2704 + 3065 = 5769", "difference": 0}
+      },
+      "spelling_note": "Owner writes เต็นท์; the annotation as photographed reads เต้นท์. Same item, immaterial variant. Raw text preserved.",
+      "still_open": "Branch for the ฿3,065.00 OPEX portion (cold-press machine + tent). The ฿2,704.00 of straws is packaging and allocates downstream by revenue share under ADR 0001, so it needs no branch."
+    }
+  ],
+  "capitalisation_treatment": {
+    "applied": "expensed_to_OPEX",
+    "basis": "Consistent with the owner's explicit instruction to book 'other equipment ฿1,721' (slip 102) to OPEX, and with the owner directing per-branch allocation of these items without directing capitalisation.",
+    "status": "flagged_twice_not_explicitly_confirmed_in_words",
+    "effect": "Cameras, tables, cutting boards and shop fit-out are charged in full to August rather than capitalised and spread. This reduces August profit for B1/B2/B3 relative to a capitalisation treatment. Recorded here so the basis is visible and correctable."
+  },
+  "group_b_status": "COMPLETE — all 7 remaining slips resolved (42, 45, 46, 63, 70, 81, 84). Slip 41 out of scope. Only slip 42's OPEX branch remains outstanding within Group B."
+}

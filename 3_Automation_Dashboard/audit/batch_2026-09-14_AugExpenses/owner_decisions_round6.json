@@ -1,0 +1,160 @@
+{
+  "batch_id": "BATCH-2026-09-14-AUG-EXPENSES",
+  "round": 6,
+  "decided_on": "2026-09-19",
+  "decided_by": "owner (Metasith Jumpatip)",
+  "import_allowed": false,
+  "decisions": [
+    {
+      "ref": "A",
+      "slips": [110],
+      "owner_answer": "the missing ฿3,200 payments are on slip 110 — look closely",
+      "reread": "Slip 110 re-opened at full size. Transcription confirmed unchanged: 26-7-2569 50 ยอด 4,000 / 28-7-2569 ยอด 50 ยอด 4,000 / 31-7-2569 40 ยอด 3,200 / 3-8-2569 42 ลูก ยอด 3,360 = 14,560.",
+      "interpretation": "Slip 110 is the ACTUAL settlement for the late-July watermelon. The two ฿3,200 ledger rows dated 27/07 and 28/07 were estimates entered before that payment arrived, which is why no separate ฿3,200 slips exist in the Jul26 folder and why their source citations pointed at unrelated documents.",
+      "consequence": {
+        "remove_from_july": [
+          {"date": "27/07/2026", "category": "Watermelon", "amount": 3200, "reason": "estimate superseded by slip 110; cited source is a cups payment already booked separately"},
+          {"date": "28/07/2026", "category": "Watermelon", "amount": 3200, "reason": "estimate superseded by slip 110; cited source is a guava payment already booked separately"}
+        ],
+        "quantity_conflict_resolved": "In favour of slip 110. Actual deliveries were 50 ลูก on 26-7 and 50 ลูก on 28-7, not 40 ลูก. The ledger's 40 ลูก was part of the estimate.",
+        "net_july_watermelon": "36,880 - 6,400 = 30,480 before slip 110's own July lines are placed"
+      },
+      "still_open": "Owner previously directed slip 110 be booked entirely to Aug26. With the ฿6,400 estimates now being removed from July, booking all ฿14,560 to August leaves July with NO cost for the 26-7, 28-7 and 31-7 deliveries (฿11,200). Owner must confirm whether that is intended or whether the July lines should sit in July.",
+      "status": "blocked_on_period_confirmation"
+    },
+    {
+      "ref": "B-97",
+      "slip": 97,
+      "owner_answer": "coconut — they give me cash back",
+      "resolution": "COGS / Coconut = 7,600.00; ฿500 refunded in cash",
+      "status": "resolved",
+      "treatment": "Booked ฿7,600 coconut COGS. The ฿500 overpayment was returned in cash, so it is not a cost and not an open receivable. Closes the round-3 followup.",
+      "note": "Cash refund has no bank trace, consistent with CLAUDE.md's note that cash movements often leave no statement record."
+    },
+    {
+      "ref": "B-18",
+      "slip": 18,
+      "owner_answer": "COGS — changed my mind",
+      "resolution": "COGS",
+      "status": "resolved_pending_category",
+      "supersedes": "round-2 and round-3 decision of OPEX / Other OPEX",
+      "open": "Bucket is COGS but no category given. The slip has no memo at all, so a category cannot be derived from evidence. Owner must name one (Packaging, Coconut, Ice, Transportation, ...) or it stays unresolved."
+    },
+    {
+      "ref": "B-13",
+      "slip": 13,
+      "owner_answer": "B2",
+      "resolution": "OPEX / Rental, branch B2, service period June 2026",
+      "status": "resolved_pending_duplicate_check",
+      "note": "฿30,000 matches B2's undiscounted rate, and both counterparties recur in the B2 rent arrangement, so this is consistent. Still to verify: whether June rent is already booked for B2.",
+      "amount": 30000.00
+    },
+    {
+      "ref": "C-salary",
+      "slips": [25, 26, 27],
+      "owner_answer": "total 91,500 paid but only 86,500 used — B1 24,300 / B2 23,200 / B3 39,000",
+      "paid_total": 91500.00,
+      "expense_total": 86500.00,
+      "allocation": [
+        {"branch": "B1", "amount": 24300.00},
+        {"branch": "B2", "amount": 23200.00},
+        {"branch": "B3", "amount": 39000.00}
+      ],
+      "checks": {"allocation_sums": {"result": "pass", "formula": "24300 + 23200 + 39000 = 86500", "difference": 0}},
+      "status": "blocked_on_5000_difference",
+      "open": "฿91,500.00 left the bank; ฿86,500.00 is allocated as August wage cost. The remaining ฿5,000.00 has no stated treatment. It must land somewhere — it cannot simply vanish from the books. Candidates the owner should confirm: (a) it repays the ฿5,000 B3 pre-salary advance on slip 72, which is separately evidenced and would otherwise be double-counted; (b) cash float not yet spent, i.e. an asset rather than an expense; (c) a wage for a period other than August.",
+      "linked_advance_question": "Slip 72 (฿5,000, B3 pre-salary, 13/08) and slip 111 (฿3,500, B3 7-day salary, 01/08) are already evidenced separately. Confirm whether B3's ฿39,000 allocation INCLUDES or EXCLUDES those ฿8,500, otherwise B3 August salary is overstated or understated by that amount."
+    },
+    {
+      "ref": "C-82",
+      "slip": 82,
+      "owner_answer": "all branch profit share",
+      "resolution": "EXCLUDED / Profit Distribution / P&L amount 0",
+      "actual_payment": 12884.00,
+      "branch": "ALL",
+      "status": "resolved",
+      "note": "Ming's 30% July share across all three branches. P&L effect remains zero per business_rules.normalizeExpense; the ฿12,884 payment is preserved in settlement evidence only."
+    },
+    {
+      "ref": "C-ming-wage",
+      "slips": [64, 98],
+      "owner_answer": "Ming is manager — separate equally",
+      "resolution": "OPEX / Salary, ฿20,000 split equally across B1, B2, B3",
+      "allocation": [
+        {"branch": "B1", "amount": 6666.67},
+        {"branch": "B2", "amount": 6666.67},
+        {"branch": "B3", "amount": 6666.66}
+      ],
+      "checks": {"conservation": {"result": "pass", "formula": "6666.67 + 6666.67 + 6666.66 = 20000.00", "difference": 0}},
+      "status": "resolved_with_conflict_flag",
+      "CONFLICT": "CLAUDE.md states: 'From Aug26 the ฿20,000 wage resumes and must be booked monthly as B1 OPEX/Salary.' The owner now directs an equal three-way split because Ming manages all branches. The owner's instruction is applied, but CLAUDE.md should be updated so the documented rule and the books agree — otherwise the next agent will re-book this to B1.",
+      "rounding_note": "฿20,000 does not divide evenly by 3. Allocated 6,666.67 / 6,666.67 / 6,666.66 so the total is conserved exactly. Confirm which branch absorbs the 1-satang difference if it matters."
+    },
+    {
+      "ref": "C-8",
+      "slip": 8,
+      "amount": 4250.00,
+      "owner_answer": "it's งบลงทุน (investment budget)",
+      "resolution": "Investment",
+      "status": "resolved_pending_branch",
+      "supersedes": "round-2 decision of OPEX / Other OPEX",
+      "open": "Branch not stated. Existing ledger uses an 'Investment' category (see the ฿1,015 cold-press machine reclassified to Investment in Jul26), so the category exists. Branch still required."
+    },
+    {
+      "ref": "C-102",
+      "slip": 102,
+      "amount": 3721.00,
+      "owner_answer": "for B1",
+      "resolution": "OPEX / Other OPEX, branch B1",
+      "status": "resolved"
+    },
+    {
+      "ref": "C-105",
+      "slip": 105,
+      "amount": 150.00,
+      "owner_answer": "3 branches, separate equally",
+      "resolution": "OPEX / Other OPEX split equally",
+      "allocation": [
+        {"branch": "B1", "amount": 50.00},
+        {"branch": "B2", "amount": 50.00},
+        {"branch": "B3", "amount": 50.00}
+      ],
+      "checks": {"conservation": {"result": "pass", "formula": "50 + 50 + 50 = 150", "difference": 0}},
+      "status": "resolved"
+    },
+    {
+      "ref": "C-42",
+      "slip": 42,
+      "owner_answer": "ok",
+      "resolution": "COGS/Packaging 2,704.00 + OPEX 3,065.00 confirmed",
+      "status": "resolved_pending_branch",
+      "open": "'ok' confirms the split but names no branch for the ฿3,065.00 OPEX portion (cold-press machine ฿1,142 + tent ฿1,923). The ฿2,704.00 of straws allocates downstream by revenue share and needs none."
+    },
+    {
+      "ref": "D",
+      "slips": ["Jul26 _1", "Jul26 _2", "Jul26 _3"],
+      "owner_answer": "it's packing and COGS",
+      "resolution": "Book all three as COGS",
+      "total": 6945.00,
+      "rows": [
+        {"date": "24/07/2026", "amount": 3084.00, "items": [{"item": "ฝา (lids)", "amount": 502.00, "category": "Packaging"}, {"item": "นมข้นหวาน", "amount": 2582.00, "category": "Coconut"}]},
+        {"date": "24/07/2026", "amount": 2636.00, "items": [{"item": "ฝา (lids)", "amount": 509.00, "category": "Packaging"}, {"item": "นมข้นหวาน", "amount": 785.00, "category": "Coconut"}, {"item": "นมข้นจืด", "amount": 1342.00, "category": "Coconut"}]},
+        {"date": "24/07/2026", "amount": 1225.00, "items": [{"item": "ฝา (lids)", "amount": 474.00, "category": "Packaging"}, {"item": "นมข้นจืด", "amount": 751.00, "category": "Coconut"}]}
+      ],
+      "category_split": {"Packaging": 1485.00, "Coconut": 5460.00, "total": 6945.00},
+      "checks": {"conservation": {"result": "pass", "formula": "1485 + 5460 = 6945", "difference": 0}},
+      "status": "approved_as_july_correction",
+      "note": "Condensed and evaporated milk charged to Coconut per the established treatment (commit 5eb00fb). These are additions to a CLOSED month and require the owner's explicit authorisation recorded with before/after values — the instruction here is taken as that authorisation for these three rows only."
+    }
+  ],
+  "summary": {
+    "resolved": ["B-97", "B-13 (pending dup check)", "C-82", "C-102", "C-105", "C-ming-wage", "D"],
+    "blocked": {
+      "A": "period placement of slip 110 now that the ฿6,400 estimates are being removed",
+      "C-salary": "฿5,000 of the ฿91,500 has no treatment; B3 advance overlap unconfirmed",
+      "B-18": "COGS bucket agreed, category still needed",
+      "C-8": "branch",
+      "C-42": "branch for the ฿3,065 OPEX portion"
+    }
+  }
+}

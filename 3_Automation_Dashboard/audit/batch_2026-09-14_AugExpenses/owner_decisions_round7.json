@@ -1,0 +1,68 @@
+{
+  "batch_id": "BATCH-2026-09-14-AUG-EXPENSES",
+  "round": 7,
+  "decided_on": "2026-09-19",
+  "decided_by": "owner (Metasith Jumpatip)",
+  "import_allowed": false,
+  "decisions": [
+    {
+      "ref": "C-salary-5000",
+      "owner_answer": "the ฿5,000 is cash we withdraw",
+      "resolution": "NOT an August expense",
+      "treatment": "Of the ฿91,500 transferred on slips 25/26/27, ฿86,500 is August wage cost and ฿5,000 is cash withdrawn for operating float. Cash held is an asset, not a cost, so it does not enter the P&L.",
+      "status": "resolved_with_structural_note",
+      "structural_note": "The books have no petty-cash or float account — Daily_Expenses records costs only. This ฿5,000 therefore has nowhere to sit and will simply not appear anywhere, which is the correct P&L answer but means the books do not show cash on hand. If that float is later spent on something, the spend must be booked from its own evidence and must NOT be traced back to these salary slips, or it will double-count.",
+      "distinct_from": "Slip 72's ฿5,000 B3 pre-salary advance (13/08) is a different payment with its own evidence. The two ฿5,000 amounts are unrelated."
+    },
+    {
+      "ref": "C-ming-wage",
+      "owner_answer": "ok",
+      "resolution": "Equal three-way split confirmed; CLAUDE.md updated",
+      "status": "resolved",
+      "action_taken": "CLAUDE.md line 104 rewritten: the ฿20,000 Aug26-onward wage is now documented as OPEX/Salary split equally across B1/B2/B3 (6,666.67 / 6,666.67 / 6,666.66), superseding the previous 'booked monthly as B1 OPEX/Salary'. Dated and attributed to owner confirmation 19 Sep 2026."
+    },
+    {
+      "ref": "B-18",
+      "slip": 18,
+      "amount": 2377.00,
+      "owner_answer": "other — I forget",
+      "resolution": "COGS / Other",
+      "status": "resolved_pending_branch",
+      "note": "'Other' is an existing COGS category in the ledger (used for Lalamove, ค่าส่งของ, ค่าขนส่ง rows in Jul26). Recorded as an owner-stated classification from recollection, with no documentary evidence — the slip carries no memo and is a wallet top-up.",
+      "open": "Branch still not stated."
+    },
+    {
+      "ref": "C-8",
+      "slip": 8,
+      "amount": 4250.00,
+      "memo": "เมนไปทำใบขับขี่",
+      "owner_answer": "cut it off, no need to use",
+      "resolution": "OUT_OF_SCOPE",
+      "disposition": "out_of_scope_not_booked",
+      "status": "resolved",
+      "supersedes": ["round-2 decision OPEX / Other OPEX", "round-6 decision Investment"],
+      "note": "Excluded from COGS, OPEX, CAPEX and Investment for all branches. Paid from the owner's personal account. Slip and transcription remain in the audit trail; only the booking is excluded. Same disposition as slip 41."
+    },
+    {
+      "ref": "A-period",
+      "slip": 110,
+      "amount": 14560.00,
+      "owner_answer": "all want in august because paid in august",
+      "resolution": "Book the full ฿14,560.00 to Aug26, dated 03/08/2026",
+      "status": "resolved",
+      "basis": "cash_basis_booked_on_payment_date",
+      "consistency_check": {
+        "result": "pass",
+        "finding": "This MATCHES existing house practice rather than departing from it. The Jul26 watermelon rows are already booked on their payment dates, not their delivery dates — e.g. the row dated 08/07/2026 covers deliveries on 3-7 and 6-7, and the row dated 17/07/2026 covers 10-7 and 11-7. Booking slip 110 on its 03/08 payment date is the same treatment.",
+        "implication": "No owner-approved exception is needed after all. The round-1 concern about splitting by service period was based on accrual logic the books do not use."
+      },
+      "july_effect": "July loses the two ฿6,400 estimate rows and gains nothing in their place, because the corresponding payment falls in August. Jul26 watermelon: 36,880 → 30,480. Aug26 watermelon gains 14,560.",
+      "delivery_dates_preserved": ["26/07/2026 50 ลูก 4,000", "28/07/2026 50 ลูก 4,000", "31/07/2026 40 ลูก 3,200", "03/08/2026 42 ลูก 3,360"]
+    }
+  ],
+  "still_open": {
+    "B3_salary_overlap": "UNANSWERED and material. Does B3's ฿39,000 allocation INCLUDE the ฿5,000 pre-salary advance (slip 72, 13/08) and the ฿3,500 seven-day payment (slip 111, 01/08), which are separately evidenced? If it includes them, only ฿30,500 more should be booked to B3. If it excludes them, the full ฿39,000 goes in and B3's August salary totals ฿47,500. Difference ฿8,500.",
+    "branch_slip_18": "COGS/Other ฿2,377 — branch not stated",
+    "branch_slip_42": "OPEX ฿3,065 (cold-press machine + tent) — branch not stated; the ฿2,704 straws portion needs none"
+  }
+}

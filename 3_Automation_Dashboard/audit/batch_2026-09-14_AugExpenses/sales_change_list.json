@@ -1,0 +1,936 @@
+{
+  "batch_id": "BATCH-2026-09-14-AUG-SALES",
+  "month": "Aug26",
+  "rows": [
+    {
+      "branch": "B1",
+      "date": "01/08/2026",
+      "day": "Sat",
+      "revenue": 9780,
+      "cash": 6360,
+      "scan": 3420,
+      "estimated": false,
+      "note": "OCR JSON b1_august_1 (original photos expired on LINE and were deleted — no source image exists)"
+    },
+    {
+      "branch": "B1",
+      "date": "02/08/2026",
+      "day": "Sun",
+      "revenue": 7850,
+      "cash": 5370,
+      "scan": 2480,
+      "estimated": false,
+      "note": "OCR JSON b1_august_1 (original photos expired on LINE and were deleted — no source image exists)"
+    },
+    {
+      "branch": "B1",
+      "date": "03/08/2026",
+      "day": "Mon",
+      "revenue": 7810,
+      "cash": 4070,
+      "scan": 3190,
+      "estimated": false,
+      "note": "CHANNEL SPLIT DOES NOT SUM: cash 4070 + scan 3190 = 7260 vs recorded total 7810 (diff 550). Recorded as written; NOT balanced. OCR JSON b1_august_1 (original photos expired on LINE and were deleted — no source image exists)"
+    },
+    {
+      "branch": "B1",
+      "date": "04/08/2026",
+      "day": "Tue",
+      "revenue": 5540,
+      "cash": 3270,
+      "scan": 2270,
+      "estimated": false,
+      "note": "OCR JSON b1_august_1 (original photos expired on LINE and were deleted — no source image exists)"
+    },
+    {
+      "branch": "B1",
+      "date": "05/08/2026",
+      "day": "Wed",
+      "revenue": 5090,
+      "cash": 3270,
+      "scan": 1820,
+      "estimated": false,
+      "note": "OCR JSON b1_august_1 (original photos expired on LINE and were deleted — no source image exists)"
+    },
+    {
+      "branch": "B1",
+      "date": "08/08/2026",
+      "day": "Sat",
+      "revenue": 7690,
+      "cash": 4230,
+      "scan": 3460,
+      "estimated": false,
+      "note": "OCR JSON b1_august_1 (original photos expired on LINE and were deleted — no source image exists)"
+    },
+    {
+      "branch": "B1",
+      "date": "12/08/2026",
+      "day": "Wed",
+      "revenue": 9280,
+      "cash": 6490,
+      "scan": 2790,
+      "estimated": false,
+      "note": "OCR JSON b1_august_1 (original photos expired on LINE and were deleted — no source image exists)"
+    },
+    {
+      "branch": "B1",
+      "date": "16/08/2026",
+      "day": "Sun",
+      "revenue": 11540,
+      "cash": 7200,
+      "scan": 4340,
+      "estimated": false,
+      "note": "OCR JSON b1_august_1 (original photos expired on LINE and were deleted — no source image exists)"
+    },
+    {
+      "branch": "B1",
+      "date": "17/08/2026",
+      "day": "Mon",
+      "revenue": 4150,
+      "cash": 2960,
+      "scan": 1190,
+      "estimated": false,
+      "note": "OCR JSON b1_august_1 (original photos expired on LINE and were deleted — no source image exists)"
+    },
+    {
+      "branch": "B1",
+      "date": "18/08/2026",
+      "day": "Tue",
+      "revenue": 7380,
+      "cash": 5100,
+      "scan": 2280,
+      "estimated": false,
+      "note": "OCR JSON b1_august_1 (original photos expired on LINE and were deleted — no source image exists)"
+    },
+    {
+      "branch": "B1",
+      "date": "19/08/2026",
+      "day": "Wed",
+      "revenue": 6540,
+      "cash": 4390,
+      "scan": 2150,
+      "estimated": false,
+      "note": "OCR JSON b1_august_1 (original photos expired on LINE and were deleted — no source image exists)"
+    },
+    {
+      "branch": "B1",
+      "date": "20/08/2026",
+      "day": "Thu",
+      "revenue": 6660,
+      "cash": 4470,
+      "scan": 2190,
+      "estimated": false,
+      "note": "OCR JSON b1_august_1 (original photos expired on LINE and were deleted — no source image exists)"
+    },
+    {
+      "branch": "B1",
+      "date": "21/08/2026",
+      "day": "Fri",
+      "revenue": 7329,
+      "cash": 4640,
+      "scan": 2689,
+      "estimated": false,
+      "note": "OCR JSON b1_august_1 (original photos expired on LINE and were deleted — no source image exists)"
+    },
+    {
+      "branch": "B1",
+      "date": "22/08/2026",
+      "day": "Sat",
+      "revenue": 5939,
+      "cash": 3675,
+      "scan": 2264,
+      "estimated": false,
+      "note": "OCR JSON b1_august_1 (original photos expired on LINE and were deleted — no source image exists)"
+    },
+    {
+      "branch": "B1",
+      "date": "23/08/2026",
+      "day": "Sun",
+      "revenue": 11483,
+      "cash": 7823,
+      "scan": 3660,
+      "estimated": false,
+      "note": "OCR JSON b1_august_1 (original photos expired on LINE and were deleted — no source image exists)"
+    },
+    {
+      "branch": "B1",
+      "date": "24/08/2026",
+      "day": "Mon",
+      "revenue": 5933,
+      "cash": 4469,
+      "scan": 1464,
+      "estimated": false,
+      "note": "OCR JSON b1_august_1 (original photos expired on LINE and were deleted — no source image exists)"
+    },
+    {
+      "branch": "B1",
+      "date": "25/08/2026",
+      "day": "Tue",
+      "revenue": 6582,
+      "cash": 3734,
+      "scan": 2848,
+      "estimated": false,
+      "note": "OCR JSON b1_august_1 (original photos expired on LINE and were deleted — no source image exists)"
+    },
+    {
+      "branch": "B1",
+      "date": "26/08/2026",
+      "day": "Wed",
+      "revenue": 7180,
+      "cash": 5282,
+      "scan": 1898,
+      "estimated": false,
+      "note": "OCR JSON b1_august_1 (original photos expired on LINE and were deleted — no source image exists)"
+    },
+    {
+      "branch": "B1",
+      "date": "27/08/2026",
+      "day": "Thu",
+      "revenue": 7436,
+      "cash": 5388,
+      "scan": 2048,
+      "estimated": false,
+      "note": "OCR JSON b1_august_1 (original photos expired on LINE and were deleted — no source image exists)"
+    },
+    {
+      "branch": "B1",
+      "date": "28/08/2026",
+      "day": "Fri",
+      "revenue": 3904,
+      "cash": 1645,
+      "scan": 2259,
+      "estimated": false,
+      "note": "OCR JSON b1_august_1 (original photos expired on LINE and were deleted — no source image exists)"
+    },
+    {
+      "branch": "B1",
+      "date": "29/08/2026",
+      "day": "Sat",
+      "revenue": 6777,
+      "cash": 3460,
+      "scan": 3317,
+      "estimated": false,
+      "note": "OCR JSON b1_august_1 (original photos expired on LINE and were deleted — no source image exists)"
+    },
+    {
+      "branch": "B1",
+      "date": "30/08/2026",
+      "day": "Sun",
+      "revenue": 7767,
+      "cash": 4875,
+      "scan": 2892,
+      "estimated": false,
+      "note": "OCR JSON b1_august_1 (original photos expired on LINE and were deleted — no source image exists)"
+    },
+    {
+      "branch": "B1",
+      "date": "31/08/2026",
+      "day": "Mon",
+      "revenue": 2690,
+      "cash": 2000,
+      "scan": 690,
+      "estimated": false,
+      "note": "OCR JSON b1_august_1 (original photos expired on LINE and were deleted — no source image exists)"
+    },
+    {
+      "branch": "B1",
+      "date": "06/08/2026",
+      "day": "Thu",
+      "revenue": 7048,
+      "cash": null,
+      "scan": null,
+      "estimated": true,
+      "note": "ESTIMATED — same-weekday mean of 2 days. NOT observed. Replace when real data arrives."
+    },
+    {
+      "branch": "B1",
+      "date": "07/08/2026",
+      "day": "Fri",
+      "revenue": 5616.5,
+      "cash": null,
+      "scan": null,
+      "estimated": true,
+      "note": "ESTIMATED — same-weekday mean of 2 days. NOT observed. Replace when real data arrives."
+    },
+    {
+      "branch": "B1",
+      "date": "09/08/2026",
+      "day": "Sun",
+      "revenue": 9660,
+      "cash": null,
+      "scan": null,
+      "estimated": true,
+      "note": "ESTIMATED — same-weekday mean of 4 days. NOT observed. Replace when real data arrives."
+    },
+    {
+      "branch": "B1",
+      "date": "10/08/2026",
+      "day": "Mon",
+      "revenue": 5145.75,
+      "cash": null,
+      "scan": null,
+      "estimated": true,
+      "note": "ESTIMATED — same-weekday mean of 4 days. NOT observed. Replace when real data arrives."
+    },
+    {
+      "branch": "B1",
+      "date": "11/08/2026",
+      "day": "Tue",
+      "revenue": 6500.67,
+      "cash": null,
+      "scan": null,
+      "estimated": true,
+      "note": "ESTIMATED — same-weekday mean of 3 days. NOT observed. Replace when real data arrives."
+    },
+    {
+      "branch": "B1",
+      "date": "13/08/2026",
+      "day": "Thu",
+      "revenue": 7048,
+      "cash": null,
+      "scan": null,
+      "estimated": true,
+      "note": "ESTIMATED — same-weekday mean of 2 days. NOT observed. Replace when real data arrives."
+    },
+    {
+      "branch": "B1",
+      "date": "14/08/2026",
+      "day": "Fri",
+      "revenue": 5616.5,
+      "cash": null,
+      "scan": null,
+      "estimated": true,
+      "note": "ESTIMATED — same-weekday mean of 2 days. NOT observed. Replace when real data arrives."
+    },
+    {
+      "branch": "B1",
+      "date": "15/08/2026",
+      "day": "Sat",
+      "revenue": 7546.5,
+      "cash": null,
+      "scan": null,
+      "estimated": true,
+      "note": "ESTIMATED — same-weekday mean of 4 days. NOT observed. Replace when real data arrives."
+    },
+    {
+      "branch": "B2",
+      "date": "01/08/2026",
+      "day": "Sat",
+      "revenue": 6020,
+      "cash": 4290,
+      "scan": 1730,
+      "estimated": false,
+      "note": "OCR JSON b2_august_1 (original photos expired on LINE and were deleted — no source image exists)"
+    },
+    {
+      "branch": "B2",
+      "date": "02/08/2026",
+      "day": "Sun",
+      "revenue": 3460,
+      "cash": null,
+      "scan": null,
+      "estimated": false,
+      "note": "cash/scan breakdown not available — left blank, not zero. OCR JSON b2_august_1 (original photos expired on LINE and were deleted — no source image exists)"
+    },
+    {
+      "branch": "B2",
+      "date": "03/08/2026",
+      "day": "Mon",
+      "revenue": 4990,
+      "cash": null,
+      "scan": null,
+      "estimated": false,
+      "note": "cash/scan breakdown not available — left blank, not zero. OCR JSON b2_august_1 (original photos expired on LINE and were deleted — no source image exists)"
+    },
+    {
+      "branch": "B2",
+      "date": "04/08/2026",
+      "day": "Tue",
+      "revenue": 3660,
+      "cash": 3330,
+      "scan": 330,
+      "estimated": false,
+      "note": "OCR JSON b2_august_1 (original photos expired on LINE and were deleted — no source image exists)"
+    },
+    {
+      "branch": "B2",
+      "date": "05/08/2026",
+      "day": "Wed",
+      "revenue": 2900,
+      "cash": null,
+      "scan": null,
+      "estimated": false,
+      "note": "cash/scan breakdown not available — left blank, not zero. OCR JSON b2_august_1 (original photos expired on LINE and were deleted — no source image exists)"
+    },
+    {
+      "branch": "B2",
+      "date": "07/08/2026",
+      "day": "Fri",
+      "revenue": 4670,
+      "cash": 3200,
+      "scan": 1470,
+      "estimated": false,
+      "note": "OCR JSON b2_august_1 (original photos expired on LINE and were deleted — no source image exists)"
+    },
+    {
+      "branch": "B2",
+      "date": "08/08/2026",
+      "day": "Sat",
+      "revenue": 4880,
+      "cash": null,
+      "scan": null,
+      "estimated": false,
+      "note": "cash/scan breakdown not available — left blank, not zero. OCR JSON b2_august_1 (original photos expired on LINE and were deleted — no source image exists)"
+    },
+    {
+      "branch": "B2",
+      "date": "09/08/2026",
+      "day": "Sun",
+      "revenue": 7810,
+      "cash": null,
+      "scan": null,
+      "estimated": false,
+      "note": "cash/scan breakdown not available — left blank, not zero. OCR JSON b2_august_1 (original photos expired on LINE and were deleted — no source image exists)"
+    },
+    {
+      "branch": "B2",
+      "date": "10/08/2026",
+      "day": "Mon",
+      "revenue": 5150,
+      "cash": null,
+      "scan": null,
+      "estimated": false,
+      "note": "cash/scan breakdown not available — left blank, not zero. OCR JSON b2_august_1 (original photos expired on LINE and were deleted — no source image exists)"
+    },
+    {
+      "branch": "B2",
+      "date": "11/08/2026",
+      "day": "Tue",
+      "revenue": 6010,
+      "cash": 4500,
+      "scan": 1510,
+      "estimated": false,
+      "note": "OCR JSON b2_august_1 (original photos expired on LINE and were deleted — no source image exists)"
+    },
+    {
+      "branch": "B2",
+      "date": "12/08/2026",
+      "day": "Wed",
+      "revenue": 4950,
+      "cash": null,
+      "scan": null,
+      "estimated": false,
+      "note": "cash/scan breakdown not available — left blank, not zero. OCR JSON b2_august_1 (original photos expired on LINE and were deleted — no source image exists)"
+    },
+    {
+      "branch": "B2",
+      "date": "13/08/2026",
+      "day": "Thu",
+      "revenue": 5110,
+      "cash": null,
+      "scan": null,
+      "estimated": false,
+      "note": "cash/scan breakdown not available — left blank, not zero. OCR JSON b2_august_1 (original photos expired on LINE and were deleted — no source image exists)"
+    },
+    {
+      "branch": "B2",
+      "date": "14/08/2026",
+      "day": "Fri",
+      "revenue": 5170,
+      "cash": null,
+      "scan": null,
+      "estimated": false,
+      "note": "cash/scan breakdown not available — left blank, not zero. OCR JSON b2_august_1 (original photos expired on LINE and were deleted — no source image exists)"
+    },
+    {
+      "branch": "B2",
+      "date": "15/08/2026",
+      "day": "Sat",
+      "revenue": 5550,
+      "cash": null,
+      "scan": null,
+      "estimated": false,
+      "note": "cash/scan breakdown not available — left blank, not zero. OCR JSON b2_august_1 (original photos expired on LINE and were deleted — no source image exists)"
+    },
+    {
+      "branch": "B2",
+      "date": "16/08/2026",
+      "day": "Sun",
+      "revenue": 5010,
+      "cash": 3540,
+      "scan": 1470,
+      "estimated": false,
+      "note": "OCR JSON b2_august_1 (original photos expired on LINE and were deleted — no source image exists)"
+    },
+    {
+      "branch": "B2",
+      "date": "17/08/2026",
+      "day": "Mon",
+      "revenue": 2500,
+      "cash": null,
+      "scan": null,
+      "estimated": false,
+      "note": "cash/scan breakdown not available — left blank, not zero. OCR JSON b2_august_1 (original photos expired on LINE and were deleted — no source image exists)"
+    },
+    {
+      "branch": "B2",
+      "date": "18/08/2026",
+      "day": "Tue",
+      "revenue": 4190,
+      "cash": null,
+      "scan": null,
+      "estimated": false,
+      "note": "cash/scan breakdown not available — left blank, not zero. OCR JSON b2_august_1 (original photos expired on LINE and were deleted — no source image exists)"
+    },
+    {
+      "branch": "B2",
+      "date": "19/08/2026",
+      "day": "Wed",
+      "revenue": 3640,
+      "cash": null,
+      "scan": null,
+      "estimated": false,
+      "note": "cash/scan breakdown not available — left blank, not zero. OCR JSON b2_august_1 (original photos expired on LINE and were deleted — no source image exists)"
+    },
+    {
+      "branch": "B2",
+      "date": "20/08/2026",
+      "day": "Thu",
+      "revenue": 3270,
+      "cash": null,
+      "scan": null,
+      "estimated": false,
+      "note": "cash/scan breakdown not available — left blank, not zero. OCR JSON b2_august_1 (original photos expired on LINE and were deleted — no source image exists)"
+    },
+    {
+      "branch": "B2",
+      "date": "21/08/2026",
+      "day": "Fri",
+      "revenue": 4140,
+      "cash": null,
+      "scan": null,
+      "estimated": false,
+      "note": "cash/scan breakdown not available — left blank, not zero. OCR JSON b2_august_1 (original photos expired on LINE and were deleted — no source image exists)"
+    },
+    {
+      "branch": "B2",
+      "date": "22/08/2026",
+      "day": "Sat",
+      "revenue": 4810,
+      "cash": null,
+      "scan": null,
+      "estimated": false,
+      "note": "cash/scan breakdown not available — left blank, not zero. OCR JSON b2_august_1 (original photos expired on LINE and were deleted — no source image exists)"
+    },
+    {
+      "branch": "B2",
+      "date": "23/08/2026",
+      "day": "Sun",
+      "revenue": 4038,
+      "cash": 3218,
+      "scan": 820,
+      "estimated": false,
+      "note": "OCR JSON b2_august_1 (original photos expired on LINE and were deleted — no source image exists)"
+    },
+    {
+      "branch": "B2",
+      "date": "24/08/2026",
+      "day": "Mon",
+      "revenue": 4715,
+      "cash": 3290,
+      "scan": 1425,
+      "estimated": false,
+      "note": "OCR JSON b2_august_1 (original photos expired on LINE and were deleted — no source image exists)"
+    },
+    {
+      "branch": "B2",
+      "date": "25/08/2026",
+      "day": "Tue",
+      "revenue": 4825,
+      "cash": 3970,
+      "scan": 855,
+      "estimated": false,
+      "note": "OCR JSON b2_august_1 (original photos expired on LINE and were deleted — no source image exists)"
+    },
+    {
+      "branch": "B2",
+      "date": "26/08/2026",
+      "day": "Wed",
+      "revenue": 4100,
+      "cash": 3080,
+      "scan": 1020,
+      "estimated": false,
+      "note": "OCR JSON b2_august_1 (original photos expired on LINE and were deleted — no source image exists)"
+    },
+    {
+      "branch": "B2",
+      "date": "27/08/2026",
+      "day": "Thu",
+      "revenue": 4340,
+      "cash": 3600,
+      "scan": 740,
+      "estimated": false,
+      "note": "OCR JSON b2_august_1 (original photos expired on LINE and were deleted — no source image exists)"
+    },
+    {
+      "branch": "B2",
+      "date": "28/08/2026",
+      "day": "Fri",
+      "revenue": 2170,
+      "cash": 1020,
+      "scan": 1090,
+      "estimated": false,
+      "note": "CHANNEL SPLIT DOES NOT SUM: cash 1020 + scan 1090 = 2110 vs recorded total 2170 (diff 60). Recorded as written; NOT balanced. OCR JSON b2_august_1 (original photos expired on LINE and were deleted — no source image exists)"
+    },
+    {
+      "branch": "B2",
+      "date": "29/08/2026",
+      "day": "Sat",
+      "revenue": 3125,
+      "cash": 1850,
+      "scan": 1275,
+      "estimated": false,
+      "note": "OCR JSON b2_august_1 (original photos expired on LINE and were deleted — no source image exists)"
+    },
+    {
+      "branch": "B2",
+      "date": "30/08/2026",
+      "day": "Sun",
+      "revenue": 4265,
+      "cash": 3610,
+      "scan": 655,
+      "estimated": false,
+      "note": "OCR JSON b2_august_1 (original photos expired on LINE and were deleted — no source image exists)"
+    },
+    {
+      "branch": "B2",
+      "date": "31/08/2026",
+      "day": "Mon",
+      "revenue": 1505,
+      "cash": 1000,
+      "scan": 505,
+      "estimated": false,
+      "note": "OCR JSON b2_august_1 (original photos expired on LINE and were deleted — no source image exists)"
+    },
+    {
+      "branch": "B2",
+      "date": "06/08/2026",
+      "day": "Thu",
+      "revenue": 4240,
+      "cash": null,
+      "scan": null,
+      "estimated": true,
+      "note": "ESTIMATED — same-weekday mean of 3 days. NOT observed. Replace when real data arrives."
+    },
+    {
+      "branch": "B3",
+      "date": "01/08/2026",
+      "day": "Sat",
+      "revenue": 8562,
+      "cash": 6189,
+      "scan": 2373,
+      "estimated": false,
+      "note": "POS export somsaijai-2026-08-01-to-31.json"
+    },
+    {
+      "branch": "B3",
+      "date": "02/08/2026",
+      "day": "Sun",
+      "revenue": 10444,
+      "cash": 8687,
+      "scan": 1757,
+      "estimated": false,
+      "note": "POS export somsaijai-2026-08-01-to-31.json"
+    },
+    {
+      "branch": "B3",
+      "date": "03/08/2026",
+      "day": "Mon",
+      "revenue": 6770,
+      "cash": 4372,
+      "scan": 2398,
+      "estimated": false,
+      "note": "POS export somsaijai-2026-08-01-to-31.json"
+    },
+    {
+      "branch": "B3",
+      "date": "04/08/2026",
+      "day": "Tue",
+      "revenue": 6905,
+      "cash": 5425,
+      "scan": 1480,
+      "estimated": false,
+      "note": "POS export somsaijai-2026-08-01-to-31.json"
+    },
+    {
+      "branch": "B3",
+      "date": "05/08/2026",
+      "day": "Wed",
+      "revenue": 6979,
+      "cash": 5050,
+      "scan": 1929,
+      "estimated": false,
+      "note": "POS export somsaijai-2026-08-01-to-31.json"
+    },
+    {
+      "branch": "B3",
+      "date": "06/08/2026",
+      "day": "Thu",
+      "revenue": 8801,
+      "cash": 6212,
+      "scan": 2589,
+      "estimated": false,
+      "note": "POS export somsaijai-2026-08-01-to-31.json"
+    },
+    {
+      "branch": "B3",
+      "date": "07/08/2026",
+      "day": "Fri",
+      "revenue": 9681,
+      "cash": 6741,
+      "scan": 2940,
+      "estimated": false,
+      "note": "POS export somsaijai-2026-08-01-to-31.json"
+    },
+    {
+      "branch": "B3",
+      "date": "08/08/2026",
+      "day": "Sat",
+      "revenue": 8362,
+      "cash": 5697,
+      "scan": 2665,
+      "estimated": false,
+      "note": "POS export somsaijai-2026-08-01-to-31.json"
+    },
+    {
+      "branch": "B3",
+      "date": "09/08/2026",
+      "day": "Sun",
+      "revenue": 8425,
+      "cash": 6261,
+      "scan": 2164,
+      "estimated": false,
+      "note": "POS export somsaijai-2026-08-01-to-31.json"
+    },
+    {
+      "branch": "B3",
+      "date": "10/08/2026",
+      "day": "Mon",
+      "revenue": 8971,
+      "cash": 6655,
+      "scan": 2316,
+      "estimated": false,
+      "note": "POS export somsaijai-2026-08-01-to-31.json"
+    },
+    {
+      "branch": "B3",
+      "date": "11/08/2026",
+      "day": "Tue",
+      "revenue": 7803,
+      "cash": 6345,
+      "scan": 1458,
+      "estimated": false,
+      "note": "POS export somsaijai-2026-08-01-to-31.json"
+    },
+    {
+      "branch": "B3",
+      "date": "12/08/2026",
+      "day": "Wed",
+      "revenue": 7970,
+      "cash": 6741,
+      "scan": 1229,
+      "estimated": false,
+      "note": "POS export somsaijai-2026-08-01-to-31.json"
+    },
+    {
+      "branch": "B3",
+      "date": "13/08/2026",
+      "day": "Thu",
+      "revenue": 8184,
+      "cash": 6527,
+      "scan": 1657,
+      "estimated": false,
+      "note": "POS export somsaijai-2026-08-01-to-31.json"
+    },
+    {
+      "branch": "B3",
+      "date": "14/08/2026",
+      "day": "Fri",
+      "revenue": 10304,
+      "cash": 7184,
+      "scan": 3120,
+      "estimated": false,
+      "note": "POS export somsaijai-2026-08-01-to-31.json"
+    },
+    {
+      "branch": "B3",
+      "date": "15/08/2026",
+      "day": "Sat",
+      "revenue": 8770,
+      "cash": 7015,
+      "scan": 1755,
+      "estimated": false,
+      "note": "POS export somsaijai-2026-08-01-to-31.json"
+    },
+    {
+      "branch": "B3",
+      "date": "16/08/2026",
+      "day": "Sun",
+      "revenue": 10551,
+      "cash": 9662,
+      "scan": 889,
+      "estimated": false,
+      "note": "POS export somsaijai-2026-08-01-to-31.json"
+    },
+    {
+      "branch": "B3",
+      "date": "17/08/2026",
+      "day": "Mon",
+      "revenue": 9334,
+      "cash": 7606,
+      "scan": 1728,
+      "estimated": false,
+      "note": "POS export somsaijai-2026-08-01-to-31.json"
+    },
+    {
+      "branch": "B3",
+      "date": "18/08/2026",
+      "day": "Tue",
+      "revenue": 11114,
+      "cash": 8248,
+      "scan": 2866,
+      "estimated": false,
+      "note": "POS export somsaijai-2026-08-01-to-31.json"
+    },
+    {
+      "branch": "B3",
+      "date": "19/08/2026",
+      "day": "Wed",
+      "revenue": 7255,
+      "cash": 5236,
+      "scan": 2019,
+      "estimated": false,
+      "note": "POS export somsaijai-2026-08-01-to-31.json"
+    },
+    {
+      "branch": "B3",
+      "date": "20/08/2026",
+      "day": "Thu",
+      "revenue": 9164,
+      "cash": 7228,
+      "scan": 1936,
+      "estimated": false,
+      "note": "POS export somsaijai-2026-08-01-to-31.json"
+    },
+    {
+      "branch": "B3",
+      "date": "21/08/2026",
+      "day": "Fri",
+      "revenue": 10251,
+      "cash": 6996,
+      "scan": 3255,
+      "estimated": false,
+      "note": "POS export somsaijai-2026-08-01-to-31.json"
+    },
+    {
+      "branch": "B3",
+      "date": "22/08/2026",
+      "day": "Sat",
+      "revenue": 5640,
+      "cash": 4843,
+      "scan": 797,
+      "estimated": false,
+      "note": "POS export somsaijai-2026-08-01-to-31.json"
+    },
+    {
+      "branch": "B3",
+      "date": "23/08/2026",
+      "day": "Sun",
+      "revenue": 3963,
+      "cash": 2907,
+      "scan": 1056,
+      "estimated": false,
+      "note": "POS export somsaijai-2026-08-01-to-31.json"
+    },
+    {
+      "branch": "B3",
+      "date": "24/08/2026",
+      "day": "Mon",
+      "revenue": 7754,
+      "cash": 6191,
+      "scan": 1563,
+      "estimated": false,
+      "note": "POS export somsaijai-2026-08-01-to-31.json"
+    },
+    {
+      "branch": "B3",
+      "date": "25/08/2026",
+      "day": "Tue",
+      "revenue": 5490,
+      "cash": 4081,
+      "scan": 1409,
+      "estimated": false,
+      "note": "POS export somsaijai-2026-08-01-to-31.json"
+    },
+    {
+      "branch": "B3",
+      "date": "26/08/2026",
+      "day": "Wed",
+      "revenue": 7181,
+      "cash": 5338,
+      "scan": 1843,
+      "estimated": false,
+      "note": "POS export somsaijai-2026-08-01-to-31.json"
+    },
+    {
+      "branch": "B3",
+      "date": "27/08/2026",
+      "day": "Thu",
+      "revenue": 3969,
+      "cash": 2790,
+      "scan": 1179,
+      "estimated": false,
+      "note": "POS export somsaijai-2026-08-01-to-31.json"
+    },
+    {
+      "branch": "B3",
+      "date": "28/08/2026",
+      "day": "Fri",
+      "revenue": 5675,
+      "cash": 4485,
+      "scan": 1190,
+      "estimated": false,
+      "note": "POS export somsaijai-2026-08-01-to-31.json"
+    },
+    {
+      "branch": "B3",
+      "date": "29/08/2026",
+      "day": "Sat",
+      "revenue": 6256,
+      "cash": 4082,
+      "scan": 2174,
+      "estimated": false,
+      "note": "POS export somsaijai-2026-08-01-to-31.json"
+    },
+    {
+      "branch": "B3",
+      "date": "30/08/2026",
+      "day": "Sun",
+      "revenue": 5509,
+      "cash": 4626,
+      "scan": 883,
+      "estimated": false,
+      "note": "POS export somsaijai-2026-08-01-to-31.json"
+    },
+    {
+      "branch": "B3",
+      "date": "31/08/2026",
+      "day": "Mon",
+      "revenue": 5965,
+      "cash": 4120,
+      "scan": 1845,
+      "estimated": false,
+      "note": "POS export somsaijai-2026-08-01-to-31.json"
+    }
+  ]
+}

@@ -1,0 +1,87 @@
+{
+  "batch_id": "BATCH-2026-09-14-AUG-SALES",
+  "month": "Aug26",
+  "change_list": "/Users/metasithjumpatip/Desktop/Blessme/Somsaijai/3_Automation_Dashboard/audit/batch_2026-09-14_AugExpenses/sales_change_list.json",
+  "imported_at": "2026-09-23T15:47:04.910Z",
+  "rows_written": 93,
+  "rows_skipped": 0,
+  "estimated_rows": [
+    {
+      "branch": "B1",
+      "date": "06/08/2026",
+      "revenue": 7048
+    },
+    {
+      "branch": "B1",
+      "date": "07/08/2026",
+      "revenue": 5616.5
+    },
+    {
+      "branch": "B1",
+      "date": "09/08/2026",
+      "revenue": 9660
+    },
+    {
+      "branch": "B1",
+      "date": "10/08/2026",
+      "revenue": 5145.75
+    },
+    {
+      "branch": "B1",
+      "date": "11/08/2026",
+      "revenue": 6500.67
+    },
+    {
+      "branch": "B1",
+      "date": "13/08/2026",
+      "revenue": 7048
+    },
+    {
+      "branch": "B1",
+      "date": "14/08/2026",
+      "revenue": 5616.5
+    },
+    {
+      "branch": "B1",
+      "date": "15/08/2026",
+      "revenue": 7546.5
+    },
+    {
+      "branch": "B2",
+      "date": "06/08/2026",
+      "revenue": 4240
+    }
+  ],
+  "branches": {
+    "B1": {
+      "file": "SomSaiJai_Dashboard_B1_2026.xlsx",
+      "rows_added": 31,
+      "revenue": 216511.92,
+      "estimated_count": 8,
+      "backup": "audit/backups/2026-09-23T15-47-04-908Z/SomSaiJai_Dashboard_B1_2026.xlsx",
+      "hash_before": "10efede4506ec7e5116cca6d714d15f20a95d29a5987d332ad852703a13deda0",
+      "hash_after": "d716072852b701e8120e7e6837b922e12f164072c9b4cd3c063677dbbe913a25",
+      "readback": "verified"
+    },
+    "B2": {
+      "file": "SomSaiJai_Dashboard_B2_2026.xlsx",
+      "rows_added": 31,
+      "revenue": 135213,
+      "estimated_count": 1,
+      "backup": "audit/backups/2026-09-23T15-47-04-908Z/SomSaiJai_Dashboard_B2_2026.xlsx",
+      "hash_before": "1b58289b89725629775b66c21a3897c6f1f2ebc3a52c98a9fef7f3149f89e73d",
+      "hash_after": "3d4ea963a9e156f469e61eee10f73bdd60995f599dd59e9936847d1e6dd4f88f",
+      "readback": "verified"
+    },
+    "B3": {
+      "file": "SomSaiJai_Dashboard_B3_2026.xlsx",
+      "rows_added": 31,
+      "revenue": 242002,
+      "estimated_count": 0,
+      "backup": "audit/backups/2026-09-23T15-47-04-908Z/SomSaiJai_Dashboard_B3_2026.xlsx",
+      "hash_before": "0caace59f9f4a63b56af5c8af61c82845330838f65cbab9de176f9ccef8422e6",
+      "hash_after": "d428c3b96c91858bc1702b62b7746d30afb70ce526f78c1021dfdf7e986494e3",
+      "readback": "verified"
+    }
+  }
+}

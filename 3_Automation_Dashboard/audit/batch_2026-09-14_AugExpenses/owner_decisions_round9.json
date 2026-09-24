@@ -1,0 +1,62 @@
+{
+  "batch_id": "BATCH-2026-09-14-AUG-EXPENSES",
+  "round": 9,
+  "decided_on": "2026-09-19",
+  "decided_by": "owner (Metasith Jumpatip)",
+  "import_allowed": false,
+  "supersedes": "round-8 decision C-B3-salary-overlap, which recorded that the ฿39,000 excluded BOTH slips. Owner has corrected this after re-checking the slips.",
+  "decisions": [
+    {
+      "ref": "C-B3-slip-72",
+      "slip": 72,
+      "date": "13/08/2026 18:29",
+      "amount": 5000.00,
+      "memo": "B3 Aug pre-salary arkar 3000 / HtunKyaw 2000",
+      "owner_answer": "slip 72 is included in the ฿39,000",
+      "resolution": "DO NOT BOOK SEPARATELY",
+      "status": "resolved",
+      "treatment": "The ฿5,000 advance is a component of the ฿39,000 August allocation, not an addition to it. Booking it as its own row would double-count ฿5,000 of B3 salary.",
+      "note": "This is the double-spend the 'pre-salary' wording flagged as a risk. Caught before import."
+    },
+    {
+      "ref": "C-B3-slip-111",
+      "slip": 111,
+      "date_paid": "01/08/2026 22:54",
+      "amount": 3500.00,
+      "memo": "Salary b3 7days august",
+      "owner_answer": "slip 111 is on July expense",
+      "resolution": "Book to Jul26, not Aug26",
+      "status": "resolved_with_two_flags",
+      "verification": {
+        "already_booked": false,
+        "check": "No ฿3,500 row exists anywhere in the B3 workbook. B3 Jul26 currently holds Salary ฿7,500 (22/07, mike 15 days) + ฿39,000 (31/07, Remaining) = ฿46,500 total. Adding this makes Jul26 B3 salary ฿50,000."
+      },
+      "FLAG_1_basis_inconsistency": "This payment settled on 01/08/2026. The batch established — and verified against existing July watermelon rows — that these books are CASH BASIS, booked on the payment date. That is the basis used to place slip 110's ฿14,560 entirely in August. Placing slip 111 in July applies the opposite, accrual, treatment to a payment made in August. Both decisions are the owner's to make, but they are inconsistent with each other and the inconsistency is recorded rather than smoothed over.",
+      "FLAG_2_closed_month": "Jul26 is a closed month. Adding ฿3,500 requires explicit owner authorisation recorded with before/after values, separately from the August import (OCR_RULES 7).",
+      "memo_conflict": "The slip's own memo says 'august'. The owner states the cost belongs to July. Both readings are preserved; the owner's instruction governs the booking, and the memo text is not altered."
+    }
+  ],
+  "revised_august_salary": {
+    "B1": {"from_pool": 24300.00, "ming_share": 6666.67, "total": 30966.67},
+    "B2": {"from_pool": 23200.00, "ming_share": 6666.67, "total": 29866.67},
+    "B3": {"from_pool": 39000.00, "note": "includes the ฿5,000 slip-72 advance", "ming_share": 6666.66, "total": 45666.66},
+    "combined": 106500.00,
+    "change_from_round_8": -8500.00,
+    "not_yet_allocated": {"slip_101": 2400.00, "slip_51": 300.00}
+  },
+  "person_day_check_august_B3": {
+    "rate": "฿500/day",
+    "booked": 39000.00,
+    "person_days_covered": 78,
+    "expected": "3 staff x 31 days = 93 person-days = ฿46,500",
+    "shortfall_days": 15,
+    "shortfall_amount": 7500.00,
+    "assessment": "B3's evidenced August salary now covers 78 of the 93 expected person-days. The ฿7,500 gap may be legitimate — fewer staff on some days, or cash wages with no bank trace, which CLAUDE.md records as common for this business. It is NOT treated as a missing cost to be invented. Raised for the owner rather than filled in.",
+    "contrast_with_round_8": "Under the previous (now superseded) reading the figure was ฿47,500 / 95 person-days, slightly OVER expectation. The corrected reading puts it under. Both are recorded; the corrected one governs."
+  },
+  "july_B3_effect": {
+    "currently_booked": 46500.00,
+    "after_adding_slip_111": 50000.00,
+    "note": "B3 opened 11 Jul, so July covers 21 operating days = 63 person-days = ฿31,500 at ฿500/day, yet ฿46,500 is already booked as the configured full-month fixed cost. Adding ฿3,500 widens that gap. Flagged as an observation about the existing July book, not a change proposed by this batch."
+  }
+}

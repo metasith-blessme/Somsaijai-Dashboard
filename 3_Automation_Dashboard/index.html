@@ -714,6 +714,7 @@ body {
         <div id="status" style="font-size:0.75em; font-weight:700; color:var(--green)">● SYSTEM LIVE</div>
     </div>
 
+    <p style="color:var(--muted); font-size:0.85em">Provisional financial figures. Partner shares are calculated entitlements; payments and retained balances require reconciliation. February SKU counts and B3 usage include estimates.</p>
     <div class="kpi-row" id="kpiGrid"></div>
 
     <div class="section active" id="view-overall">
@@ -754,7 +755,7 @@ body {
             </div>
         </div>
         <div class="dashboard-grid">
-            <div class="glass-card"><h3>Profit Sharing</h3><table class="premium-table"><thead><tr><th>Branch</th><th class="num">Net Profit</th><th class="num">Loss Offset</th><th class="num">Blessme Share</th><th class="num">Ming Share</th></tr></thead><tbody id="profitShareBody"></tbody></table></div>
+            <div class="glass-card"><h3>Calculated Profit Sharing</h3><table class="premium-table"><thead><tr><th>Branch</th><th class="num">Net Profit</th><th class="num">Loss Offset</th><th class="num">Closing Loss</th><th class="num">Blessme Share</th><th class="num">Ming Share</th></tr></thead><tbody id="profitShareBody"></tbody></table></div>
             <div class="glass-card"><h3>Break-Even Progress</h3><div class="chart-container"><canvas id="chartBreakEven"></canvas></div></div>
         </div>
         <div class="dashboard-grid">
@@ -872,7 +873,7 @@ const monthSort = (a, b) => {
 async function init() {
     try {
         console.log('--- Initializing SomSaiJai Intelligence ---');
-        const [d, l, r] = await Promise.all([
+        const [d, l, r] = typeof BUILT_IN !== 'undefined' ? [BUILT_IN, BUILT_IN_LEDGER, BUILT_IN_REPORTS] : await Promise.all([
             fetch('data.json?t='+Date.now()).then(res => res.json()),
             fetch('stock_ledger.json?t='+Date.now()).then(res => res.ok ? res.json() : null),
             fetch('reports_data.json?t='+Date.now()).then(res => res.ok ? res.json() : null)
@@ -1050,7 +1051,8 @@ function renderFinance(sales, expenses) {
                 bd[bk].exp = bd[bk].rent + bd[bk].opex;
                 bd[bk].net = r[bl].net; bd[bk].share = r[bl].share;
                 bd[bk].mingShare = r[bl].ming_share || 0;
-                bd[bk].lossCF = r[bl].loss_carry_forward || 0;
+                bd[bk].lossCF = r[bl].closing_loss || 0;
+                bd[bk].lossOffset = r[bl].loss_offset || 0;
             }
         });
         visibleKeys.forEach(bk => { tRev += bd[bk].rev; tMat += bd[bk].mat; tRent += bd[bk].rent; tOpex += bd[bk].opex; tDaily += bd[bk].daily; tExp += bd[bk].exp; tNet += bd[bk].net; });
@@ -1118,7 +1120,8 @@ function renderFinance(sales, expenses) {
         return `<tr>
             <td><span class="badge badge-${bk.toLowerCase()}">${bk}</span> (${pct}% / ${mingPct}%)</td>
             <td class="num">฿${fmt(bd[bk].net)}</td>
-            <td class="num" style="color:var(--red)">${bd[bk].lossCF > 0 ? `-฿${fmt(Math.min(bd[bk].net >= 0 ? bd[bk].net : 0, bd[bk].lossCF))}` : '฿0'}</td>
+            <td class="num" style="color:var(--red)">-฿${fmt(bd[bk].lossOffset || 0)}</td>
+            <td class="num">฿${fmt(bd[bk].lossCF)}</td>
             <td class="num" style="color:var(--accent)"><b>฿${fmt(bd[bk].share)}</b></td>
             <td class="num" style="color:var(--accent)"><b>฿${fmt(bd[bk].mingShare)}</b></td>
         </tr>`;
@@ -1414,7 +1417,7 @@ function renderOverall(sales, expenses) {
                 </div>
             ` : `
                 <div style="background:rgba(46,204,113,0.05); padding:8px; border-radius:4px; font-size:0.8em; color:var(--green)">
-                    All daily receipts match theoretical yields.
+                    No daily variance exceeds the threshold. This does not verify receipt completeness.
                 </div>
             `}
         </div>
@@ -1535,7 +1538,7 @@ function renderReport(sales) {
     
     const sec2 = `
         <div class="glass-card" style="padding:20px; border:none; background:rgba(0,0,0,0.02)">
-            <h3 style="color:var(--accent); margin-bottom:20px">2. FINAL AUDITED FINANCIAL STATEMENT</h3>
+            <h3 style="color:var(--accent); margin-bottom:20px">2. PROVISIONAL FINANCIAL STATEMENT</h3>
             <table class="premium-table">
                 <thead><tr><th>Line Item</th>${branchKeys.map(bk => `<th class="num">${bk}</th>`).join('')}<th class="num">Total</th><th class="num">%</th></tr></thead>
                 <tbody>
@@ -1557,6 +1560,7 @@ function renderReport(sales) {
                     <tr class="rep-opex-item" style="display:none; color:var(--muted); font-size:0.9em"><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${it.label}</td><td class="num" colspan="${branchKeys.length}"></td><td class="num">฿${fmt(it.amt)}</td><td class="num"></td></tr>`).join('') : '')
                             + row('งบลงทุน (CAPEX)', 'capex');
                     })()}
+                    <tr style="color:var(--red)"><td>Less: Daily Expenses</td>${branchKeys.map(bk => `<td class="num">(฿${fmt((r[bk.toLowerCase()]||{}).daily_exp||0)})</td>`).join('')}<td class="num">(฿${fmt(branchKeys.reduce((s,bk)=>s+((r[bk.toLowerCase()]||{}).daily_exp||0),0))})</td><td></td></tr>
                     <tr style="background:rgba(0,0,0,0.05); font-weight:800">
                         <td><b>Net Operational Profit</b></td>
                         ${branchKeys.map(bk => { const net = (r[bk.toLowerCase()]||{}).net||0; return `<td class="num" style="color:${net>=0?'var(--green)':'var(--red)'}">฿${fmt(net)}</td>`; }).join('')}
@@ -1575,7 +1579,7 @@ function renderReport(sales) {
     let totalLossCarryForward = 0;
     const lossStatuses = branchKeys.map(bk => {
         const bd = r[bk.toLowerCase()] || {};
-        const lcf = bd.loss_carry_forward || 0;
+        const lcf = bd.closing_loss || 0;
         totalLossCarryForward += lcf;
         return lcf > 0 ? `${bk === 'B1' ? 'Branch 1' : bk === 'B2' ? 'Branch 2' : 'Platinum Pop'} has ฿${fmt(lcf)} carry-forward loss to offset future profits.` : '';
     }).filter(s => s);
@@ -1584,7 +1588,8 @@ function renderReport(sales) {
 
     const sec3 = `
         <div class="glass-card" style="padding:20px; border:none; background:rgba(0,0,0,0.02)">
-            <h3 style="color:var(--accent); margin-bottom:20px">3. BRANCH PERFORMANCE & PROFIT SHARING</h3>
+            <h3 style="color:var(--accent); margin-bottom:20px">3. BRANCH PERFORMANCE & CALCULATED PROFIT SHARING</h3>
+            <p style="color:var(--muted); font-size:0.85em">Calculated shares are provisional. Actual payments, agreed historical distributions, and retained balances must be reconciled separately.</p>
             <table class="premium-table">
                 <thead><tr><th>Branch</th><th class="num">Revenue</th><th class="num">COGS</th><th class="num">Gross Profit</th><th class="num">Rental</th><th class="num">Other OPEX</th><th class="num">Net Profit</th><th class="num">Loss Offset</th><th class="num">Blessme Share</th><th class="num">Ming Share</th></tr></thead>
                 <tbody>
@@ -1593,8 +1598,7 @@ function renderReport(sales) {
                         const bd = r[bl] || {};
                         const gp = (bd.rev || 0) - (bd.cogs || 0);
                         const pct = Math.round(sharePct(bk) * 100);
-                        const lcf = bd.loss_carry_forward || 0;
-                        const lossOffset = lcf > 0 ? Math.min(bd.net >= 0 ? bd.net : 0, lcf) : 0;
+                        const lossOffset = bd.loss_offset || 0;
                         totalLossOffset += lossOffset;
                         return `<tr>
                             <td><span class="badge badge-${bl}">${bk}</span> (${pct}% / ${100-pct}%)</td>
@@ -1625,7 +1629,7 @@ function renderReport(sales) {
             </table>
             ${lossStatuses.length > 0 ? `
                 <div style="font-size:0.8em; color:var(--red); margin-top:12px; padding:8px 12px; background:rgba(239,68,68,0.05); border-left:3px solid var(--red); border-radius:4px">
-                    <strong>Net Loss Carry-Forward Status:</strong><br>
+                    <strong>Closing Loss Carry-Forward:</strong><br>
                     ${lossStatuses.join('<br>')}
                 </div>
             ` : ''}
@@ -1651,23 +1655,16 @@ function renderReport(sales) {
 
     // --- Section 5: Daily Shared COGS Breakdown ---
     const dailyCogs = r.daily_cogs || [];
-    const branchRatios = {};
-    branchKeys.forEach(bk => {
-        branchRatios[bk] = r.total_rev > 0 ? ((r[bk.toLowerCase()]||{}).rev || 0) / r.total_rev : 0;
-    });
-    // For when total_rev is 0, give all to B1 as fallback
-    if (r.total_rev === 0 && branchKeys.includes('B1')) branchRatios['B1'] = 1;
-
     let sec5 = '';
     if (dailyCogs.length > 0) {
         let lastDate = '';
         sec5 = `
         <div class="glass-card" style="padding:20px; border:none; background:rgba(0,0,0,0.02)">
             <h3 style="color:var(--accent); margin-bottom:20px">5. DAILY SHARED COGS BREAKDOWN</h3>
-            <p style="color:var(--muted); margin-bottom:12px; font-size:0.85em">${branchKeys.map(bk => `${bk} allocation: ${(branchRatios[bk]*100).toFixed(0)}%`).join(' | ')} (based on revenue proportion)</p>
+            <p style="color:var(--muted); margin-bottom:12px; font-size:0.85em">Purchase ledger totals. Branch COGS above uses fruit usage and the applicable shared-cost rules; individual purchase rows are not allocated here.</p>
             <div style="max-height:500px; overflow-y:auto">
                 <table class="premium-table">
-                    <thead><tr><th>Date</th><th>Category</th><th>Description</th><th class="num">Amount</th>${branchKeys.map(bk => `<th class="num">${bk} Share</th>`).join('')}</tr></thead>
+                    <thead><tr><th>Date</th><th>Category</th><th>Description</th><th class="num">Amount</th></tr></thead>
                     <tbody>
                         ${dailyCogs.map(e => {
                             const showDate = e.date !== lastDate;
@@ -1677,13 +1674,13 @@ function renderReport(sales) {
                                 <td>${e.cat}</td>
                                 <td>${e.desc}</td>
                                 <td class="num">฿${fmt(e.amt)}</td>
-                                ${branchKeys.map(bk => `<td class="num">฿${fmt(Math.round(e.amt * branchRatios[bk]))}</td>`).join('')}
+
                             </tr>`;
                         }).join('')}
                         <tr style="background:rgba(0,0,0,0.05); font-weight:700">
                             <td colspan="3"><b>TOTAL</b></td>
                             <td class="num"><b>฿${fmt(dailyCogs.reduce((s,e)=>s+e.amt,0))}</b></td>
-                            ${branchKeys.map(bk => `<td class="num"><b>฿${fmt(Math.round(dailyCogs.reduce((s,e)=>s+e.amt,0)*branchRatios[bk]))}</b></td>`).join('')}
+
                         </tr>
                     </tbody>
                 </table>
@@ -1697,9 +1694,9 @@ function renderReport(sales) {
     const fruits = (r.fruit_performance || [])
         .filter(f => f.cups > 0)
         .map(f => {
-            const profit = f.rev - f.cost;
-            const margin = f.rev > 0 ? (profit / f.rev * 100) : 0;
-            const roiNum = parseFloat(f.roi) || 0;
+            const profit = f.cost == null ? null : f.rev - f.cost;
+            const margin = profit === null ? null : f.rev > 0 ? (profit / f.rev * 100) : 0;
+            const roiNum = Number.isFinite(parseFloat(f.roi)) ? parseFloat(f.roi) : -Infinity;
             const revPerCup = f.cups > 0 ? (f.rev / f.cups) : 0;
             return { ...f, profit, margin, roiNum, revPerCup };
         })
@@ -1708,7 +1705,8 @@ function renderReport(sales) {
     if (fruits.length > 0) {
         sec6 = `
         <div class="glass-card" style="padding:20px; border:none; background:rgba(0,0,0,0.02)">
-            <h3 style="color:var(--accent); margin-bottom:20px">6. FRUIT ROI ANALYSIS (PROFITABILITY RANKING)</h3>
+            <h3 style="color:var(--accent); margin-bottom:20px">6. ESTIMATED CUP REVENUE & INGREDIENT PURCHASE COST</h3>
+            <p style="color:var(--muted); font-size:0.85em">Provisional ingredient returns exclude shared packaging, ice, operating costs and inventory adjustments. February SKU counts and B3 sales mix include estimates. Bottle revenue is outside this SKU table; unknown cost cannot establish profit.</p>
             <table class="premium-table">
                 <thead><tr><th>#</th><th>Fruit</th><th class="num">Revenue</th><th class="num">Cost</th><th class="num">Profit</th><th class="num">Margin</th><th class="num">ROI</th><th class="num">Cups</th><th class="num">Rev/Cup</th></tr></thead>
                 <tbody>${fruits.map((f, i) => `
@@ -1716,9 +1714,9 @@ function renderReport(sales) {
                         <td>${i+1}</td>
                         <td>${f.name}</td>
                         <td class="num">฿${fmt(f.rev)}</td>
-                        <td class="num">฿${fmt(f.cost)}</td>
-                        <td class="num" style="color:${f.profit>=0?'var(--green)':'var(--red)'}">฿${fmt(f.profit)}</td>
-                        <td class="num" style="color:${f.margin>=0?'var(--green)':'var(--red)'}">${f.margin.toFixed(1)}%</td>
+                        <td class="num">${f.cost == null ? 'Unknown' : '฿'+fmt(f.cost)}</td>
+                        <td class="num" style="color:${f.profit>=0?'var(--green)':'var(--red)'}">${f.profit === null ? 'N/A' : '฿'+fmt(f.profit)}</td>
+                        <td class="num" style="color:${f.margin>=0?'var(--green)':'var(--red)'}">${f.margin === null ? 'N/A' : f.margin.toFixed(1)+'%'}</td>
                         <td class="num" style="color:${f.roiNum>=0?'var(--green)':'var(--red)'}">${f.roi}</td>
                         <td class="num">${fmt(f.cups)}</td>
                         <td class="num">฿${f.revPerCup.toFixed(0)}</td>
@@ -1733,7 +1731,7 @@ function renderReport(sales) {
     // --- Section 7: Key Insights for Shareholders ---
     const insights = [];
     if (fruits.length > 0) {
-        insights.push(`Top ROI fruit: <b>${fruits[0].name}</b> at <b>${fruits[0].roi}</b> — most efficient return on cost.`);
+        if (Number.isFinite(fruits[0].roiNum)) insights.push(`Highest modeled ingredient return: <b>${fruits[0].name}</b> at <b>${fruits[0].roi}</b>. Confirm sales mix and complete costs before a menu decision.`);
         const topRev = [...fruits].sort((a,b) => b.rev - a.rev)[0];
         insights.push(`Highest revenue fruit: <b>${topRev.name}</b> generating <b>฿${fmt(topRev.rev)}</b>.`);
     }
@@ -1756,7 +1754,7 @@ function renderReport(sales) {
     if (flaggedDays > 0) {
         insights.push(`Audit: <b>${flaggedDays}</b> day${flaggedDays!==1?'s':''} flagged with total variance of <b style="color:${totalVariance>=0?'var(--green)':'var(--red)'}">฿${fmt(totalVariance)}</b>.`);
     } else if (sales.length > 0) {
-        insights.push(`Audit: All <b>${sales.length}</b> trading days passed audit — no flagged variances.`);
+        insights.push(`Variance check: no day exceeds the threshold across <b>${sales.length}</b> records. Source completeness remains unverified.`);
     }
     insights.push(`Blessme total share: <b style="color:var(--accent)">฿${fmt(totalShare)}</b> (${branchKeys.map(bk => `${bk}: ฿${fmt((r[bk.toLowerCase()]||{}).share||0)} @ ${Math.round(sharePct(bk)*100)}%`).join(' | ')}).`);
     insights.push(`Ming total share: <b style="color:var(--accent)">฿${fmt(totalMingShare)}</b> (${branchKeys.map(bk => `${bk}: ฿${fmt((r[bk.toLowerCase()]||{}).ming_share||0)} @ ${Math.round((1-sharePct(bk))*100)}%`).join(' | ')}).`);
@@ -1778,14 +1776,14 @@ function renderReport(sales) {
     
     const sec8 = `
         <div class="glass-card" style="padding:20px; border:none; background:rgba(0,0,0,0.02)">
-            <h3 style="color:var(--accent); margin-bottom:20px">8. OPERATING EXPENSES (OPEX)</h3>
+            <h3 style="color:var(--accent); margin-bottom:20px">8. RENTAL AND OTHER OPERATING EXPENSES</h3>
             <div style="max-height:400px; overflow-y:auto">
                 <table class="premium-table">
                     <thead><tr><th>Branch</th><th>Category</th><th>Description</th><th class="num">Amount</th></tr></thead>
                     <tbody>
                         ${allOpex.map(e => `<tr><td><span class="badge badge-${e.bl}">${e.bk}</span></td><td>${e.cat}</td><td>${e.desc}</td><td class="num">฿${fmt(e.amt)}</td></tr>`).join('')}
                         ${allOpex.length === 0 ? '<tr><td colspan="4" style="text-align:center; color:var(--muted)">No OPEX data for this period.</td></tr>' : ''}
-                        <tr style="background:rgba(0,0,0,0.05); font-weight:700"><td colspan="3"><b>TOTAL OPEX</b></td><td class="num"><b>฿${fmt(totalOpex)}</b></td></tr>
+                        <tr style="background:rgba(0,0,0,0.05); font-weight:700"><td colspan="3"><b>TOTAL RENTAL + OTHER OPEX</b></td><td class="num"><b>฿${fmt(totalRental + totalOpex)}</b></td></tr>
                     </tbody>
                 </table>
             </div>

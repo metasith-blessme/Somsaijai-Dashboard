@@ -1,0 +1,31 @@
+{
+  "batch_id": "BATCH-2026-09-24-JUL-CORRECTIONS",
+  "at": "2026-09-24T09:13:08.864Z",
+  "voids": [
+    {
+      "branch": "B1",
+      "sheet_row": 344,
+      "date": "27/07/2026",
+      "cat": "Watermelon",
+      "amount_before": 3200,
+      "amount_after": 0,
+      "desc_before": "แตงโม 40 ลูก (LINE_ALBUM_Cost July_260802_13.jpg)",
+      "reason": "ประมาณการที่ไม่มีหลักฐานรองรับ — ไฟล์ที่อ้างอิงเป็นสลิปซื้อแก้ว ฿2,589 ซึ่งบันทึกแยกไว้แล้วในหมวด Packaging วันเดียวกัน ค่าแตงโมปลายเดือน ก.ค. จ่ายจริงตามสลิป 03/08/2026 ฿14,560 (บันทึกใน Aug26)"
+    },
+    {
+      "branch": "B1",
+      "sheet_row": 349,
+      "date": "28/07/2026",
+      "cat": "Watermelon",
+      "amount_before": 3200,
+      "amount_after": 0,
+      "desc_before": "แตงโม 40 ลูก (LINE_ALBUM_Cost July_260802_18.jpg)",
+      "reason": "ประมาณการที่ไม่มีหลักฐานรองรับ — ไฟล์ที่อ้างอิงเป็นสลิปซื้อฝรั่ง ฿3,000 ซึ่งบันทึกแยกไว้แล้วในหมวด Guava วันเดียวกัน ค่าแตงโมปลายเดือน ก.ค. จ่ายจริงตามสลิป 03/08/2026 ฿14,560 (บันทึกใน Aug26)"
+    }
+  ],
+  "SomSaiJai_Dashboard_B1_2026.xlsx": {
+    "hash_before": "db0dab8e6524ad0da7842f7692ed3bec780e97b63df2cb712eb87772cb4a0163",
+    "hash_after": "07951e3aec3a6807d4196ae5eb8067e6f0b3ea6027c727ef37c2788ec85246c1",
+    "backup": "audit/backups/2026-09-24T09-13-08-864Z-void/SomSaiJai_Dashboard_B1_2026.xlsx"
+  }
+}

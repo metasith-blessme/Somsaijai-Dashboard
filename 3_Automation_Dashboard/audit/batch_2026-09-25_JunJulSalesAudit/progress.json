@@ -1,0 +1,23 @@
+{
+  "batch_id": "BATCH-2026-09-25-JUNJUL-SALES-AUDIT",
+  "updated": "2026-09-25",
+  "read": 71, "total": 122,
+  "revenue_match": "71 of 71 — no exceptions",
+  "folders": {
+    "B1/1_Sale/Jun26": {"status": "COMPLETE", "days": 30, "revenue_match": 30, "excel_total": 191720},
+    "B1/1_Sale/Jul26": {"status": "COMPLETE", "days": 31, "revenue_match": 31, "excel_total": 242090},
+    "B2/1_Sale/Jun26": {"status": "in progress", "days_read": 10, "days_total": 30,
+      "dates_read": ["04","05","06","07","08","09","10","11","12","13","14"]},
+    "B2/1_Sale/Jul26": {"status": "not started", "days": 31}
+  },
+  "my_own_reading_errors_corrected": [
+    {"date":"10/07 B1","note":"I read ice as 150; Excel 540 correctly includes a ฿390 orange payment from cash. Excel right."},
+    {"date":"13/06 B2","note":"I read All as 7570; the form says 7530. Excel right."},
+    {"date":"08/06 B2","note":"I misread a corrected digit; Excel 3380 = cash 2210 + scan 1170. Excel right."}
+  ],
+  "discrepancy_pattern": {
+    "revenue": "No day has a revenue difference. Not one in 71.",
+    "cash_scan": "Differs on a minority of days, always traceable to how the ice deduction was handled, or to a form whose own figures do not balance. Excel resolves these by deriving scan = revenue - cash, which OCR_RULES 4.1 forbids as an observation.",
+    "cups": "Small differences (1-10 cups) scattered across both branches. Do not affect revenue or COGS allocation, which uses the Used_* columns."
+  }
+}

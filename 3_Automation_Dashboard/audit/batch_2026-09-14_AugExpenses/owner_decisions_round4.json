@@ -1,0 +1,108 @@
+{
+  "batch_id": "BATCH-2026-09-14-AUG-EXPENSES",
+  "round": 4,
+  "decided_on": "2026-09-15",
+  "decided_by": "owner (Metasith Jumpatip)",
+  "import_allowed": false,
+  "scope": "Group B — capitalise-or-expense and branch allocation.",
+  "policy_inferred": {
+    "statement": "Owner has directed branch allocation for each item without directing capitalisation, and previously expensed 'other equipment ฿1,721' on slip 102. Group B is therefore treated as EXPENSED to OPEX rather than capitalised as fixed assets.",
+    "status": "inferred_from_owner_instructions_needs_explicit_confirmation",
+    "why_flagged": "The owner allocated these items to branches but did not state a capitalise-or-expense policy in words. Cameras, tables and shop fit-out are durable assets; expensing them charges August in full rather than spreading the cost. This materially affects August P&L for B1/B2/B3 and should be confirmed explicitly, not assumed from silence."
+  },
+  "decisions": [
+    {
+      "slips": [45, 46],
+      "combined_amount": 4486.00,
+      "memo": ["กล้อง 2 ตัว", "ค่ากล้อง 1 ตัว"],
+      "owner_answer": "security cameras for B1, B2 and B3",
+      "resolution": "OPEX / Other OPEX — one camera per branch",
+      "status": "resolved_with_open_detail",
+      "allocation": {
+        "basis": "owner_stated_one_camera_per_branch",
+        "slip_45": {"amount": 2991.00, "units": 2, "per_unit": 1495.50, "branches": "two of B1/B2/B3 — which two not stated"},
+        "slip_46": {"amount": 1495.00, "units": 1, "per_unit": 1495.00, "branches": "the remaining branch — not stated"},
+        "conservation_check": {"result": "pass", "formula": "2991.00 + 1495.00 = 4486.00", "difference": 0}
+      },
+      "open_detail": "Allocation is kept inside each payment rather than pooling both slips and dividing by three, which would invent a split across two separate transactions. Consequence: two branches bear ฿1,495.50 and one bears ฿1,495.00. Which branch takes the ฿1,495.00 single-camera slip is not evidenced and is not assumed. Materiality ฿0.50."
+    },
+    {
+      "slip": 63,
+      "amount": 527.00,
+      "memo": "โต๊ะพับ 1 ตัว",
+      "owner_answer": "table for B1",
+      "resolution": "OPEX / Other OPEX",
+      "branch": "B1",
+      "branch_state": "owner_stated",
+      "allocated_amount": 527.00,
+      "status": "resolved"
+    },
+    {
+      "slip": 70,
+      "amount": 547.00,
+      "memo": "โต๊ะ 1 ตัว",
+      "owner_answer": "table for B2",
+      "resolution": "OPEX / Other OPEX",
+      "branch": "B2",
+      "branch_state": "owner_stated",
+      "allocated_amount": 547.00,
+      "status": "resolved"
+    },
+    {
+      "slip": 81,
+      "amount": 2440.00,
+      "memo": "ค่าลงทุนอุปกรณ์ตกแต่งร้าน",
+      "owner_answer": "shop decoration for B1 and B2",
+      "resolution": "OPEX / Other OPEX — B1 and B2",
+      "status": "blocked_on_split",
+      "branch": "B1 + B2",
+      "branch_state": "owner_stated",
+      "why_blocked": "The owner named two benefiting branches but no split. The slip carries no line subtotals. Per OCR_RULES 5.4 the parent ฿2,440.00 stays known and the allocation stays unresolved — an equal ฿1,220/฿1,220 split has NOT been invented. The owner must state the split or approve an even one explicitly.",
+      "resolved_separately": "The word ลงทุน (invest) appears here as it does on slip 41, which the owner ruled out of scope as new-shop investment. The owner's answer places this one at B1 and B2, i.e. existing branches, so it stays in scope. That distinction is now recorded."
+    },
+    {
+      "slip": 84,
+      "amount": 802.00,
+      "memo": "โต๊ะ594 / เขียง208(3อัน)",
+      "owner_answer": "for B1 and B2 — table and knife",
+      "resolution": "OPEX / Other OPEX — B1 and B2",
+      "status": "blocked_on_split",
+      "items": [
+        {"item_raw": "โต๊ะ (table)", "amount": 594.00, "qty": 1, "note": "A single table cannot serve two branches; the benefiting branch is not stated."},
+        {"item_raw": "เขียง (cutting boards)", "amount": 208.00, "qty": 3, "unit": "อัน", "note": "Three units across two named branches gives no even division."}
+      ],
+      "checks": {"children_sum_to_parent": {"result": "pass", "formula": "594 + 208 = 802", "difference": 0}},
+      "why_blocked": "Item-level subtotals are evidenced, so the ฿594 / ฿208 split is solid. What is NOT evidenced is which branch takes the single table, and how 3 cutting boards divide between 2 branches. No split invented.",
+      "transcription_note": "The owner described the second item as 'knife'. The memo reads เขียง, which is a cutting board (chopping block), not มีด (knife). The raw text is preserved as written; flagging the discrepancy rather than silently adopting either term."
+    },
+    {
+      "slip": 42,
+      "amount": 5769.00,
+      "memo_state": "partially_occluded",
+      "owner_answer": "straws → COGS/Packaging, rest → OPEX",
+      "resolution": "SPLIT — COGS/Packaging 2,704.00 + OPEX 3,065.00",
+      "status": "resolved_with_open_detail",
+      "items": [
+        {"item_raw": "หลอดเล็ก (small straws)", "amount": 1318.00, "bucket": "COGS", "category": "Packaging"},
+        {"item_raw": "หลอดใหญ่ (large straws)", "amount": 1386.00, "bucket": "COGS", "category": "Packaging", "field_state": "partially_occluded"},
+        {"item_raw": "เครื่องสกัดเย็น (cold-press machine)", "amount": 1142.00, "bucket": "OPEX", "category": "Other OPEX"},
+        {"item_raw": "เต้นท์ (tent)", "amount": 1923.00, "bucket": "OPEX", "category": "Other OPEX"}
+      ],
+      "checks": {
+        "cogs_subtotal": {"formula": "1318 + 1386 = 2704"},
+        "opex_subtotal": {"formula": "1142 + 1923 = 3065"},
+        "children_sum_to_parent": {"result": "pass", "formula": "2704 + 3065 = 5769", "difference": 0}
+      },
+      "open_details": [
+        "OCCLUSION UNRESOLVED: the owner did not confirm whether a fifth memo line sits hidden behind the slip's QR code. The four visible lines total exactly ฿5,769 which is strong corroboration, but completeness of this memo remains uncertified.",
+        "BRANCH NOT STATED for the ฿3,065 OPEX portion. The ฿2,704 of straws is packaging and allocates downstream by revenue share under ADR 0001, so it needs no branch; the cold-press machine and tent do."
+      ]
+    }
+  ],
+  "summary": {
+    "fully_resolved": [63, 70],
+    "resolved_with_open_detail": [45, 46, 42],
+    "blocked_on_split": [81, 84],
+    "group_b_total": 14571.00
+  }
+}

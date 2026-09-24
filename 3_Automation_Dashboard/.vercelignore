@@ -24,3 +24,6 @@ pending_verification.json
 .git
 .gitignore
 .surgeignore
+.env*
+*.mjs
+audit/

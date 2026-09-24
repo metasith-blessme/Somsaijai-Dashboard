@@ -1,0 +1,13 @@
+{
+  "batch_id": "BATCH-2026-09-24-JUL-CORRECTIONS",
+  "rows": [
+    {"idx":"Jul_1","branch":"B1","date":"24/07/2026","month":"Jul26","bucket":"COGS","cat":"Packaging","amt":509,"desc":"ฝา (LINE_ALBUM_Cost July_260802_1.jpg)"},
+    {"idx":"Jul_1","branch":"B1","date":"24/07/2026","month":"Jul26","bucket":"COGS","cat":"Coconut","amt":2127,"desc":"นมข้นหวาน 785 + นมข้นจืด 1,342 (LINE_ALBUM_Cost July_260802_1.jpg)"},
+    {"idx":"Jul_2","branch":"B1","date":"24/07/2026","month":"Jul26","bucket":"COGS","cat":"Packaging","amt":502,"desc":"ฝา (LINE_ALBUM_Cost July_260802_2.jpg)"},
+    {"idx":"Jul_2","branch":"B1","date":"24/07/2026","month":"Jul26","bucket":"COGS","cat":"Coconut","amt":2582,"desc":"นมข้นหวาน 3 ลัง (LINE_ALBUM_Cost July_260802_2.jpg)"},
+    {"idx":"Jul_3","branch":"B1","date":"24/07/2026","month":"Jul26","bucket":"COGS","cat":"Packaging","amt":474,"desc":"ฝา (LINE_ALBUM_Cost July_260802_3.jpg)"},
+    {"idx":"Jul_3","branch":"B1","date":"24/07/2026","month":"Jul26","bucket":"COGS","cat":"Coconut","amt":751,"desc":"นมข้นจืด 1 ลัง (LINE_ALBUM_Cost July_260802_3.jpg)"},
+    {"idx":111,"branch":"B3","date":"01/08/2026","month":"Jul26","bucket":"OPEX","cat":"Salary","amt":3500,"desc":"Salary B3 7 days (จ่าย 01/08 — เจ้าของระบุเป็นค่าใช้จ่ายเดือน ก.ค.)"},
+    {"idx":110,"branch":"B1","date":"03/08/2026","month":"Aug26","bucket":"COGS","cat":"Watermelon","amt":14560,"desc":"แตงโม ชำระรวม 4 งวดส่ง: 26-7 50 ลูก 4,000 / 28-7 50 ลูก 4,000 / 31-7 40 ลูก 3,200 / 3-8 42 ลูก 3,360"}
+  ]
+}

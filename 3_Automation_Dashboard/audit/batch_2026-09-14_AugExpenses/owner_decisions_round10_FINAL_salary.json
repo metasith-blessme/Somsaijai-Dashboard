@@ -1,0 +1,44 @@
+{
+  "batch_id": "BATCH-2026-09-14-AUG-EXPENSES",
+  "round": 10,
+  "decided_on": "2026-09-19",
+  "decided_by": "owner (Metasith Jumpatip)",
+  "import_allowed": false,
+  "status": "SALARY ALLOCATION FINAL",
+  "supersedes": ["round-8 C-B3-salary-overlap", "round-9 C-B3-slip-72"],
+  "owner_answer": "option (b) is true",
+  "resolution": {
+    "slip_72": {"amount": 5000.00, "treatment": "ADD to August B3 on top of the ฿39,000 — it is NOT inside the ฿39,000 and is NOT a double spend"},
+    "slip_111": {"amount": 3500.00, "treatment": "Book to Jul26, not Aug26"}
+  },
+  "final_august_salary": {
+    "B1": {"from_pool": 24300.00, "ming_share": 6666.67, "total": 30966.67},
+    "B2": {"from_pool": 23200.00, "ming_share": 6666.67, "total": 29866.67},
+    "B3": {"from_pool": 39000.00, "slip_72_advance": 5000.00, "ming_share": 6666.66, "total": 50666.66},
+    "combined": 111500.00
+  },
+  "INDEPENDENT_CORROBORATION": {
+    "finding": "The final total lands EXACTLY on the configured fixed-salary figure.",
+    "configured": {"B1": 35000, "B2": 30000, "B3": 46500, "total": 111500},
+    "evidenced": 111500.00,
+    "difference": 0.00,
+    "why_this_matters": "CLAUDE.md's fixed-cost table (B1 ฿35,000 + B2 ฿30,000 + B3 ฿46,500) was written independently of these slips. The owner's allocation of the ฿91,500 pool, plus the ฿5,000 advance, plus Ming's ฿20,000 wage, reconciles to it to the baht with zero difference. Neither of the competing options (a) ฿115,000 or (c) ฿106,500 does. This is strong independent support that option (b) is the correct reading.",
+    "arithmetic": "24,300 + 23,200 + 39,000 = 86,500 (pool) + 5,000 (slip 72) + 20,000 (Ming) = 111,500.00",
+    "caveat": "Agreement with a configured estimate is corroboration, not proof of payment. The per-branch split within the total still rests on the owner's instruction rather than on branch evidence written on the slips."
+  },
+  "person_day_check": {
+    "B3": {"evidenced": 44000.00, "person_days": 88, "expected_days": 93, "shortfall_days": 5, "shortfall_amount": 2500.00, "note": "Closer than either alternative reading. Residual gap may be cash wages with no bank trace; not invented as a cost."},
+    "B1": {"evidenced_excl_ming": 24300.00, "configured": 35000, "note": "B1's pool share is well under its configured ฿35,000; the balance is presumably cash-paid or covered elsewhere. Not filled in."},
+    "B2": {"evidenced_excl_ming": 23200.00, "configured": 30000, "note": "Same observation as B1."}
+  },
+  "remaining_branch_questions": [
+    {"slip": 42, "date": "24/08/2026", "amount": 3065.00, "bucket": "OPEX / Other OPEX", "memo": "เครื่องสกัดเย็น 1142 + เต็นท์ 1923"},
+    {"slip": 18, "date": "29/08/2026", "amount": 2377.00, "bucket": "COGS / Other", "memo": "(no memo)"},
+    {"slip": 101, "date": "04/08/2026", "amount": 2400.00, "bucket": "OPEX / Salary", "memo": "Salary trainee k 800 chang 1200 mai 400"},
+    {"slip": 51, "date": "08/08/2026", "amount": 300.00, "bucket": "OPEX / Salary", "memo": "Salary special event 300 1 person"},
+    {"slip": 21, "date": "30/08/2026", "amount": 190.00, "bucket": "OPEX / Other OPEX", "memo": "ค่าปริ้นเอกสาร"},
+    {"slip": 35, "date": "21/08/2026", "amount": 145.00, "bucket": "OPEX / Other OPEX", "memo": "ป้าย qr code ใหม่ 4 อัน"}
+  ],
+  "remaining_total": 8477.00,
+  "note_on_101_and_51": "Slips 101 (฿2,400) and 51 (฿300) are additional wage payments NOT drawn from the ฿91,500 pool. Booking them will push August salary ฿2,700 above the configured ฿111,500. That is expected — they are trainee and special-event wages, not part of the fixed establishment."
+}

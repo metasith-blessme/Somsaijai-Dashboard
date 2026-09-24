@@ -1,0 +1,1764 @@
+{
+  "scope": "Jan-Aug26; read-only; internal consistency is not proof of source completeness",
+  "files": [
+    {
+      "file": "data.json",
+      "sha256": "8988453a253e1c7ef564623cbbe57587cefd6f99677d76fcbc522b03b51c37c8"
+    },
+    {
+      "file": "reports_data.json",
+      "sha256": "ec1f8e44f06eb460e87fb5c2ab4c58d9dd969611559caf109abced699a2f8f0d"
+    },
+    {
+      "file": "index.html",
+      "sha256": "8103c5a1d9062276b1093c47f334cd64687401501bcc91e8c3088ef60538e245"
+    },
+    {
+      "file": "SomSaiJai_Dashboard.html",
+      "sha256": "dc4e9b624474a1232361f765d32fdc67fd47b61563fd18b592919c5108b850f5"
+    },
+    {
+      "file": "stock_ledger.json",
+      "sha256": "00c5c4f1f357d73798ae95fad3cf376338e9d589e99c2c555f3739f7b676d3a1"
+    },
+    {
+      "file": "Sales_System_Automation/logic/business_rules.js",
+      "sha256": "9c2bab65b0a87562ff0b11d5ab76673b954148b8fb2ce6c075ee5dc2702e0dfc"
+    },
+    {
+      "file": "SomSaiJai_Dashboard_B1_2026.xlsx",
+      "sha256": "10efede4506ec7e5116cca6d714d15f20a95d29a5987d332ad852703a13deda0"
+    },
+    {
+      "file": "SomSaiJai_Dashboard_B2_2026.xlsx",
+      "sha256": "1b58289b89725629775b66c21a3897c6f1f2ebc3a52c98a9fef7f3149f89e73d"
+    },
+    {
+      "file": "SomSaiJai_Dashboard_B3_2026.xlsx",
+      "sha256": "0caace59f9f4a63b56af5c8af61c82845330838f65cbab9de176f9ccef8422e6"
+    }
+  ],
+  "monthly": [
+    {
+      "branch": "B1",
+      "month": "Jan26",
+      "days": 31,
+      "jsonDays": 31,
+      "excelRevenue": 274405,
+      "jsonRevenue": 274405,
+      "reportRevenue": 274405,
+      "revenueDifference": 0,
+      "ledgerRows": 47,
+      "ledgerCOGS": 84570,
+      "ledgerOther": 61324,
+      "dailyExpense": 2940,
+      "allocatedCOGS": 84570,
+      "reportedNet": 125571,
+      "scanDerivedDays": 31,
+      "netDerivedDays": 31,
+      "theoreticalRevenue": 265805,
+      "theoreticalGap": 8600,
+      "cashSplitGap": 0
+    },
+    {
+      "branch": "B1",
+      "month": "Feb26",
+      "days": 28,
+      "jsonDays": 28,
+      "excelRevenue": 338060,
+      "jsonRevenue": 338060,
+      "reportRevenue": 338060,
+      "revenueDifference": 0,
+      "ledgerRows": 41,
+      "ledgerCOGS": 130274,
+      "ledgerOther": 75607,
+      "dailyExpense": 3540,
+      "allocatedCOGS": 130274,
+      "reportedNet": 128639,
+      "scanDerivedDays": 28,
+      "netDerivedDays": 28,
+      "theoreticalRevenue": 315500,
+      "theoreticalGap": 22560,
+      "cashSplitGap": 0
+    },
+    {
+      "branch": "B1",
+      "month": "Mar26",
+      "days": 31,
+      "jsonDays": 31,
+      "excelRevenue": 286925,
+      "jsonRevenue": 286925,
+      "reportRevenue": 286925,
+      "revenueDifference": 0,
+      "ledgerRows": 45,
+      "ledgerCOGS": 133748,
+      "ledgerOther": 105207.47,
+      "dailyExpense": 9250,
+      "allocatedCOGS": 133748,
+      "reportedNet": 38719.53,
+      "scanDerivedDays": 1,
+      "netDerivedDays": 1,
+      "theoreticalRevenue": 281730,
+      "theoreticalGap": 5195,
+      "cashSplitGap": 0
+    },
+    {
+      "branch": "B1",
+      "month": "Apr26",
+      "days": 30,
+      "jsonDays": 30,
+      "excelRevenue": 313858,
+      "jsonRevenue": 313858,
+      "reportRevenue": 313858,
+      "revenueDifference": 0,
+      "ledgerRows": 69,
+      "ledgerCOGS": 219545,
+      "ledgerOther": 100016,
+      "dailyExpense": 4890,
+      "allocatedCOGS": 182038.53,
+      "reportedNet": 26913.47,
+      "scanDerivedDays": 0,
+      "netDerivedDays": 0,
+      "theoreticalRevenue": 306910,
+      "theoreticalGap": 6948,
+      "cashSplitGap": -100
+    },
+    {
+      "branch": "B1",
+      "month": "May26",
+      "days": 31,
+      "jsonDays": 31,
+      "excelRevenue": 255780,
+      "jsonRevenue": 255780,
+      "reportRevenue": 255780,
+      "revenueDifference": 0,
+      "ledgerRows": 85,
+      "ledgerCOGS": 166904,
+      "ledgerOther": 104083,
+      "dailyExpense": 4230,
+      "allocatedCOGS": 98467.92,
+      "reportedNet": 48999.08,
+      "scanDerivedDays": 0,
+      "netDerivedDays": 0,
+      "theoreticalRevenue": 254860,
+      "theoreticalGap": 920,
+      "cashSplitGap": 180
+    },
+    {
+      "branch": "B1",
+      "month": "Jun26",
+      "days": 30,
+      "jsonDays": 30,
+      "excelRevenue": 191720,
+      "jsonRevenue": 191720,
+      "reportRevenue": 191720,
+      "revenueDifference": 0,
+      "ledgerRows": 82,
+      "ledgerCOGS": 187135,
+      "ledgerOther": 93819,
+      "dailyExpense": 3270,
+      "allocatedCOGS": 110864.73,
+      "reportedNet": -16233.73,
+      "scanDerivedDays": 0,
+      "netDerivedDays": 0,
+      "theoreticalRevenue": 187740,
+      "theoreticalGap": 3980,
+      "cashSplitGap": 0
+    },
+    {
+      "branch": "B1",
+      "month": "Jul26",
+      "days": 31,
+      "jsonDays": 31,
+      "excelRevenue": 242090,
+      "jsonRevenue": 242090,
+      "reportRevenue": 242090,
+      "revenueDifference": 0,
+      "ledgerRows": 100,
+      "ledgerCOGS": 262095,
+      "ledgerOther": 98643.75,
+      "dailyExpense": 4140,
+      "allocatedCOGS": 97118.03,
+      "reportedNet": 42188.22,
+      "scanDerivedDays": 0,
+      "netDerivedDays": 0,
+      "theoreticalRevenue": 239730,
+      "theoreticalGap": 2360,
+      "cashSplitGap": 0
+    },
+    {
+      "branch": "B1",
+      "month": "Aug26",
+      "days": 0,
+      "jsonDays": 0,
+      "excelRevenue": 0,
+      "jsonRevenue": 0,
+      "reportRevenue": null,
+      "revenueDifference": 0,
+      "ledgerRows": 0,
+      "ledgerCOGS": 0,
+      "ledgerOther": 0,
+      "dailyExpense": 0,
+      "allocatedCOGS": 0,
+      "reportedNet": 0,
+      "scanDerivedDays": 0,
+      "netDerivedDays": 0,
+      "theoreticalRevenue": 0,
+      "theoreticalGap": 0,
+      "cashSplitGap": 0
+    },
+    {
+      "branch": "B2",
+      "month": "Jan26",
+      "days": 0,
+      "jsonDays": 0,
+      "excelRevenue": 0,
+      "jsonRevenue": 0,
+      "reportRevenue": 0,
+      "revenueDifference": 0,
+      "ledgerRows": 0,
+      "ledgerCOGS": 0,
+      "ledgerOther": 0,
+      "dailyExpense": 0,
+      "allocatedCOGS": 0,
+      "reportedNet": 0,
+      "scanDerivedDays": 0,
+      "netDerivedDays": 0,
+      "theoreticalRevenue": 0,
+      "theoreticalGap": 0,
+      "cashSplitGap": 0
+    },
+    {
+      "branch": "B2",
+      "month": "Feb26",
+      "days": 0,
+      "jsonDays": 0,
+      "excelRevenue": 0,
+      "jsonRevenue": 0,
+      "reportRevenue": 0,
+      "revenueDifference": 0,
+      "ledgerRows": 0,
+      "ledgerCOGS": 0,
+      "ledgerOther": 0,
+      "dailyExpense": 0,
+      "allocatedCOGS": 0,
+      "reportedNet": 0,
+      "scanDerivedDays": 0,
+      "netDerivedDays": 0,
+      "theoreticalRevenue": 0,
+      "theoreticalGap": 0,
+      "cashSplitGap": 0
+    },
+    {
+      "branch": "B2",
+      "month": "Mar26",
+      "days": 1,
+      "jsonDays": 0,
+      "excelRevenue": 10130,
+      "jsonRevenue": 0,
+      "reportRevenue": 0,
+      "revenueDifference": -10130,
+      "ledgerRows": 0,
+      "ledgerCOGS": 0,
+      "ledgerOther": 0,
+      "dailyExpense": 120,
+      "allocatedCOGS": 0,
+      "reportedNet": 0,
+      "scanDerivedDays": 0,
+      "netDerivedDays": 0,
+      "theoreticalRevenue": 0,
+      "theoreticalGap": 0,
+      "cashSplitGap": 0
+    },
+    {
+      "branch": "B2",
+      "month": "Apr26",
+      "days": 13,
+      "jsonDays": 13,
+      "excelRevenue": 69260,
+      "jsonRevenue": 69260,
+      "reportRevenue": 69260,
+      "revenueDifference": 0,
+      "ledgerRows": 5,
+      "ledgerCOGS": 2052,
+      "ledgerOther": 54000,
+      "dailyExpense": 1290,
+      "allocatedCOGS": 39558.47,
+      "reportedNet": -25588.47,
+      "scanDerivedDays": 0,
+      "netDerivedDays": 0,
+      "theoreticalRevenue": 68520,
+      "theoreticalGap": 740,
+      "cashSplitGap": 0
+    },
+    {
+      "branch": "B2",
+      "month": "May26",
+      "days": 31,
+      "jsonDays": 31,
+      "excelRevenue": 171531,
+      "jsonRevenue": 171531,
+      "reportRevenue": 171531,
+      "revenueDifference": 0,
+      "ledgerRows": 6,
+      "ledgerCOGS": 4830,
+      "ledgerOther": 53200,
+      "dailyExpense": 3400,
+      "allocatedCOGS": 73266.08,
+      "reportedNet": 41664.92,
+      "scanDerivedDays": 0,
+      "netDerivedDays": 0,
+      "theoreticalRevenue": 169310,
+      "theoreticalGap": 2221,
+      "cashSplitGap": -120
+    },
+    {
+      "branch": "B2",
+      "month": "Jun26",
+      "days": 30,
+      "jsonDays": 30,
+      "excelRevenue": 115570,
+      "jsonRevenue": 115570,
+      "reportRevenue": 115570,
+      "revenueDifference": 0,
+      "ledgerRows": 4,
+      "ledgerCOGS": 0,
+      "ledgerOther": 60400,
+      "dailyExpense": 2370,
+      "allocatedCOGS": 76270.27,
+      "reportedNet": -23470.27,
+      "scanDerivedDays": 0,
+      "netDerivedDays": 0,
+      "theoreticalRevenue": 113000,
+      "theoreticalGap": 2570,
+      "cashSplitGap": 0
+    },
+    {
+      "branch": "B2",
+      "month": "Jul26",
+      "days": 31,
+      "jsonDays": 31,
+      "excelRevenue": 135960,
+      "jsonRevenue": 135960,
+      "reportRevenue": 135960,
+      "revenueDifference": 0,
+      "ledgerRows": 4,
+      "ledgerCOGS": 0,
+      "ledgerOther": 59000,
+      "dailyExpense": 2130,
+      "allocatedCOGS": 78505.32,
+      "reportedNet": -3675.32,
+      "scanDerivedDays": 0,
+      "netDerivedDays": 0,
+      "theoreticalRevenue": 130880,
+      "theoreticalGap": 5080,
+      "cashSplitGap": 0
+    },
+    {
+      "branch": "B2",
+      "month": "Aug26",
+      "days": 0,
+      "jsonDays": 0,
+      "excelRevenue": 0,
+      "jsonRevenue": 0,
+      "reportRevenue": null,
+      "revenueDifference": 0,
+      "ledgerRows": 0,
+      "ledgerCOGS": 0,
+      "ledgerOther": 0,
+      "dailyExpense": 0,
+      "allocatedCOGS": 0,
+      "reportedNet": 0,
+      "scanDerivedDays": 0,
+      "netDerivedDays": 0,
+      "theoreticalRevenue": 0,
+      "theoreticalGap": 0,
+      "cashSplitGap": 0
+    },
+    {
+      "branch": "B3",
+      "month": "Jan26",
+      "days": 0,
+      "jsonDays": 0,
+      "excelRevenue": 0,
+      "jsonRevenue": 0,
+      "reportRevenue": 0,
+      "revenueDifference": 0,
+      "ledgerRows": 0,
+      "ledgerCOGS": 0,
+      "ledgerOther": 0,
+      "dailyExpense": 0,
+      "allocatedCOGS": 0,
+      "reportedNet": 0,
+      "scanDerivedDays": 0,
+      "netDerivedDays": 0,
+      "theoreticalRevenue": 0,
+      "theoreticalGap": 0,
+      "cashSplitGap": 0
+    },
+    {
+      "branch": "B3",
+      "month": "Feb26",
+      "days": 0,
+      "jsonDays": 0,
+      "excelRevenue": 0,
+      "jsonRevenue": 0,
+      "reportRevenue": 0,
+      "revenueDifference": 0,
+      "ledgerRows": 0,
+      "ledgerCOGS": 0,
+      "ledgerOther": 0,
+      "dailyExpense": 0,
+      "allocatedCOGS": 0,
+      "reportedNet": 0,
+      "scanDerivedDays": 0,
+      "netDerivedDays": 0,
+      "theoreticalRevenue": 0,
+      "theoreticalGap": 0,
+      "cashSplitGap": 0
+    },
+    {
+      "branch": "B3",
+      "month": "Mar26",
+      "days": 0,
+      "jsonDays": 0,
+      "excelRevenue": 0,
+      "jsonRevenue": 0,
+      "reportRevenue": 0,
+      "revenueDifference": 0,
+      "ledgerRows": 0,
+      "ledgerCOGS": 0,
+      "ledgerOther": 0,
+      "dailyExpense": 0,
+      "allocatedCOGS": 0,
+      "reportedNet": 0,
+      "scanDerivedDays": 0,
+      "netDerivedDays": 0,
+      "theoreticalRevenue": 0,
+      "theoreticalGap": 0,
+      "cashSplitGap": 0
+    },
+    {
+      "branch": "B3",
+      "month": "Apr26",
+      "days": 0,
+      "jsonDays": 0,
+      "excelRevenue": 0,
+      "jsonRevenue": 0,
+      "reportRevenue": 0,
+      "revenueDifference": 0,
+      "ledgerRows": 0,
+      "ledgerCOGS": 0,
+      "ledgerOther": 0,
+      "dailyExpense": 0,
+      "allocatedCOGS": 0,
+      "reportedNet": 0,
+      "scanDerivedDays": 0,
+      "netDerivedDays": 0,
+      "theoreticalRevenue": 0,
+      "theoreticalGap": 0,
+      "cashSplitGap": 0
+    },
+    {
+      "branch": "B3",
+      "month": "May26",
+      "days": 0,
+      "jsonDays": 0,
+      "excelRevenue": 0,
+      "jsonRevenue": 0,
+      "reportRevenue": 0,
+      "revenueDifference": 0,
+      "ledgerRows": 0,
+      "ledgerCOGS": 0,
+      "ledgerOther": 0,
+      "dailyExpense": 0,
+      "allocatedCOGS": 0,
+      "reportedNet": 0,
+      "scanDerivedDays": 0,
+      "netDerivedDays": 0,
+      "theoreticalRevenue": 0,
+      "theoreticalGap": 0,
+      "cashSplitGap": 0
+    },
+    {
+      "branch": "B3",
+      "month": "Jun26",
+      "days": 0,
+      "jsonDays": 0,
+      "excelRevenue": 0,
+      "jsonRevenue": 0,
+      "reportRevenue": 0,
+      "revenueDifference": 0,
+      "ledgerRows": 0,
+      "ledgerCOGS": 0,
+      "ledgerOther": 0,
+      "dailyExpense": 0,
+      "allocatedCOGS": 0,
+      "reportedNet": 0,
+      "scanDerivedDays": 0,
+      "netDerivedDays": 0,
+      "theoreticalRevenue": 0,
+      "theoreticalGap": 0,
+      "cashSplitGap": 0
+    },
+    {
+      "branch": "B3",
+      "month": "Jul26",
+      "days": 21,
+      "jsonDays": 21,
+      "excelRevenue": 171897,
+      "jsonRevenue": 171897,
+      "reportRevenue": 171897,
+      "revenueDifference": 0,
+      "ledgerRows": 4,
+      "ledgerCOGS": 0,
+      "ledgerOther": 63646.16,
+      "dailyExpense": 2310,
+      "allocatedCOGS": 86471.66,
+      "reportedNet": 19469.18,
+      "scanDerivedDays": 0,
+      "netDerivedDays": 0,
+      "theoreticalRevenue": 164980,
+      "theoreticalGap": 6917,
+      "cashSplitGap": 0
+    },
+    {
+      "branch": "B3",
+      "month": "Aug26",
+      "days": 0,
+      "jsonDays": 0,
+      "excelRevenue": 0,
+      "jsonRevenue": 0,
+      "reportRevenue": null,
+      "revenueDifference": 0,
+      "ledgerRows": 0,
+      "ledgerCOGS": 0,
+      "ledgerOther": 0,
+      "dailyExpense": 0,
+      "allocatedCOGS": 0,
+      "reportedNet": 0,
+      "scanDerivedDays": 0,
+      "netDerivedDays": 0,
+      "theoreticalRevenue": 0,
+      "theoreticalGap": 0,
+      "cashSplitGap": 0
+    }
+  ],
+  "sourceDifferences": [
+    {
+      "branch": "B1",
+      "month": "Jan26",
+      "day": 2,
+      "sourceRevenue": 11045,
+      "excelRevenue": 11105,
+      "revDifference": 60,
+      "sourceCash": 6040,
+      "excelCash": 6100
+    },
+    {
+      "branch": "B1",
+      "month": "Jan26",
+      "day": 18,
+      "sourceRevenue": 9280,
+      "excelRevenue": 9220,
+      "revDifference": -60,
+      "sourceCash": 5260,
+      "excelCash": 5860
+    },
+    {
+      "branch": "B1",
+      "month": "Jan26",
+      "day": 24,
+      "sourceRevenue": 11950,
+      "excelRevenue": 11950,
+      "revDifference": 0,
+      "sourceCash": 6270,
+      "excelCash": 6870
+    },
+    {
+      "branch": "B1",
+      "month": "Jan26",
+      "day": 29,
+      "sourceRevenue": 10490,
+      "excelRevenue": 10490,
+      "revDifference": 0,
+      "sourceCash": 7170,
+      "excelCash": 7270
+    },
+    {
+      "branch": "B1",
+      "month": "Feb26",
+      "day": 6,
+      "sourceRevenue": 10890,
+      "excelRevenue": 10890,
+      "revDifference": 0,
+      "sourceCash": 6280,
+      "excelCash": 6880
+    },
+    {
+      "branch": "B1",
+      "month": "Feb26",
+      "day": 11,
+      "sourceRevenue": 12350,
+      "excelRevenue": 12350,
+      "revDifference": 0,
+      "sourceCash": 7230,
+      "excelCash": 7320
+    },
+    {
+      "branch": "B1",
+      "month": "Feb26",
+      "day": 16,
+      "sourceRevenue": 10380,
+      "excelRevenue": 10380,
+      "revDifference": 0,
+      "sourceCash": 6630,
+      "excelCash": 6650
+    },
+    {
+      "branch": "B1",
+      "month": "Mar26",
+      "day": 7,
+      "sourceRevenue": 14495,
+      "excelRevenue": 14495,
+      "revDifference": 0,
+      "sourceCash": 2480,
+      "excelCash": 2630
+    },
+    {
+      "branch": "B1",
+      "month": "Mar26",
+      "day": 12,
+      "sourceRevenue": 8570,
+      "excelRevenue": 8570,
+      "revDifference": 0,
+      "sourceCash": 3910,
+      "excelCash": 4030
+    }
+  ],
+  "fieldDifferences": [
+    {
+      "branch": "B2",
+      "month": "Mar26",
+      "row": 3,
+      "reason": "Excel day missing from data.json"
+    }
+  ],
+  "invalidRows": [],
+  "formulaErrors": [],
+  "formulaInputs": [],
+  "expenseDifferences": [],
+  "sourceCoverage": [
+    {
+      "branch": "B1",
+      "month": "Jan26",
+      "source": "audit/gsheet_source.json (saved 2026-08-05; not re-fetched)",
+      "sourceDays": 31,
+      "sourceRevenue": 274405,
+      "excelRevenue": 274405
+    },
+    {
+      "branch": "B1",
+      "month": "Feb26",
+      "source": "audit/gsheet_source.json (saved 2026-08-05; not re-fetched)",
+      "sourceDays": 28,
+      "sourceRevenue": 338060,
+      "excelRevenue": 338060
+    },
+    {
+      "branch": "B1",
+      "month": "Mar26",
+      "source": "audit/gsheet_source.json (saved 2026-08-05; not re-fetched)",
+      "sourceDays": 31,
+      "sourceRevenue": 286925,
+      "excelRevenue": 286925
+    },
+    {
+      "branch": "B3",
+      "month": "Jul26",
+      "source": "B3/Sale/July26/Sale b3 July.md (revenue-only transcription)",
+      "sourceDays": 21,
+      "sourceRevenue": 171897,
+      "excelRevenue": 171897
+    }
+  ],
+  "julyVariances": [
+    {
+      "branch": "B2",
+      "date": "11/07/2026",
+      "rev": 4890,
+      "theoretical": 4280,
+      "gap": 610
+    },
+    {
+      "branch": "B2",
+      "date": "03/07/2026",
+      "rev": 6960,
+      "theoretical": 6390,
+      "gap": 570
+    },
+    {
+      "branch": "B3",
+      "date": "21/07/2026",
+      "rev": 11646,
+      "theoretical": 11190,
+      "gap": 456
+    },
+    {
+      "branch": "B2",
+      "date": "18/07/2026",
+      "rev": 6170,
+      "theoretical": 5720,
+      "gap": 450
+    },
+    {
+      "branch": "B3",
+      "date": "20/07/2026",
+      "rev": 11046,
+      "theoretical": 10600,
+      "gap": 446
+    },
+    {
+      "branch": "B2",
+      "date": "21/07/2026",
+      "rev": 5640,
+      "theoretical": 5200,
+      "gap": 440
+    },
+    {
+      "branch": "B2",
+      "date": "26/07/2026",
+      "rev": 7760,
+      "theoretical": 7350,
+      "gap": 410
+    },
+    {
+      "branch": "B3",
+      "date": "26/07/2026",
+      "rev": 10668,
+      "theoretical": 10260,
+      "gap": 408
+    },
+    {
+      "branch": "B1",
+      "date": "13/07/2026",
+      "rev": 8890,
+      "theoretical": 8500,
+      "gap": 390
+    },
+    {
+      "branch": "B3",
+      "date": "22/07/2026",
+      "rev": 9789,
+      "theoretical": 9400,
+      "gap": 389
+    },
+    {
+      "branch": "B3",
+      "date": "14/07/2026",
+      "rev": 8430,
+      "theoretical": 8050,
+      "gap": 380
+    },
+    {
+      "branch": "B3",
+      "date": "25/07/2026",
+      "rev": 9184,
+      "theoretical": 8810,
+      "gap": 374
+    },
+    {
+      "branch": "B3",
+      "date": "18/07/2026",
+      "rev": 9064,
+      "theoretical": 8700,
+      "gap": 364
+    },
+    {
+      "branch": "B3",
+      "date": "15/07/2026",
+      "rev": 8181,
+      "theoretical": 7830,
+      "gap": 351
+    },
+    {
+      "branch": "B3",
+      "date": "19/07/2026",
+      "rev": 8925,
+      "theoretical": 8580,
+      "gap": 345
+    },
+    {
+      "branch": "B3",
+      "date": "24/07/2026",
+      "rev": 8224,
+      "theoretical": 7880,
+      "gap": 344
+    },
+    {
+      "branch": "B3",
+      "date": "30/07/2026",
+      "rev": 9248,
+      "theoretical": 8920,
+      "gap": 328
+    },
+    {
+      "branch": "B1",
+      "date": "05/07/2026",
+      "rev": 8760,
+      "theoretical": 8440,
+      "gap": 320
+    },
+    {
+      "branch": "B3",
+      "date": "31/07/2026",
+      "rev": 6188,
+      "theoretical": 5870,
+      "gap": 318
+    },
+    {
+      "branch": "B3",
+      "date": "17/07/2026",
+      "rev": 7321,
+      "theoretical": 7020,
+      "gap": 301
+    },
+    {
+      "branch": "B3",
+      "date": "13/07/2026",
+      "rev": 6109,
+      "theoretical": 5810,
+      "gap": 299
+    },
+    {
+      "branch": "B3",
+      "date": "29/07/2026",
+      "rev": 7739,
+      "theoretical": 7440,
+      "gap": 299
+    },
+    {
+      "branch": "B3",
+      "date": "16/07/2026",
+      "rev": 7737,
+      "theoretical": 7440,
+      "gap": 297
+    },
+    {
+      "branch": "B2",
+      "date": "04/07/2026",
+      "rev": 5200,
+      "theoretical": 4910,
+      "gap": 290
+    },
+    {
+      "branch": "B3",
+      "date": "27/07/2026",
+      "rev": 6749,
+      "theoretical": 6460,
+      "gap": 289
+    },
+    {
+      "branch": "B3",
+      "date": "23/07/2026",
+      "rev": 6157,
+      "theoretical": 5870,
+      "gap": 287
+    },
+    {
+      "branch": "B2",
+      "date": "20/07/2026",
+      "rev": 6800,
+      "theoretical": 6520,
+      "gap": 280
+    },
+    {
+      "branch": "B3",
+      "date": "28/07/2026",
+      "rev": 6519,
+      "theoretical": 6290,
+      "gap": 229
+    },
+    {
+      "branch": "B3",
+      "date": "12/07/2026",
+      "rev": 7124,
+      "theoretical": 6910,
+      "gap": 214
+    },
+    {
+      "branch": "B3",
+      "date": "11/07/2026",
+      "rev": 5849,
+      "theoretical": 5650,
+      "gap": 199
+    },
+    {
+      "branch": "B1",
+      "date": "04/07/2026",
+      "rev": 9450,
+      "theoretical": 9270,
+      "gap": 180
+    },
+    {
+      "branch": "B1",
+      "date": "12/07/2026",
+      "rev": 8560,
+      "theoretical": 8380,
+      "gap": 180
+    },
+    {
+      "branch": "B1",
+      "date": "25/07/2026",
+      "rev": 10330,
+      "theoretical": 10510,
+      "gap": -180
+    },
+    {
+      "branch": "B2",
+      "date": "27/07/2026",
+      "rev": 5040,
+      "theoretical": 4860,
+      "gap": 180
+    },
+    {
+      "branch": "B1",
+      "date": "03/07/2026",
+      "rev": 9580,
+      "theoretical": 9410,
+      "gap": 170
+    },
+    {
+      "branch": "B2",
+      "date": "07/07/2026",
+      "rev": 3030,
+      "theoretical": 2870,
+      "gap": 160
+    },
+    {
+      "branch": "B2",
+      "date": "24/07/2026",
+      "rev": 5530,
+      "theoretical": 5370,
+      "gap": 160
+    },
+    {
+      "branch": "B2",
+      "date": "25/07/2026",
+      "rev": 5060,
+      "theoretical": 4900,
+      "gap": 160
+    },
+    {
+      "branch": "B2",
+      "date": "28/07/2026",
+      "rev": 5750,
+      "theoretical": 5590,
+      "gap": 160
+    },
+    {
+      "branch": "B1",
+      "date": "10/07/2026",
+      "rev": 9540,
+      "theoretical": 9390,
+      "gap": 150
+    },
+    {
+      "branch": "B1",
+      "date": "21/07/2026",
+      "rev": 8770,
+      "theoretical": 8620,
+      "gap": 150
+    },
+    {
+      "branch": "B2",
+      "date": "05/07/2026",
+      "rev": 3550,
+      "theoretical": 3400,
+      "gap": 150
+    },
+    {
+      "branch": "B1",
+      "date": "18/07/2026",
+      "rev": 10360,
+      "theoretical": 10230,
+      "gap": 130
+    },
+    {
+      "branch": "B1",
+      "date": "06/07/2026",
+      "rev": 6000,
+      "theoretical": 5880,
+      "gap": 120
+    },
+    {
+      "branch": "B1",
+      "date": "09/07/2026",
+      "rev": 6380,
+      "theoretical": 6260,
+      "gap": 120
+    },
+    {
+      "branch": "B1",
+      "date": "11/07/2026",
+      "rev": 9560,
+      "theoretical": 9440,
+      "gap": 120
+    },
+    {
+      "branch": "B1",
+      "date": "14/07/2026",
+      "rev": 7950,
+      "theoretical": 7830,
+      "gap": 120
+    },
+    {
+      "branch": "B1",
+      "date": "16/07/2026",
+      "rev": 7140,
+      "theoretical": 7020,
+      "gap": 120
+    },
+    {
+      "branch": "B1",
+      "date": "17/07/2026",
+      "rev": 8460,
+      "theoretical": 8340,
+      "gap": 120
+    },
+    {
+      "branch": "B2",
+      "date": "12/07/2026",
+      "rev": 5070,
+      "theoretical": 4950,
+      "gap": 120
+    },
+    {
+      "branch": "B2",
+      "date": "29/07/2026",
+      "rev": 3590,
+      "theoretical": 3470,
+      "gap": 120
+    },
+    {
+      "branch": "B2",
+      "date": "30/07/2026",
+      "rev": 2760,
+      "theoretical": 2650,
+      "gap": 110
+    },
+    {
+      "branch": "B2",
+      "date": "10/07/2026",
+      "rev": 5030,
+      "theoretical": 4930,
+      "gap": 100
+    },
+    {
+      "branch": "B2",
+      "date": "15/07/2026",
+      "rev": 4470,
+      "theoretical": 4370,
+      "gap": 100
+    },
+    {
+      "branch": "B1",
+      "date": "15/07/2026",
+      "rev": 5660,
+      "theoretical": 5570,
+      "gap": 90
+    },
+    {
+      "branch": "B2",
+      "date": "08/07/2026",
+      "rev": 2300,
+      "theoretical": 2210,
+      "gap": 90
+    },
+    {
+      "branch": "B2",
+      "date": "09/07/2026",
+      "rev": 4490,
+      "theoretical": 4410,
+      "gap": 80
+    },
+    {
+      "branch": "B2",
+      "date": "17/07/2026",
+      "rev": 5450,
+      "theoretical": 5370,
+      "gap": 80
+    },
+    {
+      "branch": "B2",
+      "date": "22/07/2026",
+      "rev": 1590,
+      "theoretical": 1510,
+      "gap": 80
+    },
+    {
+      "branch": "B1",
+      "date": "19/07/2026",
+      "rev": 8580,
+      "theoretical": 8510,
+      "gap": 70
+    },
+    {
+      "branch": "B1",
+      "date": "24/07/2026",
+      "rev": 11450,
+      "theoretical": 11520,
+      "gap": -70
+    },
+    {
+      "branch": "B2",
+      "date": "01/07/2026",
+      "rev": 5200,
+      "theoretical": 5130,
+      "gap": 70
+    },
+    {
+      "branch": "B2",
+      "date": "14/07/2026",
+      "rev": 4000,
+      "theoretical": 3930,
+      "gap": 70
+    },
+    {
+      "branch": "B1",
+      "date": "02/07/2026",
+      "rev": 1500,
+      "theoretical": 1440,
+      "gap": 60
+    },
+    {
+      "branch": "B2",
+      "date": "13/07/2026",
+      "rev": 3350,
+      "theoretical": 3410,
+      "gap": -60
+    },
+    {
+      "branch": "B2",
+      "date": "16/07/2026",
+      "rev": 1970,
+      "theoretical": 1920,
+      "gap": 50
+    },
+    {
+      "branch": "B2",
+      "date": "23/07/2026",
+      "rev": 3110,
+      "theoretical": 3060,
+      "gap": 50
+    },
+    {
+      "branch": "B2",
+      "date": "31/07/2026",
+      "rev": 3020,
+      "theoretical": 2970,
+      "gap": 50
+    },
+    {
+      "branch": "B2",
+      "date": "19/07/2026",
+      "rev": 5040,
+      "theoretical": 5080,
+      "gap": -40
+    },
+    {
+      "branch": "B2",
+      "date": "06/07/2026",
+      "rev": 3730,
+      "theoretical": 3760,
+      "gap": -30
+    },
+    {
+      "branch": "B2",
+      "date": "02/07/2026",
+      "rev": 410,
+      "theoretical": 390,
+      "gap": 20
+    },
+    {
+      "branch": "B1",
+      "date": "01/07/2026",
+      "rev": 4650,
+      "theoretical": 4650,
+      "gap": 0
+    },
+    {
+      "branch": "B1",
+      "date": "07/07/2026",
+      "rev": 5560,
+      "theoretical": 5560,
+      "gap": 0
+    },
+    {
+      "branch": "B1",
+      "date": "08/07/2026",
+      "rev": 3850,
+      "theoretical": 3850,
+      "gap": 0
+    },
+    {
+      "branch": "B1",
+      "date": "20/07/2026",
+      "rev": 8380,
+      "theoretical": 8380,
+      "gap": 0
+    },
+    {
+      "branch": "B1",
+      "date": "22/07/2026",
+      "rev": 2380,
+      "theoretical": 2380,
+      "gap": 0
+    },
+    {
+      "branch": "B1",
+      "date": "23/07/2026",
+      "rev": 8560,
+      "theoretical": 8560,
+      "gap": 0
+    },
+    {
+      "branch": "B1",
+      "date": "26/07/2026",
+      "rev": 14150,
+      "theoretical": 14150,
+      "gap": 0
+    },
+    {
+      "branch": "B1",
+      "date": "27/07/2026",
+      "rev": 7290,
+      "theoretical": 7290,
+      "gap": 0
+    },
+    {
+      "branch": "B1",
+      "date": "28/07/2026",
+      "rev": 13560,
+      "theoretical": 13560,
+      "gap": 0
+    },
+    {
+      "branch": "B1",
+      "date": "29/07/2026",
+      "rev": 7810,
+      "theoretical": 7810,
+      "gap": 0
+    },
+    {
+      "branch": "B1",
+      "date": "30/07/2026",
+      "rev": 3440,
+      "theoretical": 3440,
+      "gap": 0
+    },
+    {
+      "branch": "B1",
+      "date": "31/07/2026",
+      "rev": 5540,
+      "theoretical": 5540,
+      "gap": 0
+    }
+  ],
+  "skuCalculation": [
+    {
+      "month": "Jan26",
+      "orangeReport": 177560,
+      "orangeDailyMethod": 177560,
+      "orangeDifference": 0,
+      "premiumCups": 0,
+      "watermelonReport": 87525,
+      "watermelonDailyMethod": 87525
+    },
+    {
+      "month": "Feb26",
+      "orangeReport": 200100,
+      "orangeDailyMethod": 200100,
+      "orangeDifference": 0,
+      "premiumCups": 0,
+      "watermelonReport": 115400,
+      "watermelonDailyMethod": 115400
+    },
+    {
+      "month": "Mar26",
+      "orangeReport": 177480,
+      "orangeDailyMethod": 177480,
+      "orangeDifference": 0,
+      "premiumCups": 0,
+      "watermelonReport": 81750,
+      "watermelonDailyMethod": 81750
+    },
+    {
+      "month": "Apr26",
+      "orangeReport": 136200,
+      "orangeDailyMethod": 136200,
+      "orangeDifference": 0,
+      "premiumCups": 15,
+      "watermelonReport": 94900,
+      "watermelonDailyMethod": 94900
+    },
+    {
+      "month": "May26",
+      "orangeReport": 130060,
+      "orangeDailyMethod": 130060,
+      "orangeDifference": 0,
+      "premiumCups": 1,
+      "watermelonReport": 128150,
+      "watermelonDailyMethod": 128150
+    },
+    {
+      "month": "Jun26",
+      "orangeReport": 86420,
+      "orangeDailyMethod": 86420,
+      "orangeDifference": 0,
+      "premiumCups": 5,
+      "watermelonReport": 101550,
+      "watermelonDailyMethod": 101550
+    },
+    {
+      "month": "Jul26",
+      "orangeReport": 126340,
+      "orangeDailyMethod": 126340,
+      "orangeDifference": 0,
+      "premiumCups": 0,
+      "watermelonReport": 196150,
+      "watermelonDailyMethod": 196150
+    }
+  ],
+  "group": [
+    {
+      "month": "Jan26",
+      "revenue": 274405,
+      "ledger": 145894,
+      "dailyExpense": 2940,
+      "cost": 148834,
+      "net": 125571,
+      "arithmeticDifference": 0,
+      "cogsAllocationDifference": 0,
+      "capexInOpex": 0
+    },
+    {
+      "month": "Feb26",
+      "revenue": 338060,
+      "ledger": 205881,
+      "dailyExpense": 3540,
+      "cost": 209421,
+      "net": 128639,
+      "arithmeticDifference": 0,
+      "cogsAllocationDifference": 0,
+      "capexInOpex": 5000
+    },
+    {
+      "month": "Mar26",
+      "revenue": 286925,
+      "ledger": 238955.47,
+      "dailyExpense": 9250,
+      "cost": 248205.47,
+      "net": 38719.53,
+      "arithmeticDifference": 0,
+      "cogsAllocationDifference": 0,
+      "capexInOpex": 8252
+    },
+    {
+      "month": "Apr26",
+      "revenue": 383118,
+      "ledger": 375613,
+      "dailyExpense": 6180,
+      "cost": 381793,
+      "net": 1325,
+      "arithmeticDifference": 0,
+      "cogsAllocationDifference": 0,
+      "capexInOpex": 0
+    },
+    {
+      "month": "May26",
+      "revenue": 427311,
+      "ledger": 329017,
+      "dailyExpense": 7630,
+      "cost": 336647,
+      "net": 90664,
+      "arithmeticDifference": 0,
+      "cogsAllocationDifference": 0,
+      "capexInOpex": 3084
+    },
+    {
+      "month": "Jun26",
+      "revenue": 307290,
+      "ledger": 341354,
+      "dailyExpense": 5640,
+      "cost": 346994,
+      "net": -39704,
+      "arithmeticDifference": 0,
+      "cogsAllocationDifference": 0,
+      "capexInOpex": 0
+    },
+    {
+      "month": "Jul26",
+      "revenue": 549947,
+      "ledger": 483384.91,
+      "dailyExpense": 8580,
+      "cost": 491964.91,
+      "net": 57982.09,
+      "arithmeticDifference": 0,
+      "cogsAllocationDifference": 0,
+      "capexInOpex": 2912
+    }
+  ],
+  "distributions": [
+    {
+      "month": "Jan26",
+      "calculatedBlessme": 75342.6,
+      "calculatedMing": 50228.4,
+      "calculatedTotal": 125571,
+      "recordedHistoricalPayment": {
+        "blessme": 75767.4,
+        "ming": 50511.6,
+        "total": 126279
+      }
+    },
+    {
+      "month": "Feb26",
+      "calculatedBlessme": 77183.4,
+      "calculatedMing": 51455.6,
+      "calculatedTotal": 128639,
+      "recordedHistoricalPayment": {
+        "blessme": 85553.4,
+        "ming": 57035.6,
+        "total": 142589
+      }
+    },
+    {
+      "month": "Mar26",
+      "calculatedBlessme": 23231.72,
+      "calculatedMing": 15487.81,
+      "calculatedTotal": 38719.53,
+      "recordedHistoricalPayment": {
+        "blessme": 38701.968,
+        "ming": 25801.312,
+        "total": 64503.28
+      }
+    },
+    {
+      "month": "Apr26",
+      "calculatedBlessme": 16148.08,
+      "calculatedMing": 10765.39,
+      "calculatedTotal": 26913.47,
+      "recordedHistoricalPayment": {
+        "blessme": 50345,
+        "ming": 45060,
+        "total": 95405
+      }
+    },
+    {
+      "month": "May26",
+      "calculatedBlessme": 40652.96,
+      "calculatedMing": 24422.57,
+      "calculatedTotal": 65075.53,
+      "recordedHistoricalPayment": {
+        "blessme": 0,
+        "ming": 0,
+        "total": 0
+      }
+    },
+    {
+      "month": "Jun26",
+      "calculatedBlessme": 0,
+      "calculatedMing": 0,
+      "calculatedTotal": 0,
+      "recordedHistoricalPayment": {
+        "blessme": 0,
+        "ming": 0,
+        "total": 0
+      }
+    },
+    {
+      "month": "Jul26",
+      "calculatedBlessme": 31796.57,
+      "calculatedMing": 13627.1,
+      "calculatedTotal": 45423.68,
+      "recordedHistoricalPayment": null
+    }
+  ],
+  "reportDifferences": [],
+  "backupDataMatches": true,
+  "b3SourceDifferences": [],
+  "expenseRows": 492,
+  "annualSKU": [
+    {
+      "name": "Orange",
+      "rev": 1034160,
+      "cost": 428322,
+      "cups": 16685,
+      "roi": "141.4%"
+    },
+    {
+      "name": "Watermelon",
+      "rev": 805425,
+      "cost": 240418,
+      "cups": 15903,
+      "roi": "235.0%"
+    },
+    {
+      "name": "Mango",
+      "rev": 130860,
+      "cost": 67302,
+      "cups": 1454,
+      "roi": "94.4%"
+    },
+    {
+      "name": "Apple",
+      "rev": 126420,
+      "cost": 42341,
+      "cups": 2107,
+      "roi": "198.6%"
+    },
+    {
+      "name": "Coconut",
+      "rev": 320040,
+      "cost": 79545,
+      "cups": 5334,
+      "roi": "302.3%"
+    },
+    {
+      "name": "Young Coco",
+      "rev": 3600,
+      "cost": null,
+      "cups": 40,
+      "roi": "N/A"
+    },
+    {
+      "name": "Guava",
+      "rev": 39000,
+      "cost": 36900,
+      "cups": 650,
+      "roi": "5.7%"
+    },
+    {
+      "name": "Pineapple",
+      "rev": 39060,
+      "cost": 22457,
+      "cups": 651,
+      "roi": "73.9%"
+    }
+  ],
+  "cashArithmeticDifferences": [
+    {
+      "branch": "B1",
+      "month": "Apr26",
+      "date": "01/04/2026",
+      "revenue": 10480,
+      "cash": 6300,
+      "scan": 4280,
+      "difference": -100
+    },
+    {
+      "branch": "B1",
+      "month": "May26",
+      "date": "01/05/2026",
+      "revenue": 13950,
+      "cash": 8040,
+      "scan": 5730,
+      "difference": 180
+    },
+    {
+      "branch": "B2",
+      "month": "May26",
+      "date": "12/05/2026",
+      "revenue": 3400,
+      "cash": 2550,
+      "scan": 970,
+      "difference": -120
+    }
+  ],
+  "lossChecks": [
+    {
+      "branch": "B1",
+      "month": "Jan26",
+      "openingDifference": 0,
+      "adjustedDifference": 0,
+      "splitDifference": 0
+    },
+    {
+      "branch": "B1",
+      "month": "Feb26",
+      "openingDifference": 0,
+      "adjustedDifference": 0,
+      "splitDifference": 0
+    },
+    {
+      "branch": "B1",
+      "month": "Mar26",
+      "openingDifference": 0,
+      "adjustedDifference": 0,
+      "splitDifference": 0
+    },
+    {
+      "branch": "B1",
+      "month": "Apr26",
+      "openingDifference": 0,
+      "adjustedDifference": 0,
+      "splitDifference": 0
+    },
+    {
+      "branch": "B1",
+      "month": "May26",
+      "openingDifference": 0,
+      "adjustedDifference": 0,
+      "splitDifference": 0
+    },
+    {
+      "branch": "B1",
+      "month": "Jun26",
+      "openingDifference": 0,
+      "adjustedDifference": 0,
+      "splitDifference": 0
+    },
+    {
+      "branch": "B1",
+      "month": "Jul26",
+      "openingDifference": 0,
+      "adjustedDifference": 0,
+      "splitDifference": 0
+    },
+    {
+      "branch": "B1",
+      "month": "all",
+      "closingLoss": 0,
+      "annualReportedLoss": 0
+    },
+    {
+      "branch": "B2",
+      "month": "Jan26",
+      "openingDifference": 0,
+      "adjustedDifference": 0,
+      "splitDifference": 0
+    },
+    {
+      "branch": "B2",
+      "month": "Feb26",
+      "openingDifference": 0,
+      "adjustedDifference": 0,
+      "splitDifference": 0
+    },
+    {
+      "branch": "B2",
+      "month": "Mar26",
+      "openingDifference": 0,
+      "adjustedDifference": 0,
+      "splitDifference": 0
+    },
+    {
+      "branch": "B2",
+      "month": "Apr26",
+      "openingDifference": 0,
+      "adjustedDifference": 0,
+      "splitDifference": 0
+    },
+    {
+      "branch": "B2",
+      "month": "May26",
+      "openingDifference": 0,
+      "adjustedDifference": 0,
+      "splitDifference": 0
+    },
+    {
+      "branch": "B2",
+      "month": "Jun26",
+      "openingDifference": 0,
+      "adjustedDifference": 0,
+      "splitDifference": 0
+    },
+    {
+      "branch": "B2",
+      "month": "Jul26",
+      "openingDifference": 0,
+      "adjustedDifference": 0,
+      "splitDifference": 0
+    },
+    {
+      "branch": "B2",
+      "month": "all",
+      "closingLoss": 27145.59,
+      "annualReportedLoss": 27145.588366727272
+    },
+    {
+      "branch": "B3",
+      "month": "Jan26",
+      "openingDifference": 0,
+      "adjustedDifference": 0,
+      "splitDifference": 0
+    },
+    {
+      "branch": "B3",
+      "month": "Feb26",
+      "openingDifference": 0,
+      "adjustedDifference": 0,
+      "splitDifference": 0
+    },
+    {
+      "branch": "B3",
+      "month": "Mar26",
+      "openingDifference": 0,
+      "adjustedDifference": 0,
+      "splitDifference": 0
+    },
+    {
+      "branch": "B3",
+      "month": "Apr26",
+      "openingDifference": 0,
+      "adjustedDifference": 0,
+      "splitDifference": 0
+    },
+    {
+      "branch": "B3",
+      "month": "May26",
+      "openingDifference": 0,
+      "adjustedDifference": 0,
+      "splitDifference": 0
+    },
+    {
+      "branch": "B3",
+      "month": "Jun26",
+      "openingDifference": 0,
+      "adjustedDifference": 0,
+      "splitDifference": 0
+    },
+    {
+      "branch": "B3",
+      "month": "Jul26",
+      "openingDifference": 0,
+      "adjustedDifference": 0,
+      "splitDifference": 0
+    },
+    {
+      "branch": "B3",
+      "month": "all",
+      "closingLoss": 0,
+      "annualReportedLoss": 0
+    }
+  ],
+  "junePayrollScenario": [
+    {
+      "month": "Jun26",
+      "branch": "B1",
+      "currentNet": -16233.73,
+      "scenarioNet": 8166.27,
+      "currentDistributable": 0,
+      "scenarioDistributable": 8166.27
+    },
+    {
+      "month": "Jul26",
+      "branch": "B1",
+      "currentNet": 42188.22,
+      "scenarioNet": 42188.22,
+      "currentDistributable": 25954.5,
+      "scenarioDistributable": 42188.22
+    }
+  ],
+  "sourceFilesUnchanged": true
+}

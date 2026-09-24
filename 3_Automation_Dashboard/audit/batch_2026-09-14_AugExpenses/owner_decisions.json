@@ -1,0 +1,116 @@
+{
+  "batch_id": "BATCH-2026-09-14-AUG-EXPENSES",
+  "decided_on": "2026-09-14",
+  "decided_by": "owner (Metasith Jumpatip)",
+  "note": "Owner answers to REVIEW_PACKAGE.md section 6. These resolve review questions only. They are NOT an approval to write to any workbook — a proposed change list bound to source hashes must still be approved separately, and no safe importer exists yet.",
+  "decisions": [
+    {
+      "ref": "6.1.A",
+      "slips": [26, 27],
+      "question": "Two ฿40,000 payments to นาย ฐิติภูมิ สิงห์สา, same memo, two days apart, different SCB accounts — duplicate or two payments?",
+      "owner_answer": "not same",
+      "resolution": "NOT duplicates. Two separate, legitimate August payroll payments.",
+      "effect": {
+        "duplicate_candidate_status": "resolved_not_duplicate",
+        "combined_august_payroll_from_these_two_slips": 80000.00
+      },
+      "still_open": [
+        "Branch is still not stated on either slip. ฿80,000 cannot be allocated to B1/B2/B3 without a further owner instruction.",
+        "The three distinct SCB accounts held under this name remain unexplained; not required to resolve the duplicate question, but noted."
+      ]
+    },
+    {
+      "ref": "6.1.B",
+      "slips": [64, 98],
+      "question": "Ming's August salary — ฿10,000 or ฿20,000?",
+      "owner_answer": "20000, Ming salary fixed 20000",
+      "resolution": "The two ฿10,000 payments (04/08 and 10/08) are two instalments of one ฿20,000 monthly wage. NOT a duplicate.",
+      "effect": {
+        "duplicate_candidate_status": "resolved_not_duplicate",
+        "ming_august_wage_total": 20000.00,
+        "consistent_with": "CLAUDE.md — Ming's wage resumes at ฿20,000/month from Aug26"
+      },
+      "still_open": [
+        "Branch not stated on either slip. CLAUDE.md books Ming's wage to B1 OPEX/Salary; confirm that is where these two rows belong."
+      ]
+    },
+    {
+      "ref": "6.1.C",
+      "slips": [110],
+      "question": "฿14,560 watermelon settlement paid 03/08 covering deliveries on 26 Jul, 28 Jul, 31 Jul and 3 Aug — split by service period or book to one month?",
+      "owner_answer": "set it on AUG",
+      "resolution": "OWNER-APPROVED PERIOD EXCEPTION: book the full ฿14,560 to Aug26 rather than splitting ฿11,200 to Jul26 and ฿3,360 to Aug26.",
+      "effect": {
+        "accounting_month": "Aug26",
+        "amount": 14560.00,
+        "exception_type": "owner_approved_period_allocation",
+        "scope": "This slip only. Does not establish a general rule for cross-month settlements."
+      },
+      "preserved_regardless": "The four evidenced service dates (26/07, 28/07, 31/07, 03/08) and their subtotals remain recorded in extraction_part6.json. The exception changes which month the cost is booked to; it does not erase the observed delivery dates.",
+      "still_open": [
+        "BLOCKING AND UNCHANGED BY THIS DECISION: the three July deliveries must still be checked against the 100 expense rows already booked in B1 Daily_Expenses for 2026-07. Booking to August does not remove the double-booking risk — it changes where the second booking would land. If those July deliveries are already in the July rows, booking this slip to August duplicates them.",
+        "An owner-approved exception cannot turn a duplicate into a non-duplicate (OCR_RULES, Stop Conditions)."
+      ]
+    },
+    {
+      "ref": "6.1.D",
+      "slips": [13],
+      "question": "Which slip is the July rent payment filed in the August folder?",
+      "owner_answer": "which one ? — identification requested",
+      "resolution": "pending_owner_answer",
+      "slip_identification": {
+        "file": "B1/2_Expenses/Aug26/LINE_ALBUM_Cost August_260914_13.jpg",
+        "bank": "ttb",
+        "status_raw": "โอนเงินสำเร็จ",
+        "transfer_datetime": "2 ก.ค. 69, 15:52  (02/07/2026)",
+        "amount": 30000.00,
+        "payer_masked": "นาย ฐนกร ไทยขำ / ttb XXX-X-XX674-7",
+        "payee_masked": "บจก. เวลท์คัม มันนี่ / KBANK XXX-X-XX397-4",
+        "reference": "260702155220709936",
+        "memo": "ค่าเช่าเดือน 06/69 (น้ำส้ม)",
+        "service_period": "June 2026",
+        "supporting_context": "The same payer, นาย ฐนกร ไทยขำ (ttb xxx-x-x9674-x), RECEIVES ฿5,000 of B2's August rent on slip 112, and the same payee, บจก. เวลท์คัม มันนี่, receives ฿20,000 of B2's August rent on slip 113. Both counterparties recur in the B2 rent arrangement, which is consistent with this being B2's June rent at the undiscounted ฿30,000 rate. This is context, not proof — the slip does not name a branch."
+      },
+      "questions_for_owner": [
+        "Is this B2's June rent?",
+        "Is June rent already booked in the workbooks? B1 Daily_Expenses holds 83 rows for 2026-06 and B2 holds 4."
+      ]
+    },
+    {
+      "ref": "6.1.E",
+      "slips": [97],
+      "question": "฿8,100 paid but the three memo lines total ฿7,600 — ฿500 unexplained.",
+      "owner_answer": "maybe i transfer more 500 thb for coconut",
+      "resolution": "provisional_not_confirmed",
+      "owner_hypothesis": "An overpayment of ฿500 to the coconut supplier.",
+      "why_still_open": [
+        "The answer is qualified ('maybe'), so it is recorded as a hypothesis, not an observation. OCR_RULES 7 requires critical monetary discrepancies to be resolved or covered by an owner-approved exception that clearly limits downstream claims.",
+        "The accounting treatment differs by explanation and changes the COGS figure: (a) an overpayment leaves ฿7,600 as coconut COGS and ฿500 as a supplier advance/receivable; (b) a higher freight or an unwritten extra item makes the whole ฿8,100 COGS. These are not equivalent.",
+        "Certain: ฿8,100.00 was paid. Certain: the written lines account for ฿7,600.00."
+      ],
+      "questions_for_owner": [
+        "Confirm whether the ฿500 was an overpayment to be credited against a later delivery, or payment for something not written in the memo.",
+        "If it was an overpayment, was it offset against a later coconut purchase in August or September?"
+      ]
+    },
+    {
+      "ref": "6.1.F",
+      "slips": [49],
+      "question": "Pineapple memo: 55 กิโล at โลละ 50 = 2,750, but stated total and amount paid are both 1,925. ฿825 discrepancy.",
+      "owner_answer": null,
+      "resolution": "unanswered — still open"
+    },
+    {
+      "ref": "6.2",
+      "slips": [8, 18, 25, 102, 50, 60, 105, 41, 42, 45, 46, 63, 70, 84],
+      "question": "Classification calls: unlabelled Ming payment, driving licence, possible self-transfer, police fee, mixed slips without subtotals, and ฿9,500+ of CAPEX items.",
+      "owner_answer": null,
+      "resolution": "unanswered — still open"
+    }
+  ],
+  "summary": {
+    "resolved": 3,
+    "pending_owner_answer": 3,
+    "import_allowed": false
+  }
+}

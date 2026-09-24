@@ -1,0 +1,66 @@
+{
+  "batch_id": "BATCH-2026-09-14-AUG-EXPENSES",
+  "round": 3,
+  "decided_on": "2026-09-15",
+  "decided_by": "owner (Metasith Jumpatip)",
+  "import_allowed": false,
+  "decisions": [
+    {
+      "slip": 97,
+      "amount_paid": 8100.00,
+      "owner_answer": "will contact supplier to re-check; they will transfer the difference back. Book 7,600.",
+      "resolution": "COGS / Coconut = 7,600.00",
+      "status": "resolved",
+      "treatment": {
+        "cogs_coconut": 7600.00,
+        "receivable_from_supplier": 500.00,
+        "receivable_note": "Overpayment to น.ส. รวันดา จันทาพูน, refund expected. NOT an expense and NOT coconut COGS. It must not inflate the coconut cost base or the COGS allocation."
+      },
+      "items_booked": [
+        {"item": "น้ำมะพร้าว (coconut water)", "qty": 50, "unit": "ลิตร", "unit_price": 45, "amount": 2250.00},
+        {"item": "เนื้อมะพร้าว (coconut meat)", "qty": 50, "unit": "กิโล", "unit_price": 100, "amount": 5000.00},
+        {"item": "ค่าส่ง (freight)", "amount": 350.00}
+      ],
+      "checks": {"children_sum_to_booked_cogs": {"result": "pass", "formula": "2250 + 5000 + 350 = 7600", "difference": 0}},
+      "open_followup": "Refund not yet received as at 15/09/2026. The ฿500 stays an open receivable until the supplier's transfer is evidenced. If the refund does not arrive, this decision must be revisited — the ฿500 would then be a cost, not a receivable."
+    },
+    {
+      "slip": 18,
+      "amount": 2377.00,
+      "memo_state": "confirmed_absent",
+      "owner_answer": "Ming, as manager, bought things to keep operations running; cannot remember what.",
+      "resolution": "OPEX / Other OPEX",
+      "status": "resolved_with_caveat",
+      "evidence_basis": "owner_recollection",
+      "caveat": "No document in this batch evidences what was purchased. The classification rests on the owner's recorded statement that it was an operational purchase, not on the slip. Recorded as an owner-approved classification, not an observation. The slip itself is a wallet top-up to Ming's K Plus Wallet, which evidences a transfer of funds and not their use."
+    },
+    {
+      "slip": 19,
+      "amount": 900.00,
+      "memo": "ข้าวเหนียวมูน 5 กิโล",
+      "owner_answer": "is sticky rice = COGS",
+      "resolution": "COGS / Sticky Rice",
+      "status": "resolved",
+      "note": "Confirms the round-2 'CAPX' answer was a slip-number typo. No change results — slip 19 was already proposed as COGS/Sticky Rice. Nothing was mis-booked because the CAPEX instruction was held rather than applied."
+    },
+    {
+      "slip": 41,
+      "amount": 1500.00,
+      "memo": "Durian shop invest : acylic box 1 pcs",
+      "owner_answer": "it's investment in a new shop, no need to book it",
+      "resolution": "OUT_OF_SCOPE",
+      "status": "resolved",
+      "disposition": "out_of_scope_not_booked",
+      "rationale": "Capital investment in a separate venture ('Durian shop'), not a Som Sai Jai B1/B2/B3 cost. Paid from the owner's personal account (นาย เมธาสิทธิ์), consistent with it sitting outside these books entirely. Excluded from COGS, OPEX and CAPEX for all three branches.",
+      "note": "Consistent with the owner's earlier ruling that B3/Invest is out of scope for this batch. The slip and its transcription remain in the audit trail; only the booking is excluded."
+    }
+  ],
+  "group_a_status": "COMPLETE — all 10 Group A slips resolved (8, 18, 19, 25, 49, 50, 60, 97, 102, 105).",
+  "group_b_status": "Awaiting owner review. Slip 41 removed as out of scope; 7 slips remain.",
+  "still_open_overall": [
+    "Group B capitalise-or-expense policy (7 slips)",
+    "Branch allocation for OPEX/Salary rows: slips 8, 18, 25, 102, 105, plus ฿80,000 payroll (26, 27) and Ming's ฿20,000 wage (64, 98)",
+    "Slip 13 — is the ฿30,000 June rent B2, and is it already booked?",
+    "Duplicate check of the three July watermelon deliveries against B1's existing 100 July expense rows"
+  ]
+}

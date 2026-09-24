@@ -1,0 +1,8 @@
+{
+  "batch_id": "CORRECTION-2026-09-25-B2-18JUN",
+  "reason": "Audit finding: the sale report for B2 18/06/2026 evidences cash 1,420 and scan 350 (total 1,770). Its own item lines sum to exactly 1,420 cash (180+850+90+180+120) and 350 scan (180+50+60+60), and 1,420 less the 60 ice matches the 1,360 written on the form. Excel carried 1,740/1,390, which nothing on the form supports. Owner approved the correction on 25 Sep 2026.",
+  "corrections": [
+    {"branch": "B2", "month": "Jun26", "date": "18/06/2026", "column": "Revenue (฿)", "from": 1740, "to": 1770},
+    {"branch": "B2", "month": "Jun26", "date": "18/06/2026", "column": "Cash (฿)",    "from": 1390, "to": 1420}
+  ]
+}

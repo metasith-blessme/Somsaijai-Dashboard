@@ -1,8 +1,8 @@
 // Runs the REAL renderFinance() from index.html against the REAL reports_data.json,
 // with DOM/Chart stubbed, and asserts the branch-selected totals match the report.
 const fs = require('fs'), vm = require('vm'), assert = require('assert');
-const html = fs.readFileSync('index.html', 'utf8');
-const script = [...html.matchAll(/<script(?![^>]*\bsrc=)[^>]*>([\s\S]*?)<\/script>/g)].map(m => m[1]).join('\n;\n');
+const html = fs.readFileSync(process.env.DASHBOARD_HTML || 'index.html', 'utf8');
+const script = [...html.matchAll(/<script(?![^>]*\b(?:src|data-library)=)[^>]*>([\s\S]*?)<\/script>/g)].map(m => m[1]).join('\n;\n');
 
 const captured = {};
 const sandbox = {
@@ -68,3 +68,16 @@ for (const m of ['Jan26', 'Apr26', 'Jul26', 'all']) {
   checks++;
 }
 console.log(`✅ renderFinance OK — ${checks} branch/month views match reports_data.json`);
+
+// Exercise reporting with recalculated data so omitted costs / unknown values cannot look like profit.
+sandbox.__reports = require('./Sales_System_Automation/logic/business_rules').calculatePL(sandbox.__data);
+vm.runInContext("REPORTS_DATA = __reports; currentMonth = 'all'; renderReport([]);", sandbox);
+const report = captured.reportTables;
+assert.match(report, /Less: Daily Expenses/, 'management statement must show the daily cash costs it subtracts');
+assert.match(report, /27,146/, 'annual report must show B2 closing loss, not its opening balance or zero');
+const young = report.match(/<tr>\s*<td>\d+<\/td>\s*<td>Young Coco<\/td>[\s\S]*?<\/tr>/)?.[0];
+assert.ok(young, 'Young Coco sales remain visible');
+assert.ok(!young.includes('100.0%'), 'unknown cost must not display a 100% margin');
+assert.match(young, /Unknown/, 'unknown cost must be explicit');
+assert.doesNotMatch(report, /FINAL AUDITED/, 'unresolved books must not claim final audit certification');
+console.log('✅ management report shows daily costs, closing losses, and unknown SKU costs');

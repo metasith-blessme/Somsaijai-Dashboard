@@ -13,13 +13,14 @@
     "stock-in": "node Sales_System_Automation/scripts/stock_in.js",
     "deploy": "npx vercel --prod",
     "pipeline": "node Sales_System_Automation/agents/Orchestrator.js",
-    "test": "node test_expense_rules.js && node test_parse_note.js && node test_render_finance.js"
+    "test": "node test_expense_rules.js && node test_parse_note.js && node test_financial_integrity.js && node test_render_finance.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.125.0",
     "@google/genai": "^2.2.0",
     "axios": "^1.16.1",
     "dotenv": "^17.4.2",

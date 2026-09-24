@@ -1,0 +1,58 @@
+{
+  "batch_id": "BATCH-2026-09-14-AUG-EXPENSES",
+  "part": 4,
+  "covers_idx": [52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63],
+  "review": { "import_allowed": false },
+  "common": {
+    "payer_masked": "นาย เมธาสิทธิ์ จ / KBANK xxx-x-x6560-x",
+    "bank": "KBank K+",
+    "fee": 0.00,
+    "currency": "THB"
+  },
+  "slips": [
+    {"idx":52,"date_norm":"08/08/2026","date_raw":"8 ส.ค. 69  14:46 น.","amount":6925.00,"payee_masked":"น.ส. รวันดา จันทาพูน / KBANK xxx-x-x8581-x","ref":"016220144650ATF03122","memo_lines":["น้ำ 35ลิตร ลิตรละ45บาท","เนื้อคว้าน 50kg.กิโลละ 100บาท","ค่าส่ง350บาท"],"items":[
+      {"item_raw":"น้ำ (coconut water)","qty_raw":"35","unit_raw":"ลิตร","unit_price_raw":"45","allocated_amount":1575.00},
+      {"item_raw":"เนื้อคว้าน (scooped coconut meat)","qty_raw":"50","unit_raw":"kg","unit_price_raw":"100","allocated_amount":5000.00},
+      {"item_raw":"ค่าส่ง (freight)","allocated_amount":350.00,"component_type":"freight"}
+    ],"proposed_bucket":"COGS","proposed_category":"Coconut","branch":null,"branch_state":"not_applicable_shared_pool","allocation_state":"resolved_by_evidenced_subtotals","checks":{
+      "water_qty_x_price":{"result":"pass","formula":"35 * 45 = 1575"},
+      "meat_qty_x_price":{"result":"pass","formula":"50 * 100 = 5000"},
+      "children_plus_freight_sum_to_parent":{"result":"pass","formula":"1575 + 5000 + 350 = 6925","parent_total":6925.00,"difference":0}
+    },"notes":["Freight ฿350 is kept as a distinct component, not folded into either ingredient line (OCR_RULES 5.3, 10.2.8).","'น้ำ' is coconut water — ingredient — established by the supplier and by its pairing with the coconut-meat line. Not utility water.","Units litre and kilogram are both present and are NOT equated."],"status":"ready_for_review"},
+    {"idx":53,"date_norm":"08/08/2026","date_raw":"8 ส.ค. 69  18:40 น.","amount":2000.00,"payee_masked":"ลาลามูฟ Lalamove / บจก. ลาลามูฟ อีซี่แวน (ประเทศไทย) — order 20260808282611 7","ref":"016220184044BQR05794","memo_lines":["ค่ารถ"],"items":[{"item_raw":"ค่ารถ (vehicle/delivery charge)"}],"proposed_bucket":"COGS","proposed_category":"Transportation","branch":null,"branch_state":"unresolved","duplicate_candidates":[{"against":"idx 4, 20, 33","reason":"Lalamove ฿2,000.00 — now four occurrences in August","verdict":"NOT duplicates — 08/08, 21/08, 25/08, 30/08; four distinct references and order numbers. A recurring flat delivery charge.","confidence":"high"}],"status":"ready_for_review"},
+    {"idx":54,"date_norm":"09/08/2026","date_raw":"9 ส.ค. 69  11:45 น.","amount":1600.00,"payee_masked":"น.ส. กสิณา เจริญสุข / PromptPay xxx-xxx-6862","ref":"016221114541BPP03902","memo_lines":["Apple 4 box"],"items":[{"item_raw":"Apple","qty_raw":"4","unit_raw":"box"}],"proposed_bucket":"COGS","proposed_category":"Apple","branch":null,"branch_state":"not_applicable_shared_pool","checks":{"implied_crate_price":"1600 / 4 = 400.00 per box (derived)"},"notes":["Memo written in English ('box') where other apple slips from the same payee use ลัง. Treated as the same unit only because the payee, product and price point align; the raw text is preserved as written."],"status":"ready_for_review"},
+    {"idx":55,"date_norm":"09/08/2026","date_raw":"9 ส.ค. 69  13:13 น.","amount":2600.00,"payee_masked":"LINE Pay Merchant (QR by ttb) LPM2000006974302140 5","ref":"016221131346APM06973","memo_lines":["มะม่วง 2 ตะกร้า"],"items":[{"item_raw":"มะม่วง","qty_raw":"2","unit_raw":"ตะกร้า"}],"proposed_bucket":"COGS","proposed_category":"Mango","branch":null,"branch_state":"not_applicable_shared_pool","duplicate_candidates":[{"against":"idx 32","reason":"same ฿2,600.00 for mango quantity 2","verdict":"NOT a duplicate — different date (09/08 vs 21/08), different unit (ตะกร้า vs ลัง) and different reference.","confidence":"high"}],"status":"ready_for_review"},
+    {"idx":56,"date_norm":"09/08/2026","date_raw":"9 ส.ค. 69  14:27 น.","amount":360.00,"payee_masked":"LINE Pay Merchant (QR by ttb) LPM2000006974302140 5","ref":"016221142712BPM10811","memo_lines":["ข้าวเหนียวมูน 4 กิโล"],"items":[{"item_raw":"ข้าวเหนียวมูน","qty_raw":"4","unit_raw":"กิโล"}],"proposed_bucket":"COGS","proposed_category":"Sticky Rice","branch":null,"branch_state":"unresolved","checks":{"implied_unit_price":"360 / 4 = 90.00 per kg (derived)"},"status":"ready_for_review"},
+    {"idx":57,"date_norm":"10/08/2026","date_raw":"10 ส.ค. 69  12:58 น.","amount":270.00,"payee_masked":"นาง เพ็ญวิไล สถานทรัพย์ / PromptPay xxx-xxx-4429","ref":"016222125849BPP10862","memo_lines":["ข้าวเหนียวมูน 2 โล"],"items":[{"item_raw":"ข้าวเหนียวมูน","qty_raw":"2","unit_raw":"โล"}],"proposed_bucket":"COGS","proposed_category":"Sticky Rice","branch":null,"branch_state":"unresolved","checks":{"implied_unit_price":"270 / 2 = 135.00 per kg (derived)"},"status":"ready_for_review"},
+    {"idx":58,"date_norm":"10/08/2026","date_raw":"10 ส.ค. 69  13:55 น.","amount":2674.00,"payee_masked":"ชำระสินค้าช้อปปี้ / บจก. ช้อปปี้เพย์ (ประเทศไทย) — order 20260810176327 8","ref":"016222135530AQR04441","memo_lines":["หลอดเล็ก 659(20แพค)","หลอดใหญ่ 1ลัง693","นมข้นจืด659+663"],"items":[
+      {"item_raw":"หลอดเล็ก (small straws)","qty_raw":"20","unit_raw":"แพค","allocated_amount":659.00,"proposed_category_item":"Packaging"},
+      {"item_raw":"หลอดใหญ่ (large straws)","qty_raw":"1","unit_raw":"ลัง","allocated_amount":693.00,"proposed_category_item":"Packaging"},
+      {"item_raw":"นมข้นจืด (evaporated milk)","allocated_amount":1322.00,"line_amount_raw":"659+663","proposed_category_item":"Coconut","note":"Memo states two separate component amounts 659 and 663 on one line; both preserved."}
+    ],"proposed_bucket":"COGS","proposed_category":"MIXED (Packaging / Coconut)","branch":null,"branch_state":"not_applicable_shared_pool","allocation_state":"resolved_by_evidenced_subtotals","checks":{"children_sum_to_parent":{"result":"pass","formula":"659 + 693 + 659 + 663 = 2674","parent_total":2674.00,"difference":0}},"notes":["Condensed/evaporated milk is charged to Coconut per the established treatment in this repo (see commit 5eb00fb, 'charge condensed milk to coconut'). Confirm the same applies to นมข้นจืด as well as นมข้นหวาน."],"status":"ready_for_review"},
+    {"idx":59,"date_norm":"10/08/2026","date_raw":"10 ส.ค. 69  13:56 น.","amount":2479.00,"payee_masked":"ชำระสินค้าช้อปปี้ / บจก. ช้อปปี้เพย์ (ประเทศไทย) — order 20260810176878 7","ref":"016222135648AQR07680","memo_lines":["ฝา430","นมข้นหวาน717*2 1,434","นมข้นจืด615"],"items":[
+      {"item_raw":"ฝา (lids)","allocated_amount":430.00,"proposed_category_item":"Packaging"},
+      {"item_raw":"นมข้นหวาน (sweetened condensed milk)","qty_raw":"2","unit_price_raw":"717","line_amount_raw":"1,434","allocated_amount":1434.00,"proposed_category_item":"Coconut"},
+      {"item_raw":"นมข้นจืด (evaporated milk)","allocated_amount":615.00,"proposed_category_item":"Coconut"}
+    ],"proposed_bucket":"COGS","proposed_category":"MIXED (Packaging / Coconut)","branch":null,"branch_state":"not_applicable_shared_pool","allocation_state":"resolved_by_evidenced_subtotals","checks":{
+      "milk_qty_x_price":{"result":"pass","formula":"717 * 2 = 1434","stated_line_amount":1434,"difference":0},
+      "children_sum_to_parent":{"result":"pass","formula":"430 + 1434 + 615 = 2479","parent_total":2479.00,"difference":0}
+    },"notes":["Lids and milk in one payment — exactly the 'do not collapse milk and packaging onto the same row' case in OCR_RULES 10.2. Split by evidenced subtotals."],"status":"ready_for_review"},
+    {"idx":60,"date_norm":"10/08/2026","date_raw":"10 ส.ค. 69  13:57 น.","amount":895.00,"payee_masked":"ชำระสินค้าช้อปปี้ / บจก. ช้อปปี้เพย์ (ประเทศไทย) — order 20260810177104 2","ref":"016222135733BQR07236","memo_lines":["ฝา439","ทิชชู456"],"items":[
+      {"item_raw":"ฝา (lids)","allocated_amount":439.00,"proposed_category_item":"Packaging"},
+      {"item_raw":"ทิชชู (tissue)","allocated_amount":456.00,"proposed_category_item":"Packaging or Other OPEX — owner to confirm"}
+    ],"proposed_bucket":"COGS","proposed_category":"MIXED","branch":null,"branch_state":"not_applicable_shared_pool","allocation_state":"resolved_by_evidenced_subtotals","checks":{"children_sum_to_parent":{"result":"pass","formula":"439 + 456 = 895","parent_total":895.00,"difference":0}},"issues":["Tissue may be consumable packaging (served with drinks) or a shop supply booked to OPEX. The distinction changes the COGS allocation basis; owner to confirm rather than assume."],"status":"needs_review"},
+    {"idx":61,"date_norm":"10/08/2026","date_raw":"10 ส.ค. 69  13:58 น.","amount":5812.00,"payee_masked":"ชำระสินค้าช้อปปี้ / บจก. ช้อปปี้เพย์ (ประเทศไทย) — order 20260810177377 4","ref":"016222135811AQR01977","memo_lines":["แก้ว3ลัง 1784*3 5,352","ฝา460"],"items":[
+      {"item_raw":"แก้ว (cups)","qty_raw":"3","unit_raw":"ลัง","unit_price_raw":"1784","line_amount_raw":"5,352","allocated_amount":5352.00,"proposed_category_item":"Packaging"},
+      {"item_raw":"ฝา (lids)","allocated_amount":460.00,"proposed_category_item":"Packaging"}
+    ],"proposed_bucket":"COGS","proposed_category":"Packaging","branch":null,"branch_state":"not_applicable_shared_pool","allocation_state":"resolved_by_evidenced_subtotals","checks":{
+      "cups_qty_x_price":{"result":"pass","formula":"1784 * 3 = 5352","stated_line_amount":5352,"difference":0},
+      "children_sum_to_parent":{"result":"pass","formula":"5352 + 460 = 5812","parent_total":5812.00,"difference":0}
+    },"status":"ready_for_review"},
+    {"idx":62,"date_norm":"10/08/2026","date_raw":"10 ส.ค. 69  13:58 น.","amount":2207.00,"payee_masked":"ชำระสินค้าช้อปปี้ / บจก. ช้อปปี้เพย์ (ประเทศไทย) — order 20260810177568 9","ref":"016222135843BQR01727","memo_lines":["แก้ว1784","ฝา423"],"items":[
+      {"item_raw":"แก้ว (cups)","allocated_amount":1784.00,"proposed_category_item":"Packaging"},
+      {"item_raw":"ฝา (lids)","allocated_amount":423.00,"proposed_category_item":"Packaging"}
+    ],"proposed_bucket":"COGS","proposed_category":"Packaging","branch":null,"branch_state":"not_applicable_shared_pool","allocation_state":"resolved_by_evidenced_subtotals","checks":{"children_sum_to_parent":{"result":"pass","formula":"1784 + 423 = 2207","parent_total":2207.00,"difference":0}},"notes":["Same minute as idx 61 and the cup unit price 1784 is identical, but this is a separate Shopee order number and a separate reference — a fourth crate of cups, not a re-photograph of idx 61."],"status":"ready_for_review"},
+    {"idx":63,"date_norm":"10/08/2026","date_raw":"10 ส.ค. 69  13:59 น.","amount":527.00,"payee_masked":"ชำระสินค้าช้อปปี้ / บจก. ช้อปปี้เพย์ (ประเทศไทย) — order 20260810177744 7","ref":"016222135920AQR06857","memo_lines":["โต๊ะพับ 1 ตัว"],"items":[{"item_raw":"โต๊ะพับ (folding table)","qty_raw":"1","unit_raw":"ตัว"}],"proposed_bucket":"CAPEX","proposed_category":"Equipment","branch":null,"branch_state":"unresolved","issues":["A folding table is a durable asset. Whether ฿527 is capitalised or expensed as a low-value item depends on the owner's policy; held rather than defaulted into OPEX."],"status":"needs_review"}
+  ],
+  "session_note": "idx 58-63 are six consecutive Shopee orders between 13:55 and 13:59 on 10/08/2026 — a single bulk restock session, six distinct order numbers and references. Every multi-line memo in this group reconciles to its parent total exactly."
+}

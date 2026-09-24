@@ -95,17 +95,21 @@ function normalizeExpense(e) {
 // Without this, every one of those 16 days trips the anti-cheat flag for a price change
 // that was deliberate — ฿31,845 of "unexplained" revenue that was never unexplained.
 const PRICE_ERAS = [
+  // B1 paper reports show ฿70 throughout July. Other branches / later months need confirmation.
+  { from: '01/07/2026', until: '01/08/2026', branch: 'B1', prices: { orange: 70 } },
   { until: '17/01/2026', prices: { orange: 80, watermelon: 65 } },
 ];
 
 /** Prices in force on a record's date. Falls back to the current list. */
-function pricesOn(dateStr) {
+function pricesOn(dateStr, branch) {
   const [d, m, y] = String(dateStr || '').split('/').map(Number);
   if (!d || !m || !y) return PRICES;
   const stamp = y * 10000 + m * 100 + d;
   for (const era of PRICE_ERAS) {
+    if (era.branch && era.branch !== branch) continue;
+    const [sd, sm, sy] = (era.from || '01/01/0001').split('/').map(Number);
     const [ed, em, ey] = era.until.split('/').map(Number);
-    if (stamp < ey * 10000 + em * 100 + ed) return { ...PRICES, ...era.prices };
+    if (stamp >= sy * 10000 + sm * 100 + sd && stamp < ey * 10000 + em * 100 + ed) return { ...PRICES, ...era.prices };
   }
   return PRICES;
 }
@@ -113,30 +117,33 @@ function pricesOn(dateStr) {
 /**
  * Calculates theoretical revenue based on cup counts
  */
-function calculateTheoreticalRevenue(r) {
-  const PRICES = pricesOn(r.d);
+function fruitRevenue(r, branch) {
+  const PRICES = pricesOn(r.d, branch);
     const or_100 = r.or_100 || 0;
     const or_60 = Math.max(0, (r.or || 0) - or_100);
     
-    return (
-        or_60 * PRICES.orange +
-        or_100 * PRICES.orange_premium +
-        (r.wm || 0) * PRICES.watermelon +
-        (r.mg || 0) * PRICES.mango +
-        (r.ap || 0) * PRICES.apple +
-        (r.co || 0) * PRICES.coconut +
-        (r.yco || 0) * PRICES.young +
-        (r.guava || 0) * PRICES.guava +
-        (r.pineapple || 0) * PRICES.pineapple
-    );
+    return {
+        orange: or_60 * PRICES.orange + or_100 * PRICES.orange_premium,
+        watermelon: (r.wm || 0) * PRICES.watermelon,
+        mango: (r.mg || 0) * PRICES.mango,
+        apple: (r.ap || 0) * PRICES.apple,
+        coconut: (r.co || 0) * PRICES.coconut,
+        young: (r.yco || 0) * PRICES.young,
+        guava: (r.guava || 0) * PRICES.guava,
+        pineapple: (r.pineapple || 0) * PRICES.pineapple
+    };
 }
 
+function calculateTheoreticalRevenue(r, branch = r.branch) {
+    // Include only source-entered bottle revenue; do not guess prices from bottle counts.
+    return Object.values(fruitRevenue(r, branch)).reduce((s, v) => s + v, 0) + (r.bottle_rev || 0);
+}
 
 /**
  * Run audit verification on a single sales record
  */
-function auditRecord(r) {
-    const theoreticalRev = calculateTheoreticalRevenue(r);
+function auditRecord(r, branch = r.branch) {
+    const theoreticalRev = calculateTheoreticalRevenue(r, branch);
     const diff = r.rev - theoreticalRev;
     return {
         theoretical_rev: theoreticalRev,
@@ -175,6 +182,7 @@ function calculatePL(data) {
         const fruit_summary = {};
         const daily_cogs = [];
         const fruit_sales = { orange: 0, orange_100: 0, watermelon: 0, mango: 0, coconut: 0, apple: 0, young: 0, guava: 0, pineapple: 0 };
+        const fruit_revenue = { orange: 0, watermelon: 0, mango: 0, coconut: 0, apple: 0, young: 0, guava: 0, pineapple: 0 };
 
         // 1. Calculate branch specifics (revenue, usage, cup sales)
         branchNames.forEach(b => {
@@ -182,6 +190,7 @@ function calculatePL(data) {
             const usage = { orange: 0, watermelon: 0, mango: 0, coconut: 0, apple: 0, guava: 0, pineapple: 0 };
             
             salesRecords.forEach(r => {
+                Object.entries(fruitRevenue(r, b)).forEach(([fruit, revenue]) => { fruit_revenue[fruit] += revenue; });
                 branchCalcs[b].rev += r.rev || 0;
                 // Cash paid out at the stall each day — mostly ice (~฿120/day), which never
                 // reaches the expense ledger. Already branch-specific, so no allocation.
@@ -328,6 +337,7 @@ function calculatePL(data) {
             
             // Apply Net Loss Carry-Forward
             branchData.loss_carry_forward = lossCarryForward[b];
+            branchData.loss_offset = 0;
             
             if (branchData.net < 0) {
                 // If branch made a loss, quarantine it and carry it forward
@@ -338,6 +348,7 @@ function calculatePL(data) {
             } else {
                 // If branch made profit, offset against carry-forward loss
                 const offset = Math.min(branchData.net, lossCarryForward[b]);
+                branchData.loss_offset = offset;
                 branchData.adjusted_net = branchData.net - offset;
                 lossCarryForward[b] -= offset;
                 
@@ -346,17 +357,18 @@ function calculatePL(data) {
                 // Ming profit share cut
                 branchData.ming_share = branchData.adjusted_net * (1 - blessmeRatio);
             }
+            branchData.closing_loss = lossCarryForward[b];
         });
 
         const fruit_performance = [
-            { name: 'Orange', rev: (fruit_sales.orange * PRICES.orange) + (fruit_sales.orange_100 * PRICES.orange_premium), cost: fruit_costs['Orange'], cups: fruit_sales.orange + fruit_sales.orange_100 },
-            { name: 'Watermelon', rev: fruit_sales.watermelon * PRICES.watermelon, cost: fruit_costs['Watermelon'], cups: fruit_sales.watermelon },
-            { name: 'Mango', rev: fruit_sales.mango * PRICES.mango, cost: fruit_costs['Mango'], cups: fruit_sales.mango },
-            { name: 'Apple', rev: fruit_sales.apple * PRICES.apple, cost: fruit_costs['Apple'], cups: fruit_sales.apple },
-            { name: 'Coconut', rev: fruit_sales.coconut * PRICES.coconut, cost: fruit_costs['Coconut'], cups: fruit_sales.coconut },
-            { name: 'Young Coco', rev: fruit_sales.young * PRICES.young, cost: 0, cups: fruit_sales.young },
-            { name: 'Guava', rev: fruit_sales.guava * PRICES.guava, cost: fruit_costs['Guava'], cups: fruit_sales.guava },
-            { name: 'Pineapple', rev: fruit_sales.pineapple * PRICES.pineapple, cost: fruit_costs['Pineapple'], cups: fruit_sales.pineapple }
+            { name: 'Orange', rev: fruit_revenue.orange, cost: fruit_costs['Orange'], cups: fruit_sales.orange },
+            { name: 'Watermelon', rev: fruit_revenue.watermelon, cost: fruit_costs['Watermelon'], cups: fruit_sales.watermelon },
+            { name: 'Mango', rev: fruit_revenue.mango, cost: fruit_costs['Mango'], cups: fruit_sales.mango },
+            { name: 'Apple', rev: fruit_revenue.apple, cost: fruit_costs['Apple'], cups: fruit_sales.apple },
+            { name: 'Coconut', rev: fruit_revenue.coconut, cost: fruit_costs['Coconut'], cups: fruit_sales.coconut },
+            { name: 'Young Coco', rev: fruit_revenue.young, cost: null, cups: fruit_sales.young },
+            { name: 'Guava', rev: fruit_revenue.guava, cost: fruit_costs['Guava'], cups: fruit_sales.guava },
+            { name: 'Pineapple', rev: fruit_revenue.pineapple, cost: fruit_costs['Pineapple'], cups: fruit_sales.pineapple }
         ].map(f => ({ ...f, roi: f.cost > 0 ? ((f.rev - f.cost) / f.cost * 100).toFixed(1) + '%' : 'N/A' }));
 
         fullReport[m] = {
@@ -376,6 +388,8 @@ function calculatePL(data) {
                 cogs: branchCalcs[b].cogs,
                 net: branchCalcs[b].net,
                 loss_carry_forward: branchCalcs[b].loss_carry_forward,
+                closing_loss: branchCalcs[b].closing_loss,
+                loss_offset: branchCalcs[b].loss_offset,
                 adjusted_net: branchCalcs[b].adjusted_net,
                 share: branchCalcs[b].share,
                 ming_share: branchCalcs[b].ming_share,
@@ -425,46 +439,22 @@ function calculatePL(data) {
     // blended rate actually paid, not whichever rate happens to be current.
     branchNames.forEach(b => {
         const a = annual[b.toLowerCase()];
+        a.closing_loss = a.loss_carry_forward = lossCarryForward[b];
+        a.loss_offset = months.reduce((s, m) => s + fullReport[m][b.toLowerCase()].loss_offset, 0);
         a.share_pct = a.adjusted_net > 0 ? a.share / a.adjusted_net : profitShareFor(b, months[months.length - 1]);
     });
 
-    // Recalculate annual fruit performance from sums of sales and costs
-    const annual_fruit_costs = { 'Orange': 0, 'Watermelon': 0, 'Mango': 0, 'Apple': 0, 'Coconut': 0, 'Guava': 0, 'Pineapple': 0 };
-    const annual_fruit_sales = { orange: 0, orange_100: 0, watermelon: 0, mango: 0, coconut: 0, apple: 0, young: 0, guava: 0, pineapple: 0 };
-    
-    months.forEach(m => {
-        const r = fullReport[m];
-        r.fruit_performance.forEach(p => {
-            if (annual_fruit_costs.hasOwnProperty(p.name)) {
-                annual_fruit_costs[p.name] += p.cost || 0;
-            }
-        });
-        
-        branchNames.forEach(b => {
-            (data.branches[b].sales[m] || []).forEach(record => {
-                annual_fruit_sales.orange += (record.or || 0);
-                annual_fruit_sales.orange_100 += (record.or_100 || 0);
-                annual_fruit_sales.watermelon += (record.wm || 0);
-                annual_fruit_sales.mango += (record.mg || 0);
-                annual_fruit_sales.coconut += (record.co || 0);
-                annual_fruit_sales.apple += (record.ap || 0);
-                annual_fruit_sales.young += (record.yco || 0);
-                annual_fruit_sales.guava += (record.guava || 0);
-                annual_fruit_sales.pineapple += (record.pineapple || 0);
-            });
-        });
-    });
-
-    annual.fruit_performance = [
-        { name: 'Orange', rev: (annual_fruit_sales.orange * PRICES.orange) + (annual_fruit_sales.orange_100 * PRICES.orange_premium), cost: annual_fruit_costs['Orange'], cups: annual_fruit_sales.orange + annual_fruit_sales.orange_100 },
-        { name: 'Watermelon', rev: annual_fruit_sales.watermelon * PRICES.watermelon, cost: annual_fruit_costs['Watermelon'], cups: annual_fruit_sales.watermelon },
-        { name: 'Mango', rev: annual_fruit_sales.mango * PRICES.mango, cost: annual_fruit_costs['Mango'], cups: annual_fruit_sales.mango },
-        { name: 'Apple', rev: annual_fruit_sales.apple * PRICES.apple, cost: annual_fruit_costs['Apple'], cups: annual_fruit_sales.apple },
-        { name: 'Coconut', rev: annual_fruit_sales.coconut * PRICES.coconut, cost: annual_fruit_costs['Coconut'], cups: annual_fruit_sales.coconut },
-        { name: 'Young Coco', rev: annual_fruit_sales.young * PRICES.young, cost: 0, cups: annual_fruit_sales.young },
-        { name: 'Guava', rev: annual_fruit_sales.guava * PRICES.guava, cost: annual_fruit_costs['Guava'], cups: annual_fruit_sales.guava },
-        { name: 'Pineapple', rev: annual_fruit_sales.pineapple * PRICES.pineapple, cost: annual_fruit_costs['Pineapple'], cups: annual_fruit_sales.pineapple }
-    ].map(f => ({ ...f, roi: f.cost > 0 ? ((f.rev - f.cost) / f.cost * 100).toFixed(1) + '%' : 'N/A' }));
+    // Sum the dated monthly results instead of repricing the whole year at today's menu.
+    const annualFruits = {};
+    months.forEach(m => fullReport[m].fruit_performance.forEach(f => {
+        const a = annualFruits[f.name] ||= { name: f.name, rev: 0, cost: 0, cups: 0 };
+        a.rev += f.rev;
+        a.cups += f.cups;
+        a.cost = a.cost === null || f.cost === null ? null : a.cost + f.cost;
+    }));
+    annual.fruit_performance = Object.values(annualFruits).map(f => ({ ...f,
+        roi: f.cost > 0 ? ((f.rev - f.cost) / f.cost * 100).toFixed(1) + '%' : 'N/A'
+    }));
 
     fullReport['all'] = annual;
     
