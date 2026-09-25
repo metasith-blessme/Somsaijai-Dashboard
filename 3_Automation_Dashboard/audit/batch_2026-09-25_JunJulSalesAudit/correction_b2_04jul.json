@@ -1,0 +1,8 @@
+{
+  "batch_id": "CORRECTION-2026-09-25-B2-04JUL",
+  "reason": "Owner read the physical form for B2 04/07/2026 and reported: All 5,200 / cash 3,010 / ice -60 / scan 2,190. Excel carried 3,000 / 2,200. Revenue is unchanged at 5,200; only the channel split moves by ฿10.",
+  "corrections": [
+    {"branch": "B2", "month": "Jul26", "date": "04/07/2026", "column": "Cash (฿)", "from": 3000, "to": 3010},
+    {"branch": "B2", "month": "Jul26", "date": "04/07/2026", "column": "Scan/Transfer (฿)", "from": 2200, "to": 2190}
+  ]
+}

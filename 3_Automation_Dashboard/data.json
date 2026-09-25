@@ -12078,11 +12078,11 @@
           {
             "d": "01/07/2026",
             "day": "Wed",
-            "rev": 5200,
-            "cash": 3010,
+            "rev": 2310,
+            "cash": 1470,
             "exp": 60,
-            "net": 2950,
-            "scan": 2190,
+            "net": 1410,
+            "scan": 840,
             "or": 7,
             "or_100": 0,
             "wm": 42,
@@ -12092,7 +12092,7 @@
             "yco": 0,
             "guava": 7,
             "pineapple": 7,
-            "tot": 89,
+            "tot": 41,
             "bb": 0,
             "bs": 0,
             "bottle_rev": 0,
@@ -12109,8 +12109,8 @@
             "uyco": 0,
             "audit": {
               "theoretical_rev": 5130,
-              "rev_diff": 70,
-              "is_flagged": false
+              "rev_diff": -2820,
+              "is_flagged": true
             }
           },
           {
@@ -12193,10 +12193,10 @@
             "d": "04/07/2026",
             "day": "Sat",
             "rev": 5200,
-            "cash": 3000,
+            "cash": 3010,
             "exp": 60,
             "net": 2940,
-            "scan": 2200,
+            "scan": 2190,
             "or": 10,
             "or_100": 0,
             "wm": 40,

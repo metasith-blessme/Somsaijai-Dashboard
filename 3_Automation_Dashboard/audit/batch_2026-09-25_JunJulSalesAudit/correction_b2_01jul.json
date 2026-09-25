@@ -1,0 +1,11 @@
+{
+  "batch_id": "CORRECTION-2026-09-25-B2-01JUL",
+  "reason": "Owner read the physical forms and confirmed the pairing: the form giving 2,310 / 1,470 / 840 / 41 cups is 01/07/2026, and the form giving 5,200 / 3,010 / 2,190 is 04/07/2026. Excel had 04/07's figures entered against 01/07 as well, so 01/07 was overstated by 2,890. The audit had flagged 04/07 as unsupported and 2,310 as unplaceable; the owner's reading resolves it the other way round — the date I read as '1.7.26' on that form is 4.7.26.",
+  "corrections": [
+    {"branch": "B2", "month": "Jul26", "date": "01/07/2026", "column": "Revenue (฿)",        "from": 5200, "to": 2310},
+    {"branch": "B2", "month": "Jul26", "date": "01/07/2026", "column": "Cash (฿)",           "from": 3010, "to": 1470},
+    {"branch": "B2", "month": "Jul26", "date": "01/07/2026", "column": "Cash-Exp (฿)",       "from": 2950, "to": 1410},
+    {"branch": "B2", "month": "Jul26", "date": "01/07/2026", "column": "Scan/Transfer (฿)",  "from": 2190, "to": 840},
+    {"branch": "B2", "month": "Jul26", "date": "01/07/2026", "column": "Total Cups",         "from": 89,   "to": 41}
+  ]
+}

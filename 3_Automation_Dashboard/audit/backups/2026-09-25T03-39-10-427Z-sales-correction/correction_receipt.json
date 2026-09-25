@@ -1,0 +1,30 @@
+{
+  "batch_id": "CORRECTION-2026-09-25-B2-04JUL",
+  "reason": "Owner read the physical form for B2 04/07/2026 and reported: All 5,200 / cash 3,010 / ice -60 / scan 2,190. Excel carried 3,000 / 2,200. Revenue is unchanged at 5,200; only the channel split moves by ฿10.",
+  "at": "2026-09-25T03:39:10.449Z",
+  "corrections": [
+    {
+      "branch": "B2",
+      "month": "Jul26",
+      "date": "04/07/2026",
+      "column": "Cash (฿)",
+      "sheet_row": 6,
+      "before": 3000,
+      "after": 3010
+    },
+    {
+      "branch": "B2",
+      "month": "Jul26",
+      "date": "04/07/2026",
+      "column": "Scan/Transfer (฿)",
+      "sheet_row": 6,
+      "before": 2200,
+      "after": 2190
+    }
+  ],
+  "SomSaiJai_Dashboard_B2_2026.xlsx": {
+    "hash_before": "f4e5d6dffd809b11d02c49f7a33a161bbd2a28719da523a882e0e9d7670d4d6e",
+    "hash_after": "2c258a9aaaef35e1b0866f012b62cadcae93a489f34adba4727595f609f49bc8",
+    "backup": "audit/backups/2026-09-25T03-39-10-427Z-sales-correction/SomSaiJai_Dashboard_B2_2026.xlsx"
+  }
+}
