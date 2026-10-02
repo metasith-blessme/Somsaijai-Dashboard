@@ -93,10 +93,10 @@ b2Records.forEach(r => {
     const code = item.proposed_code || item.name_raw.toLowerCase();
     const q = item.total_qty || (Number(item.cash_qty || 0) + Number(item.scan_qty || 0)) || 0;
     tot += q;
-    if (code === 'or' || code.includes('orange (90)') || code === 'or_120') or += q;
+    if (code === 'or' || code.includes('orange') || code === 'or_120' || code === 'or_70') or += q;
     else if (code === 'or_100') or_100 += q;
     else if (code === 'wm' || code === 'wm_no_ice' || code === 'wm_109' || code.includes('water')) wm += q;
-    else if (code === 'mg' || code === 'volcano_mango') mg += q;
+    else if (code === 'mg' || code.includes('mango')) mg += q;
     else if (code === 'co' || code.includes('coco')) co += q;
     else if (code === 'ap') ap += q;
     else if (code === 'guava' || code === 'volcano_guava') guava += q;
@@ -252,7 +252,7 @@ const expB1 = [
   ['30/09/2026', 'Sep26', 'OPEX', 'Rental', 'ค่าเช่า storage เดือน 9 (1/4 split B1)', 3000],
   ['30/09/2026', 'Sep26', 'OPEX', 'Salary', 'เงินเดือนพนักงาน B1 ก.ย. (Aye 13,500 + Kyaw 12,000)', 25500],
   ['04/09/2026', 'Sep26', 'OPEX', 'Salary', 'Ming manager wage Sep (1/4 of ฿20,000; Slip 47)', 5000],
-  ['30/09/2026', 'Sep26', 'OPEX', 'Other OPEX', 'ค่าขนส่ง / logistics / supplies Sep (B1 portion 37.78%)', 4684.34],
+  ['30/09/2026', 'Sep26', 'OPEX', 'Other OPEX', 'ค่าขนส่ง / logistics / supplies Sep (B1 portion 37.10%)', 4600.56],
 
   // Capital / Non-operating
   ['24/09/2026', 'Sep26', 'CAPEX', 'Equipment', 'ค่ามอไซต์ yamaha finn2022 (Slip 73)', 25000],
@@ -265,7 +265,7 @@ const expB2 = [
   ['30/09/2026', 'Sep26', 'OPEX', 'Rental', 'ค่าเช่า storage เดือน 9 (1/4 split B2)', 3000],
   ['30/09/2026', 'Sep26', 'OPEX', 'Salary', 'เงินเดือนพนักงาน B2 ก.ย. (Hpai 11,200 + Myat 11,600)', 22800],
   ['04/09/2026', 'Sep26', 'OPEX', 'Salary', 'Ming manager wage Sep (1/4 of ฿20,000; Slip 47)', 5000],
-  ['30/09/2026', 'Sep26', 'OPEX', 'Other OPEX', 'ค่าขนส่ง / logistics / supplies Sep (B2 portion 13.65%)', 1692.79]
+  ['30/09/2026', 'Sep26', 'OPEX', 'Other OPEX', 'ค่าขนส่ง / logistics / supplies Sep (B2 portion 15.19%)', 1883.74]
 ];
 
 const expB3 = [
@@ -279,7 +279,7 @@ const expB3 = [
   ['30/09/2026', 'Sep26', 'OPEX', 'Utilities', 'ค่าไฟ B3 เดือน Aug (Slip 45)', 1592.22],
   ['30/09/2026', 'Sep26', 'OPEX', 'Salary', 'เงินเดือนพนักงาน B3 ก.ย. (Arkar 15k + HtunKyaw 15k + Tae 15k)', 45000],
   ['04/09/2026', 'Sep26', 'OPEX', 'Salary', 'Ming manager wage Sep (1/4 of ฿20,000; Slip 47)', 5000],
-  ['30/09/2026', 'Sep26', 'OPEX', 'Other OPEX', 'ค่าขนส่ง / logistics / supplies Sep (B3 portion 45.10%)', 5592.59]
+  ['30/09/2026', 'Sep26', 'OPEX', 'Other OPEX', 'ค่าขนส่ง / logistics / supplies Sep (B3 portion 44.30%)', 5492.65]
 ];
 
 const expB4 = [
@@ -288,7 +288,7 @@ const expB4 = [
   ['30/09/2026', 'Sep26', 'OPEX', 'Rental', 'ค่าเช่า storage เดือน 9 (1/4 split B4)', 3000],
   ['30/09/2026', 'Sep26', 'OPEX', 'Salary', 'เงินเดือนพนักงาน B4 ก.ย. (Chan 4,800 + Phyo 5,200)', 10000],
   ['04/09/2026', 'Sep26', 'OPEX', 'Salary', 'Ming manager wage Sep (1/4 of ฿20,000; Slip 47)', 5000],
-  ['30/09/2026', 'Sep26', 'OPEX', 'Other OPEX', 'ค่าขนส่ง / logistics / supplies Sep (B4 portion 3.47%)', 430.28],
+  ['30/09/2026', 'Sep26', 'OPEX', 'Other OPEX', 'ค่าขนส่ง / logistics / supplies Sep (B4 portion 3.41%)', 423.05],
 
   // B4 Setup Capital
   ['05/09/2026', 'Sep26', 'CAPEX', 'Investment', 'ค่าตำรวจ B4 2 คน (Slip 21)', 6000],
