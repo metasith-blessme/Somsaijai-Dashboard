@@ -1,0 +1,660 @@
+{
+  "schema_version": "1.0",
+  "batch_id": "batch_2026-10-01_SepSalesExpenses",
+  "branch": "B4",
+  "branch_label_observed": "B-5",
+  "month": "Sep26",
+  "total_images": 11,
+  "unique_operating_days": 10,
+  "aggregates": {
+    "gross_sales": 12435,
+    "cash_sales": 8064,
+    "scan_sales": 4371,
+    "shift_expenses": 420,
+    "net_cash": 7644,
+    "total_cups": 143
+  },
+  "review": {
+    "reviewer": "Antigravity Audit Coordinator",
+    "reviewed_at": "2026-10-02T04:30:43.576815+00:00",
+    "import_allowed": false
+  },
+  "records": [
+    {
+      "record_id": "B4_2026-09-30",
+      "file": "LINE_ALBUM_Sales for September (B-4)_261002_1.jpg",
+      "date": "2026-09-30",
+      "date_raw": "30 / 9 / 26",
+      "branch_raw": "B5",
+      "form_template": "printed_portrait",
+      "financials": {
+        "cash_sales": 1634,
+        "scan_sales": 786,
+        "gross_sales": 2420,
+        "shift_expense": 60,
+        "net_cash": 1574
+      },
+      "sales_items": [
+        {
+          "product": "Orange",
+          "price": 80,
+          "cash_qty": 4,
+          "scan_qty": 2,
+          "total_qty": 6,
+          "sales_thb": 480
+        },
+        {
+          "product": "Watermelon",
+          "price": 50,
+          "cash_qty": 6,
+          "scan_qty": 3,
+          "total_qty": 9,
+          "sales_thb": 450
+        },
+        {
+          "product": "Apple",
+          "price": 60,
+          "cash_qty": 1,
+          "scan_qty": 0,
+          "total_qty": 1,
+          "sales_thb": 60
+        },
+        {
+          "product": "Mango",
+          "price": 90,
+          "cash_qty": 2,
+          "scan_qty": 0,
+          "total_qty": 2,
+          "sales_thb": 180
+        },
+        {
+          "product": "Coconut / Volcano Water",
+          "price": 60,
+          "cash_qty": 3,
+          "scan_qty": 2,
+          "total_qty": 5,
+          "sales_thb": 300
+        },
+        {
+          "product": "Guava",
+          "price": 60,
+          "cash_qty": 1,
+          "scan_qty": 0,
+          "total_qty": 1,
+          "sales_thb": 60
+        },
+        {
+          "product": "Mangosteen",
+          "price": 129,
+          "cash_qty": 3,
+          "scan_qty": 2,
+          "total_qty": 5,
+          "sales_thb": 645
+        }
+      ],
+      "shift_expenses": [
+        {
+          "item": "Ice",
+          "amount": 60
+        }
+      ],
+      "checks": {
+        "cash_plus_scan_matches_total": true,
+        "diff": 0
+      },
+      "sha256": "0d18911accf08fa1f97e07d962ded15b40b32ed35aac2819720f534229e6cf79",
+      "size_bytes": 107293
+    },
+    {
+      "record_id": "B4_2026-09-29",
+      "file": "LINE_ALBUM_Sales for September (B-4)_261002_2.jpg",
+      "date": "2026-09-29",
+      "date_raw": "29 / 9 / 26",
+      "branch_raw": "B-5",
+      "form_template": "printed_portrait",
+      "financials": {
+        "cash_sales": 1641,
+        "scan_sales": 797,
+        "gross_sales": 2438,
+        "shift_expense": 60,
+        "net_cash": 1581
+      },
+      "sales_items": [
+        {
+          "product": "Orange",
+          "price": 80,
+          "cash_qty": 3,
+          "scan_qty": 2,
+          "total_qty": 5,
+          "sales_thb": 400
+        },
+        {
+          "product": "Watermelon",
+          "price": 50,
+          "cash_qty": 4,
+          "scan_qty": 2,
+          "total_qty": 6,
+          "sales_thb": 300
+        },
+        {
+          "product": "Apple",
+          "price": 60,
+          "cash_qty": 0,
+          "scan_qty": 1,
+          "total_qty": 1,
+          "sales_thb": 60
+        },
+        {
+          "product": "Pineapple",
+          "price": 60,
+          "cash_qty": 2,
+          "scan_qty": 1,
+          "total_qty": 3,
+          "sales_thb": 180
+        },
+        {
+          "product": "Mangosteen",
+          "price": 129,
+          "cash_qty": 5,
+          "scan_qty": 3,
+          "total_qty": 8,
+          "sales_thb": 1032
+        }
+      ],
+      "notes": "Watermelon Big - 4 (cash)",
+      "shift_expenses": [
+        {
+          "item": "Ice",
+          "amount": 60
+        }
+      ],
+      "checks": {
+        "cash_plus_scan_matches_total": true,
+        "diff": 0
+      },
+      "sha256": "53bcd539c7933c0673b1c5af63047cd7e13e01b466e89918be6e5a873d5f9bfc",
+      "size_bytes": 106002
+    },
+    {
+      "record_id": "B4_2026-09-28",
+      "file": "LINE_ALBUM_Sales for September (B-4)_261002_3.jpg",
+      "date": "2026-09-28",
+      "date_raw": "Unwritten (inferred 28/09/2026 from sequence)",
+      "branch_raw": "Unwritten",
+      "form_template": "printed_portrait",
+      "financials": {
+        "cash_sales": 2013,
+        "scan_sales": 808,
+        "gross_sales": 2821,
+        "shift_expense": 60,
+        "net_cash": 1953
+      },
+      "sales_items": [
+        {
+          "product": "Orange",
+          "price": 80,
+          "cash_qty": 5,
+          "scan_qty": 2,
+          "total_qty": 7,
+          "sales_thb": 560
+        },
+        {
+          "product": "Watermelon",
+          "price": 50,
+          "cash_qty": 6,
+          "scan_qty": 1,
+          "total_qty": 7,
+          "sales_thb": 350
+        },
+        {
+          "product": "Mango",
+          "price": 90,
+          "cash_qty": 3,
+          "scan_qty": 1,
+          "total_qty": 4,
+          "sales_thb": 360
+        },
+        {
+          "product": "Pineapple",
+          "price": 60,
+          "cash_qty": 0,
+          "scan_qty": 1,
+          "total_qty": 1,
+          "sales_thb": 60
+        },
+        {
+          "product": "Guava",
+          "price": 60,
+          "cash_qty": 2,
+          "scan_qty": 1,
+          "total_qty": 3,
+          "sales_thb": 180
+        },
+        {
+          "product": "Mangosteen",
+          "price": 129,
+          "cash_qty": 6,
+          "scan_qty": 1,
+          "total_qty": 7,
+          "sales_thb": 903
+        }
+      ],
+      "notes": "Watermelon Big (109) - 1 cash, 1 scan; Orange No ice (100) - 1 cash; Mangosteen No ice (150) - 1 scan",
+      "shift_expenses": [
+        {
+          "item": "Ice",
+          "amount": 60
+        }
+      ],
+      "checks": {
+        "cash_plus_scan_matches_total": true,
+        "diff": 0
+      },
+      "sha256": "15b6d8a9fed1e03b671487bc9598a3cb2f4099f109804cc784bf61b8414e5802",
+      "size_bytes": 123261
+    },
+    {
+      "record_id": "B4_2026-09-27",
+      "file": "LINE_ALBUM_Sales for September (B-4)_261002_4.jpg",
+      "date": "2026-09-27",
+      "date_raw": "27 / 9 / 26",
+      "branch_raw": "B-5",
+      "form_template": "printed_portrait",
+      "financials": {
+        "cash_sales": 1026,
+        "scan_sales": 380,
+        "gross_sales": 1406,
+        "shift_expense": 60,
+        "net_cash": 966
+      },
+      "sales_items": [
+        {
+          "product": "Orange",
+          "price": 80,
+          "cash_qty": 2,
+          "scan_qty": 2,
+          "total_qty": 4,
+          "sales_thb": 320
+        },
+        {
+          "product": "Watermelon",
+          "price": 50,
+          "cash_qty": 2,
+          "scan_qty": 2,
+          "total_qty": 4,
+          "sales_thb": 200
+        },
+        {
+          "product": "Pineapple",
+          "price": 60,
+          "cash_qty": 2,
+          "scan_qty": 2,
+          "total_qty": 4,
+          "sales_thb": 240
+        },
+        {
+          "product": "Guava",
+          "price": 60,
+          "cash_qty": 1,
+          "scan_qty": 0,
+          "total_qty": 1,
+          "sales_thb": 60
+        },
+        {
+          "product": "Mangosteen",
+          "price": 129,
+          "cash_qty": 4,
+          "scan_qty": 0,
+          "total_qty": 4,
+          "sales_thb": 516
+        }
+      ],
+      "notes": "Water no ice - 1",
+      "shift_expenses": [
+        {
+          "item": "Ice",
+          "amount": 60
+        }
+      ],
+      "checks": {
+        "cash_plus_scan_matches_total": true,
+        "diff": 0
+      },
+      "sha256": "c360b04910649a55200d90ae512028f9dea0a38a9a7b604dc2f7cf25282043ee",
+      "size_bytes": 284510
+    },
+    {
+      "record_id": "B4_2026-09-25",
+      "file": "LINE_ALBUM_Sales for September (B-4)_261002_5.jpg",
+      "date": "2026-09-25",
+      "date_raw": "25 / 9 / 2026",
+      "branch_raw": "B-5",
+      "form_template": "printed_portrait",
+      "financials": {
+        "cash_sales": 60,
+        "scan_sales": 239,
+        "gross_sales": 299,
+        "shift_expense": 0,
+        "net_cash": 60
+      },
+      "sales_items": [
+        {
+          "product": "Watermelon",
+          "price": 50,
+          "cash_qty": 0,
+          "scan_qty": 1,
+          "total_qty": 1,
+          "sales_thb": 50
+        },
+        {
+          "product": "Pineapple",
+          "price": 60,
+          "cash_qty": 1,
+          "scan_qty": 1,
+          "total_qty": 2,
+          "sales_thb": 120
+        },
+        {
+          "product": "Mangosteen",
+          "price": 129,
+          "cash_qty": 0,
+          "scan_qty": 1,
+          "total_qty": 1,
+          "sales_thb": 129
+        }
+      ],
+      "shift_expenses": [],
+      "checks": {
+        "cash_plus_scan_matches_total": true,
+        "diff": 0
+      },
+      "sha256": "c8654609d8c5dc8a6da381e194bbccaa5d29d10d2f30cfd535777eb1e879c75e",
+      "size_bytes": 284234
+    },
+    {
+      "record_id": "B4_2026-09-25_DUP",
+      "file": "LINE_ALBUM_Sales for September (B-4)_261002_6.jpg",
+      "date": "2026-09-25",
+      "date_raw": "Unwritten (pre-header photo)",
+      "branch_raw": "Unwritten",
+      "form_template": "printed_portrait",
+      "is_duplicate_of": "LINE_ALBUM_Sales for September (B-4)_261002_5.jpg",
+      "financials": {
+        "cash_sales": 60,
+        "scan_sales": 239,
+        "gross_sales": 299,
+        "shift_expense": 0,
+        "net_cash": 60
+      },
+      "notes": "Duplicate photo of Image 5 before the date header was filled in.",
+      "sha256": "1ab8d1f2d756482cb04fb65619a8b6ca2cdf19387bda64031811ed0eeff31f17",
+      "size_bytes": 177721
+    },
+    {
+      "record_id": "B4_2026-09-23",
+      "file": "LINE_ALBUM_Sales for September (B-4)_261002_7.jpg",
+      "date": "2026-09-23",
+      "date_raw": "23.9.2026",
+      "branch_raw": "B-5",
+      "staff": "Phyo",
+      "form_template": "plain_paper",
+      "financials": {
+        "cash_sales": 887,
+        "scan_sales": 269,
+        "gross_sales": 1156,
+        "shift_expense": 0,
+        "net_cash": 887
+      },
+      "sales_items": [
+        {
+          "product": "Orange",
+          "price": 90,
+          "cash_qty": 1,
+          "scan_qty": 1,
+          "total_qty": 2,
+          "sales_thb": 180
+        },
+        {
+          "product": "Apple",
+          "price": 60,
+          "cash_qty": 1,
+          "scan_qty": 0,
+          "total_qty": 1,
+          "sales_thb": 60
+        },
+        {
+          "product": "Watermelon",
+          "price": 50,
+          "cash_qty": 7,
+          "scan_qty": 1,
+          "total_qty": 8,
+          "sales_thb": 400
+        },
+        {
+          "product": "Mangosteen",
+          "price": 129,
+          "cash_qty": 3,
+          "scan_qty": 1,
+          "total_qty": 4,
+          "sales_thb": 516
+        }
+      ],
+      "shift_expenses": [],
+      "checks": {
+        "cash_plus_scan_matches_total": true,
+        "diff": 0
+      },
+      "sha256": "cb39b71b45a302db4934ce2fdb5f77b0c22210e6ca12894709f29afec8a9fa06",
+      "size_bytes": 318861
+    },
+    {
+      "record_id": "B4_2026-09-22",
+      "file": "LINE_ALBUM_Sales for September (B-4)_261002_8.jpg",
+      "date": "2026-09-22",
+      "date_raw": "Unwritten (inferred 22/09/2026 between 23/9 and 21/9)",
+      "branch_raw": "B-5 (inferred)",
+      "form_template": "plain_paper",
+      "financials": {
+        "cash_sales": 369,
+        "scan_sales": 519,
+        "gross_sales": 888,
+        "shift_expense": 0,
+        "net_cash": 369
+      },
+      "sales_items": [
+        {
+          "product": "Watermelon",
+          "price": 50,
+          "cash_qty": 3,
+          "scan_qty": 4,
+          "total_qty": 7,
+          "sales_thb": 350
+        },
+        {
+          "product": "Orange",
+          "price": 90,
+          "cash_qty": 1,
+          "scan_qty": 1,
+          "total_qty": 2,
+          "sales_thb": 180
+        },
+        {
+          "product": "Apple",
+          "price": 100,
+          "cash_qty": 0,
+          "scan_qty": 1,
+          "total_qty": 1,
+          "sales_thb": 100
+        },
+        {
+          "product": "Mangosteen",
+          "price": 129,
+          "cash_qty": 1,
+          "scan_qty": 1,
+          "total_qty": 2,
+          "sales_thb": 258
+        }
+      ],
+      "shift_expenses": [],
+      "checks": {
+        "cash_plus_scan_matches_total": true,
+        "diff": 0
+      },
+      "sha256": "3eeff95b3e41100dc517b63fb19e2c64634fbefc5bd20a78765bbfd97cf3bc1a",
+      "size_bytes": 175448
+    },
+    {
+      "record_id": "B4_2026-09-19",
+      "file": "LINE_ALBUM_Sales for September (B-4)_261002_9.jpg",
+      "date": "2026-09-19",
+      "date_raw": "19.9.2026",
+      "branch_raw": "B-5",
+      "staff": "Hpai / Phyo",
+      "form_template": "plain_paper",
+      "financials": {
+        "cash_sales": 55,
+        "scan_sales": 165,
+        "gross_sales": 220,
+        "shift_expense": 60,
+        "net_cash": -5
+      },
+      "sales_items": [
+        {
+          "product": "Watermelon",
+          "price": 55,
+          "cash_qty": 1,
+          "scan_qty": 3,
+          "total_qty": 4,
+          "sales_thb": 220
+        }
+      ],
+      "shift_expenses": [
+        {
+          "item": "Ice",
+          "amount": 60
+        }
+      ],
+      "checks": {
+        "cash_plus_scan_matches_total": true,
+        "diff": 0
+      },
+      "sha256": "ac8e7e697dfbe9e0db1e11ad376793c473943c7c1485030b558e9c6e89e8ea6a",
+      "size_bytes": 168456
+    },
+    {
+      "record_id": "B4_2026-09-20",
+      "file": "LINE_ALBUM_Sales for September (B-4)_261002_10.jpg",
+      "date": "2026-09-20",
+      "date_raw": "20.9.2026",
+      "branch_raw": "B-5",
+      "form_template": "plain_paper",
+      "financials": {
+        "cash_sales": 110,
+        "scan_sales": 189,
+        "gross_sales": 299,
+        "shift_expense": 60,
+        "net_cash": 50
+      },
+      "sales_items": [
+        {
+          "product": "Watermelon",
+          "price": 55,
+          "cash_qty": 2,
+          "scan_qty": 0,
+          "total_qty": 2,
+          "sales_thb": 110
+        },
+        {
+          "product": "Apple",
+          "price": 60,
+          "cash_qty": 0,
+          "scan_qty": 1,
+          "total_qty": 1,
+          "sales_thb": 60
+        },
+        {
+          "product": "Mangosteen",
+          "price": 129,
+          "cash_qty": 0,
+          "scan_qty": 1,
+          "total_qty": 1,
+          "sales_thb": 129
+        }
+      ],
+      "shift_expenses": [
+        {
+          "item": "Ice",
+          "amount": 60
+        }
+      ],
+      "checks": {
+        "cash_plus_scan_matches_total": true,
+        "diff": 0
+      },
+      "sha256": "7645c7cb97f65a2ddfd8978077445e06b6486cb31b84e3f11fa3c3732bd19c59",
+      "size_bytes": 414590
+    },
+    {
+      "record_id": "B4_2026-09-21",
+      "file": "LINE_ALBUM_Sales for September (B-4)_261002_11.jpg",
+      "date": "2026-09-21",
+      "date_raw": "21.9.2026",
+      "branch_raw": "B-5",
+      "staff": "Hpai / Arkar",
+      "form_template": "plain_paper",
+      "financials": {
+        "cash_sales": 269,
+        "scan_sales": 219,
+        "gross_sales": 488,
+        "shift_expense": 60,
+        "net_cash": 209
+      },
+      "sales_items": [
+        {
+          "product": "Orange",
+          "price": 90,
+          "cash_qty": 1,
+          "scan_qty": 1,
+          "total_qty": 2,
+          "sales_thb": 180
+        },
+        {
+          "product": "Mangosteen",
+          "price": 129,
+          "cash_qty": 1,
+          "scan_qty": 1,
+          "total_qty": 2,
+          "sales_thb": 258
+        },
+        {
+          "product": "Watermelon",
+          "price": 50,
+          "cash_qty": 1,
+          "scan_qty": 0,
+          "total_qty": 1,
+          "sales_thb": 50
+        },
+        {
+          "product": "Apple",
+          "price": 60,
+          "cash_qty": 1,
+          "scan_qty": 0,
+          "total_qty": 1,
+          "sales_thb": 60
+        }
+      ],
+      "shift_expenses": [
+        {
+          "item": "Ice",
+          "amount": 60
+        }
+      ],
+      "checks": {
+        "cash_plus_scan_matches_total": true,
+        "diff": 0
+      },
+      "sha256": "843bfe3fb91a73e3ac85b340e1907b884845a8cf9b41a1025d52c5cbce17dce6",
+      "size_bytes": 208307
+    }
+  ]
+}

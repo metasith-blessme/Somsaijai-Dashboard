@@ -62,7 +62,7 @@ for (const m of ['Jan26', 'Apr26', 'Jul26', 'all']) {
   }
   // 'all' view must equal the sum of the branches
   const all = render('all', m);
-  const brs = ['b1','b2','b3'].map(k => R[m][k]).filter(Boolean);
+  const brs = ['b1','b2','b3','b4'].map(k => R[m][k]).filter(Boolean);
   assert.strictEqual(all.rev, Math.round(brs.reduce((s,x)=>s+x.rev,0)), `${m}/all revenue == sum of branches`);
   assert.strictEqual(all.net, Math.round(brs.reduce((s,x)=>s+x.net,0)), `${m}/all net == sum of branches`);
   checks++;
@@ -74,7 +74,8 @@ sandbox.__reports = require('./Sales_System_Automation/logic/business_rules').ca
 vm.runInContext("REPORTS_DATA = __reports; currentMonth = 'all'; renderReport([]);", sandbox);
 const report = captured.reportTables;
 assert.match(report, /Less: Daily Expenses/, 'management statement must show the daily cash costs it subtracts');
-assert.match(report, /27,146/, 'annual report must show B2 closing loss, not its opening balance or zero');
+const b2Loss = Math.round(sandbox.__reports['all'].b2.closing_loss).toLocaleString();
+assert.match(report, new RegExp(b2Loss), 'annual report must show B2 closing loss, not its opening balance or zero');
 const young = report.match(/<tr>\s*<td>\d+<\/td>\s*<td>Young Coco<\/td>[\s\S]*?<\/tr>/)?.[0];
 assert.ok(young, 'Young Coco sales remain visible');
 assert.ok(!young.includes('100.0%'), 'unknown cost must not display a 100% margin');

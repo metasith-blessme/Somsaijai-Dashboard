@@ -1,0 +1,1138 @@
+[
+  {
+    "idx": 1,
+    "file": "LINE_ALBUM_Cost September_261001_1.jpg",
+    "sha256": "30faafbd72b5131e2ba01d8995c50b8409c0b1a44bc57d8f07d8cffbed863e2f",
+    "bank_channel": "Bangkok Bank (mBanking / PromptPay)",
+    "status_raw": "โอนเงินด้วย PromptPay/เติมเงิน eWallet",
+    "date_raw": "30 ก.ย. 2569, 17:23",
+    "date_norm": "30/09/2026",
+    "amount": 1108.0,
+    "fee": 0.0,
+    "currency": "THB",
+    "payer_masked": "โมบายแบงก์กิ้ง",
+    "payee_masked": "นาง เพ็ญวิไล สถานทรัพย์ (089-xxx-4429)",
+    "ref": "2026093017233723004936908",
+    "memo_lines": [
+      "ค่าเหนียวมูน 5 โล ค่าส่ง 208"
+    ],
+    "items": [
+      {
+        "item_raw": "ค่าเหนียวมูน 5 โล",
+        "qty_raw": "5",
+        "unit_raw": "โล",
+        "unit_price_raw": "180",
+        "line_amount_raw": "900"
+      },
+      {
+        "item_raw": "ค่าส่ง 208",
+        "qty_raw": null,
+        "unit_raw": null,
+        "unit_price_raw": null,
+        "line_amount_raw": "208"
+      }
+    ],
+    "proposed_bucket": "COGS",
+    "proposed_category": "Sticky Rice",
+    "paying_branch": null,
+    "benefiting_branches": [
+      "B1",
+      "B2",
+      "B3"
+    ],
+    "allocation_state": "explicit_split",
+    "notes": "Mixed purchase: Sticky Rice 5 kg = 900 THB (COGS Sticky Rice) + Delivery fee = 208 THB (OPEX Transportation). Explicitly split."
+  },
+  {
+    "idx": 2,
+    "file": "LINE_ALBUM_Cost September_261001_2.jpg",
+    "sha256": "c44c93939f4659a3b137e57051fb93e48b5e7aca3e1392a3699d7dbf74a9e0e4",
+    "bank_channel": "ttb",
+    "status_raw": "Transfer successful",
+    "date_raw": "30 Sep 26, 10:54 AM",
+    "date_norm": "30/09/2026",
+    "amount": 4760.0,
+    "fee": 0.0,
+    "currency": "THB",
+    "payer_masked": "นาย เมธาสิทธิ์ จำปาทิพย์ (ttb xxx-x-xx289-0)",
+    "payee_masked": "นาย เมธาสิทธิ์ จำปาทิพย์ (BBL xxx-x-xx924-9)",
+    "ref": "260930105427887598",
+    "memo_lines": [],
+    "items": [],
+    "proposed_bucket": "Internal Transfer",
+    "proposed_category": "Internal Transfer",
+    "paying_branch": null,
+    "benefiting_branches": [],
+    "allocation_state": "direct",
+    "notes": "Transfer between owner's own bank accounts (นาย เมธาสิทธิ์ จำปาทิพย์ ttb -> BBL). No memo. Excluded from business P&L."
+  },
+  {
+    "idx": 3,
+    "file": "LINE_ALBUM_Cost September_261001_3.jpg",
+    "sha256": "62dce22b3a5a0152c76251fc33733c0bd00fc92c6734eaafacc42bd591c4d26a",
+    "bank_channel": "Bangkok Bank",
+    "status_raw": "รายการสำเร็จ",
+    "date_raw": "29 ก.ย. 69, 17:53",
+    "date_norm": "29/09/2026",
+    "amount": 1200.0,
+    "fee": 0.0,
+    "currency": "THB",
+    "payer_masked": "นาย เมธาสิทธิ์ (098-9-xxx249 ธนาคารกรุงเทพ)",
+    "payee_masked": "น.ส. กสิณา เจริญสุข (089-xxx-6862 พร้อมเพย์)",
+    "ref": "2026092917531123008667008",
+    "memo_lines": [
+      "แอปเปิ้ล 3 ลัง"
+    ],
+    "items": [
+      {
+        "item_raw": "แอปเปิ้ล 3 ลัง",
+        "qty_raw": "3",
+        "unit_raw": "ลัง",
+        "unit_price_raw": "400",
+        "line_amount_raw": "1200"
+      }
+    ],
+    "proposed_bucket": "COGS",
+    "proposed_category": "Apple",
+    "paying_branch": null,
+    "benefiting_branches": [
+      "B1",
+      "B2",
+      "B3"
+    ],
+    "allocation_state": "usage_proportional",
+    "notes": "Apple 3 crates @ 400 THB = 1,200 THB. Allocated proportionally by branch fruit usage."
+  },
+  {
+    "idx": 4,
+    "file": "LINE_ALBUM_Cost September_261001_4.jpg",
+    "sha256": "d7227e8e2b8b2d632968b40486895870ae8e0c3663666055a55523f3b54eac31",
+    "bank_channel": "Bangkok Bank",
+    "status_raw": "รายการสำเร็จ",
+    "date_raw": "29 ก.ย. 69, 17:52",
+    "date_norm": "29/09/2026",
+    "amount": 1650.0,
+    "fee": 0.0,
+    "currency": "THB",
+    "payer_masked": "นาย เมธาสิทธิ์ (098-9-xxx249 ธนาคารกรุงเทพ)",
+    "payee_masked": "น.ส. สุพิชญา ทวนจีน (00499-xxx-xxx-6718 K Plus Wallet)",
+    "ref": "2026092917520824000017208",
+    "memo_lines": [
+      "สับปะรด 20 ลูก"
+    ],
+    "items": [
+      {
+        "item_raw": "สับปะรด 20 ลูก",
+        "qty_raw": "20",
+        "unit_raw": "ลูก",
+        "unit_price_raw": "82.5",
+        "line_amount_raw": "1650"
+      }
+    ],
+    "proposed_bucket": "COGS",
+    "proposed_category": "Pineapple",
+    "paying_branch": null,
+    "benefiting_branches": [
+      "B1",
+      "B2",
+      "B3"
+    ],
+    "allocation_state": "usage_proportional",
+    "notes": "Pineapple 20 fruits = 1,650 THB (82.50 THB/ลูก). Allocated proportionally by branch fruit usage."
+  },
+  {
+    "idx": 5,
+    "file": "LINE_ALBUM_Cost September_261001_5.jpg",
+    "sha256": "99b9967e66b9dfc8a972c0cc5df9e1969849a9a0b8746b9cf44ad8313d9ffefb",
+    "bank_channel": "Bangkok Bank",
+    "status_raw": "รายการสำเร็จ",
+    "date_raw": "29 ก.ย. 69, 16:50",
+    "date_norm": "29/09/2026",
+    "amount": 750.0,
+    "fee": 0.0,
+    "currency": "THB",
+    "payer_masked": "นาย เมธาสิทธิ์ (098-9-xxx249 ธนาคารกรุงเทพ)",
+    "payee_masked": "MRS. KHAING KHAING THEIN (00499-xxx-xxx-2381 K Plus Wallet)",
+    "ref": "2026092916502723008651708",
+    "memo_lines": [
+      "Guava-50Kg(15B)"
+    ],
+    "items": [
+      {
+        "item_raw": "Guava-50Kg(15B)",
+        "qty_raw": "50",
+        "unit_raw": "Kg",
+        "unit_price_raw": "15",
+        "line_amount_raw": "750"
+      }
+    ],
+    "proposed_bucket": "COGS",
+    "proposed_category": "Guava",
+    "paying_branch": null,
+    "benefiting_branches": [
+      "B1",
+      "B2",
+      "B3"
+    ],
+    "allocation_state": "usage_proportional",
+    "notes": "Guava 50 kg @ 15 THB = 750 THB. Allocated proportionally by branch fruit usage."
+  },
+  {
+    "idx": 6,
+    "file": "LINE_ALBUM_Cost September_261001_6.jpg",
+    "sha256": "9c205755bf7f3bfb1e8a121231aa4c02f1651fa0d5e79395278a1b84989cf65d",
+    "bank_channel": "Bangkok Bank",
+    "status_raw": "รายการสำเร็จ",
+    "date_raw": "29 ก.ย. 69, 16:49",
+    "date_norm": "29/09/2026",
+    "amount": 2400.0,
+    "fee": 0.0,
+    "currency": "THB",
+    "payer_masked": "นาย เมธาสิทธิ์ (098-9-xxx249 ธนาคารกรุงเทพ)",
+    "payee_masked": "น.ส.เด่นเดือน ทองชมภู (3-2406-0xxxx-88-5 พร้อมเพย์)",
+    "ref": "2026092916491623009251208",
+    "memo_lines": [
+      "ส้ม -150Kg(16B)"
+    ],
+    "items": [
+      {
+        "item_raw": "ส้ม -150Kg(16B)",
+        "qty_raw": "150",
+        "unit_raw": "Kg",
+        "unit_price_raw": "16",
+        "line_amount_raw": "2400"
+      }
+    ],
+    "proposed_bucket": "COGS",
+    "proposed_category": "Orange",
+    "paying_branch": null,
+    "benefiting_branches": [
+      "B1",
+      "B2",
+      "B3"
+    ],
+    "allocation_state": "usage_proportional",
+    "notes": "Orange 150 kg @ 16 THB = 2,400 THB. Allocated proportionally by branch fruit usage."
+  },
+  {
+    "idx": 7,
+    "file": "LINE_ALBUM_Cost September_261001_7.jpg",
+    "sha256": "6f0603981ca5d8d69607fbebd94a266b35753e8baed89085acf15fbda7f89a11",
+    "bank_channel": "Bangkok Bank",
+    "status_raw": "รายการสำเร็จ",
+    "date_raw": "28 ก.ย. 69, 10:38",
+    "date_norm": "28/09/2026",
+    "amount": 6960.0,
+    "fee": 0.0,
+    "currency": "THB",
+    "payer_masked": "นาย เมธาสิทธิ์ (098-9-xxx249 ธนาคารกรุงเทพ)",
+    "payee_masked": "นาง ศิริพร สวัสดิ์กว้าน (089-xxx-5654 พร้อมเพย์)",
+    "ref": "2026092810382723003254308",
+    "memo_lines": [
+      "แตงโม 87 ลูก"
+    ],
+    "items": [
+      {
+        "item_raw": "แตงโม 87 ลูก",
+        "qty_raw": "87",
+        "unit_raw": "ลูก",
+        "unit_price_raw": "80",
+        "line_amount_raw": "6960"
+      }
+    ],
+    "proposed_bucket": "COGS",
+    "proposed_category": "Watermelon",
+    "paying_branch": null,
+    "benefiting_branches": [
+      "B1",
+      "B2",
+      "B3"
+    ],
+    "allocation_state": "usage_proportional",
+    "notes": "Watermelon 87 fruits @ 80 THB = 6,960 THB. Allocated proportionally by branch fruit usage."
+  },
+  {
+    "idx": 8,
+    "file": "LINE_ALBUM_Cost September_261001_8.jpg",
+    "sha256": "f58052f7f1e31eada448816af35aba46beaf73d351a257a54828efb030c0ca9b",
+    "bank_channel": "Bangkok Bank",
+    "status_raw": "รายการสำเร็จ",
+    "date_raw": "26 ก.ย. 69, 12:56",
+    "date_norm": "26/09/2026",
+    "amount": 1108.0,
+    "fee": 0.0,
+    "currency": "THB",
+    "payer_masked": "นาย เมธาสิทธิ์ (098-9-xxx249 ธนาคารกรุงเทพ)",
+    "payee_masked": "นาง เพ็ญวิไล สถานทรัพย์ (089-xxx-4429 พร้อมเพย์)",
+    "ref": "2026092612561523002980008",
+    "memo_lines": [
+      "ข้าวเหนียวมูน 5 โล 900 ค่าส่ง 208"
+    ],
+    "items": [
+      {
+        "item_raw": "ข้าวเหนียวมูน 5 โล 900",
+        "qty_raw": "5",
+        "unit_raw": "โล",
+        "unit_price_raw": "180",
+        "line_amount_raw": "900"
+      },
+      {
+        "item_raw": "ค่าส่ง 208",
+        "qty_raw": null,
+        "unit_raw": null,
+        "unit_price_raw": null,
+        "line_amount_raw": "208"
+      }
+    ],
+    "proposed_bucket": "COGS",
+    "proposed_category": "Sticky Rice",
+    "paying_branch": null,
+    "benefiting_branches": [
+      "B1",
+      "B2",
+      "B3"
+    ],
+    "allocation_state": "explicit_split",
+    "notes": "Sticky Rice 5 kg = 900 THB (COGS Sticky Rice) + Delivery fee = 208 THB (OPEX Transportation). Explicit breakdown."
+  },
+  {
+    "idx": 9,
+    "file": "LINE_ALBUM_Cost September_261001_9.jpg",
+    "sha256": "05777958f9db617c3275469e77001ac798698af2fd15ebfac881337238ffd7af",
+    "bank_channel": "Bangkok Bank",
+    "status_raw": "รายการสำเร็จ",
+    "date_raw": "25 ก.ย. 69, 23:00",
+    "date_norm": "25/09/2026",
+    "amount": 487.0,
+    "fee": 0.0,
+    "currency": "THB",
+    "payer_masked": "นาย เมธาสิทธิ์ (098-9-xxx249 ธนาคารกรุงเทพ)",
+    "payee_masked": "Payment to Shopee (Biller ID: 010753600031501, Shop: KB000001989183)",
+    "ref": "20260925230031033898568AD",
+    "memo_lines": [
+      "ฝา 1 ลัง"
+    ],
+    "items": [
+      {
+        "item_raw": "ฝา 1 ลัง",
+        "qty_raw": "1",
+        "unit_raw": "ลัง",
+        "unit_price_raw": "487",
+        "line_amount_raw": "487"
+      }
+    ],
+    "proposed_bucket": "COGS",
+    "proposed_category": "Packaging",
+    "paying_branch": null,
+    "benefiting_branches": [
+      "B1",
+      "B2",
+      "B3"
+    ],
+    "allocation_state": "revenue_share",
+    "notes": "Lids 1 crate = 487 THB. Allocated by revenue share."
+  },
+  {
+    "idx": 10,
+    "file": "LINE_ALBUM_Cost September_261001_10.jpg",
+    "sha256": "ddc2654663e0afd738cd3fd1aa83216bdab0baae47bc1ba35f1c4f8fe2c5341c",
+    "bank_channel": "Bangkok Bank",
+    "status_raw": "รายการสำเร็จ",
+    "date_raw": "25 ก.ย. 69, 22:59",
+    "date_norm": "25/09/2026",
+    "amount": 455.0,
+    "fee": 0.0,
+    "currency": "THB",
+    "payer_masked": "นาย เมธาสิทธิ์ (098-9-xxx249 ธนาคารกรุงเทพ)",
+    "payee_masked": "Payment to Shopee (Biller ID: 010753600031501, Shop: KB000001989179)",
+    "ref": "20260925225959031605235AD",
+    "memo_lines": [
+      "ฝา 1 ลัง"
+    ],
+    "items": [
+      {
+        "item_raw": "ฝา 1 ลัง",
+        "qty_raw": "1",
+        "unit_raw": "ลัง",
+        "unit_price_raw": "455",
+        "line_amount_raw": "455"
+      }
+    ],
+    "proposed_bucket": "COGS",
+    "proposed_category": "Packaging",
+    "paying_branch": null,
+    "benefiting_branches": [
+      "B1",
+      "B2",
+      "B3"
+    ],
+    "allocation_state": "revenue_share",
+    "notes": "Lids 1 crate = 455 THB. Allocated by revenue share."
+  },
+  {
+    "idx": 11,
+    "file": "LINE_ALBUM_Cost September_261001_11.jpg",
+    "sha256": "c3ef10638c6324e2104d09cce05215d0f1dd7663f46e724c42381a8bab30ebb7",
+    "bank_channel": "Bangkok Bank",
+    "status_raw": "รายการสำเร็จ",
+    "date_raw": "24 ก.ย. 69, 13:48",
+    "date_norm": "24/09/2026",
+    "amount": 1026.0,
+    "fee": 0.0,
+    "currency": "THB",
+    "payer_masked": "นาย เมธาสิทธิ์ (098-9-xxx249 ธนาคารกรุงเทพ)",
+    "payee_masked": "นาง เพ็ญวิไล สถานทรัพย์ (089-xxx-4429 พร้อมเพย์)",
+    "ref": "2026092413483424003662708",
+    "memo_lines": [
+      "ข้าวเหนียวมูน 5โล 900 บาท ค่าส่ง 126 บาท"
+    ],
+    "items": [
+      {
+        "item_raw": "ข้าวเหนียวมูน 5โล 900 บาท",
+        "qty_raw": "5",
+        "unit_raw": "โล",
+        "unit_price_raw": "180",
+        "line_amount_raw": "900"
+      },
+      {
+        "item_raw": "ค่าส่ง 126 บาท",
+        "qty_raw": null,
+        "unit_raw": null,
+        "unit_price_raw": null,
+        "line_amount_raw": "126"
+      }
+    ],
+    "proposed_bucket": "COGS",
+    "proposed_category": "Sticky Rice",
+    "paying_branch": null,
+    "benefiting_branches": [
+      "B1",
+      "B2",
+      "B3"
+    ],
+    "allocation_state": "explicit_split",
+    "notes": "Sticky Rice 5 kg = 900 THB (COGS Sticky Rice) + Delivery fee = 126 THB (OPEX Transportation). Explicit breakdown."
+  },
+  {
+    "idx": 12,
+    "file": "LINE_ALBUM_Cost September_261001_12.jpg",
+    "sha256": "da7cebcedf921a7d336e859cfeb6cff4ae3c414cb94a5a09f0e0c5bcacf09db3",
+    "bank_channel": "Bangkok Bank",
+    "status_raw": "รายการสำเร็จ",
+    "date_raw": "23 ก.ย. 69, 16:08",
+    "date_norm": "23/09/2026",
+    "amount": 3240.0,
+    "fee": 0.0,
+    "currency": "THB",
+    "payer_masked": "นาย เมธาสิทธิ์ (098-9-xxx249 ธนาคารกรุงเทพ)",
+    "payee_masked": "น.ส. กาญจนา วงเสียงดัง (091-xxx-2157 พร้อมเพย์)",
+    "ref": "2026092316080324007289508",
+    "memo_lines": [
+      "มะม่วง 45 บาท 72 กิโล"
+    ],
+    "items": [
+      {
+        "item_raw": "มะม่วง 45 บาท 72 กิโล",
+        "qty_raw": "72",
+        "unit_raw": "กิโล",
+        "unit_price_raw": "45",
+        "line_amount_raw": "3240"
+      }
+    ],
+    "proposed_bucket": "COGS",
+    "proposed_category": "Mango",
+    "paying_branch": null,
+    "benefiting_branches": [
+      "B1",
+      "B2",
+      "B3"
+    ],
+    "allocation_state": "usage_proportional",
+    "notes": "Mango 72 kg @ 45 THB = 3,240 THB. Allocated proportionally by branch fruit usage."
+  },
+  {
+    "idx": 13,
+    "file": "LINE_ALBUM_Cost September_261001_13.jpg",
+    "sha256": "aeabf2365e4546a279aabd4fc236e00438023415875d8f6ae6bf8da1d7e37bc8",
+    "bank_channel": "Bangkok Bank",
+    "status_raw": "รายการสำเร็จ",
+    "date_raw": "23 ก.ย. 69, 16:53",
+    "date_norm": "23/09/2026",
+    "amount": 2400.0,
+    "fee": 0.0,
+    "currency": "THB",
+    "payer_masked": "นาย เมธาสิทธิ์ (098-9-xxx249 ธนาคารกรุงเทพ)",
+    "payee_masked": "น.ส. สุพิชญา ทวนจีน (00499-xxx-xxx-6718 K Plus Wallet)",
+    "ref": "2026092316532224005392908",
+    "memo_lines": [
+      "สับปะรด 30 กิโล 80 บาท"
+    ],
+    "items": [
+      {
+        "item_raw": "สับปะรด 30 กิโล 80 บาท",
+        "qty_raw": "30",
+        "unit_raw": "กิโล",
+        "unit_price_raw": "80",
+        "line_amount_raw": "2400"
+      }
+    ],
+    "proposed_bucket": "COGS",
+    "proposed_category": "Pineapple",
+    "paying_branch": null,
+    "benefiting_branches": [
+      "B1",
+      "B2",
+      "B3"
+    ],
+    "allocation_state": "usage_proportional",
+    "notes": "Pineapple 30 kg (or 30 fruits) @ 80 THB = 2,400 THB. Allocated proportionally by branch fruit usage."
+  },
+  {
+    "idx": 14,
+    "file": "LINE_ALBUM_Cost September_261001_14.jpg",
+    "sha256": "ca0267a0125ded5a9efae6512100a00415a881ffa1135a07dc736073705238d5",
+    "bank_channel": "Bangkok Bank",
+    "status_raw": "รายการสำเร็จ",
+    "date_raw": "23 ก.ย. 69, 16:02",
+    "date_norm": "23/09/2026",
+    "amount": 2700.0,
+    "fee": 0.0,
+    "currency": "THB",
+    "payer_masked": "นาย เมธาสิทธิ์ (098-9-xxx249 ธนาคารกรุงเทพ)",
+    "payee_masked": "น.ส.เด่นเดือน ทองชมภู (3-2406-0xxxx-88-5 พร้อมเพย์)",
+    "ref": "2026092316020723004948408",
+    "memo_lines": [
+      "ส้ม 150 kg"
+    ],
+    "items": [
+      {
+        "item_raw": "ส้ม 150 kg",
+        "qty_raw": "150",
+        "unit_raw": "kg",
+        "unit_price_raw": "18",
+        "line_amount_raw": "2700"
+      }
+    ],
+    "proposed_bucket": "COGS",
+    "proposed_category": "Orange",
+    "paying_branch": null,
+    "benefiting_branches": [
+      "B1",
+      "B2",
+      "B3"
+    ],
+    "allocation_state": "usage_proportional",
+    "notes": "Orange 150 kg @ 18 THB = 2,700 THB. Allocated proportionally by branch fruit usage."
+  },
+  {
+    "idx": 15,
+    "file": "LINE_ALBUM_Cost September_261001_15.jpg",
+    "sha256": "c87f65fc57eef0f4b27c678f2b19f223cd4bb118c1a07fa30e641a518c729e68",
+    "bank_channel": "Bangkok Bank",
+    "status_raw": "รายการสำเร็จ",
+    "date_raw": "23 ก.ย. 69, 15:56",
+    "date_norm": "23/09/2026",
+    "amount": 1000.0,
+    "fee": 0.0,
+    "currency": "THB",
+    "payer_masked": "นาย เมธาสิทธิ์ (098-9-xxx249 ธนาคารกรุงเทพ)",
+    "payee_masked": "MRS. KHAING KHAING THEIN (00499-xxx-xxx-2381 K Plus Wallet)",
+    "ref": "2026092315560223004801508",
+    "memo_lines": [
+      "ฝรั่ง 20฿ 50kg"
+    ],
+    "items": [
+      {
+        "item_raw": "ฝรั่ง 20฿ 50kg",
+        "qty_raw": "50",
+        "unit_raw": "kg",
+        "unit_price_raw": "20",
+        "line_amount_raw": "1000"
+      }
+    ],
+    "proposed_bucket": "COGS",
+    "proposed_category": "Guava",
+    "paying_branch": null,
+    "benefiting_branches": [
+      "B1",
+      "B2",
+      "B3"
+    ],
+    "allocation_state": "usage_proportional",
+    "notes": "Guava 50 kg @ 20 THB = 1,000 THB. Allocated proportionally by branch fruit usage."
+  },
+  {
+    "idx": 16,
+    "file": "LINE_ALBUM_Cost September_261001_16.jpg",
+    "sha256": "6756a77cdc899fb0958ede39f68cd5aef4553fbc6c7b14afc6693a5b1866b8a5",
+    "bank_channel": "Bangkok Bank",
+    "status_raw": "รายการสำเร็จ",
+    "date_raw": "23 ก.ย. 69, 16:09",
+    "date_norm": "23/09/2026",
+    "amount": 800.0,
+    "fee": 0.0,
+    "currency": "THB",
+    "payer_masked": "นาย เมธาสิทธิ์ (098-9-xxx249 ธนาคารกรุงเทพ)",
+    "payee_masked": "น.ส. กสิณา เจริญสุข (089-xxx-6862 พร้อมเพย์)",
+    "ref": "2026092316095523007978108",
+    "memo_lines": [
+      "แอปเปิ้ล 2 ลัง"
+    ],
+    "items": [
+      {
+        "item_raw": "แอปเปิ้ล 2 ลัง",
+        "qty_raw": "2",
+        "unit_raw": "ลัง",
+        "unit_price_raw": "400",
+        "line_amount_raw": "800"
+      }
+    ],
+    "proposed_bucket": "COGS",
+    "proposed_category": "Apple",
+    "paying_branch": null,
+    "benefiting_branches": [
+      "B1",
+      "B2",
+      "B3"
+    ],
+    "allocation_state": "usage_proportional",
+    "notes": "Apple 2 crates @ 400 THB = 800 THB. Allocated proportionally by branch fruit usage."
+  },
+  {
+    "idx": 17,
+    "file": "LINE_ALBUM_Cost September_261001_17.jpg",
+    "sha256": "9f38ca4f15aa23d908175c7c34b953dc96f8826f4d815551b6f6943adf5b9959",
+    "bank_channel": "Bangkok Bank",
+    "status_raw": "รายการสำเร็จ",
+    "date_raw": "23 ก.ย. 69, 16:00",
+    "date_norm": "23/09/2026",
+    "amount": 684.0,
+    "fee": 0.0,
+    "currency": "THB",
+    "payer_masked": "นาย เมธาสิทธิ์ (098-9-xxx249 ธนาคารกรุงเทพ)",
+    "payee_masked": "น.ส. กาญจนา วงเสียงดัง (091-xxx-2157 พร้อมเพย์)",
+    "ref": "2026092316001823002791408",
+    "memo_lines": [
+      "มะม่วง 18 กิโล"
+    ],
+    "items": [
+      {
+        "item_raw": "มะม่วง 18 กิโล",
+        "qty_raw": "18",
+        "unit_raw": "กิโล",
+        "unit_price_raw": "38",
+        "line_amount_raw": "684"
+      }
+    ],
+    "proposed_bucket": "COGS",
+    "proposed_category": "Mango",
+    "paying_branch": null,
+    "benefiting_branches": [
+      "B1",
+      "B2",
+      "B3"
+    ],
+    "allocation_state": "usage_proportional",
+    "notes": "Mango 18 kg @ 38 THB = 684 THB. Allocated proportionally by branch fruit usage."
+  },
+  {
+    "idx": 18,
+    "file": "LINE_ALBUM_Cost September_261001_18.jpg",
+    "sha256": "7102832a36e3afeea84c42a427e642006cfc09eeba97b40c2f45b51ebfa17df3",
+    "bank_channel": "Bangkok Bank",
+    "status_raw": "รายการสำเร็จ",
+    "date_raw": "23 ก.ย. 69, 14:59",
+    "date_norm": "23/09/2026",
+    "amount": 472.0,
+    "fee": 0.0,
+    "currency": "THB",
+    "payer_masked": "นาย เมธาสิทธิ์ (098-9-xxx249 ธนาคารกรุงเทพ)",
+    "payee_masked": "นางสาว บุษริน ไหลอุดมสิน (083-xxx-5707 พร้อมเพย์)",
+    "ref": "2026092314593224009278608",
+    "memo_lines": [
+      "หมอทอด 6L"
+    ],
+    "items": [
+      {
+        "item_raw": "หมอทอด 6L",
+        "qty_raw": "1",
+        "unit_raw": "เครื่อง",
+        "unit_price_raw": "472",
+        "line_amount_raw": "472"
+      }
+    ],
+    "proposed_bucket": "OPEX",
+    "proposed_category": "Other OPEX",
+    "paying_branch": null,
+    "benefiting_branches": [
+      "B1",
+      "B2",
+      "B3"
+    ],
+    "allocation_state": "revenue_share",
+    "notes": "Small equipment / kitchen appliance (air fryer 6L หม้อทอด) = 472 THB. Proposed Other OPEX."
+  },
+  {
+    "idx": 19,
+    "file": "LINE_ALBUM_Cost September_261001_19.jpg",
+    "sha256": "035b4bc48003e6e3d0ab650d298dee62b13be3e479311e3debf36314c592b956",
+    "bank_channel": "Bangkok Bank",
+    "status_raw": "รายการสำเร็จ",
+    "date_raw": "22 ก.ย. 69, 18:57",
+    "date_norm": "22/09/2026",
+    "amount": 5000.0,
+    "fee": 0.0,
+    "currency": "THB",
+    "payer_masked": "นาย เมธาสิทธิ์ (098-9-xxx249 ธนาคารกรุงเทพ)",
+    "payee_masked": "MR. AUNG MIN PHAY SON (00499-xxx-xxx-5661 K Plus Wallet)",
+    "ref": "2026092218572723007554508",
+    "memo_lines": [
+      "ค่าผลไม้"
+    ],
+    "items": [
+      {
+        "item_raw": "ค่าผลไม้",
+        "qty_raw": null,
+        "unit_raw": null,
+        "unit_price_raw": null,
+        "line_amount_raw": "5000"
+      }
+    ],
+    "proposed_bucket": "COGS",
+    "proposed_category": "UNRESOLVED",
+    "paying_branch": null,
+    "benefiting_branches": [
+      "B1",
+      "B2",
+      "B3"
+    ],
+    "allocation_state": "unresolved",
+    "notes": "Generic 'ค่าผลไม้' (fruit expense) 5,000 THB to supplier MR. AUNG MIN PHAY SON without breakdown of fruit type/weights. Fruit category unresolved."
+  },
+  {
+    "idx": 20,
+    "file": "LINE_ALBUM_Cost September_261001_20.jpg",
+    "sha256": "fb2d159a887adb998acc2da9dfd5add0c0e4e7bf064f09c3aea57634f1651925",
+    "bank_channel": "Bangkok Bank",
+    "status_raw": "รายการสำเร็จ",
+    "date_raw": "21 ก.ย. 69, 21:17",
+    "date_norm": "21/09/2026",
+    "amount": 3800.0,
+    "fee": 0.0,
+    "currency": "THB",
+    "payer_masked": "นาย เมธาสิทธิ์ (098-9-xxx249 ธนาคารกรุงเทพ)",
+    "payee_masked": "นาย ภรัณวัฒน์ วุฒินริศเกียรติ (191-0-xxx413 ธนาคารกรุงไทย)",
+    "ref": "2026092121173123005798608",
+    "memo_lines": [
+      "หมูกรอบ 10 โล"
+    ],
+    "items": [
+      {
+        "item_raw": "หมูกรอบ 10 โล",
+        "qty_raw": "10",
+        "unit_raw": "โล",
+        "unit_price_raw": "380",
+        "line_amount_raw": "3800"
+      }
+    ],
+    "proposed_bucket": "EXCLUDED",
+    "proposed_category": "UNRESOLVED",
+    "paying_branch": null,
+    "benefiting_branches": [],
+    "allocation_state": "unresolved",
+    "notes": "Crispy pork 10 kg (3,800 THB). SomSaiJai juice bar does not sell pork. Suspected non-business / partner catering / personal expense. Marked EXCLUDED / UNRESOLVED pending owner clarification."
+  },
+  {
+    "idx": 21,
+    "file": "LINE_ALBUM_Cost September_261001_21.jpg",
+    "sha256": "38fcc1c37b925ad72ebafa05435a10cdf971ffb3e50c1df504d7d33f7204f66d",
+    "bank_channel": "Bangkok Bank",
+    "status_raw": "รายการสำเร็จ",
+    "date_raw": "21 ก.ย. 69, 21:02",
+    "date_norm": "21/09/2026",
+    "amount": 6000.0,
+    "fee": 0.0,
+    "currency": "THB",
+    "payer_masked": "นาย เมธาสิทธิ์ (098-9-xxx249 ธนาคารกรุงเทพ)",
+    "payee_masked": "MR. AUNG MIN PHAY SON (00499-xxx-xxx-5661 K Plus Wallet)",
+    "ref": "2026092121020823004769008",
+    "memo_lines": [
+      "ค่าตำรวจ b4 2 คน คนละ 3000 บาท"
+    ],
+    "items": [
+      {
+        "item_raw": "ค่าตำรวจ b4 2 คน คนละ 3000 บาท",
+        "qty_raw": "2",
+        "unit_raw": "คน",
+        "unit_price_raw": "3000",
+        "line_amount_raw": "6000"
+      }
+    ],
+    "proposed_bucket": "OPEX",
+    "proposed_category": "Other OPEX",
+    "paying_branch": null,
+    "benefiting_branches": [
+      "B4"
+    ],
+    "allocation_state": "unresolved",
+    "notes": "Memo specifies 'ค่าตำรวจ b4 2 คน คนละ 3000 บาท' (6,000 THB). Benefiting branch explicitly mentions 'b4' (unrecognized branch or new location). Allocation unresolved."
+  },
+  {
+    "idx": 22,
+    "file": "LINE_ALBUM_Cost September_261001_22.jpg",
+    "sha256": "c171deda6642527a3b6c0ad22110f604fff020c51a9f5520960cbe1e3b1f24c5",
+    "bank_channel": "Bangkok Bank",
+    "status_raw": "รายการสำเร็จ",
+    "date_raw": "21 ก.ย. 69, 18:50",
+    "date_norm": "21/09/2026",
+    "amount": 1026.0,
+    "fee": 0.0,
+    "currency": "THB",
+    "payer_masked": "นาย เมธาสิทธิ์ (098-9-xxx249 ธนาคารกรุงเทพ)",
+    "payee_masked": "นาง เพ็ญวิไล สถานทรัพย์ (089-xxx-4429 พร้อมเพย์)",
+    "ref": "2026092118501523007716308",
+    "memo_lines": [
+      "ข้าวเหนียวมูน 5 โล 900 ค่าส่ง 126"
+    ],
+    "items": [
+      {
+        "item_raw": "ข้าวเหนียวมูน 5 โล 900",
+        "qty_raw": "5",
+        "unit_raw": "โล",
+        "unit_price_raw": "180",
+        "line_amount_raw": "900"
+      },
+      {
+        "item_raw": "ค่าส่ง 126",
+        "qty_raw": null,
+        "unit_raw": null,
+        "unit_price_raw": null,
+        "line_amount_raw": "126"
+      }
+    ],
+    "proposed_bucket": "COGS",
+    "proposed_category": "Sticky Rice",
+    "paying_branch": null,
+    "benefiting_branches": [
+      "B1",
+      "B2",
+      "B3"
+    ],
+    "allocation_state": "explicit_split",
+    "notes": "Sticky Rice 5 kg = 900 THB (COGS Sticky Rice) + Delivery fee = 126 THB (OPEX Transportation). Explicit breakdown."
+  },
+  {
+    "idx": 23,
+    "file": "LINE_ALBUM_Cost September_261001_23.jpg",
+    "sha256": "529ffe930fc230cfd4e3b156c875f304e9482ac7b83e6f4e73719ed1f02a038f",
+    "bank_channel": "Bangkok Bank",
+    "status_raw": "รายการสำเร็จ",
+    "date_raw": "21 ก.ย. 69, 16:46",
+    "date_norm": "21/09/2026",
+    "amount": 5975.0,
+    "fee": 0.0,
+    "currency": "THB",
+    "payer_masked": "นาย เมธาสิทธิ์ (098-9-xxx249 ธนาคารกรุงเทพ)",
+    "payee_masked": "นาย วีรภัทร ตาที (00466-xxx-xxx-3505 K Plus Wallet)",
+    "ref": "2026092116461923004049908",
+    "memo_lines": [
+      "มะพร้าว",
+      "น้ำ 25ลิตร ลิตละ45บาท =1125บาท",
+      "เนื้อ50kg. กิโลละ 100บาท = 4500บาท",
+      "ค่าส่ง 350บาท",
+      "รวมเป็น 5,975บาท"
+    ],
+    "items": [
+      {
+        "item_raw": "น้ำมะพร้าว 25ลิตร ลิตละ45บาท",
+        "qty_raw": "25",
+        "unit_raw": "ลิตร",
+        "unit_price_raw": "45",
+        "line_amount_raw": "1125"
+      },
+      {
+        "item_raw": "เนื้อมะพร้าว 50kg. กิโลละ 100บาท",
+        "qty_raw": "50",
+        "unit_raw": "kg",
+        "unit_price_raw": "100",
+        "line_amount_raw": "4500"
+      },
+      {
+        "item_raw": "ค่าส่ง",
+        "qty_raw": null,
+        "unit_raw": null,
+        "unit_price_raw": null,
+        "line_amount_raw": "350"
+      }
+    ],
+    "proposed_bucket": "COGS",
+    "proposed_category": "Coconut",
+    "paying_branch": null,
+    "benefiting_branches": [
+      "B1",
+      "B2",
+      "B3"
+    ],
+    "allocation_state": "explicit_split",
+    "notes": "Coconut (water ฿1,125 + meat ฿4,500 = ฿5,625 COGS Coconut) + delivery ฿350 (OPEX Transportation). Explicit breakdown."
+  },
+  {
+    "idx": 24,
+    "file": "LINE_ALBUM_Cost September_261001_24.jpg",
+    "sha256": "2b2f39fd9fd2d56a4d54c2a581bc3a6733e869616bb00c499e29a552f2033e52",
+    "bank_channel": "Bangkok Bank",
+    "status_raw": "รายการสำเร็จ",
+    "date_raw": "20 ก.ย. 69, 16:51",
+    "date_norm": "20/09/2026",
+    "amount": 2000.0,
+    "fee": 0.0,
+    "currency": "THB",
+    "payer_masked": "นาย เมธาสิทธิ์ (098-9-xxx249 ธนาคารกรุงเทพ)",
+    "payee_masked": "Lalamove (Biller ID: 010753600031501, Shop: KB000001910708)",
+    "ref": "20260920165102033622631AD",
+    "memo_lines": [
+      "ค่าขนส่ง"
+    ],
+    "items": [
+      {
+        "item_raw": "ค่าขนส่ง",
+        "qty_raw": null,
+        "unit_raw": null,
+        "unit_price_raw": null,
+        "line_amount_raw": "2000"
+      }
+    ],
+    "proposed_bucket": "OPEX",
+    "proposed_category": "Transportation",
+    "paying_branch": null,
+    "benefiting_branches": [
+      "B1",
+      "B2",
+      "B3"
+    ],
+    "allocation_state": "revenue_share",
+    "notes": "Lalamove wallet topup for shared store delivery = 2,000 THB. Allocated by revenue share."
+  },
+  {
+    "idx": 25,
+    "file": "LINE_ALBUM_Cost September_261001_25.jpg",
+    "sha256": "deb0b96f36760297f51fa4680c66a1788a860cff7a64c7d2e93fa389a19a2d84",
+    "bank_channel": "Bangkok Bank",
+    "status_raw": "รายการสำเร็จ",
+    "date_raw": "20 ก.ย. 69, 16:06",
+    "date_norm": "20/09/2026",
+    "amount": 700.0,
+    "fee": 0.0,
+    "currency": "THB",
+    "payer_masked": "นาย เมธาสิทธิ์ (098-9-xxx249 ธนาคารกรุงเทพ)",
+    "payee_masked": "นาย สมชาย สำราญไพบูลย์ (00499-xxx-xxx-2075 K Plus Wallet)",
+    "ref": "2026092016064024009418908",
+    "memo_lines": [
+      "ฝรั่ง 1 ตะกร้า"
+    ],
+    "items": [
+      {
+        "item_raw": "ฝรั่ง 1 ตะกร้า",
+        "qty_raw": "1",
+        "unit_raw": "ตะกร้า",
+        "unit_price_raw": "700",
+        "line_amount_raw": "700"
+      }
+    ],
+    "proposed_bucket": "COGS",
+    "proposed_category": "Guava",
+    "paying_branch": null,
+    "benefiting_branches": [
+      "B1",
+      "B2",
+      "B3"
+    ],
+    "allocation_state": "usage_proportional",
+    "notes": "Guava 1 basket = 700 THB. Allocated proportionally by branch fruit usage."
+  },
+  {
+    "idx": 26,
+    "file": "LINE_ALBUM_Cost September_261001_26.jpg",
+    "sha256": "6a6da86eb7d5d7d8f4ad80fec025dbf5edd1b238af8394010ee6be352334f906",
+    "bank_channel": "Bangkok Bank",
+    "status_raw": "รายการสำเร็จ",
+    "date_raw": "20 ก.ย. 69, 16:04",
+    "date_norm": "20/09/2026",
+    "amount": 5000.0,
+    "fee": 0.0,
+    "currency": "THB",
+    "payer_masked": "นาย เมธาสิทธิ์ (098-9-xxx249 ธนาคารกรุงเทพ)",
+    "payee_masked": "นาย นพรัตน์ สินจีน (027-1-xxx320 ธนาคารกสิกรไทย)",
+    "ref": "2026092016044624005974908",
+    "memo_lines": [
+      "mango 50 kg"
+    ],
+    "items": [
+      {
+        "item_raw": "mango 50 kg",
+        "qty_raw": "50",
+        "unit_raw": "kg",
+        "unit_price_raw": "100",
+        "line_amount_raw": "5000"
+      }
+    ],
+    "proposed_bucket": "COGS",
+    "proposed_category": "Mango",
+    "paying_branch": null,
+    "benefiting_branches": [
+      "B1",
+      "B2",
+      "B3"
+    ],
+    "allocation_state": "usage_proportional",
+    "notes": "Mango 50 kg @ 100 THB = 5,000 THB. Allocated proportionally by branch fruit usage."
+  },
+  {
+    "idx": 27,
+    "file": "LINE_ALBUM_Cost September_261001_27.jpg",
+    "sha256": "19b81e2d2ed2ada6d5ef977e38fd78158153abe7c66e7d79c72d1d0c7fed7ac9",
+    "bank_channel": "Bangkok Bank",
+    "status_raw": "รายการสำเร็จ",
+    "date_raw": "20 ก.ย. 69, 13:02",
+    "date_norm": "20/09/2026",
+    "amount": 1200.0,
+    "fee": 0.0,
+    "currency": "THB",
+    "payer_masked": "นาย เมธาสิทธิ์ (098-9-xxx249 ธนาคารกรุงเทพ)",
+    "payee_masked": "น.ส. กสิณา เจริญสุข (089-xxx-6862 พร้อมเพย์)",
+    "ref": "2026092013022623000086508",
+    "memo_lines": [
+      "แอปเปิ้ล 3 ลัง"
+    ],
+    "items": [
+      {
+        "item_raw": "แอปเปิ้ล 3 ลัง",
+        "qty_raw": "3",
+        "unit_raw": "ลัง",
+        "unit_price_raw": "400",
+        "line_amount_raw": "1200"
+      }
+    ],
+    "proposed_bucket": "COGS",
+    "proposed_category": "Apple",
+    "paying_branch": null,
+    "benefiting_branches": [
+      "B1",
+      "B2",
+      "B3"
+    ],
+    "allocation_state": "usage_proportional",
+    "notes": "Apple 3 crates @ 400 THB = 1,200 THB. Allocated proportionally by branch fruit usage."
+  },
+  {
+    "idx": 28,
+    "file": "LINE_ALBUM_Cost September_261001_28.jpg",
+    "sha256": "b033f33335b25e9a9841e9f7104ca33af27af8466312af30615f963f0bfa4ed0",
+    "bank_channel": "Bangkok Bank",
+    "status_raw": "รายการสำเร็จ",
+    "date_raw": "19 ก.ย. 69, 21:08",
+    "date_norm": "19/09/2026",
+    "amount": 550.0,
+    "fee": 0.0,
+    "currency": "THB",
+    "payer_masked": "นาย เมธาสิทธิ์ (098-9-xxx249 ธนาคารกรุงเทพ)",
+    "payee_masked": "นางสาว บุษริน ไหลอุดมสิน (083-xxx-5707 พร้อมเพย์)",
+    "ref": "2026091921082824005975608",
+    "memo_lines": [
+      "อุปกรณ์ วัตถุดิบ ทดลองทำครีมบัตเตอร์"
+    ],
+    "items": [
+      {
+        "item_raw": "อุปกรณ์ วัตถุดิบ ทดลองทำครีมบัตเตอร์",
+        "qty_raw": null,
+        "unit_raw": null,
+        "unit_price_raw": null,
+        "line_amount_raw": "550"
+      }
+    ],
+    "proposed_bucket": "OPEX",
+    "proposed_category": "Other OPEX",
+    "paying_branch": null,
+    "benefiting_branches": [
+      "B1",
+      "B2",
+      "B3"
+    ],
+    "allocation_state": "revenue_share",
+    "notes": "R&D equipment & ingredients for butter cream trial = 550 THB. Proposed Other OPEX."
+  },
+  {
+    "idx": 29,
+    "file": "LINE_ALBUM_Cost September_261001_29.jpg",
+    "sha256": "565cfcb057eb33b0696db6be9fafde79d0207f35520c1d6eb9188907f800296d",
+    "bank_channel": "Bangkok Bank",
+    "status_raw": "รายการสำเร็จ",
+    "date_raw": "19 ก.ย. 69, 21:07",
+    "date_norm": "19/09/2026",
+    "amount": 656.0,
+    "fee": 0.0,
+    "currency": "THB",
+    "payer_masked": "นาย เมธาสิทธิ์ (098-9-xxx249 ธนาคารกรุงเทพ)",
+    "payee_masked": "Payment to Shopee (Biller ID: 010753600031501, Shop: KB000001989177)",
+    "ref": "20260919210729033078557AD",
+    "memo_lines": [
+      "ถุงพลาสติกใหญ่"
+    ],
+    "items": [
+      {
+        "item_raw": "ถุงพลาสติกใหญ่",
+        "qty_raw": null,
+        "unit_raw": null,
+        "unit_price_raw": null,
+        "line_amount_raw": "656"
+      }
+    ],
+    "proposed_bucket": "COGS",
+    "proposed_category": "Packaging",
+    "paying_branch": null,
+    "benefiting_branches": [
+      "B1",
+      "B2",
+      "B3"
+    ],
+    "allocation_state": "revenue_share",
+    "notes": "Large plastic bags = 656 THB. Allocated by revenue share."
+  },
+  {
+    "idx": 30,
+    "file": "LINE_ALBUM_Cost September_261001_30.jpg",
+    "sha256": "67dd1671079a2913060dd10551cfcb65ca5754ea3b14eea5808bc000eeaebf47",
+    "bank_channel": "Bangkok Bank",
+    "status_raw": "รายการสำเร็จ",
+    "date_raw": "19 ก.ย. 69, 15:46",
+    "date_norm": "19/09/2026",
+    "amount": 8100.0,
+    "fee": 0.0,
+    "currency": "THB",
+    "payer_masked": "นาย เมธาสิทธิ์ (098-9-xxx249 ธนาคารกรุงเทพ)",
+    "payee_masked": "นาง ศิริพร สวัสดิ์กว้าน (089-xxx-5654 พร้อมเพย์)",
+    "ref": "2026091915464024009135908",
+    "memo_lines": [
+      "แตงโม 81 ลูก"
+    ],
+    "items": [
+      {
+        "item_raw": "แตงโม 81 ลูก",
+        "qty_raw": "81",
+        "unit_raw": "ลูก",
+        "unit_price_raw": "100",
+        "line_amount_raw": "8100"
+      }
+    ],
+    "proposed_bucket": "COGS",
+    "proposed_category": "Watermelon",
+    "paying_branch": null,
+    "benefiting_branches": [
+      "B1",
+      "B2",
+      "B3"
+    ],
+    "allocation_state": "usage_proportional",
+    "notes": "Watermelon 81 fruits @ 100 THB = 8,100 THB. Allocated proportionally by branch fruit usage."
+  }
+]

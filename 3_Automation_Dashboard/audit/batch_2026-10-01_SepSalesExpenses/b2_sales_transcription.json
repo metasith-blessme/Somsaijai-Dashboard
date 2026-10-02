@@ -1,0 +1,4997 @@
+{
+  "schema_version": "somsaijai-extraction-review-v1",
+  "batch_id": "BATCH-2026-10-01-SEP-SALES-EXPENSES",
+  "scope": {
+    "branch": "B2",
+    "month": "Sep26",
+    "calendar_days_total": 30,
+    "operating_days_evidenced": 26,
+    "missing_calendar_dates": [
+      "20/09/2026",
+      "21/09/2026",
+      "22/09/2026",
+      "26/09/2026"
+    ],
+    "image_count": 26,
+    "missing_image_filename": "LINE_ALBUM_Sales for September(B2)_261001_17.jpg (confirmed to be skipped album index, not a date gap; Sep 10 and Sep 11 are both present)"
+  },
+  "sources": [
+    {
+      "source_id": "SRC-B2-SEP-01",
+      "path": "B2/1_Sale/Sep26/LINE_ALBUM_Sales for September(B2)_261001_27.jpg",
+      "filename": "LINE_ALBUM_Sales for September(B2)_261001_27.jpg",
+      "sha256": "54c1505b26e490fc0aab071a46e6d9be89c50aabd8cd41fb0e39784f4f862b23",
+      "size_bytes": 368359,
+      "file_type": "image/jpeg",
+      "doc_type": "sale_report",
+      "proposed_month": "Sep26",
+      "proposed_branch": "B2",
+      "disposition": "reviewed"
+    },
+    {
+      "source_id": "SRC-B2-SEP-02",
+      "path": "B2/1_Sale/Sep26/LINE_ALBUM_Sales for September(B2)_261001_26.jpg",
+      "filename": "LINE_ALBUM_Sales for September(B2)_261001_26.jpg",
+      "sha256": "5d2633112ae43db31714cfc900e8a352430a0f9a5b1559d44ae432f3c37e6ce0",
+      "size_bytes": 209947,
+      "file_type": "image/jpeg",
+      "doc_type": "sale_report",
+      "proposed_month": "Sep26",
+      "proposed_branch": "B2",
+      "disposition": "reviewed"
+    },
+    {
+      "source_id": "SRC-B2-SEP-03",
+      "path": "B2/1_Sale/Sep26/LINE_ALBUM_Sales for September(B2)_261001_25.jpg",
+      "filename": "LINE_ALBUM_Sales for September(B2)_261001_25.jpg",
+      "sha256": "4469c45080d2b2db7e93cadff3ca094a6e1d18146ffe953499d568d9ff81fa34",
+      "size_bytes": 367773,
+      "file_type": "image/jpeg",
+      "doc_type": "sale_report",
+      "proposed_month": "Sep26",
+      "proposed_branch": "B2",
+      "disposition": "reviewed"
+    },
+    {
+      "source_id": "SRC-B2-SEP-04",
+      "path": "B2/1_Sale/Sep26/LINE_ALBUM_Sales for September(B2)_261001_24.jpg",
+      "filename": "LINE_ALBUM_Sales for September(B2)_261001_24.jpg",
+      "sha256": "dbe11ba45f9b34d133f3ed8eff97e2f63d7b78471eecc0fb7ace937898006b6c",
+      "size_bytes": 352927,
+      "file_type": "image/jpeg",
+      "doc_type": "sale_report",
+      "proposed_month": "Sep26",
+      "proposed_branch": "B2",
+      "disposition": "reviewed"
+    },
+    {
+      "source_id": "SRC-B2-SEP-05",
+      "path": "B2/1_Sale/Sep26/LINE_ALBUM_Sales for September(B2)_261001_23.jpg",
+      "filename": "LINE_ALBUM_Sales for September(B2)_261001_23.jpg",
+      "sha256": "c7f3d2fd68fde2dac7ea48f94340015c85a916ccf56fd1a6e1e1559d7833ac74",
+      "size_bytes": 273798,
+      "file_type": "image/jpeg",
+      "doc_type": "sale_report",
+      "proposed_month": "Sep26",
+      "proposed_branch": "B2",
+      "disposition": "reviewed"
+    },
+    {
+      "source_id": "SRC-B2-SEP-06",
+      "path": "B2/1_Sale/Sep26/LINE_ALBUM_Sales for September(B2)_261001_22.jpg",
+      "filename": "LINE_ALBUM_Sales for September(B2)_261001_22.jpg",
+      "sha256": "d7973a85af8ae8c65061436a63a3a972ad8e1769aaea9c34670b1bcced871db2",
+      "size_bytes": 302610,
+      "file_type": "image/jpeg",
+      "doc_type": "sale_report",
+      "proposed_month": "Sep26",
+      "proposed_branch": "B2",
+      "disposition": "reviewed"
+    },
+    {
+      "source_id": "SRC-B2-SEP-07",
+      "path": "B2/1_Sale/Sep26/LINE_ALBUM_Sales for September(B2)_261001_21.jpg",
+      "filename": "LINE_ALBUM_Sales for September(B2)_261001_21.jpg",
+      "sha256": "5d875d3d252b9db46da7a465722649a86b94c016b9abbe6a8ee84c32ad501657",
+      "size_bytes": 270920,
+      "file_type": "image/jpeg",
+      "doc_type": "sale_report",
+      "proposed_month": "Sep26",
+      "proposed_branch": "B2",
+      "disposition": "reviewed"
+    },
+    {
+      "source_id": "SRC-B2-SEP-08",
+      "path": "B2/1_Sale/Sep26/LINE_ALBUM_Sales for September(B2)_261001_20.jpg",
+      "filename": "LINE_ALBUM_Sales for September(B2)_261001_20.jpg",
+      "sha256": "604757ee516e58574127c5abe21ca05418275e5cf11e0c931f8bbdbc35fe65af",
+      "size_bytes": 247730,
+      "file_type": "image/jpeg",
+      "doc_type": "sale_report",
+      "proposed_month": "Sep26",
+      "proposed_branch": "B2",
+      "disposition": "reviewed"
+    },
+    {
+      "source_id": "SRC-B2-SEP-09",
+      "path": "B2/1_Sale/Sep26/LINE_ALBUM_Sales for September(B2)_261001_19.jpg",
+      "filename": "LINE_ALBUM_Sales for September(B2)_261001_19.jpg",
+      "sha256": "a280f6e35addcac1f071f8bbe4e3132929cfebb1482b0c950f04a8d461f6012d",
+      "size_bytes": 202655,
+      "file_type": "image/jpeg",
+      "doc_type": "sale_report",
+      "proposed_month": "Sep26",
+      "proposed_branch": "B2",
+      "disposition": "reviewed"
+    },
+    {
+      "source_id": "SRC-B2-SEP-10",
+      "path": "B2/1_Sale/Sep26/LINE_ALBUM_Sales for September(B2)_261001_18.jpg",
+      "filename": "LINE_ALBUM_Sales for September(B2)_261001_18.jpg",
+      "sha256": "763256da779cc8d57ce73b781a90492fc706c465287a0813183e00f051118941",
+      "size_bytes": 122055,
+      "file_type": "image/jpeg",
+      "doc_type": "sale_report",
+      "proposed_month": "Sep26",
+      "proposed_branch": "B2",
+      "disposition": "reviewed"
+    },
+    {
+      "source_id": "SRC-B2-SEP-11",
+      "path": "B2/1_Sale/Sep26/LINE_ALBUM_Sales for September(B2)_261001_16.jpg",
+      "filename": "LINE_ALBUM_Sales for September(B2)_261001_16.jpg",
+      "sha256": "72bcd1eee37ce5a2d419121c1b00fe9bd45049d365cd7f783efb1653754f1661",
+      "size_bytes": 283399,
+      "file_type": "image/jpeg",
+      "doc_type": "sale_report",
+      "proposed_month": "Sep26",
+      "proposed_branch": "B2",
+      "disposition": "reviewed"
+    },
+    {
+      "source_id": "SRC-B2-SEP-12",
+      "path": "B2/1_Sale/Sep26/LINE_ALBUM_Sales for September(B2)_261001_15.jpg",
+      "filename": "LINE_ALBUM_Sales for September(B2)_261001_15.jpg",
+      "sha256": "50e06f3ae6d719d73628192ebfedbf0f425ac411ecdefdf766c9d70a86d243a6",
+      "size_bytes": 382614,
+      "file_type": "image/jpeg",
+      "doc_type": "sale_report",
+      "proposed_month": "Sep26",
+      "proposed_branch": "B2",
+      "disposition": "reviewed"
+    },
+    {
+      "source_id": "SRC-B2-SEP-13",
+      "path": "B2/1_Sale/Sep26/LINE_ALBUM_Sales for September(B2)_261001_14.jpg",
+      "filename": "LINE_ALBUM_Sales for September(B2)_261001_14.jpg",
+      "sha256": "dd2fa40d7c9e3a7c9b7e828ac959c01187c763d72eff283014a8c4f94e15a7c3",
+      "size_bytes": 253021,
+      "file_type": "image/jpeg",
+      "doc_type": "sale_report",
+      "proposed_month": "Sep26",
+      "proposed_branch": "B2",
+      "disposition": "reviewed"
+    },
+    {
+      "source_id": "SRC-B2-SEP-14",
+      "path": "B2/1_Sale/Sep26/LINE_ALBUM_Sales for September(B2)_261001_13.jpg",
+      "filename": "LINE_ALBUM_Sales for September(B2)_261001_13.jpg",
+      "sha256": "c585fe70bcc605792e1cfa6828ffe3eb189f6bf32feea675873c7993cc569e2d",
+      "size_bytes": 281710,
+      "file_type": "image/jpeg",
+      "doc_type": "sale_report",
+      "proposed_month": "Sep26",
+      "proposed_branch": "B2",
+      "disposition": "reviewed"
+    },
+    {
+      "source_id": "SRC-B2-SEP-15",
+      "path": "B2/1_Sale/Sep26/LINE_ALBUM_Sales for September(B2)_261001_12.jpg",
+      "filename": "LINE_ALBUM_Sales for September(B2)_261001_12.jpg",
+      "sha256": "4ead43a7bafa738fb552fc4539411da3618212cb0263fc1b523322c2c8f3f9c0",
+      "size_bytes": 137485,
+      "file_type": "image/jpeg",
+      "doc_type": "sale_report",
+      "proposed_month": "Sep26",
+      "proposed_branch": "B2",
+      "disposition": "reviewed"
+    },
+    {
+      "source_id": "SRC-B2-SEP-16",
+      "path": "B2/1_Sale/Sep26/LINE_ALBUM_Sales for September(B2)_261001_11.jpg",
+      "filename": "LINE_ALBUM_Sales for September(B2)_261001_11.jpg",
+      "sha256": "36cab605227e01bd4c22ef2e55cca02ecd34cf28f8f8821ce123dd4e26c3f9b0",
+      "size_bytes": 230050,
+      "file_type": "image/jpeg",
+      "doc_type": "sale_report",
+      "proposed_month": "Sep26",
+      "proposed_branch": "B2",
+      "disposition": "reviewed"
+    },
+    {
+      "source_id": "SRC-B2-SEP-17",
+      "path": "B2/1_Sale/Sep26/LINE_ALBUM_Sales for September(B2)_261001_10.jpg",
+      "filename": "LINE_ALBUM_Sales for September(B2)_261001_10.jpg",
+      "sha256": "753284707f02c84f3e62d9e4b947104d79656b6c147aa4eed8c579b4562511f6",
+      "size_bytes": 243072,
+      "file_type": "image/jpeg",
+      "doc_type": "sale_report",
+      "proposed_month": "Sep26",
+      "proposed_branch": "B2",
+      "disposition": "reviewed"
+    },
+    {
+      "source_id": "SRC-B2-SEP-18",
+      "path": "B2/1_Sale/Sep26/LINE_ALBUM_Sales for September(B2)_261001_9.jpg",
+      "filename": "LINE_ALBUM_Sales for September(B2)_261001_9.jpg",
+      "sha256": "be256451ab49d9ad5a3f96d9e32a1ad6d1dca72182c1a710b0ff8d5554ae8881",
+      "size_bytes": 350544,
+      "file_type": "image/jpeg",
+      "doc_type": "sale_report",
+      "proposed_month": "Sep26",
+      "proposed_branch": "B2",
+      "disposition": "reviewed"
+    },
+    {
+      "source_id": "SRC-B2-SEP-19",
+      "path": "B2/1_Sale/Sep26/LINE_ALBUM_Sales for September(B2)_261001_8.jpg",
+      "filename": "LINE_ALBUM_Sales for September(B2)_261001_8.jpg",
+      "sha256": "3f0b069a220040bf7be859f21e24ca8561b573d390284f157f675ec60959c4fe",
+      "size_bytes": 157197,
+      "file_type": "image/jpeg",
+      "doc_type": "sale_report",
+      "proposed_month": "Sep26",
+      "proposed_branch": "B2",
+      "disposition": "reviewed"
+    },
+    {
+      "source_id": "SRC-B2-SEP-20",
+      "path": "B2/1_Sale/Sep26/LINE_ALBUM_Sales for September(B2)_261001_7.jpg",
+      "filename": "LINE_ALBUM_Sales for September(B2)_261001_7.jpg",
+      "sha256": "2282dc34ad32eaedd90538fed3509d1e8667327b1418ed83b359d6f4486df4a7",
+      "size_bytes": 197224,
+      "file_type": "image/jpeg",
+      "doc_type": "sale_report",
+      "proposed_month": "Sep26",
+      "proposed_branch": "B2",
+      "disposition": "reviewed"
+    },
+    {
+      "source_id": "SRC-B2-SEP-21",
+      "path": "B2/1_Sale/Sep26/LINE_ALBUM_Sales for September(B2)_261001_6.jpg",
+      "filename": "LINE_ALBUM_Sales for September(B2)_261001_6.jpg",
+      "sha256": "b6c1404428b94f9911c6a71c0783f8c6f9bd15795d51eb33ba4bf0dc05867095",
+      "size_bytes": 230236,
+      "file_type": "image/jpeg",
+      "doc_type": "sale_report",
+      "proposed_month": "Sep26",
+      "proposed_branch": "B2",
+      "disposition": "reviewed"
+    },
+    {
+      "source_id": "SRC-B2-SEP-22",
+      "path": "B2/1_Sale/Sep26/LINE_ALBUM_Sales for September(B2)_261001_5.jpg",
+      "filename": "LINE_ALBUM_Sales for September(B2)_261001_5.jpg",
+      "sha256": "51b230549bfdba31ef577ced0829e0d97112e09b71e884a0cd654338120ec8f5",
+      "size_bytes": 296461,
+      "file_type": "image/jpeg",
+      "doc_type": "sale_report",
+      "proposed_month": "Sep26",
+      "proposed_branch": "B2",
+      "disposition": "reviewed"
+    },
+    {
+      "source_id": "SRC-B2-SEP-23",
+      "path": "B2/1_Sale/Sep26/LINE_ALBUM_Sales for September(B2)_261001_4.jpg",
+      "filename": "LINE_ALBUM_Sales for September(B2)_261001_4.jpg",
+      "sha256": "fa1ba9d62fa1668180438a40a18cc6c355b534202fdcb9acdf49063ce248bfb7",
+      "size_bytes": 261874,
+      "file_type": "image/jpeg",
+      "doc_type": "sale_report",
+      "proposed_month": "Sep26",
+      "proposed_branch": "B2",
+      "disposition": "reviewed"
+    },
+    {
+      "source_id": "SRC-B2-SEP-24",
+      "path": "B2/1_Sale/Sep26/LINE_ALBUM_Sales for September(B2)_261001_3.jpg",
+      "filename": "LINE_ALBUM_Sales for September(B2)_261001_3.jpg",
+      "sha256": "eef423fd94335e3ba5e2cc622c906cd417b94f3839ac1b6e5aba851d2230ed2e",
+      "size_bytes": 330076,
+      "file_type": "image/jpeg",
+      "doc_type": "sale_report",
+      "proposed_month": "Sep26",
+      "proposed_branch": "B2",
+      "disposition": "reviewed"
+    },
+    {
+      "source_id": "SRC-B2-SEP-25",
+      "path": "B2/1_Sale/Sep26/LINE_ALBUM_Sales for September(B2)_261001_2.jpg",
+      "filename": "LINE_ALBUM_Sales for September(B2)_261001_2.jpg",
+      "sha256": "d864a731eacffcbd18f77046717b739efac1a9da01cf1ab0e7a86026f8f67acd",
+      "size_bytes": 325300,
+      "file_type": "image/jpeg",
+      "doc_type": "sale_report",
+      "proposed_month": "Sep26",
+      "proposed_branch": "B2",
+      "disposition": "reviewed"
+    },
+    {
+      "source_id": "SRC-B2-SEP-26",
+      "path": "B2/1_Sale/Sep26/LINE_ALBUM_Sales for September(B2)_261001_1.jpg",
+      "filename": "LINE_ALBUM_Sales for September(B2)_261001_1.jpg",
+      "sha256": "6bc173198d471c69c84d538d1b1a186928d83bc964aea079eaad41f595bd9a63",
+      "size_bytes": 229096,
+      "file_type": "image/jpeg",
+      "doc_type": "sale_report",
+      "proposed_month": "Sep26",
+      "proposed_branch": "B2",
+      "disposition": "reviewed"
+    }
+  ],
+  "records": [
+    {
+      "record_id": "REC-B2-202609-01",
+      "branch": {
+        "raw_text": "B-2",
+        "normalized": "B2",
+        "state": "observed"
+      },
+      "date": {
+        "raw_text": "1.9.2026",
+        "normalized": "01/09/2026",
+        "state": "observed"
+      },
+      "staff": {
+        "raw_text": "Hpai / Myat",
+        "state": "observed"
+      },
+      "shift_hours": {
+        "raw_text": "3:30 AM to 12:00 PM",
+        "state": "observed"
+      },
+      "form_template": "Somsaijai Daily Shop Report (A4 landscape)",
+      "source_ids": [
+        "SRC-B2-SEP-01"
+      ],
+      "financials": {
+        "cash_sales": {
+          "raw_text": "1255",
+          "value": 1255,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "scan_sales": {
+          "raw_text": "645",
+          "value": 645,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "total_sales": {
+          "raw_text": "1900",
+          "value": 1900,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "total_expense": {
+          "raw_text": "60",
+          "value": 60,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "net_sales": {
+          "raw_text": "1840",
+          "value": 1840,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "opening_cash": {
+          "raw_text": "1500",
+          "value": 1500,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "expected_cash": {
+          "raw_text": "2755",
+          "value": 2755,
+          "unit": "THB",
+          "state": "observed"
+        }
+      },
+      "sales_items": [
+        {
+          "name_raw": "Orange Cup (Regular) [or]",
+          "proposed_code": "or",
+          "unit": "cup",
+          "unit_price": 90,
+          "cash_qty": 1,
+          "cash_sales": 90,
+          "scan_qty": null,
+          "scan_sales": null,
+          "total_qty": 1,
+          "reported_sales": 90
+        },
+        {
+          "name_raw": "Orange Premium Cup 100% [or_100]",
+          "proposed_code": "or_100",
+          "unit": "cup",
+          "unit_price": 120,
+          "cash_qty": 1,
+          "cash_sales": 120,
+          "scan_qty": 1,
+          "scan_sales": 120,
+          "total_qty": 2,
+          "reported_sales": 240
+        },
+        {
+          "name_raw": "Watermelon Cup [wm]",
+          "proposed_code": "wm",
+          "unit": "cup",
+          "unit_price": 55,
+          "cash_qty": 7,
+          "cash_sales": 385,
+          "scan_qty": 5,
+          "scan_sales": 275,
+          "total_qty": 12,
+          "reported_sales": 660
+        },
+        {
+          "name_raw": "Mango Cup [mg]",
+          "proposed_code": "mg",
+          "unit": "cup",
+          "unit_price": 90,
+          "cash_qty": 2,
+          "cash_sales": 180,
+          "scan_qty": null,
+          "scan_sales": null,
+          "total_qty": 2,
+          "reported_sales": 180
+        },
+        {
+          "name_raw": "Coconut Cup [co]",
+          "proposed_code": "co",
+          "unit": "cup",
+          "unit_price": 60,
+          "cash_qty": 8,
+          "cash_sales": 480,
+          "scan_qty": 2,
+          "scan_sales": 120,
+          "total_qty": 10,
+          "reported_sales": 600
+        },
+        {
+          "name_raw": "Apple Cup [ap]",
+          "proposed_code": "ap",
+          "unit": "cup",
+          "unit_price": 60,
+          "cash_qty": null,
+          "cash_sales": null,
+          "scan_qty": 1,
+          "scan_sales": 60,
+          "total_qty": 1,
+          "reported_sales": 60
+        },
+        {
+          "name_raw": "Watermelon no ice (overwritten on Mangosteen row)",
+          "proposed_code": "wm_no_ice",
+          "unit": "cup",
+          "unit_price": 70,
+          "cash_qty": null,
+          "cash_sales": null,
+          "scan_qty": 1,
+          "scan_sales": 70,
+          "total_qty": 1,
+          "reported_sales": 70
+        }
+      ],
+      "shift_expenses": [
+        {
+          "item_raw": "ice",
+          "method": "cash",
+          "amount": 60
+        }
+      ],
+      "notes": null,
+      "reported_closing": {
+        "cash_sales": 1255,
+        "scan_sales": 645,
+        "total_sales": 1900,
+        "total_expense": 60,
+        "net_sales": 1840,
+        "opening_cash": 1500,
+        "expected_cash": 2755,
+        "counted_cash": null,
+        "cash_variance": null,
+        "reported_total_cups": 29
+      },
+      "computed": {
+        "sum_individual_cups": 29,
+        "total_derived_cups": 29,
+        "reported_total_cups": 29,
+        "sum_item_revenue": 1900,
+        "reported_total_sales": 1900,
+        "revenue_difference": 0,
+        "channel_sum": 1900,
+        "channel_difference": 0
+      },
+      "discrepancies": [],
+      "status": "ready_for_review"
+    },
+    {
+      "record_id": "REC-B2-202609-02",
+      "branch": {
+        "raw_text": "B-2",
+        "normalized": "B2",
+        "state": "observed"
+      },
+      "date": {
+        "raw_text": "2.9.2026",
+        "normalized": "02/09/2026",
+        "state": "observed"
+      },
+      "staff": {
+        "raw_text": "Aye / Myat",
+        "state": "observed"
+      },
+      "shift_hours": {
+        "raw_text": "3:30 AM to 12 PM",
+        "state": "observed"
+      },
+      "form_template": "Somsaijai Daily Shop Report (A4 landscape)",
+      "source_ids": [
+        "SRC-B2-SEP-02"
+      ],
+      "financials": {
+        "cash_sales": {
+          "raw_text": "1355",
+          "value": 1355,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "scan_sales": {
+          "raw_text": "1460",
+          "value": 1460,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "total_sales": {
+          "raw_text": "2815",
+          "value": 2815,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "total_expense": {
+          "raw_text": "60",
+          "value": 60,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "net_sales": {
+          "raw_text": "2755",
+          "value": 2755,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "opening_cash": {
+          "raw_text": "1500",
+          "value": 1500,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "expected_cash": {
+          "raw_text": "2795",
+          "value": 2795,
+          "unit": "THB",
+          "state": "observed"
+        }
+      },
+      "sales_items": [
+        {
+          "name_raw": "Orange Cup (Regular) [or]",
+          "proposed_code": "or",
+          "unit": "cup",
+          "unit_price": 90,
+          "cash_qty": 1,
+          "cash_sales": null,
+          "scan_qty": 3,
+          "scan_sales": null,
+          "total_qty": 4,
+          "reported_sales": 360
+        },
+        {
+          "name_raw": "Watermelon Cup [wm]",
+          "proposed_code": "wm",
+          "unit": "cup",
+          "unit_price": 55,
+          "cash_qty": 10,
+          "cash_sales": null,
+          "scan_qty": 6,
+          "scan_sales": null,
+          "total_qty": 16,
+          "reported_sales": 880
+        },
+        {
+          "name_raw": "Mango Cup [mg]",
+          "proposed_code": "mg",
+          "unit": "cup",
+          "unit_price": 90,
+          "cash_qty": 1,
+          "cash_sales": null,
+          "scan_qty": 1,
+          "scan_sales": null,
+          "total_qty": 2,
+          "reported_sales": 180
+        },
+        {
+          "name_raw": "Coconut Cup [co]",
+          "proposed_code": "co",
+          "unit": "cup",
+          "unit_price": 60,
+          "cash_qty": 5,
+          "cash_sales": null,
+          "scan_qty": null,
+          "scan_sales": null,
+          "total_qty": 5,
+          "reported_sales": 300
+        },
+        {
+          "name_raw": "Apple Cup [ap]",
+          "proposed_code": "ap",
+          "unit": "cup",
+          "unit_price": 60,
+          "cash_qty": 1,
+          "cash_sales": null,
+          "scan_qty": 1,
+          "scan_sales": null,
+          "total_qty": 2,
+          "reported_sales": 120
+        },
+        {
+          "name_raw": "Guava Cup [guava]",
+          "proposed_code": "guava",
+          "unit": "cup",
+          "unit_price": 75,
+          "cash_qty": 5,
+          "cash_sales": null,
+          "scan_qty": 5,
+          "scan_sales": null,
+          "total_qty": 10,
+          "reported_sales": 750
+        },
+        {
+          "name_raw": "Pineapple Cup [pineapple]",
+          "proposed_code": "pineapple",
+          "unit": "cup",
+          "unit_price": 75,
+          "cash_qty": 1,
+          "cash_sales": null,
+          "scan_qty": 2,
+          "scan_sales": null,
+          "total_qty": 3,
+          "reported_sales": 225
+        }
+      ],
+      "shift_expenses": [
+        {
+          "item_raw": "ice ( 1 )",
+          "method": "cash",
+          "amount": 60
+        }
+      ],
+      "notes": null,
+      "reported_closing": {
+        "cash_sales": 1355,
+        "scan_sales": 1460,
+        "total_sales": 2815,
+        "total_expense": 60,
+        "net_sales": 2755,
+        "opening_cash": 1500,
+        "expected_cash": 2795,
+        "counted_cash": null,
+        "cash_variance": null,
+        "reported_total_cups": 42
+      },
+      "computed": {
+        "sum_individual_cups": 42,
+        "total_derived_cups": 42,
+        "reported_total_cups": 42,
+        "sum_item_revenue": 2815,
+        "reported_total_sales": 2815,
+        "revenue_difference": 0,
+        "channel_sum": 2815,
+        "channel_difference": 0
+      },
+      "discrepancies": [
+        "Tally-implied cash is 1540 and scan is 1275, but reported closing is cash 1355 and scan 1460 (185 shift from cash to scan). Total sales matches exactly at 2815."
+      ],
+      "status": "ready_for_review"
+    },
+    {
+      "record_id": "REC-B2-202609-03",
+      "branch": {
+        "raw_text": "B-2",
+        "normalized": "B2",
+        "state": "observed"
+      },
+      "date": {
+        "raw_text": "3.9.2026",
+        "normalized": "03/09/2026",
+        "state": "observed"
+      },
+      "staff": {
+        "raw_text": "Hpai / Tae",
+        "state": "observed"
+      },
+      "shift_hours": {
+        "raw_text": "3:30 AM to 12:00 PM",
+        "state": "observed"
+      },
+      "form_template": "Somsaijai Daily Shop Report (A4 landscape)",
+      "source_ids": [
+        "SRC-B2-SEP-03"
+      ],
+      "financials": {
+        "cash_sales": {
+          "raw_text": "940",
+          "value": 940,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "scan_sales": {
+          "raw_text": "385",
+          "value": 385,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "total_sales": {
+          "raw_text": "1325",
+          "value": 1325,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "total_expense": {
+          "raw_text": "60",
+          "value": 60,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "net_sales": {
+          "raw_text": "1265",
+          "value": 1265,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "opening_cash": {
+          "raw_text": "1500",
+          "value": 1500,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "expected_cash": {
+          "raw_text": "2440",
+          "value": 2440,
+          "unit": "THB",
+          "state": "observed"
+        }
+      },
+      "sales_items": [
+        {
+          "name_raw": "Orange Cup (Regular) [or]",
+          "proposed_code": "or",
+          "unit": "cup",
+          "unit_price": 90,
+          "cash_qty": 1,
+          "cash_sales": 90,
+          "scan_qty": null,
+          "scan_sales": null,
+          "total_qty": 1,
+          "reported_sales": 90
+        },
+        {
+          "name_raw": "Watermelon Cup [wm]",
+          "proposed_code": "wm",
+          "unit": "cup",
+          "unit_price": 55,
+          "cash_qty": 7,
+          "cash_sales": 385,
+          "scan_qty": 2,
+          "scan_sales": 110,
+          "total_qty": 9,
+          "reported_sales": 495
+        },
+        {
+          "name_raw": "Mango Cup [mg]",
+          "proposed_code": "mg",
+          "unit": "cup",
+          "unit_price": 90,
+          "cash_qty": 1,
+          "cash_sales": 90,
+          "scan_qty": null,
+          "scan_sales": null,
+          "total_qty": 1,
+          "reported_sales": 90
+        },
+        {
+          "name_raw": "Coconut Cup [co]",
+          "proposed_code": "co",
+          "unit": "cup",
+          "unit_price": 60,
+          "cash_qty": 2,
+          "cash_sales": 120,
+          "scan_qty": 1,
+          "scan_sales": 60,
+          "total_qty": 3,
+          "reported_sales": 180
+        },
+        {
+          "name_raw": "Apple Cup [ap]",
+          "proposed_code": "ap",
+          "unit": "cup",
+          "unit_price": 60,
+          "cash_qty": 3,
+          "cash_sales": 180,
+          "scan_qty": null,
+          "scan_sales": null,
+          "total_qty": 3,
+          "reported_sales": 180
+        },
+        {
+          "name_raw": "Guava Cup [guava]",
+          "proposed_code": "guava",
+          "unit": "cup",
+          "unit_price": 75,
+          "cash_qty": 1,
+          "cash_sales": 75,
+          "scan_qty": 1,
+          "scan_sales": 75,
+          "total_qty": 2,
+          "reported_sales": 150
+        },
+        {
+          "name_raw": "Volcano Mango [volcano_mango]",
+          "proposed_code": "volcano_mango",
+          "unit": "cup",
+          "unit_price": 150,
+          "cash_qty": null,
+          "cash_sales": null,
+          "scan_qty": 1,
+          "scan_sales": 150,
+          "total_qty": 1,
+          "reported_sales": 150
+        }
+      ],
+      "shift_expenses": [
+        {
+          "item_raw": "ice",
+          "method": "cash",
+          "amount": 60
+        }
+      ],
+      "notes": null,
+      "reported_closing": {
+        "cash_sales": 940,
+        "scan_sales": 385,
+        "total_sales": 1325,
+        "total_expense": 60,
+        "net_sales": 1265,
+        "opening_cash": 1500,
+        "expected_cash": 2440,
+        "counted_cash": null,
+        "cash_variance": null,
+        "reported_total_cups": 20
+      },
+      "computed": {
+        "sum_individual_cups": 20,
+        "total_derived_cups": 20,
+        "reported_total_cups": 20,
+        "sum_item_revenue": 1335,
+        "reported_total_sales": 1325,
+        "revenue_difference": -10,
+        "channel_sum": 1325,
+        "channel_difference": 0
+      },
+      "discrepancies": [
+        "Sum of scan tallies is 395 (110 + 60 + 75 + 150), but reported scan sales is 385 (diff -10 THB). Total sales reported is 1325 (940 cash + 385 scan)."
+      ],
+      "status": "ready_for_review"
+    },
+    {
+      "record_id": "REC-B2-202609-04",
+      "branch": {
+        "raw_text": "B-2",
+        "normalized": "B2",
+        "state": "observed"
+      },
+      "date": {
+        "raw_text": "4.9.2026",
+        "normalized": "04/09/2026",
+        "state": "observed"
+      },
+      "staff": {
+        "raw_text": "Hpai / Myat",
+        "state": "observed"
+      },
+      "shift_hours": {
+        "raw_text": "3:30 AM to 12:00 PM",
+        "state": "observed"
+      },
+      "form_template": "Somsaijai Daily Shop Report (A4 landscape)",
+      "source_ids": [
+        "SRC-B2-SEP-04"
+      ],
+      "financials": {
+        "cash_sales": {
+          "raw_text": "2500",
+          "value": 2500,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "scan_sales": {
+          "raw_text": "1505",
+          "value": 1505,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "total_sales": {
+          "raw_text": "4005",
+          "value": 4005,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "total_expense": {
+          "raw_text": "60",
+          "value": 60,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "net_sales": {
+          "raw_text": "3945",
+          "value": 3945,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "opening_cash": {
+          "raw_text": "1500",
+          "value": 1500,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "expected_cash": {
+          "raw_text": "4000",
+          "value": 4000,
+          "unit": "THB",
+          "state": "observed"
+        }
+      },
+      "sales_items": [
+        {
+          "name_raw": "Orange Cup (Regular) [or]",
+          "proposed_code": "or",
+          "unit": "cup",
+          "unit_price": 90,
+          "cash_qty": 6,
+          "cash_sales": null,
+          "scan_qty": 5,
+          "scan_sales": null,
+          "total_qty": 11,
+          "reported_sales": 990
+        },
+        {
+          "name_raw": "Watermelon Cup [wm]",
+          "proposed_code": "wm",
+          "unit": "cup",
+          "unit_price": 55,
+          "cash_qty": 12,
+          "cash_sales": null,
+          "scan_qty": 5,
+          "scan_sales": null,
+          "total_qty": 17,
+          "reported_sales": 935
+        },
+        {
+          "name_raw": "Mango Cup [mg]",
+          "proposed_code": "mg",
+          "unit": "cup",
+          "unit_price": 90,
+          "cash_qty": null,
+          "cash_sales": null,
+          "scan_qty": 1,
+          "scan_sales": null,
+          "total_qty": 1,
+          "reported_sales": 90
+        },
+        {
+          "name_raw": "Coconut Cup [co]",
+          "proposed_code": "co",
+          "unit": "cup",
+          "unit_price": 60,
+          "cash_qty": 1,
+          "cash_sales": null,
+          "scan_qty": 3,
+          "scan_sales": null,
+          "total_qty": 4,
+          "reported_sales": 240
+        },
+        {
+          "name_raw": "Apple Cup [ap]",
+          "proposed_code": "ap",
+          "unit": "cup",
+          "unit_price": 60,
+          "cash_qty": 3,
+          "cash_sales": null,
+          "scan_qty": 2,
+          "scan_sales": null,
+          "total_qty": 5,
+          "reported_sales": 300
+        },
+        {
+          "name_raw": "Guava Cup [guava]",
+          "proposed_code": "guava",
+          "unit": "cup",
+          "unit_price": 75,
+          "cash_qty": 5,
+          "cash_sales": null,
+          "scan_qty": 4,
+          "scan_sales": null,
+          "total_qty": 9,
+          "reported_sales": 675
+        },
+        {
+          "name_raw": "Pineapple Cup [pineapple]",
+          "proposed_code": "pineapple",
+          "unit": "cup",
+          "unit_price": 75,
+          "cash_qty": 3,
+          "cash_sales": null,
+          "scan_qty": null,
+          "scan_sales": null,
+          "total_qty": 3,
+          "reported_sales": 225
+        }
+      ],
+      "shift_expenses": [
+        {
+          "item_raw": "ice ( 1 )",
+          "method": "cash",
+          "amount": 60
+        }
+      ],
+      "notes": null,
+      "reported_closing": {
+        "cash_sales": 2500,
+        "scan_sales": 1505,
+        "total_sales": 4005,
+        "total_expense": 60,
+        "net_sales": 3945,
+        "opening_cash": 1500,
+        "expected_cash": 4000,
+        "counted_cash": null,
+        "cash_variance": null,
+        "reported_total_cups": 50
+      },
+      "computed": {
+        "sum_individual_cups": 50,
+        "total_derived_cups": 50,
+        "reported_total_cups": 50,
+        "sum_item_revenue": 3455,
+        "reported_total_sales": 4005,
+        "revenue_difference": 550,
+        "channel_sum": 4005,
+        "channel_difference": 0
+      },
+      "discrepancies": [
+        "Sum of menu rows is 3455 THB (cups sum to 50), but closing summary reports Cash 2500, Scan 1505, Total sales 4005 THB (diff +550 THB unaccounted by tallies, likely additional items or off-sheet sales)."
+      ],
+      "status": "ready_for_review"
+    },
+    {
+      "record_id": "REC-B2-202609-05",
+      "branch": {
+        "raw_text": "B-2",
+        "normalized": "B2",
+        "state": "observed"
+      },
+      "date": {
+        "raw_text": "5.9.2026",
+        "normalized": "05/09/2026",
+        "state": "observed"
+      },
+      "staff": {
+        "raw_text": "Hpai / Myat",
+        "state": "observed"
+      },
+      "shift_hours": {
+        "raw_text": "3:30 AM to 12:00 PM",
+        "state": "observed"
+      },
+      "form_template": "Somsaijai Daily Shop Report (A4 landscape)",
+      "source_ids": [
+        "SRC-B2-SEP-05"
+      ],
+      "financials": {
+        "cash_sales": {
+          "raw_text": "1340",
+          "value": 1340,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "scan_sales": {
+          "raw_text": "545",
+          "value": 545,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "total_sales": {
+          "raw_text": "1915",
+          "value": 1915,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "total_expense": {
+          "raw_text": "60",
+          "value": 60,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "net_sales": {
+          "raw_text": "1855",
+          "value": 1855,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "opening_cash": {
+          "raw_text": "1500",
+          "value": 1500,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "expected_cash": {
+          "raw_text": "2840",
+          "value": 2840,
+          "unit": "THB",
+          "state": "observed"
+        }
+      },
+      "sales_items": [
+        {
+          "name_raw": "Orange Cup (Regular) [or]",
+          "proposed_code": "or",
+          "unit": "cup",
+          "unit_price": 90,
+          "cash_qty": 2,
+          "cash_sales": 180,
+          "scan_qty": null,
+          "scan_sales": null,
+          "total_qty": 2,
+          "reported_sales": 180
+        },
+        {
+          "name_raw": "Watermelon Cup [wm]",
+          "proposed_code": "wm",
+          "unit": "cup",
+          "unit_price": 55,
+          "cash_qty": 6,
+          "cash_sales": 330,
+          "scan_qty": 5,
+          "scan_sales": 275,
+          "total_qty": 11,
+          "reported_sales": 605
+        },
+        {
+          "name_raw": "Mango Cup [mg]",
+          "proposed_code": "mg",
+          "unit": "cup",
+          "unit_price": 90,
+          "cash_qty": 2,
+          "cash_sales": 180,
+          "scan_qty": null,
+          "scan_sales": null,
+          "total_qty": 2,
+          "reported_sales": 180
+        },
+        {
+          "name_raw": "Coconut Cup [co]",
+          "proposed_code": "co",
+          "unit": "cup",
+          "unit_price": 60,
+          "cash_qty": 3,
+          "cash_sales": 180,
+          "scan_qty": 2,
+          "scan_sales": 120,
+          "total_qty": 5,
+          "reported_sales": 300
+        },
+        {
+          "name_raw": "Apple Cup [ap]",
+          "proposed_code": "ap",
+          "unit": "cup",
+          "unit_price": 60,
+          "cash_qty": 2,
+          "cash_sales": 120,
+          "scan_qty": null,
+          "scan_sales": null,
+          "total_qty": 2,
+          "reported_sales": 120
+        },
+        {
+          "name_raw": "Guava Cup [guava]",
+          "proposed_code": "guava",
+          "unit": "cup",
+          "unit_price": 75,
+          "cash_qty": 2,
+          "cash_sales": 150,
+          "scan_qty": 2,
+          "scan_sales": 150,
+          "total_qty": 4,
+          "reported_sales": 300
+        },
+        {
+          "name_raw": "Pineapple Cup [pineapple]",
+          "proposed_code": "pineapple",
+          "unit": "cup",
+          "unit_price": 75,
+          "cash_qty": 1,
+          "cash_sales": 75,
+          "scan_qty": null,
+          "scan_sales": null,
+          "total_qty": 1,
+          "reported_sales": 75
+        },
+        {
+          "name_raw": "Volcano Guava [volcano_guava]",
+          "proposed_code": "volcano_guava",
+          "unit": "cup",
+          "unit_price": 129,
+          "cash_qty": 1,
+          "cash_sales": 129,
+          "scan_qty": null,
+          "scan_sales": null,
+          "total_qty": 1,
+          "reported_sales": 129
+        }
+      ],
+      "shift_expenses": [
+        {
+          "item_raw": "ice ( 1 )",
+          "method": "cash",
+          "amount": 60
+        }
+      ],
+      "notes": null,
+      "reported_closing": {
+        "cash_sales": 1340,
+        "scan_sales": 545,
+        "total_sales": 1915,
+        "total_expense": 60,
+        "net_sales": 1855,
+        "opening_cash": 1500,
+        "expected_cash": 2840,
+        "counted_cash": null,
+        "cash_variance": null,
+        "reported_total_cups": 28
+      },
+      "computed": {
+        "sum_individual_cups": 28,
+        "total_derived_cups": 28,
+        "reported_total_cups": 28,
+        "sum_item_revenue": 1889,
+        "reported_total_sales": 1915,
+        "revenue_difference": 26,
+        "channel_sum": 1885,
+        "channel_difference": -30
+      },
+      "discrepancies": [
+        "Sum of cash item amounts is 1344 THB, but reported cash sales is 1340 THB (-4 THB). Total sales written as 1915 (1370+545=1915 or 1340+545=1885). Net sales reported 1855 (1915-60)."
+      ],
+      "status": "ready_for_review"
+    },
+    {
+      "record_id": "REC-B2-202609-06",
+      "branch": {
+        "raw_text": "B-2",
+        "normalized": "B2",
+        "state": "observed"
+      },
+      "date": {
+        "raw_text": "6.9.2026",
+        "normalized": "06/09/2026",
+        "state": "observed"
+      },
+      "staff": {
+        "raw_text": "Hpai / Myat",
+        "state": "observed"
+      },
+      "shift_hours": {
+        "raw_text": "3:30 AM to 12:00 PM",
+        "state": "observed"
+      },
+      "form_template": "Somsaijai Daily Shop Report (A4 landscape)",
+      "source_ids": [
+        "SRC-B2-SEP-06"
+      ],
+      "financials": {
+        "cash_sales": {
+          "raw_text": "660",
+          "value": 660,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "scan_sales": {
+          "raw_text": "164",
+          "value": 164,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "total_sales": {
+          "raw_text": "824",
+          "value": 824,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "total_expense": {
+          "raw_text": "60",
+          "value": 60,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "net_sales": {
+          "raw_text": "764",
+          "value": 764,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "opening_cash": {
+          "raw_text": "1500",
+          "value": 1500,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "expected_cash": {
+          "raw_text": "2160",
+          "value": 2160,
+          "unit": "THB",
+          "state": "observed"
+        }
+      },
+      "sales_items": [
+        {
+          "name_raw": "Orange Cup (Regular) [or]",
+          "proposed_code": "or",
+          "unit": "cup",
+          "unit_price": 90,
+          "cash_qty": 1,
+          "cash_sales": 90,
+          "scan_qty": null,
+          "scan_sales": null,
+          "total_qty": 1,
+          "reported_sales": 90
+        },
+        {
+          "name_raw": "Watermelon Cup [wm]",
+          "proposed_code": "wm",
+          "unit": "cup",
+          "unit_price": 55,
+          "cash_qty": 6,
+          "cash_sales": 330,
+          "scan_qty": 1,
+          "scan_sales": 55,
+          "total_qty": 7,
+          "reported_sales": 385
+        },
+        {
+          "name_raw": "Coconut Cup [co]",
+          "proposed_code": "co",
+          "unit": "cup",
+          "unit_price": 60,
+          "cash_qty": 2,
+          "cash_sales": 120,
+          "scan_qty": null,
+          "scan_sales": null,
+          "total_qty": 2,
+          "reported_sales": 120
+        },
+        {
+          "name_raw": "Apple Cup [ap]",
+          "proposed_code": "ap",
+          "unit": "cup",
+          "unit_price": 60,
+          "cash_qty": 2,
+          "cash_sales": 120,
+          "scan_qty": null,
+          "scan_sales": null,
+          "total_qty": 2,
+          "reported_sales": 120
+        },
+        {
+          "name_raw": "Volcano Watermelon [volcano_watermelon]",
+          "proposed_code": "volcano_watermelon",
+          "unit": "cup",
+          "unit_price": 109,
+          "cash_qty": null,
+          "cash_sales": null,
+          "scan_qty": 1,
+          "scan_sales": 109,
+          "total_qty": 1,
+          "reported_sales": 109
+        }
+      ],
+      "shift_expenses": [
+        {
+          "item_raw": "ice ( 1 )",
+          "method": "cash",
+          "amount": 60
+        }
+      ],
+      "notes": null,
+      "reported_closing": {
+        "cash_sales": 660,
+        "scan_sales": 164,
+        "total_sales": 824,
+        "total_expense": 60,
+        "net_sales": 764,
+        "opening_cash": 1500,
+        "expected_cash": 2160,
+        "counted_cash": null,
+        "cash_variance": null,
+        "reported_total_cups": 13
+      },
+      "computed": {
+        "sum_individual_cups": 13,
+        "total_derived_cups": 13,
+        "reported_total_cups": 13,
+        "sum_item_revenue": 824,
+        "reported_total_sales": 824,
+        "revenue_difference": 0,
+        "channel_sum": 824,
+        "channel_difference": 0
+      },
+      "discrepancies": [],
+      "status": "ready_for_review"
+    },
+    {
+      "record_id": "REC-B2-202609-07",
+      "branch": {
+        "raw_text": "B-2",
+        "normalized": "B2",
+        "state": "observed"
+      },
+      "date": {
+        "raw_text": "7.9.2026",
+        "normalized": "07/09/2026",
+        "state": "observed"
+      },
+      "staff": {
+        "raw_text": "Hpai / Myat",
+        "state": "observed"
+      },
+      "shift_hours": {
+        "raw_text": "3:30 AM to 12:00 PM",
+        "state": "observed"
+      },
+      "form_template": "Somsaijai Daily Shop Report (A4 landscape)",
+      "source_ids": [
+        "SRC-B2-SEP-07"
+      ],
+      "financials": {
+        "cash_sales": {
+          "raw_text": "4125",
+          "value": 4125,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "scan_sales": {
+          "raw_text": "855",
+          "value": 855,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "total_sales": {
+          "raw_text": "4980",
+          "value": 4980,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "total_expense": {
+          "raw_text": "60",
+          "value": 60,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "net_sales": {
+          "raw_text": "4920",
+          "value": 4920,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "opening_cash": {
+          "raw_text": "1500",
+          "value": 1500,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "expected_cash": {
+          "raw_text": "5625",
+          "value": 5625,
+          "unit": "THB",
+          "state": "observed"
+        }
+      },
+      "sales_items": [
+        {
+          "name_raw": "Orange Cup (Regular) [or]",
+          "proposed_code": "or",
+          "unit": "cup",
+          "unit_price": 90,
+          "cash_qty": 10,
+          "cash_sales": 900,
+          "scan_qty": 4,
+          "scan_sales": 360,
+          "total_qty": 14,
+          "reported_sales": 1260
+        },
+        {
+          "name_raw": "Orange Premium Cup 100% [or_100]",
+          "proposed_code": "or_100",
+          "unit": "cup",
+          "unit_price": 120,
+          "cash_qty": 4,
+          "cash_sales": 480,
+          "scan_qty": null,
+          "scan_sales": null,
+          "total_qty": 4,
+          "reported_sales": 480
+        },
+        {
+          "name_raw": "Watermelon Cup [wm]",
+          "proposed_code": "wm",
+          "unit": "cup",
+          "unit_price": 55,
+          "cash_qty": 19,
+          "cash_sales": 1045,
+          "scan_qty": null,
+          "scan_sales": null,
+          "total_qty": 19,
+          "reported_sales": 1045
+        },
+        {
+          "name_raw": "Mango Cup [mg]",
+          "proposed_code": "mg",
+          "unit": "cup",
+          "unit_price": 90,
+          "cash_qty": 5,
+          "cash_sales": 450,
+          "scan_qty": 1,
+          "scan_sales": 90,
+          "total_qty": 6,
+          "reported_sales": 540
+        },
+        {
+          "name_raw": "Coconut Cup [co]",
+          "proposed_code": "co",
+          "unit": "cup",
+          "unit_price": 60,
+          "cash_qty": 13,
+          "cash_sales": 780,
+          "scan_qty": 3,
+          "scan_sales": 180,
+          "total_qty": 16,
+          "reported_sales": 960
+        },
+        {
+          "name_raw": "Apple Cup [ap]",
+          "proposed_code": "ap",
+          "unit": "cup",
+          "unit_price": 60,
+          "cash_qty": 3,
+          "cash_sales": 180,
+          "scan_qty": null,
+          "scan_sales": null,
+          "total_qty": 3,
+          "reported_sales": 180
+        },
+        {
+          "name_raw": "Guava Cup [guava]",
+          "proposed_code": "guava",
+          "unit": "cup",
+          "unit_price": 75,
+          "cash_qty": 1,
+          "cash_sales": 75,
+          "scan_qty": 1,
+          "scan_sales": 75,
+          "total_qty": 2,
+          "reported_sales": 150
+        },
+        {
+          "name_raw": "Pineapple Cup [pineapple]",
+          "proposed_code": "pineapple",
+          "unit": "cup",
+          "unit_price": 75,
+          "cash_qty": 1,
+          "cash_sales": 75,
+          "scan_qty": 2,
+          "scan_sales": 150,
+          "total_qty": 3,
+          "reported_sales": 225
+        },
+        {
+          "name_raw": "Water no ice (overwritten on Mangosteen row)",
+          "proposed_code": "wm_no_ice",
+          "unit": "cup",
+          "unit_price": 70,
+          "cash_qty": 2,
+          "cash_sales": 140,
+          "scan_qty": null,
+          "scan_sales": null,
+          "total_qty": 2,
+          "reported_sales": 140
+        }
+      ],
+      "shift_expenses": [
+        {
+          "item_raw": "ice ( 1 )",
+          "method": "cash",
+          "amount": 60
+        }
+      ],
+      "notes": null,
+      "reported_closing": {
+        "cash_sales": 4125,
+        "scan_sales": 855,
+        "total_sales": 4980,
+        "total_expense": 60,
+        "net_sales": 4920,
+        "opening_cash": 1500,
+        "expected_cash": 5625,
+        "counted_cash": null,
+        "cash_variance": null,
+        "reported_total_cups": 69
+      },
+      "computed": {
+        "sum_individual_cups": 69,
+        "total_derived_cups": 69,
+        "reported_total_cups": 69,
+        "sum_item_revenue": 4980,
+        "reported_total_sales": 4980,
+        "revenue_difference": 0,
+        "channel_sum": 4980,
+        "channel_difference": 0
+      },
+      "discrepancies": [],
+      "status": "ready_for_review"
+    },
+    {
+      "record_id": "REC-B2-202609-08",
+      "branch": {
+        "raw_text": "B-2",
+        "normalized": "B2",
+        "state": "observed"
+      },
+      "date": {
+        "raw_text": "8.9.2026",
+        "normalized": "08/09/2026",
+        "state": "observed"
+      },
+      "staff": {
+        "raw_text": "Hpai / Myat",
+        "state": "observed"
+      },
+      "shift_hours": {
+        "raw_text": "3:30 AM to 12:00 PM",
+        "state": "observed"
+      },
+      "form_template": "Somsaijai Daily Shop Report (A4 landscape)",
+      "source_ids": [
+        "SRC-B2-SEP-08"
+      ],
+      "financials": {
+        "cash_sales": {
+          "raw_text": "890",
+          "value": 890,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "scan_sales": {
+          "raw_text": "755",
+          "value": 755,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "total_sales": {
+          "raw_text": "1645",
+          "value": 1645,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "total_expense": {
+          "raw_text": "60",
+          "value": 60,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "net_sales": {
+          "raw_text": "1585",
+          "value": 1585,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "opening_cash": {
+          "raw_text": "1500",
+          "value": 1500,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "expected_cash": {
+          "raw_text": "2390",
+          "value": 2390,
+          "unit": "THB",
+          "state": "observed"
+        }
+      },
+      "sales_items": [
+        {
+          "name_raw": "Orange Cup (Regular) [or]",
+          "proposed_code": "or",
+          "unit": "cup",
+          "unit_price": 90,
+          "cash_qty": 1,
+          "cash_sales": 90,
+          "scan_qty": 1,
+          "scan_sales": 90,
+          "total_qty": 2,
+          "reported_sales": 180
+        },
+        {
+          "name_raw": "Watermelon Cup [wm]",
+          "proposed_code": "wm",
+          "unit": "cup",
+          "unit_price": 55,
+          "cash_qty": 5,
+          "cash_sales": 275,
+          "scan_qty": 5,
+          "scan_sales": 275,
+          "total_qty": 10,
+          "reported_sales": 550
+        },
+        {
+          "name_raw": "Mango Cup [mg]",
+          "proposed_code": "mg",
+          "unit": "cup",
+          "unit_price": 90,
+          "cash_qty": 2,
+          "cash_sales": 180,
+          "scan_qty": null,
+          "scan_sales": null,
+          "total_qty": 2,
+          "reported_sales": 180
+        },
+        {
+          "name_raw": "Coconut Cup [co]",
+          "proposed_code": "co",
+          "unit": "cup",
+          "unit_price": 60,
+          "cash_qty": 1,
+          "cash_sales": 60,
+          "scan_qty": 4,
+          "scan_sales": 240,
+          "total_qty": 5,
+          "reported_sales": 300
+        },
+        {
+          "name_raw": "Apple Cup [ap]",
+          "proposed_code": "ap",
+          "unit": "cup",
+          "unit_price": 60,
+          "cash_qty": 1,
+          "cash_sales": 60,
+          "scan_qty": null,
+          "scan_sales": null,
+          "total_qty": 1,
+          "reported_sales": 60
+        },
+        {
+          "name_raw": "Guava Cup [guava]",
+          "proposed_code": "guava",
+          "unit": "cup",
+          "unit_price": 75,
+          "cash_qty": 2,
+          "cash_sales": 150,
+          "scan_qty": 2,
+          "scan_sales": 150,
+          "total_qty": 4,
+          "reported_sales": 300
+        },
+        {
+          "name_raw": "Pineapple Cup [pineapple]",
+          "proposed_code": "pineapple",
+          "unit": "cup",
+          "unit_price": 75,
+          "cash_qty": 1,
+          "cash_sales": 75,
+          "scan_qty": null,
+          "scan_sales": null,
+          "total_qty": 1,
+          "reported_sales": 75
+        }
+      ],
+      "shift_expenses": [
+        {
+          "item_raw": "ice ( 1 )",
+          "method": "cash",
+          "amount": 60
+        }
+      ],
+      "notes": null,
+      "reported_closing": {
+        "cash_sales": 890,
+        "scan_sales": 755,
+        "total_sales": 1645,
+        "total_expense": 60,
+        "net_sales": 1585,
+        "opening_cash": 1500,
+        "expected_cash": 2390,
+        "counted_cash": null,
+        "cash_variance": null,
+        "reported_total_cups": 25
+      },
+      "computed": {
+        "sum_individual_cups": 25,
+        "total_derived_cups": 25,
+        "reported_total_cups": 25,
+        "sum_item_revenue": 1645,
+        "reported_total_sales": 1645,
+        "revenue_difference": 0,
+        "channel_sum": 1645,
+        "channel_difference": 0
+      },
+      "discrepancies": [],
+      "status": "ready_for_review"
+    },
+    {
+      "record_id": "REC-B2-202609-09",
+      "branch": {
+        "raw_text": "B-2",
+        "normalized": "B2",
+        "state": "observed"
+      },
+      "date": {
+        "raw_text": "9.9.2026",
+        "normalized": "09/09/2026",
+        "state": "observed"
+      },
+      "staff": {
+        "raw_text": "Hpai / Aye",
+        "state": "observed"
+      },
+      "shift_hours": {
+        "raw_text": "3:30 AM to 12:00 PM",
+        "state": "observed"
+      },
+      "form_template": "Somsaijai Daily Shop Report (A4 landscape)",
+      "source_ids": [
+        "SRC-B2-SEP-09"
+      ],
+      "financials": {
+        "cash_sales": {
+          "raw_text": "1685",
+          "value": 1685,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "scan_sales": {
+          "raw_text": "850",
+          "value": 850,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "total_sales": {
+          "raw_text": "2535",
+          "value": 2535,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "total_expense": {
+          "raw_text": "60",
+          "value": 60,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "net_sales": {
+          "raw_text": "2475",
+          "value": 2475,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "opening_cash": {
+          "raw_text": "1500",
+          "value": 1500,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "expected_cash": {
+          "raw_text": "3125",
+          "value": 3125,
+          "unit": "THB",
+          "state": "observed"
+        }
+      },
+      "sales_items": [
+        {
+          "name_raw": "Orange Cup (Regular) [or]",
+          "proposed_code": "or",
+          "unit": "cup",
+          "unit_price": 90,
+          "cash_qty": 1,
+          "cash_sales": null,
+          "scan_qty": 3,
+          "scan_sales": null,
+          "total_qty": 4,
+          "reported_sales": 360
+        },
+        {
+          "name_raw": "Watermelon Cup [wm]",
+          "proposed_code": "wm",
+          "unit": "cup",
+          "unit_price": 55,
+          "cash_qty": 10,
+          "cash_sales": null,
+          "scan_qty": 4,
+          "scan_sales": null,
+          "total_qty": 14,
+          "reported_sales": 770
+        },
+        {
+          "name_raw": "Mango Cup [mg]",
+          "proposed_code": "mg",
+          "unit": "cup",
+          "unit_price": 90,
+          "cash_qty": 3,
+          "cash_sales": null,
+          "scan_qty": null,
+          "scan_sales": null,
+          "total_qty": 3,
+          "reported_sales": 270
+        },
+        {
+          "name_raw": "Coconut Cup [co]",
+          "proposed_code": "co",
+          "unit": "cup",
+          "unit_price": 60,
+          "cash_qty": 4,
+          "cash_sales": null,
+          "scan_qty": null,
+          "scan_sales": null,
+          "total_qty": 4,
+          "reported_sales": 240
+        },
+        {
+          "name_raw": "Apple Cup [ap]",
+          "proposed_code": "ap",
+          "unit": "cup",
+          "unit_price": 60,
+          "cash_qty": 2,
+          "cash_sales": null,
+          "scan_qty": 2,
+          "scan_sales": null,
+          "total_qty": 4,
+          "reported_sales": 240
+        },
+        {
+          "name_raw": "Guava Cup [guava]",
+          "proposed_code": "guava",
+          "unit": "cup",
+          "unit_price": 75,
+          "cash_qty": 2,
+          "cash_sales": null,
+          "scan_qty": 1,
+          "scan_sales": null,
+          "total_qty": 3,
+          "reported_sales": 225
+        },
+        {
+          "name_raw": "Pineapple Cup [pineapple]",
+          "proposed_code": "pineapple",
+          "unit": "cup",
+          "unit_price": 75,
+          "cash_qty": 3,
+          "cash_sales": null,
+          "scan_qty": 1,
+          "scan_sales": null,
+          "total_qty": 4,
+          "reported_sales": 300
+        },
+        {
+          "name_raw": "Volcano Guava [volcano_guava]",
+          "proposed_code": "volcano_guava",
+          "unit": "cup",
+          "unit_price": 130,
+          "cash_qty": 1,
+          "cash_sales": null,
+          "scan_qty": null,
+          "scan_sales": null,
+          "total_qty": 1,
+          "reported_sales": 130
+        }
+      ],
+      "shift_expenses": [
+        {
+          "item_raw": "ice ( 1 )",
+          "method": "cash",
+          "amount": 60
+        }
+      ],
+      "notes": null,
+      "reported_closing": {
+        "cash_sales": 1685,
+        "scan_sales": 850,
+        "total_sales": 2535,
+        "total_expense": 60,
+        "net_sales": 2475,
+        "opening_cash": 1500,
+        "expected_cash": 3125,
+        "counted_cash": null,
+        "cash_variance": null,
+        "reported_total_cups": 37
+      },
+      "computed": {
+        "sum_individual_cups": 37,
+        "total_derived_cups": 37,
+        "reported_total_cups": 37,
+        "sum_item_revenue": 2535,
+        "reported_total_sales": 2535,
+        "revenue_difference": 0,
+        "channel_sum": 2535,
+        "channel_difference": 0
+      },
+      "discrepancies": [],
+      "status": "ready_for_review"
+    },
+    {
+      "record_id": "REC-B2-202609-10",
+      "branch": {
+        "raw_text": "Bang That Thong (stock)",
+        "normalized": "B2",
+        "state": "observed"
+      },
+      "date": {
+        "raw_text": "10.9.2026",
+        "normalized": "10/09/2026",
+        "state": "observed"
+      },
+      "staff": {
+        "raw_text": "Ning / Kyaw",
+        "state": "observed"
+      },
+      "shift_hours": {
+        "raw_text": "15:30 - 00:00",
+        "state": "observed"
+      },
+      "form_template": "Somsaijai Daily Shop Report (A4 landscape)",
+      "source_ids": [
+        "SRC-B2-SEP-10"
+      ],
+      "financials": {
+        "cash_sales": {
+          "raw_text": "964",
+          "value": 964,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "scan_sales": {
+          "raw_text": "1025",
+          "value": 1025,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "total_sales": {
+          "raw_text": "1989",
+          "value": 1989,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "total_expense": {
+          "raw_text": "60",
+          "value": 60,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "net_sales": {
+          "raw_text": "1929",
+          "value": 1929,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "opening_cash": {
+          "raw_text": "1500",
+          "value": 1500,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "expected_cash": {
+          "raw_text": "2404",
+          "value": 2404,
+          "unit": "THB",
+          "state": "observed"
+        }
+      },
+      "sales_items": [
+        {
+          "name_raw": "Orange Cup (Regular) [or]",
+          "proposed_code": "or",
+          "unit": "cup",
+          "unit_price": 90,
+          "cash_qty": 2,
+          "cash_sales": 180,
+          "scan_qty": 8,
+          "scan_sales": 720,
+          "total_qty": 10,
+          "reported_sales": 900
+        },
+        {
+          "name_raw": "Watermelon Cup [wm]",
+          "proposed_code": "wm",
+          "unit": "cup",
+          "unit_price": 55,
+          "cash_qty": 9,
+          "cash_sales": null,
+          "scan_qty": 2,
+          "scan_sales": null,
+          "total_qty": 11,
+          "reported_sales": 605
+        },
+        {
+          "name_raw": "Coconut Cup [co]",
+          "proposed_code": "co",
+          "unit": "cup",
+          "unit_price": 60,
+          "cash_qty": 2,
+          "cash_sales": null,
+          "scan_qty": 1,
+          "scan_sales": null,
+          "total_qty": 3,
+          "reported_sales": 180
+        },
+        {
+          "name_raw": "Apple Cup [ap]",
+          "proposed_code": "ap",
+          "unit": "cup",
+          "unit_price": 60,
+          "cash_qty": 1,
+          "cash_sales": null,
+          "scan_qty": 1,
+          "scan_sales": null,
+          "total_qty": 2,
+          "reported_sales": 120
+        },
+        {
+          "name_raw": "Guava Cup [guava]",
+          "proposed_code": "guava",
+          "unit": "cup",
+          "unit_price": 75,
+          "cash_qty": null,
+          "cash_sales": null,
+          "scan_qty": 1,
+          "scan_sales": null,
+          "total_qty": 1,
+          "reported_sales": 75
+        },
+        {
+          "name_raw": "Volcano Watermelon [volcano_watermelon]",
+          "proposed_code": "volcano_watermelon",
+          "unit": "cup",
+          "unit_price": 109,
+          "cash_qty": null,
+          "cash_sales": null,
+          "scan_qty": 1,
+          "scan_sales": null,
+          "total_qty": 1,
+          "reported_sales": 109
+        }
+      ],
+      "shift_expenses": [
+        {
+          "item_raw": "ice ( 1 )",
+          "method": "cash",
+          "amount": 60
+        }
+      ],
+      "notes": null,
+      "reported_closing": {
+        "cash_sales": 964,
+        "scan_sales": 1025,
+        "total_sales": 1989,
+        "total_expense": 60,
+        "net_sales": 1929,
+        "opening_cash": 1500,
+        "expected_cash": 2404,
+        "counted_cash": null,
+        "cash_variance": null,
+        "reported_total_cups": 28
+      },
+      "computed": {
+        "sum_individual_cups": 28,
+        "total_derived_cups": 28,
+        "reported_total_cups": 28,
+        "sum_item_revenue": 1989,
+        "reported_total_sales": 1989,
+        "revenue_difference": 0,
+        "channel_sum": 1989,
+        "channel_difference": 0
+      },
+      "discrepancies": [
+        "Volcano Watermelon (109 THB) has tally mark in scan column, but the 109 THB amount was added to cash sales (implied cash 855 + 109 = 964), while scan sales is 1025 (sum of other scan items). Total sales 1989 matches perfectly."
+      ],
+      "status": "ready_for_review"
+    },
+    {
+      "record_id": "REC-B2-202609-11",
+      "branch": {
+        "raw_text": "B-2",
+        "normalized": "B2",
+        "state": "observed"
+      },
+      "date": {
+        "raw_text": "11.9.2026",
+        "normalized": "11/09/2026",
+        "state": "observed"
+      },
+      "staff": {
+        "raw_text": "Hpai / Myat",
+        "state": "observed"
+      },
+      "shift_hours": {
+        "raw_text": "3:30 AM to 12:00 PM",
+        "state": "observed"
+      },
+      "form_template": "Somsaijai Daily Shop Report (A4 landscape)",
+      "source_ids": [
+        "SRC-B2-SEP-11"
+      ],
+      "financials": {
+        "cash_sales": {
+          "raw_text": "715",
+          "value": 715,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "scan_sales": {
+          "raw_text": "0",
+          "value": 0,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "total_sales": {
+          "raw_text": "715",
+          "value": 715,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "total_expense": {
+          "raw_text": "60",
+          "value": 60,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "net_sales": {
+          "raw_text": "655",
+          "value": 655,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "opening_cash": {
+          "raw_text": "1500",
+          "value": 1500,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "expected_cash": {
+          "raw_text": null,
+          "value": null,
+          "unit": "THB",
+          "state": "missing"
+        }
+      },
+      "sales_items": [
+        {
+          "name_raw": "Orange Cup (Regular) [or]",
+          "proposed_code": "or",
+          "unit": "cup",
+          "unit_price": 90,
+          "cash_qty": 2,
+          "cash_sales": 180,
+          "scan_qty": null,
+          "scan_sales": null,
+          "total_qty": 2,
+          "reported_sales": 180
+        },
+        {
+          "name_raw": "Watermelon Cup [wm]",
+          "proposed_code": "wm",
+          "unit": "cup",
+          "unit_price": 55,
+          "cash_qty": 5,
+          "cash_sales": 275,
+          "scan_qty": null,
+          "scan_sales": null,
+          "total_qty": 5,
+          "reported_sales": 275
+        },
+        {
+          "name_raw": "Volcano Guava [volcano_guava]",
+          "proposed_code": "volcano_guava",
+          "unit": "cup",
+          "unit_price": 129,
+          "cash_qty": 2,
+          "cash_sales": 258,
+          "scan_qty": null,
+          "scan_sales": null,
+          "total_qty": 2,
+          "reported_sales": 258
+        }
+      ],
+      "shift_expenses": [
+        {
+          "item_raw": "ice ( 1 )",
+          "method": "cash",
+          "amount": 60
+        }
+      ],
+      "notes": null,
+      "reported_closing": {
+        "cash_sales": 715,
+        "scan_sales": 0,
+        "total_sales": 715,
+        "total_expense": 60,
+        "net_sales": 655,
+        "opening_cash": 1500,
+        "expected_cash": null,
+        "counted_cash": null,
+        "cash_variance": null,
+        "reported_total_cups": null
+      },
+      "computed": {
+        "sum_individual_cups": 9,
+        "total_derived_cups": 9,
+        "reported_total_cups": null,
+        "sum_item_revenue": 713,
+        "reported_total_sales": 715,
+        "revenue_difference": 2,
+        "channel_sum": 715,
+        "channel_difference": 0
+      },
+      "discrepancies": [
+        "Sum of menu rows is 713 THB (180 + 275 + 258), but reported cash sales and total sales is 715 THB (diff +2 THB)."
+      ],
+      "status": "ready_for_review"
+    },
+    {
+      "record_id": "REC-B2-202609-12",
+      "branch": {
+        "raw_text": "B-2",
+        "normalized": "B2",
+        "state": "observed"
+      },
+      "date": {
+        "raw_text": "12.9.2026",
+        "normalized": "12/09/2026",
+        "state": "observed"
+      },
+      "staff": {
+        "raw_text": "Hpai / Myat",
+        "state": "observed"
+      },
+      "shift_hours": {
+        "raw_text": "3:30 AM to 12:00 PM",
+        "state": "observed"
+      },
+      "form_template": "Somsaijai Daily Shop Report (A4 landscape)",
+      "source_ids": [
+        "SRC-B2-SEP-12"
+      ],
+      "financials": {
+        "cash_sales": {
+          "raw_text": "1115",
+          "value": 1115,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "scan_sales": {
+          "raw_text": "985",
+          "value": 985,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "total_sales": {
+          "raw_text": "2100",
+          "value": 2100,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "total_expense": {
+          "raw_text": "60",
+          "value": 60,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "net_sales": {
+          "raw_text": "2040",
+          "value": 2040,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "opening_cash": {
+          "raw_text": "1500",
+          "value": 1500,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "expected_cash": {
+          "raw_text": "2615",
+          "value": 2615,
+          "unit": "THB",
+          "state": "observed"
+        }
+      },
+      "sales_items": [
+        {
+          "name_raw": "Orange Cup (Regular) [or]",
+          "proposed_code": "or",
+          "unit": "cup",
+          "unit_price": 90,
+          "cash_qty": 1,
+          "cash_sales": 90,
+          "scan_qty": 3,
+          "scan_sales": 270,
+          "total_qty": 4,
+          "reported_sales": 360
+        },
+        {
+          "name_raw": "Watermelon Cup [wm]",
+          "proposed_code": "wm",
+          "unit": "cup",
+          "unit_price": 55,
+          "cash_qty": 5,
+          "cash_sales": 275,
+          "scan_qty": 4,
+          "scan_sales": 220,
+          "total_qty": 9,
+          "reported_sales": 495
+        },
+        {
+          "name_raw": "Mango Cup [mg]",
+          "proposed_code": "mg",
+          "unit": "cup",
+          "unit_price": 90,
+          "cash_qty": 1,
+          "cash_sales": 90,
+          "scan_qty": null,
+          "scan_sales": null,
+          "total_qty": 1,
+          "reported_sales": 90
+        },
+        {
+          "name_raw": "Coconut Cup [co]",
+          "proposed_code": "co",
+          "unit": "cup",
+          "unit_price": 60,
+          "cash_qty": 5,
+          "cash_sales": 300,
+          "scan_qty": 1,
+          "scan_sales": 60,
+          "total_qty": 6,
+          "reported_sales": 360
+        },
+        {
+          "name_raw": "Apple Cup [ap]",
+          "proposed_code": "ap",
+          "unit": "cup",
+          "unit_price": 60,
+          "cash_qty": 1,
+          "cash_sales": 60,
+          "scan_qty": 1,
+          "scan_sales": 60,
+          "total_qty": 2,
+          "reported_sales": 120
+        },
+        {
+          "name_raw": "Guava Cup [guava]",
+          "proposed_code": "guava",
+          "unit": "cup",
+          "unit_price": 75,
+          "cash_qty": 2,
+          "cash_sales": 150,
+          "scan_qty": 1,
+          "scan_sales": 75,
+          "total_qty": 3,
+          "reported_sales": 225
+        },
+        {
+          "name_raw": "Pineapple Cup [pineapple]",
+          "proposed_code": "pineapple",
+          "unit": "cup",
+          "unit_price": 75,
+          "cash_qty": 2,
+          "cash_sales": 150,
+          "scan_qty": 2,
+          "scan_sales": 150,
+          "total_qty": 4,
+          "reported_sales": 300
+        },
+        {
+          "name_raw": "Volcano Mango [volcano_mango]",
+          "proposed_code": "volcano_mango",
+          "unit": "cup",
+          "unit_price": 150,
+          "cash_qty": null,
+          "cash_sales": null,
+          "scan_qty": 1,
+          "scan_sales": 150,
+          "total_qty": 1,
+          "reported_sales": 150
+        }
+      ],
+      "shift_expenses": [
+        {
+          "item_raw": "ice ( 1 )",
+          "method": "cash",
+          "amount": 60
+        }
+      ],
+      "notes": null,
+      "reported_closing": {
+        "cash_sales": 1115,
+        "scan_sales": 985,
+        "total_sales": 2100,
+        "total_expense": 60,
+        "net_sales": 2040,
+        "opening_cash": 1500,
+        "expected_cash": 2615,
+        "counted_cash": null,
+        "cash_variance": null,
+        "reported_total_cups": 30
+      },
+      "computed": {
+        "sum_individual_cups": 30,
+        "total_derived_cups": 30,
+        "reported_total_cups": 30,
+        "sum_item_revenue": 2100,
+        "reported_total_sales": 2100,
+        "revenue_difference": 0,
+        "channel_sum": 2100,
+        "channel_difference": 0
+      },
+      "discrepancies": [],
+      "status": "ready_for_review"
+    },
+    {
+      "record_id": "REC-B2-202609-13",
+      "branch": {
+        "raw_text": "B-2",
+        "normalized": "B2",
+        "state": "observed"
+      },
+      "date": {
+        "raw_text": "13.9.2026",
+        "normalized": "13/09/2026",
+        "state": "observed"
+      },
+      "staff": {
+        "raw_text": "Hpai / Myat",
+        "state": "observed"
+      },
+      "shift_hours": {
+        "raw_text": "3:30 AM to 12:00 PM",
+        "state": "observed"
+      },
+      "form_template": "Somsaijai Daily Shop Report (A4 landscape)",
+      "source_ids": [
+        "SRC-B2-SEP-13"
+      ],
+      "financials": {
+        "cash_sales": {
+          "raw_text": "1465",
+          "value": 1465,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "scan_sales": {
+          "raw_text": "914",
+          "value": 914,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "total_sales": {
+          "raw_text": "2379",
+          "value": 2379,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "total_expense": {
+          "raw_text": "60",
+          "value": 60,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "net_sales": {
+          "raw_text": "2319",
+          "value": 2319,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "opening_cash": {
+          "raw_text": "1500",
+          "value": 1500,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "expected_cash": {
+          "raw_text": "2965",
+          "value": 2965,
+          "unit": "THB",
+          "state": "observed"
+        }
+      },
+      "sales_items": [
+        {
+          "name_raw": "Orange Cup (Regular) [or]",
+          "proposed_code": "or",
+          "unit": "cup",
+          "unit_price": 90,
+          "cash_qty": 5,
+          "cash_sales": 450,
+          "scan_qty": 1,
+          "scan_sales": 90,
+          "total_qty": 6,
+          "reported_sales": 540
+        },
+        {
+          "name_raw": "Orange Premium Cup 100% [or_100]",
+          "proposed_code": "or_100",
+          "unit": "cup",
+          "unit_price": 120,
+          "cash_qty": 1,
+          "cash_sales": 120,
+          "scan_qty": null,
+          "scan_sales": null,
+          "total_qty": 1,
+          "reported_sales": 120
+        },
+        {
+          "name_raw": "Watermelon Cup [wm]",
+          "proposed_code": "wm",
+          "unit": "cup",
+          "unit_price": 55,
+          "cash_qty": 1,
+          "cash_sales": 55,
+          "scan_qty": 4,
+          "scan_sales": 220,
+          "total_qty": 5,
+          "reported_sales": 275
+        },
+        {
+          "name_raw": "Coconut Cup [co]",
+          "proposed_code": "co",
+          "unit": "cup",
+          "unit_price": 60,
+          "cash_qty": 3,
+          "cash_sales": 180,
+          "scan_qty": 1,
+          "scan_sales": 60,
+          "total_qty": 4,
+          "reported_sales": 240
+        },
+        {
+          "name_raw": "Apple Cup [ap]",
+          "proposed_code": "ap",
+          "unit": "cup",
+          "unit_price": 60,
+          "cash_qty": 2,
+          "cash_sales": 120,
+          "scan_qty": 6,
+          "scan_sales": 360,
+          "total_qty": 8,
+          "reported_sales": 480
+        },
+        {
+          "name_raw": "Guava Cup [guava]",
+          "proposed_code": "guava",
+          "unit": "cup",
+          "unit_price": 75,
+          "cash_qty": 4,
+          "cash_sales": 300,
+          "scan_qty": 1,
+          "scan_sales": 75,
+          "total_qty": 5,
+          "reported_sales": 375
+        },
+        {
+          "name_raw": "Pineapple Cup [pineapple]",
+          "proposed_code": "pineapple",
+          "unit": "cup",
+          "unit_price": 75,
+          "cash_qty": 4,
+          "cash_sales": 300,
+          "scan_qty": null,
+          "scan_sales": null,
+          "total_qty": 4,
+          "reported_sales": 300
+        },
+        {
+          "name_raw": "Volcano Watermelon [volcano_watermelon]",
+          "proposed_code": "volcano_watermelon",
+          "unit": "cup",
+          "unit_price": 109,
+          "cash_qty": null,
+          "cash_sales": null,
+          "scan_qty": 1,
+          "scan_sales": 109,
+          "total_qty": 1,
+          "reported_sales": 109
+        }
+      ],
+      "shift_expenses": [
+        {
+          "item_raw": "ice ( 1 )",
+          "method": "cash",
+          "amount": 60
+        }
+      ],
+      "notes": null,
+      "reported_closing": {
+        "cash_sales": 1465,
+        "scan_sales": 914,
+        "total_sales": 2379,
+        "total_expense": 60,
+        "net_sales": 2319,
+        "opening_cash": 1500,
+        "expected_cash": 2965,
+        "counted_cash": null,
+        "cash_variance": null,
+        "reported_total_cups": 34
+      },
+      "computed": {
+        "sum_individual_cups": 34,
+        "total_derived_cups": 34,
+        "reported_total_cups": 34,
+        "sum_item_revenue": 2439,
+        "reported_total_sales": 2379,
+        "revenue_difference": -60,
+        "channel_sum": 2379,
+        "channel_difference": 0
+      },
+      "discrepancies": [
+        "Gross cash items sum to 1525 THB; reported cash sales 1465 is net of ice (1525 - 60). Reported total sales 2379 is net cash (1465) + scan (914). Net sales 2319 double-deducted ice (2379 - 60)."
+      ],
+      "status": "ready_for_review"
+    },
+    {
+      "record_id": "REC-B2-202609-14",
+      "branch": {
+        "raw_text": "B-2",
+        "normalized": "B2",
+        "state": "observed"
+      },
+      "date": {
+        "raw_text": "14.9.2026",
+        "normalized": "14/09/2026",
+        "state": "observed"
+      },
+      "staff": {
+        "raw_text": "Aye / phyo",
+        "state": "observed"
+      },
+      "shift_hours": {
+        "raw_text": "15:30 / 23:30",
+        "state": "observed"
+      },
+      "form_template": "Somsaijai Daily Shop Report (A4 landscape)",
+      "source_ids": [
+        "SRC-B2-SEP-14"
+      ],
+      "financials": {
+        "cash_sales": {
+          "raw_text": "1160",
+          "value": 1160,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "scan_sales": {
+          "raw_text": "535",
+          "value": 535,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "total_sales": {
+          "raw_text": "1695",
+          "value": 1695,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "total_expense": {
+          "raw_text": "60",
+          "value": 60,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "net_sales": {
+          "raw_text": "1635",
+          "value": 1635,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "opening_cash": {
+          "raw_text": "1500",
+          "value": 1500,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "expected_cash": {
+          "raw_text": "2600",
+          "value": 2600,
+          "unit": "THB",
+          "state": "observed"
+        }
+      },
+      "sales_items": [
+        {
+          "name_raw": "Watermelon Cup [wm]",
+          "proposed_code": "wm",
+          "unit": "cup",
+          "unit_price": 55,
+          "cash_qty": 5,
+          "cash_sales": null,
+          "scan_qty": 4,
+          "scan_sales": null,
+          "total_qty": 9,
+          "reported_sales": 495
+        },
+        {
+          "name_raw": "Mango Cup [mg]",
+          "proposed_code": "mg",
+          "unit": "cup",
+          "unit_price": 90,
+          "cash_qty": 1,
+          "cash_sales": null,
+          "scan_qty": null,
+          "scan_sales": null,
+          "total_qty": 1,
+          "reported_sales": 90
+        },
+        {
+          "name_raw": "Coconut Cup [co]",
+          "proposed_code": "co",
+          "unit": "cup",
+          "unit_price": 60,
+          "cash_qty": 1,
+          "cash_sales": null,
+          "scan_qty": 4,
+          "scan_sales": null,
+          "total_qty": 5,
+          "reported_sales": 300
+        },
+        {
+          "name_raw": "Apple Cup [ap]",
+          "proposed_code": "ap",
+          "unit": "cup",
+          "unit_price": 60,
+          "cash_qty": 4,
+          "cash_sales": null,
+          "scan_qty": 2,
+          "scan_sales": null,
+          "total_qty": 6,
+          "reported_sales": 360
+        },
+        {
+          "name_raw": "Guava Cup [guava]",
+          "proposed_code": "guava",
+          "unit": "cup",
+          "unit_price": 75,
+          "cash_qty": 2,
+          "cash_sales": null,
+          "scan_qty": 1,
+          "scan_sales": null,
+          "total_qty": 3,
+          "reported_sales": 225
+        },
+        {
+          "name_raw": "Pineapple Cup [pineapple]",
+          "proposed_code": "pineapple",
+          "unit": "cup",
+          "unit_price": 75,
+          "cash_qty": 3,
+          "cash_sales": null,
+          "scan_qty": null,
+          "scan_sales": null,
+          "total_qty": 3,
+          "reported_sales": 225
+        }
+      ],
+      "shift_expenses": [
+        {
+          "item_raw": "ice ( 1 )",
+          "method": "cash",
+          "amount": 60
+        }
+      ],
+      "notes": null,
+      "reported_closing": {
+        "cash_sales": 1160,
+        "scan_sales": 535,
+        "total_sales": 1695,
+        "total_expense": 60,
+        "net_sales": 1635,
+        "opening_cash": 1500,
+        "expected_cash": 2600,
+        "counted_cash": null,
+        "cash_variance": null,
+        "reported_total_cups": 27
+      },
+      "computed": {
+        "sum_individual_cups": 27,
+        "total_derived_cups": 27,
+        "reported_total_cups": 27,
+        "sum_item_revenue": 1695,
+        "reported_total_sales": 1695,
+        "revenue_difference": 0,
+        "channel_sum": 1695,
+        "channel_difference": 0
+      },
+      "discrepancies": [],
+      "status": "ready_for_review"
+    },
+    {
+      "record_id": "REC-B2-202609-15",
+      "branch": {
+        "raw_text": "B-2",
+        "normalized": "B2",
+        "state": "observed"
+      },
+      "date": {
+        "raw_text": "15.9.2026",
+        "normalized": "15/09/2026",
+        "state": "observed"
+      },
+      "staff": {
+        "raw_text": "Arkar / Myat",
+        "state": "observed"
+      },
+      "shift_hours": {
+        "raw_text": "3:30 AM to 12:00 PM",
+        "state": "observed"
+      },
+      "form_template": "Somsaijai Daily Shop Report (A4 landscape - upside down in album)",
+      "source_ids": [
+        "SRC-B2-SEP-15"
+      ],
+      "financials": {
+        "cash_sales": {
+          "raw_text": "205",
+          "value": 205,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "scan_sales": {
+          "raw_text": "150",
+          "value": 150,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "total_sales": {
+          "raw_text": "355",
+          "value": 355,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "total_expense": {
+          "raw_text": "60",
+          "value": 60,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "net_sales": {
+          "raw_text": "295",
+          "value": 295,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "opening_cash": {
+          "raw_text": "1500",
+          "value": 1500,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "expected_cash": {
+          "raw_text": "1645",
+          "value": 1645,
+          "unit": "THB",
+          "state": "observed"
+        }
+      },
+      "sales_items": [
+        {
+          "name_raw": "Watermelon Cup [wm]",
+          "proposed_code": "wm",
+          "unit": "cup",
+          "unit_price": 55,
+          "cash_qty": 1,
+          "cash_sales": null,
+          "scan_qty": null,
+          "scan_sales": null,
+          "total_qty": 1,
+          "reported_sales": 55
+        },
+        {
+          "name_raw": "Mango Cup [mg]",
+          "proposed_code": "mg",
+          "unit": "cup",
+          "unit_price": 90,
+          "cash_qty": 1,
+          "cash_sales": null,
+          "scan_qty": null,
+          "scan_sales": null,
+          "total_qty": 1,
+          "reported_sales": 90
+        },
+        {
+          "name_raw": "Apple Cup [ap]",
+          "proposed_code": "ap",
+          "unit": "cup",
+          "unit_price": 60,
+          "cash_qty": 1,
+          "cash_sales": null,
+          "scan_qty": null,
+          "scan_sales": null,
+          "total_qty": 1,
+          "reported_sales": 60
+        },
+        {
+          "name_raw": "Guava Cup [guava]",
+          "proposed_code": "guava",
+          "unit": "cup",
+          "unit_price": 75,
+          "cash_qty": null,
+          "cash_sales": null,
+          "scan_qty": 1,
+          "scan_sales": null,
+          "total_qty": 1,
+          "reported_sales": 75
+        },
+        {
+          "name_raw": "Pineapple Cup [pineapple]",
+          "proposed_code": "pineapple",
+          "unit": "cup",
+          "unit_price": 75,
+          "cash_qty": null,
+          "cash_sales": null,
+          "scan_qty": 1,
+          "scan_sales": null,
+          "total_qty": 1,
+          "reported_sales": 75
+        }
+      ],
+      "shift_expenses": [
+        {
+          "item_raw": "Ice ( 1 )",
+          "method": "cash",
+          "amount": 60
+        }
+      ],
+      "notes": null,
+      "reported_closing": {
+        "cash_sales": 205,
+        "scan_sales": 150,
+        "total_sales": 355,
+        "total_expense": 60,
+        "net_sales": 295,
+        "opening_cash": 1500,
+        "expected_cash": 1645,
+        "counted_cash": null,
+        "cash_variance": null,
+        "reported_total_cups": null
+      },
+      "computed": {
+        "sum_individual_cups": 5,
+        "total_derived_cups": 5,
+        "reported_total_cups": null,
+        "sum_item_revenue": 355,
+        "reported_total_sales": 355,
+        "revenue_difference": 0,
+        "channel_sum": 355,
+        "channel_difference": 0
+      },
+      "discrepancies": [],
+      "status": "ready_for_review"
+    },
+    {
+      "record_id": "REC-B2-202609-16",
+      "branch": {
+        "raw_text": "B-2",
+        "normalized": "B2",
+        "state": "observed"
+      },
+      "date": {
+        "raw_text": "16.9.2026",
+        "normalized": "16/09/2026",
+        "state": "observed"
+      },
+      "staff": {
+        "raw_text": "Arkar / Hpai",
+        "state": "observed"
+      },
+      "shift_hours": {
+        "raw_text": "3:30 AM to 12:00 PM",
+        "state": "observed"
+      },
+      "form_template": "Somsaijai Daily Shop Report (A4 landscape)",
+      "source_ids": [
+        "SRC-B2-SEP-16"
+      ],
+      "financials": {
+        "cash_sales": {
+          "raw_text": "275",
+          "value": 275,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "scan_sales": {
+          "raw_text": "310",
+          "value": 310,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "total_sales": {
+          "raw_text": "585",
+          "value": 585,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "total_expense": {
+          "raw_text": "60",
+          "value": 60,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "net_sales": {
+          "raw_text": "525",
+          "value": 525,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "opening_cash": {
+          "raw_text": "1500",
+          "value": 1500,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "expected_cash": {
+          "raw_text": "1715",
+          "value": 1715,
+          "unit": "THB",
+          "state": "observed"
+        }
+      },
+      "sales_items": [
+        {
+          "name_raw": "Orange Cup (Regular) [or]",
+          "proposed_code": "or",
+          "unit": "cup",
+          "unit_price": 90,
+          "cash_qty": null,
+          "cash_sales": null,
+          "scan_qty": 2,
+          "scan_sales": null,
+          "total_qty": 2,
+          "reported_sales": 180
+        },
+        {
+          "name_raw": "Watermelon Cup [wm]",
+          "proposed_code": "wm",
+          "unit": "cup",
+          "unit_price": 55,
+          "cash_qty": 1,
+          "cash_sales": null,
+          "scan_qty": 1,
+          "scan_sales": null,
+          "total_qty": 2,
+          "reported_sales": 110
+        },
+        {
+          "name_raw": "Mango Cup [mg]",
+          "proposed_code": "mg",
+          "unit": "cup",
+          "unit_price": 90,
+          "cash_qty": 1,
+          "cash_sales": null,
+          "scan_qty": null,
+          "scan_sales": null,
+          "total_qty": 1,
+          "reported_sales": 90
+        },
+        {
+          "name_raw": "Guava Cup [guava]",
+          "proposed_code": "guava",
+          "unit": "cup",
+          "unit_price": 75,
+          "cash_qty": null,
+          "cash_sales": null,
+          "scan_qty": 1,
+          "scan_sales": null,
+          "total_qty": 1,
+          "reported_sales": 75
+        },
+        {
+          "name_raw": "Volcano Watermelon [volcano_watermelon]",
+          "proposed_code": "volcano_watermelon",
+          "unit": "cup",
+          "unit_price": 129,
+          "cash_qty": 1,
+          "cash_sales": null,
+          "scan_qty": null,
+          "scan_sales": null,
+          "total_qty": 1,
+          "reported_sales": 129
+        }
+      ],
+      "shift_expenses": [
+        {
+          "item_raw": "ice ( 1 )",
+          "method": "cash",
+          "amount": 60
+        }
+      ],
+      "notes": null,
+      "reported_closing": {
+        "cash_sales": 275,
+        "scan_sales": 310,
+        "total_sales": 585,
+        "total_expense": 60,
+        "net_sales": 525,
+        "opening_cash": 1500,
+        "expected_cash": 1715,
+        "counted_cash": null,
+        "cash_variance": null,
+        "reported_total_cups": 7
+      },
+      "computed": {
+        "sum_individual_cups": 7,
+        "total_derived_cups": 7,
+        "reported_total_cups": 7,
+        "sum_item_revenue": 584,
+        "reported_total_sales": 585,
+        "revenue_difference": 1,
+        "channel_sum": 585,
+        "channel_difference": 0
+      },
+      "discrepancies": [
+        "Sum of cash item amounts is 274 THB (55 + 90 + 129), but reported cash sales is 275 THB (diff +1 THB). Total sales reported is 585."
+      ],
+      "status": "ready_for_review"
+    },
+    {
+      "record_id": "REC-B2-202609-17",
+      "branch": {
+        "raw_text": "B-2",
+        "normalized": "B2",
+        "state": "observed"
+      },
+      "date": {
+        "raw_text": "17-9-2026",
+        "normalized": "17/09/2026",
+        "state": "observed"
+      },
+      "staff": {
+        "raw_text": "Myat / Hpai",
+        "state": "observed"
+      },
+      "shift_hours": {
+        "raw_text": "3:30 AM to 12:00 PM",
+        "state": "observed"
+      },
+      "form_template": "Somsaijai Daily Shop Report (A4 landscape)",
+      "source_ids": [
+        "SRC-B2-SEP-17"
+      ],
+      "financials": {
+        "cash_sales": {
+          "raw_text": "1134",
+          "value": 1134,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "scan_sales": {
+          "raw_text": "345",
+          "value": 345,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "total_sales": {
+          "raw_text": "1479",
+          "value": 1479,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "total_expense": {
+          "raw_text": "60",
+          "value": 60,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "net_sales": {
+          "raw_text": "1419",
+          "value": 1419,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "opening_cash": {
+          "raw_text": "1500",
+          "value": 1500,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "expected_cash": {
+          "raw_text": "2634",
+          "value": 2634,
+          "unit": "THB",
+          "state": "observed"
+        }
+      },
+      "sales_items": [
+        {
+          "name_raw": "Orange Cup (Regular) [or]",
+          "proposed_code": "or",
+          "unit": "cup",
+          "unit_price": 90,
+          "cash_qty": 2,
+          "cash_sales": null,
+          "scan_qty": null,
+          "scan_sales": null,
+          "total_qty": 2,
+          "reported_sales": 180
+        },
+        {
+          "name_raw": "Watermelon Cup [wm]",
+          "proposed_code": "wm",
+          "unit": "cup",
+          "unit_price": 55,
+          "cash_qty": 9,
+          "cash_sales": null,
+          "scan_qty": 3,
+          "scan_sales": null,
+          "total_qty": 12,
+          "reported_sales": 660
+        },
+        {
+          "name_raw": "Mango Cup [mg]",
+          "proposed_code": "mg",
+          "unit": "cup",
+          "unit_price": 90,
+          "cash_qty": 1,
+          "cash_sales": null,
+          "scan_qty": null,
+          "scan_sales": null,
+          "total_qty": 1,
+          "reported_sales": 90
+        },
+        {
+          "name_raw": "Coconut Cup [co]",
+          "proposed_code": "co",
+          "unit": "cup",
+          "unit_price": 60,
+          "cash_qty": 3,
+          "cash_sales": null,
+          "scan_qty": 2,
+          "scan_sales": null,
+          "total_qty": 5,
+          "reported_sales": 300
+        },
+        {
+          "name_raw": "Apple Cup [ap]",
+          "proposed_code": "ap",
+          "unit": "cup",
+          "unit_price": 60,
+          "cash_qty": 2,
+          "cash_sales": null,
+          "scan_qty": 1,
+          "scan_sales": null,
+          "total_qty": 3,
+          "reported_sales": 180
+        },
+        {
+          "name_raw": "Volcano Guava [volcano_guava]",
+          "proposed_code": "volcano_guava",
+          "unit": "cup",
+          "unit_price": 129,
+          "cash_qty": 1,
+          "cash_sales": null,
+          "scan_qty": null,
+          "scan_sales": null,
+          "total_qty": 1,
+          "reported_sales": 129
+        }
+      ],
+      "shift_expenses": [
+        {
+          "item_raw": "ice ( 1 )",
+          "method": "cash",
+          "amount": 60
+        }
+      ],
+      "notes": null,
+      "reported_closing": {
+        "cash_sales": 1134,
+        "scan_sales": 345,
+        "total_sales": 1479,
+        "total_expense": 60,
+        "net_sales": 1419,
+        "opening_cash": 1500,
+        "expected_cash": 2634,
+        "counted_cash": null,
+        "cash_variance": null,
+        "reported_total_cups": 24
+      },
+      "computed": {
+        "sum_individual_cups": 24,
+        "total_derived_cups": 24,
+        "reported_total_cups": 24,
+        "sum_item_revenue": 1539,
+        "reported_total_sales": 1479,
+        "revenue_difference": -60,
+        "channel_sum": 1479,
+        "channel_difference": 0
+      },
+      "discrepancies": [
+        "Gross cash items sum to 1194 THB; reported cash sales 1134 is net of ice (1194 - 60). Reported total sales 1479 is net cash (1134) + scan (345). Net sales 1419 double-deducted ice (1479 - 60)."
+      ],
+      "status": "ready_for_review"
+    },
+    {
+      "record_id": "REC-B2-202609-18",
+      "branch": {
+        "raw_text": "R-2",
+        "normalized": "B2",
+        "state": "observed"
+      },
+      "date": {
+        "raw_text": "18.9.2026",
+        "normalized": "18/09/2026",
+        "state": "observed"
+      },
+      "staff": {
+        "raw_text": "Hpai / Myat",
+        "state": "observed"
+      },
+      "shift_hours": {
+        "raw_text": "3:30 AM to 12:00 PM",
+        "state": "observed"
+      },
+      "form_template": "Somsaijai Daily Shop Report (A4 landscape)",
+      "source_ids": [
+        "SRC-B2-SEP-18"
+      ],
+      "financials": {
+        "cash_sales": {
+          "raw_text": "2000",
+          "value": 2000,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "scan_sales": {
+          "raw_text": "639",
+          "value": 639,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "total_sales": {
+          "raw_text": "2639",
+          "value": 2639,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "total_expense": {
+          "raw_text": "60",
+          "value": 60,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "net_sales": {
+          "raw_text": "2579",
+          "value": 2579,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "opening_cash": {
+          "raw_text": "1500",
+          "value": 1500,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "expected_cash": {
+          "raw_text": "3500",
+          "value": 3500,
+          "unit": "THB",
+          "state": "observed"
+        }
+      },
+      "sales_items": [
+        {
+          "name_raw": "Orange Cup (Regular) [or]",
+          "proposed_code": "or",
+          "unit": "cup",
+          "unit_price": 90,
+          "cash_qty": 4,
+          "cash_sales": null,
+          "scan_qty": 3,
+          "scan_sales": null,
+          "total_qty": 7,
+          "reported_sales": 630
+        },
+        {
+          "name_raw": "Watermelon Cup [wm]",
+          "proposed_code": "wm",
+          "unit": "cup",
+          "unit_price": 55,
+          "cash_qty": 12,
+          "cash_sales": null,
+          "scan_qty": 3,
+          "scan_sales": null,
+          "total_qty": 15,
+          "reported_sales": 825
+        },
+        {
+          "name_raw": "Mango Cup [mg]",
+          "proposed_code": "mg",
+          "unit": "cup",
+          "unit_price": 90,
+          "cash_qty": 3,
+          "cash_sales": null,
+          "scan_qty": null,
+          "scan_sales": null,
+          "total_qty": 3,
+          "reported_sales": 270
+        },
+        {
+          "name_raw": "Coconut Cup [co]",
+          "proposed_code": "co",
+          "unit": "cup",
+          "unit_price": 60,
+          "cash_qty": 9,
+          "cash_sales": null,
+          "scan_qty": null,
+          "scan_sales": null,
+          "total_qty": 9,
+          "reported_sales": 540
+        },
+        {
+          "name_raw": "Apple Cup [ap]",
+          "proposed_code": "ap",
+          "unit": "cup",
+          "unit_price": 60,
+          "cash_qty": 2,
+          "cash_sales": null,
+          "scan_qty": null,
+          "scan_sales": null,
+          "total_qty": 2,
+          "reported_sales": 120
+        },
+        {
+          "name_raw": "Guava Cup [guava]",
+          "proposed_code": "guava",
+          "unit": "cup",
+          "unit_price": 75,
+          "cash_qty": 1,
+          "cash_sales": null,
+          "scan_qty": null,
+          "scan_sales": null,
+          "total_qty": 1,
+          "reported_sales": 75
+        },
+        {
+          "name_raw": "Watermelon 109 (overwritten on Mangosteen row)",
+          "proposed_code": "wm_109",
+          "unit": "cup",
+          "unit_price": 109,
+          "cash_qty": 1,
+          "cash_sales": null,
+          "scan_qty": null,
+          "scan_sales": null,
+          "total_qty": 1,
+          "reported_sales": 109
+        },
+        {
+          "name_raw": "Volcano Guava [volcano_guava]",
+          "proposed_code": "volcano_guava",
+          "unit": "cup",
+          "unit_price": 129,
+          "cash_qty": null,
+          "cash_sales": null,
+          "scan_qty": 1,
+          "scan_sales": null,
+          "total_qty": 1,
+          "reported_sales": 129
+        }
+      ],
+      "shift_expenses": [
+        {
+          "item_raw": "ice ( 1 )",
+          "method": "cash",
+          "amount": 60
+        }
+      ],
+      "notes": null,
+      "reported_closing": {
+        "cash_sales": 2000,
+        "scan_sales": 639,
+        "total_sales": 2639,
+        "total_expense": 60,
+        "net_sales": 2579,
+        "opening_cash": 1500,
+        "expected_cash": 3500,
+        "counted_cash": null,
+        "cash_variance": null,
+        "reported_total_cups": 39
+      },
+      "computed": {
+        "sum_individual_cups": 39,
+        "total_derived_cups": 39,
+        "reported_total_cups": 39,
+        "sum_item_revenue": 2698,
+        "reported_total_sales": 2639,
+        "revenue_difference": -59,
+        "channel_sum": 2639,
+        "channel_difference": 0
+      },
+      "discrepancies": [
+        "Sum of menu rows is 2698 THB (cups sum to 39), but reported total sales is 2639 (cash 2000 + scan 639), difference of -59 THB."
+      ],
+      "status": "ready_for_review"
+    },
+    {
+      "record_id": "REC-B2-202609-19",
+      "branch": {
+        "raw_text": "B-2",
+        "normalized": "B2",
+        "state": "observed"
+      },
+      "date": {
+        "raw_text": "19.9.2026",
+        "normalized": "19/09/2026",
+        "state": "observed"
+      },
+      "staff": {
+        "raw_text": null,
+        "state": "missing"
+      },
+      "shift_hours": {
+        "raw_text": null,
+        "state": "missing"
+      },
+      "form_template": "Plain paper slip",
+      "source_ids": [
+        "SRC-B2-SEP-19"
+      ],
+      "financials": {
+        "cash_sales": {
+          "raw_text": "765",
+          "value": 765,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "scan_sales": {
+          "raw_text": "245",
+          "value": 245,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "total_sales": {
+          "raw_text": "1010",
+          "value": 1010,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "total_expense": {
+          "raw_text": "60",
+          "value": 60,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "net_sales": {
+          "raw_text": "950",
+          "value": 950,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "opening_cash": {
+          "raw_text": null,
+          "value": null,
+          "unit": "THB",
+          "state": "missing"
+        },
+        "expected_cash": {
+          "raw_text": null,
+          "value": null,
+          "unit": "THB",
+          "state": "missing"
+        }
+      },
+      "sales_items": [
+        {
+          "name_raw": "orange (90)",
+          "proposed_code": "or",
+          "unit": "cup",
+          "unit_price": 90,
+          "cash_qty": 3,
+          "cash_sales": 270,
+          "scan_qty": null,
+          "scan_sales": null,
+          "total_qty": 3,
+          "reported_sales": 270
+        },
+        {
+          "name_raw": "Water (55)",
+          "proposed_code": "wm",
+          "unit": "cup",
+          "unit_price": 55,
+          "cash_qty": 9,
+          "cash_sales": 495,
+          "scan_qty": 2,
+          "scan_sales": 110,
+          "total_qty": 11,
+          "reported_sales": 605
+        },
+        {
+          "name_raw": "Coconut (60)",
+          "proposed_code": "co",
+          "unit": "cup",
+          "unit_price": 60,
+          "cash_qty": 1,
+          "cash_sales": 60,
+          "scan_qty": null,
+          "scan_sales": null,
+          "total_qty": 1,
+          "reported_sales": 60
+        },
+        {
+          "name_raw": "Apple (60)",
+          "proposed_code": "ap",
+          "unit": "cup",
+          "unit_price": 60,
+          "cash_qty": null,
+          "cash_sales": null,
+          "scan_qty": 1,
+          "scan_sales": 60,
+          "total_qty": 1,
+          "reported_sales": 60
+        },
+        {
+          "name_raw": "Guava (75)",
+          "proposed_code": "guava",
+          "unit": "cup",
+          "unit_price": 75,
+          "cash_qty": null,
+          "cash_sales": null,
+          "scan_qty": 1,
+          "scan_sales": 75,
+          "total_qty": 1,
+          "reported_sales": 75
+        }
+      ],
+      "shift_expenses": [
+        {
+          "item_raw": "ice",
+          "method": "cash",
+          "amount": 60
+        }
+      ],
+      "notes": null,
+      "reported_closing": {
+        "cash_sales": 765,
+        "scan_sales": 245,
+        "total_sales": 1010,
+        "total_expense": 60,
+        "net_sales": 950,
+        "opening_cash": null,
+        "expected_cash": null,
+        "counted_cash": null,
+        "cash_variance": null,
+        "reported_total_cups": 17
+      },
+      "computed": {
+        "sum_individual_cups": 17,
+        "total_derived_cups": 17,
+        "reported_total_cups": 17,
+        "sum_item_revenue": 1070,
+        "reported_total_sales": 1010,
+        "revenue_difference": -60,
+        "channel_sum": 1010,
+        "channel_difference": 0
+      },
+      "discrepancies": [
+        "Cash row items sum to 825 THB (270 + 495 + 60), while written cash is 765 (diff exactly equals ice 60 THB). All sales reported as 1010 (765 + 245)."
+      ],
+      "status": "ready_for_review"
+    },
+    {
+      "record_id": "REC-B2-202609-23",
+      "branch": {
+        "raw_text": "B-2",
+        "normalized": "B2",
+        "state": "observed"
+      },
+      "date": {
+        "raw_text": "23.9.2026",
+        "normalized": "23/09/2026",
+        "state": "observed"
+      },
+      "staff": {
+        "raw_text": "Hpai / Chang",
+        "state": "observed"
+      },
+      "shift_hours": {
+        "raw_text": null,
+        "state": "missing"
+      },
+      "form_template": "Plain lined paper",
+      "source_ids": [
+        "SRC-B2-SEP-20"
+      ],
+      "financials": {
+        "cash_sales": {
+          "raw_text": "1085",
+          "value": 1085,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "scan_sales": {
+          "raw_text": "355",
+          "value": 355,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "total_sales": {
+          "raw_text": "1440",
+          "value": 1440,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "total_expense": {
+          "raw_text": "60",
+          "value": 60,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "net_sales": {
+          "raw_text": "1440",
+          "value": 1440,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "opening_cash": {
+          "raw_text": null,
+          "value": null,
+          "unit": "THB",
+          "state": "missing"
+        },
+        "expected_cash": {
+          "raw_text": null,
+          "value": null,
+          "unit": "THB",
+          "state": "missing"
+        }
+      },
+      "sales_items": [
+        {
+          "name_raw": "Orange (90)",
+          "proposed_code": "or",
+          "unit": "cup",
+          "unit_price": 90,
+          "cash_qty": 2,
+          "cash_sales": 180,
+          "scan_qty": 2,
+          "scan_sales": 180,
+          "total_qty": 4,
+          "reported_sales": 360
+        },
+        {
+          "name_raw": "Orange (120)",
+          "proposed_code": "or_120",
+          "unit": "cup",
+          "unit_price": 120,
+          "cash_qty": 1,
+          "cash_sales": 120,
+          "scan_qty": null,
+          "scan_sales": null,
+          "total_qty": 1,
+          "reported_sales": 120
+        },
+        {
+          "name_raw": "Watermelon (55)",
+          "proposed_code": "wm",
+          "unit": "cup",
+          "unit_price": 55,
+          "cash_qty": 11,
+          "cash_sales": 605,
+          "scan_qty": 2,
+          "scan_sales": 110,
+          "total_qty": 13,
+          "reported_sales": 715
+        },
+        {
+          "name_raw": "Apple (60)",
+          "proposed_code": "ap",
+          "unit": "cup",
+          "unit_price": 60,
+          "cash_qty": 1,
+          "cash_sales": 60,
+          "scan_qty": null,
+          "scan_sales": null,
+          "total_qty": 1,
+          "reported_sales": 60
+        },
+        {
+          "name_raw": "Guava (65)",
+          "proposed_code": "guava",
+          "unit": "cup",
+          "unit_price": 65,
+          "cash_qty": null,
+          "cash_sales": null,
+          "scan_qty": 1,
+          "scan_sales": 65,
+          "total_qty": 1,
+          "reported_sales": 65
+        },
+        {
+          "name_raw": "Coco (60)",
+          "proposed_code": "co",
+          "unit": "cup",
+          "unit_price": 60,
+          "cash_qty": 3,
+          "cash_sales": 180,
+          "scan_qty": null,
+          "scan_sales": null,
+          "total_qty": 3,
+          "reported_sales": 180
+        }
+      ],
+      "shift_expenses": [
+        {
+          "item_raw": "ice",
+          "method": "cash",
+          "amount": 60
+        }
+      ],
+      "notes": null,
+      "reported_closing": {
+        "cash_sales": 1085,
+        "scan_sales": 355,
+        "total_sales": 1440,
+        "total_expense": 60,
+        "net_sales": 1440,
+        "opening_cash": null,
+        "expected_cash": null,
+        "counted_cash": null,
+        "cash_variance": null,
+        "reported_total_cups": 23
+      },
+      "computed": {
+        "sum_individual_cups": 23,
+        "total_derived_cups": 23,
+        "reported_total_cups": 23,
+        "sum_item_revenue": 1500,
+        "reported_total_sales": 1440,
+        "revenue_difference": -60,
+        "channel_sum": 1440,
+        "channel_difference": 0
+      },
+      "discrepancies": [
+        "Gross cash is 1145 THB, less ice 60 = 1085 THB. Scan is 355 THB. 'All -> 1440' is net cash (1085) + scan (355)."
+      ],
+      "status": "ready_for_review"
+    },
+    {
+      "record_id": "REC-B2-202609-24",
+      "branch": {
+        "raw_text": "B-2",
+        "normalized": "B2",
+        "state": "observed"
+      },
+      "date": {
+        "raw_text": "24 / 9 / 2026",
+        "normalized": "24/09/2026",
+        "state": "observed"
+      },
+      "staff": {
+        "raw_text": "Hpai / Chan",
+        "state": "observed"
+      },
+      "shift_hours": {
+        "raw_text": null,
+        "state": "missing"
+      },
+      "form_template": "Old Daily Sales Record",
+      "source_ids": [
+        "SRC-B2-SEP-21"
+      ],
+      "financials": {
+        "cash_sales": {
+          "raw_text": "590",
+          "value": 590,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "scan_sales": {
+          "raw_text": "650",
+          "value": 650,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "total_sales": {
+          "raw_text": "1240",
+          "value": 1240,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "total_expense": {
+          "raw_text": "60",
+          "value": 60,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "net_sales": {
+          "raw_text": "1240",
+          "value": 1240,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "opening_cash": {
+          "raw_text": null,
+          "value": null,
+          "unit": "THB",
+          "state": "missing"
+        },
+        "expected_cash": {
+          "raw_text": null,
+          "value": null,
+          "unit": "THB",
+          "state": "missing"
+        }
+      },
+      "sales_items": [
+        {
+          "name_raw": "Orange",
+          "proposed_code": "or",
+          "unit": "cup",
+          "unit_price": 80,
+          "cash_qty": 1,
+          "cash_sales": 80,
+          "scan_qty": null,
+          "scan_sales": null,
+          "total_qty": 1,
+          "reported_sales": 80
+        },
+        {
+          "name_raw": "Watermelon",
+          "proposed_code": "wm",
+          "unit": "cup",
+          "unit_price": 55,
+          "cash_qty": 2,
+          "cash_sales": 110,
+          "scan_qty": 2,
+          "scan_sales": 110,
+          "total_qty": 4,
+          "reported_sales": 220
+        },
+        {
+          "name_raw": "Apple",
+          "proposed_code": "ap",
+          "unit": "cup",
+          "unit_price": 60,
+          "cash_qty": 1,
+          "cash_sales": 60,
+          "scan_qty": 5,
+          "scan_sales": 300,
+          "total_qty": 6,
+          "reported_sales": 360
+        },
+        {
+          "name_raw": "Mango",
+          "proposed_code": "mg",
+          "unit": "cup",
+          "unit_price": 90,
+          "cash_qty": 1,
+          "cash_sales": 90,
+          "scan_qty": 2,
+          "scan_sales": 180,
+          "total_qty": 3,
+          "reported_sales": 270
+        },
+        {
+          "name_raw": "Coconut",
+          "proposed_code": "co",
+          "unit": "cup",
+          "unit_price": 60,
+          "cash_qty": 4,
+          "cash_sales": 240,
+          "scan_qty": 1,
+          "scan_sales": 60,
+          "total_qty": 5,
+          "reported_sales": 300
+        }
+      ],
+      "shift_expenses": [
+        {
+          "item_raw": "Ice",
+          "method": "cash",
+          "amount": 60
+        }
+      ],
+      "notes": "Water (70) - 1 (Cash 70)",
+      "reported_closing": {
+        "cash_sales": 590,
+        "scan_sales": 650,
+        "total_sales": 1240,
+        "total_expense": 60,
+        "net_sales": 1240,
+        "opening_cash": null,
+        "expected_cash": null,
+        "counted_cash": null,
+        "cash_variance": null,
+        "reported_total_cups": 19
+      },
+      "computed": {
+        "sum_individual_cups": 19,
+        "total_derived_cups": 20,
+        "reported_total_cups": 19,
+        "sum_item_revenue": 1300,
+        "reported_total_sales": 1240,
+        "revenue_difference": -60,
+        "channel_sum": 1240,
+        "channel_difference": 0
+      },
+      "discrepancies": [
+        "Gross menu cash is 580 THB. With note 'Water (70) - 1', total cash is 650 THB. Deducting ice 60 yields net cash 590 THB. Cash Total box originally wrote 580, crossed out and corrected to 590. Grand Total originally wrote 1230, crossed out and corrected to 1240."
+      ],
+      "status": "ready_for_review"
+    },
+    {
+      "record_id": "REC-B2-202609-25",
+      "branch": {
+        "raw_text": "B-2",
+        "normalized": "B2",
+        "state": "observed"
+      },
+      "date": {
+        "raw_text": "25 / 9 / 2026",
+        "normalized": "25/09/2026",
+        "state": "observed"
+      },
+      "staff": {
+        "raw_text": null,
+        "state": "missing"
+      },
+      "shift_hours": {
+        "raw_text": null,
+        "state": "missing"
+      },
+      "form_template": "Old Daily Sales Record",
+      "source_ids": [
+        "SRC-B2-SEP-22"
+      ],
+      "financials": {
+        "cash_sales": {
+          "raw_text": "150",
+          "value": 150,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "scan_sales": {
+          "raw_text": "175",
+          "value": 175,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "total_sales": {
+          "raw_text": "355",
+          "value": 355,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "total_expense": {
+          "raw_text": "30",
+          "value": 30,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "net_sales": {
+          "raw_text": "325",
+          "value": 325,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "opening_cash": {
+          "raw_text": null,
+          "value": null,
+          "unit": "THB",
+          "state": "missing"
+        },
+        "expected_cash": {
+          "raw_text": null,
+          "value": null,
+          "unit": "THB",
+          "state": "missing"
+        }
+      },
+      "sales_items": [
+        {
+          "name_raw": "Watermelon",
+          "proposed_code": "wm",
+          "unit": "cup",
+          "unit_price": 55,
+          "cash_qty": 1,
+          "cash_sales": null,
+          "scan_qty": 1,
+          "scan_sales": null,
+          "total_qty": 2,
+          "reported_sales": 110
+        },
+        {
+          "name_raw": "Apple",
+          "proposed_code": "ap",
+          "unit": "cup",
+          "unit_price": 60,
+          "cash_qty": null,
+          "cash_sales": null,
+          "scan_qty": 2,
+          "scan_sales": null,
+          "total_qty": 2,
+          "reported_sales": 120
+        },
+        {
+          "name_raw": "Coconut",
+          "proposed_code": "co",
+          "unit": "cup",
+          "unit_price": 60,
+          "cash_qty": 1,
+          "cash_sales": null,
+          "scan_qty": null,
+          "scan_sales": null,
+          "total_qty": 1,
+          "reported_sales": 60
+        },
+        {
+          "name_raw": "Guava",
+          "proposed_code": "guava",
+          "unit": "cup",
+          "unit_price": 65,
+          "cash_qty": 1,
+          "cash_sales": null,
+          "scan_qty": null,
+          "scan_sales": null,
+          "total_qty": 1,
+          "reported_sales": 65
+        }
+      ],
+      "shift_expenses": [
+        {
+          "item_raw": "Ice ( 1/2 )",
+          "method": "cash",
+          "amount": 30
+        }
+      ],
+      "notes": null,
+      "reported_closing": {
+        "cash_sales": 150,
+        "scan_sales": 175,
+        "total_sales": 355,
+        "total_expense": 30,
+        "net_sales": 325,
+        "opening_cash": null,
+        "expected_cash": null,
+        "counted_cash": null,
+        "cash_variance": null,
+        "reported_total_cups": 6
+      },
+      "computed": {
+        "sum_individual_cups": 6,
+        "total_derived_cups": 6,
+        "reported_total_cups": 6,
+        "sum_item_revenue": 355,
+        "reported_total_sales": 355,
+        "revenue_difference": 0,
+        "channel_sum": 325,
+        "channel_difference": -30
+      },
+      "discrepancies": [
+        "Gross cash sales is 180 THB (55+60+65). Minus ice 30 THB = 150 THB. Scan sales is 175 THB (55+120). Grand Total reported as 355 THB, which is gross sales (180 + 175 = 355), before deducting ice."
+      ],
+      "status": "ready_for_review"
+    },
+    {
+      "record_id": "REC-B2-202609-27",
+      "branch": {
+        "raw_text": "B-2",
+        "normalized": "B2",
+        "state": "observed"
+      },
+      "date": {
+        "raw_text": "27 / 9 / 2026",
+        "normalized": "27/09/2026",
+        "state": "observed"
+      },
+      "staff": {
+        "raw_text": null,
+        "state": "missing"
+      },
+      "shift_hours": {
+        "raw_text": null,
+        "state": "missing"
+      },
+      "form_template": "Old Daily Sales Record",
+      "source_ids": [
+        "SRC-B2-SEP-23"
+      ],
+      "financials": {
+        "cash_sales": {
+          "raw_text": "705",
+          "value": 705,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "scan_sales": {
+          "raw_text": "485",
+          "value": 485,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "total_sales": {
+          "raw_text": "1190",
+          "value": 1190,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "total_expense": {
+          "raw_text": "0",
+          "value": 0,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "net_sales": {
+          "raw_text": "1190",
+          "value": 1190,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "opening_cash": {
+          "raw_text": null,
+          "value": null,
+          "unit": "THB",
+          "state": "missing"
+        },
+        "expected_cash": {
+          "raw_text": null,
+          "value": null,
+          "unit": "THB",
+          "state": "missing"
+        }
+      },
+      "sales_items": [
+        {
+          "name_raw": "Orange",
+          "proposed_code": "or",
+          "unit": "cup",
+          "unit_price": 80,
+          "cash_qty": 2,
+          "cash_sales": 190,
+          "scan_qty": null,
+          "scan_sales": null,
+          "total_qty": 2,
+          "reported_sales": 190
+        },
+        {
+          "name_raw": "Watermelon",
+          "proposed_code": "wm",
+          "unit": "cup",
+          "unit_price": 55,
+          "cash_qty": 5,
+          "cash_sales": 275,
+          "scan_qty": 6,
+          "scan_sales": 275,
+          "total_qty": 11,
+          "reported_sales": 550
+        },
+        {
+          "name_raw": "Apple",
+          "proposed_code": "ap",
+          "unit": "cup",
+          "unit_price": 60,
+          "cash_qty": 1,
+          "cash_sales": 60,
+          "scan_qty": 1,
+          "scan_sales": 60,
+          "total_qty": 2,
+          "reported_sales": 120
+        },
+        {
+          "name_raw": "Mango",
+          "proposed_code": "mg",
+          "unit": "cup",
+          "unit_price": 90,
+          "cash_qty": null,
+          "cash_sales": null,
+          "scan_qty": null,
+          "scan_sales": null,
+          "total_qty": 3,
+          "reported_sales": null
+        },
+        {
+          "name_raw": "Coconut",
+          "proposed_code": "co",
+          "unit": "cup",
+          "unit_price": 60,
+          "cash_qty": 3,
+          "cash_sales": 180,
+          "scan_qty": null,
+          "scan_sales": null,
+          "total_qty": null,
+          "reported_sales": 180
+        }
+      ],
+      "shift_expenses": [
+        {
+          "item_raw": "Ice",
+          "method": "cash",
+          "amount": 0
+        }
+      ],
+      "notes": "Mango sticky rice - scan - 150 - 1",
+      "reported_closing": {
+        "cash_sales": 705,
+        "scan_sales": 485,
+        "total_sales": 1190,
+        "total_expense": 0,
+        "net_sales": 1190,
+        "opening_cash": null,
+        "expected_cash": null,
+        "counted_cash": null,
+        "cash_variance": null,
+        "reported_total_cups": 19
+      },
+      "computed": {
+        "sum_individual_cups": 18,
+        "total_derived_cups": 19,
+        "reported_total_cups": 19,
+        "sum_item_revenue": 1305,
+        "reported_total_sales": 1190,
+        "revenue_difference": -115,
+        "channel_sum": 1190,
+        "channel_difference": 0
+      },
+      "discrepancies": [
+        "Orange cash written as 190 (2 cups @ 80 = 160, diff +30 THB). Watermelon scan tallies show 6 cups (implied 330), but written scan amount is 275 THB. Mango row has Total Qty 3 written with no tallies. Ice 60 THB is crossed out and not deducted. Total sales 1190 = Cash 705 + Scan 485."
+      ],
+      "status": "ready_for_review"
+    },
+    {
+      "record_id": "REC-B2-202609-28",
+      "branch": {
+        "raw_text": "B-2",
+        "normalized": "B2",
+        "state": "observed"
+      },
+      "date": {
+        "raw_text": "28 / 9 / 2026",
+        "normalized": "28/09/2026",
+        "state": "observed"
+      },
+      "staff": {
+        "raw_text": "Hpai / Myat",
+        "state": "observed"
+      },
+      "shift_hours": {
+        "raw_text": null,
+        "state": "missing"
+      },
+      "form_template": "Old Daily Sales Record",
+      "source_ids": [
+        "SRC-B2-SEP-24"
+      ],
+      "financials": {
+        "cash_sales": {
+          "raw_text": "2040",
+          "value": 2040,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "scan_sales": {
+          "raw_text": "845",
+          "value": 845,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "total_sales": {
+          "raw_text": "2885",
+          "value": 2885,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "total_expense": {
+          "raw_text": "60",
+          "value": 60,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "net_sales": {
+          "raw_text": "2885",
+          "value": 2885,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "opening_cash": {
+          "raw_text": null,
+          "value": null,
+          "unit": "THB",
+          "state": "missing"
+        },
+        "expected_cash": {
+          "raw_text": null,
+          "value": null,
+          "unit": "THB",
+          "state": "missing"
+        }
+      },
+      "sales_items": [
+        {
+          "name_raw": "Orange",
+          "proposed_code": "or",
+          "unit": "cup",
+          "unit_price": 80,
+          "cash_qty": 5,
+          "cash_sales": 400,
+          "scan_qty": 3,
+          "scan_sales": 240,
+          "total_qty": 8,
+          "reported_sales": 640
+        },
+        {
+          "name_raw": "Watermelon",
+          "proposed_code": "wm",
+          "unit": "cup",
+          "unit_price": 55,
+          "cash_qty": 12,
+          "cash_sales": 660,
+          "scan_qty": 6,
+          "scan_sales": 330,
+          "total_qty": 18,
+          "reported_sales": 990
+        },
+        {
+          "name_raw": "Apple",
+          "proposed_code": "ap",
+          "unit": "cup",
+          "unit_price": 60,
+          "cash_qty": 6,
+          "cash_sales": 360,
+          "scan_qty": 2,
+          "scan_sales": 120,
+          "total_qty": 8,
+          "reported_sales": 480
+        },
+        {
+          "name_raw": "Mango",
+          "proposed_code": "mg",
+          "unit": "cup",
+          "unit_price": 90,
+          "cash_qty": null,
+          "cash_sales": null,
+          "scan_qty": 1,
+          "scan_sales": 90,
+          "total_qty": 1,
+          "reported_sales": 90
+        },
+        {
+          "name_raw": "Coconut",
+          "proposed_code": "co",
+          "unit": "cup",
+          "unit_price": 60,
+          "cash_qty": 7,
+          "cash_sales": 420,
+          "scan_qty": null,
+          "scan_sales": null,
+          "total_qty": 7,
+          "reported_sales": 420
+        },
+        {
+          "name_raw": "Guava",
+          "proposed_code": "guava",
+          "unit": "cup",
+          "unit_price": 65,
+          "cash_qty": 4,
+          "cash_sales": 260,
+          "scan_qty": 1,
+          "scan_sales": 65,
+          "total_qty": 5,
+          "reported_sales": 325
+        }
+      ],
+      "shift_expenses": [
+        {
+          "item_raw": "Ice",
+          "method": "cash",
+          "amount": 60
+        }
+      ],
+      "notes": null,
+      "reported_closing": {
+        "cash_sales": 2040,
+        "scan_sales": 845,
+        "total_sales": 2885,
+        "total_expense": 60,
+        "net_sales": 2885,
+        "opening_cash": null,
+        "expected_cash": null,
+        "counted_cash": null,
+        "cash_variance": null,
+        "reported_total_cups": 47
+      },
+      "computed": {
+        "sum_individual_cups": 47,
+        "total_derived_cups": 47,
+        "reported_total_cups": 47,
+        "sum_item_revenue": 2945,
+        "reported_total_sales": 2885,
+        "revenue_difference": -60,
+        "channel_sum": 2885,
+        "channel_difference": 0
+      },
+      "discrepancies": [
+        "Gross cash items sum to 2100 THB; net cash written is 2040 THB (2100 - 60 ice). Scan sales is 845 THB. Grand Total reported is 2885 THB (net cash 2040 + scan 845)."
+      ],
+      "status": "ready_for_review"
+    },
+    {
+      "record_id": "REC-B2-202609-29",
+      "branch": {
+        "raw_text": "B-2",
+        "normalized": "B2",
+        "state": "observed"
+      },
+      "date": {
+        "raw_text": "29 / 9 / 2026",
+        "normalized": "29/09/2026",
+        "state": "observed"
+      },
+      "staff": {
+        "raw_text": "Hpai / Myat",
+        "state": "observed"
+      },
+      "shift_hours": {
+        "raw_text": null,
+        "state": "missing"
+      },
+      "form_template": "Old Daily Sales Record",
+      "source_ids": [
+        "SRC-B2-SEP-25"
+      ],
+      "financials": {
+        "cash_sales": {
+          "raw_text": "1170",
+          "value": 1170,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "scan_sales": {
+          "raw_text": "1220",
+          "value": 1220,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "total_sales": {
+          "raw_text": "2330",
+          "value": 2330,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "total_expense": {
+          "raw_text": "60",
+          "value": 60,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "net_sales": {
+          "raw_text": "2330",
+          "value": 2330,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "opening_cash": {
+          "raw_text": null,
+          "value": null,
+          "unit": "THB",
+          "state": "missing"
+        },
+        "expected_cash": {
+          "raw_text": null,
+          "value": null,
+          "unit": "THB",
+          "state": "missing"
+        }
+      },
+      "sales_items": [
+        {
+          "name_raw": "Orange",
+          "proposed_code": "or",
+          "unit": "cup",
+          "unit_price": 80,
+          "cash_qty": 1,
+          "cash_sales": 80,
+          "scan_qty": 3,
+          "scan_sales": 240,
+          "total_qty": 4,
+          "reported_sales": 320
+        },
+        {
+          "name_raw": "Watermelon",
+          "proposed_code": "wm",
+          "unit": "cup",
+          "unit_price": 55,
+          "cash_qty": 4,
+          "cash_sales": 220,
+          "scan_qty": 8,
+          "scan_sales": 440,
+          "total_qty": 12,
+          "reported_sales": 660
+        },
+        {
+          "name_raw": "Apple",
+          "proposed_code": "ap",
+          "unit": "cup",
+          "unit_price": 60,
+          "cash_qty": 3,
+          "cash_sales": 180,
+          "scan_qty": 2,
+          "scan_sales": 120,
+          "total_qty": 5,
+          "reported_sales": 300
+        },
+        {
+          "name_raw": "Mango",
+          "proposed_code": "mg",
+          "unit": "cup",
+          "unit_price": 90,
+          "cash_qty": 1,
+          "cash_sales": 90,
+          "scan_qty": 2,
+          "scan_sales": 180,
+          "total_qty": 3,
+          "reported_sales": 270
+        },
+        {
+          "name_raw": "Coconut",
+          "proposed_code": "co",
+          "unit": "cup",
+          "unit_price": 60,
+          "cash_qty": 10,
+          "cash_sales": 600,
+          "scan_qty": 4,
+          "scan_sales": 240,
+          "total_qty": 14,
+          "reported_sales": 840
+        }
+      ],
+      "shift_expenses": [
+        {
+          "item_raw": "Ice",
+          "method": "cash",
+          "amount": 60
+        }
+      ],
+      "notes": null,
+      "reported_closing": {
+        "cash_sales": 1170,
+        "scan_sales": 1220,
+        "total_sales": 2330,
+        "total_expense": 60,
+        "net_sales": 2330,
+        "opening_cash": null,
+        "expected_cash": null,
+        "counted_cash": null,
+        "cash_variance": null,
+        "reported_total_cups": 38
+      },
+      "computed": {
+        "sum_individual_cups": 38,
+        "total_derived_cups": 38,
+        "reported_total_cups": 38,
+        "sum_item_revenue": 2390,
+        "reported_total_sales": 2330,
+        "revenue_difference": -60,
+        "channel_sum": 2390,
+        "channel_difference": 60
+      },
+      "discrepancies": [
+        "Gross cash items sum to 1170 THB. In Payment Summary, Cash Total is written as 1170 (gross), QR/Bank Total is 1220, but Grand Total is written as 2330 (which equals net cash 1110 + scan 1220)."
+      ],
+      "status": "ready_for_review"
+    },
+    {
+      "record_id": "REC-B2-202609-30",
+      "branch": {
+        "raw_text": "B-2",
+        "normalized": "B2",
+        "state": "observed"
+      },
+      "date": {
+        "raw_text": "30 / 9 / 2026",
+        "normalized": "30/09/2026",
+        "state": "observed"
+      },
+      "staff": {
+        "raw_text": "Hpai / Myat",
+        "state": "observed"
+      },
+      "shift_hours": {
+        "raw_text": null,
+        "state": "missing"
+      },
+      "form_template": "Old Daily Sales Record",
+      "source_ids": [
+        "SRC-B2-SEP-26"
+      ],
+      "financials": {
+        "cash_sales": {
+          "raw_text": "1245",
+          "value": 1245,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "scan_sales": {
+          "raw_text": "1285",
+          "value": 1285,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "total_sales": {
+          "raw_text": "2530",
+          "value": 2530,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "total_expense": {
+          "raw_text": "60",
+          "value": 60,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "net_sales": {
+          "raw_text": "2530",
+          "value": 2530,
+          "unit": "THB",
+          "state": "observed"
+        },
+        "opening_cash": {
+          "raw_text": null,
+          "value": null,
+          "unit": "THB",
+          "state": "missing"
+        },
+        "expected_cash": {
+          "raw_text": null,
+          "value": null,
+          "unit": "THB",
+          "state": "missing"
+        }
+      },
+      "sales_items": [
+        {
+          "name_raw": "Orange",
+          "proposed_code": "or",
+          "unit": "cup",
+          "unit_price": 80,
+          "cash_qty": 1,
+          "cash_sales": 80,
+          "scan_qty": 4,
+          "scan_sales": 320,
+          "total_qty": 5,
+          "reported_sales": 400
+        },
+        {
+          "name_raw": "Watermelon",
+          "proposed_code": "wm",
+          "unit": "cup",
+          "unit_price": 55,
+          "cash_qty": 14,
+          "cash_sales": 770,
+          "scan_qty": 9,
+          "scan_sales": 495,
+          "total_qty": 23,
+          "reported_sales": 1265
+        },
+        {
+          "name_raw": "Apple",
+          "proposed_code": "ap",
+          "unit": "cup",
+          "unit_price": 60,
+          "cash_qty": 2,
+          "cash_sales": 120,
+          "scan_qty": 1,
+          "scan_sales": 60,
+          "total_qty": 3,
+          "reported_sales": 180
+        },
+        {
+          "name_raw": "Mango",
+          "proposed_code": "mg",
+          "unit": "cup",
+          "unit_price": 90,
+          "cash_qty": null,
+          "cash_sales": null,
+          "scan_qty": 1,
+          "scan_sales": 90,
+          "total_qty": 1,
+          "reported_sales": 90
+        },
+        {
+          "name_raw": "Coconut",
+          "proposed_code": "co",
+          "unit": "cup",
+          "unit_price": 60,
+          "cash_qty": 2,
+          "cash_sales": 120,
+          "scan_qty": 2,
+          "scan_sales": 120,
+          "total_qty": 4,
+          "reported_sales": 240
+        },
+        {
+          "name_raw": "Guava",
+          "proposed_code": "guava",
+          "unit": "cup",
+          "unit_price": 65,
+          "cash_qty": 1,
+          "cash_sales": 65,
+          "scan_qty": 2,
+          "scan_sales": 130,
+          "total_qty": 3,
+          "reported_sales": 195
+        }
+      ],
+      "shift_expenses": [
+        {
+          "item_raw": "Ice",
+          "method": "cash",
+          "amount": 60
+        }
+      ],
+      "notes": "Mango sticky ice - Cash - 1 = 150; Watermelon no ice - Scan - 1 = 70",
+      "reported_closing": {
+        "cash_sales": 1245,
+        "scan_sales": 1285,
+        "total_sales": 2530,
+        "total_expense": 60,
+        "net_sales": 2530,
+        "opening_cash": null,
+        "expected_cash": null,
+        "counted_cash": null,
+        "cash_variance": null,
+        "reported_total_cups": 41
+      },
+      "computed": {
+        "sum_individual_cups": 39,
+        "total_derived_cups": 41,
+        "reported_total_cups": 41,
+        "sum_item_revenue": 2590,
+        "reported_total_sales": 2530,
+        "revenue_difference": -60,
+        "channel_sum": 2530,
+        "channel_difference": 0
+      },
+      "discrepancies": [
+        "Gross menu cash is 1155 THB + 150 THB (Mango sticky ice note) = 1305 THB gross cash. Less ice 60 THB = 1245 THB net cash. Scan is 1215 THB + 70 THB (Watermelon no ice note) = 1285 THB. Grand Total reported as 2530 THB (1245 net cash + 1285 scan)."
+      ],
+      "status": "ready_for_review"
+    }
+  ],
+  "review": {
+    "reviewer": "B2 Sales Transcriber Subagent",
+    "reviewed_at": "2026-10-01T23:50:00+07:00",
+    "import_allowed": false
+  }
+}

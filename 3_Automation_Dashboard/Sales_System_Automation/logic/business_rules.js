@@ -45,7 +45,8 @@ const PROFIT_SHARE_CURRENT = 0.70;
 const PROFIT_SHARE_LEGACY = {
     B1: 0.60,
     B2: 0.70,
-    B3: 0.70
+    B3: 0.70,
+    B4: 0.70
 };
 
 /** Blessme's cut of net profit for a branch in a given month. Ming gets the rest. */
@@ -156,7 +157,7 @@ function auditRecord(r, branch = r.branch) {
  * Compiles P&L reports (including B1/B2 profit sharing, Hybrid COGS, Net Loss Carry-Forward)
  */
 function calculatePL(data) {
-    const branchNames = ['B1', 'B2', 'B3'];
+    const branchNames = Object.keys(data.branches || {}).sort();
     
     // Find all months with sales records across any branch
     const monthsSet = new Set();
@@ -169,7 +170,8 @@ function calculatePL(data) {
     const months = Array.from(monthsSet).sort((a, b) => monthIndex(a) - monthIndex(b));
 
     const fullReport = {};
-    const lossCarryForward = { B1: 0, B2: 0, B3: 0 };
+    const lossCarryForward = {};
+    branchNames.forEach(b => lossCarryForward[b] = 0);
 
     months.forEach(m => {
         const branchCalcs = {};
@@ -225,7 +227,7 @@ function calculatePL(data) {
 
         (data.expenses || []).forEach(e => {
             if (e.month === m) {
-                if (NON_PL_BUCKETS.includes(e.bucket)) {
+                if (NON_PL_BUCKETS.includes(e.bucket) || (monthIndex(m) >= monthIndex('Sep26') && e.bucket === 'CAPEX')) {
                     // ponytail: excluded from COGS/OPEX, kept in raw data for reconciliation tracking
                 } else if (e.bucket === 'COGS') {
                     total_cogs += e.amt;
@@ -317,6 +319,11 @@ function calculatePL(data) {
                     branchNames.forEach(b => {
                         branchCalcs[b].cogs += e.amt * branchRatios[b];
                     });
+                }
+            } else if (e.branch && (cat.includes('Sticky Rice') || cat.includes('Durian'))) {
+                // Direct COGS to specific branch (e.g. B3 exclusive items)
+                if (branchCalcs[e.branch]) {
+                    branchCalcs[e.branch].cogs += e.amt;
                 }
             } else {
                 // Packaging, Ice, Transport, etc. are allocated by revenue shares

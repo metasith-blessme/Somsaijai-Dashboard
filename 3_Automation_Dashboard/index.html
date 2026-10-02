@@ -82,6 +82,7 @@ body {
 .branch-btn.btn-b1.active { background: var(--green); border-color: var(--green); }
 .branch-btn.btn-b2.active { background: var(--blue); border-color: var(--blue); }
 .branch-btn.btn-b3.active { background: #9b59b6; border-color: #9b59b6; }
+.branch-btn.btn-b4.active { background: #e67e22; border-color: #e67e22; }
 
 /* Theme toggle & Profile icons */
 .col-left-bottom {
@@ -234,6 +235,7 @@ body {
 .badge-b1 { background: rgba(31, 78, 121, 0.1); color: var(--primary); }
 .badge-b2 { background: rgba(255, 102, 0, 0.1); color: var(--accent); }
 .badge-b3 { background: rgba(155, 89, 182, 0.1); color: #9b59b6; }
+.badge-b4 { background: rgba(230, 126, 34, 0.1); color: #e67e22; }
 .mobile-header {
     display: none;
     align-items: center;
@@ -811,8 +813,8 @@ const PARAMS = {
     prices: { orange: 60, orange_premium: 100, watermelon: 50, apple: 60, mango: 90, coconut: 60, young: 90, guava: 60 },
     // Current rate — flat 70/30 on every branch from Jul26. Historical months kept
     // their own rate (B1 was 60/40); those come from report share_pct via sharePct().
-    profitShare: { B1: 0.70, B2: 0.70, B3: 0.70 },
-    fixed: { B1: 35000 + 35000 + 4000, B2: 25000 + 30000 + 4000, B3: 19000 + 46500 + 4000 }
+    profitShare: { B1: 0.70, B2: 0.70, B3: 0.70, B4: 0.70 },
+    fixed: { B1: 35000 + 35000 + 4000, B2: 25000 + 30000 + 4000, B3: 19000 + 46500 + 4000, B4: 22967 + 10000 + 3000 }
 };
 
 const fmt = v => (v || 0).toLocaleString(undefined, {minimumFractionDigits:0, maximumFractionDigits:0});
@@ -897,7 +899,7 @@ async function init() {
 }
 
 function renderBranchSelector() {
-    const branches = ['all', 'B1', 'B2', 'B3'];
+    const branches = ['all', 'B1', 'B2', 'B3', 'B4'];
     document.getElementById('branchSelector').innerHTML = branches.map(b => {
         const isActive = currentBranch === b;
         let colorClass = 'btn-all';
@@ -905,6 +907,7 @@ function renderBranchSelector() {
         if (b === 'B1') { colorClass = 'btn-b1'; label = 'B1'; }
         else if (b === 'B2') { colorClass = 'btn-b2'; label = 'B2'; }
         else if (b === 'B3') { colorClass = 'btn-b3'; label = 'B3'; }
+        else if (b === 'B4') { colorClass = 'btn-b4'; label = 'B4'; }
         return `<button class="branch-btn ${colorClass} ${isActive?'active':''}" onclick="currentBranch='${b}';updateUI()">${label}</button>`;
     }).join('');
 }
@@ -1154,7 +1157,8 @@ function renderFinance(sales, expenses) {
                 { label: 'Total Revenue', data: sales.map(r=>r.rev), borderColor: '#ff6600', backgroundColor: 'rgba(255,102,0,0.1)', fill: true, tension: 0.4 },
                 { label: 'B1', data: sales.map(r=>r.branch==='B1'?r.rev:0), borderColor: 'var(--primary)', tension: 0.4, hidden: true },
                 { label: 'B2', data: sales.map(r=>r.branch==='B2'?r.rev:0), borderColor: '#3498db', tension: 0.4, hidden: true },
-                { label: 'B3', data: sales.map(r=>r.branch==='B3'?r.rev:0), borderColor: '#9b59b6', tension: 0.4, hidden: true }
+                { label: 'B3', data: sales.map(r=>r.branch==='B3'?r.rev:0), borderColor: '#9b59b6', tension: 0.4, hidden: true },
+                { label: 'B4', data: sales.map(r=>r.branch==='B4'?r.rev:0), borderColor: '#e67e22', tension: 0.4, hidden: true }
             ] 
         },
         options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: true } } }

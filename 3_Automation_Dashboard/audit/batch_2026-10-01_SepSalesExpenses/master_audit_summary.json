@@ -1,0 +1,54 @@
+{
+  "schema_version": "1.0",
+  "batch_id": "batch_2026-10-01_SepSalesExpenses",
+  "generated_at": "2026-10-02T04:33:02.408743+00:00",
+  "review": {
+    "reviewer": "Antigravity Audit Coordinator",
+    "import_allowed": false,
+    "status": "AWAITING_OWNER_DECISIONS"
+  },
+  "sales": {
+    "B1": {
+      "calendar_days": 30,
+      "evidenced_days": 30,
+      "revenue": 135223,
+      "cash": 84240,
+      "scan": 50983,
+      "shift_exp": 2875,
+      "net_cash": 81365
+    },
+    "B2": {
+      "calendar_days": 30,
+      "evidenced_days": 26,
+      "missing_calendar_dates": [
+        "20/09/2026",
+        "21/09/2026",
+        "22/09/2026",
+        "26/09/2026"
+      ],
+      "revenue": 48860,
+      "cash": 31533,
+      "scan": 17327,
+      "shift_exp": 1470,
+      "net_cash": 30063
+    },
+    "B3": {
+      "calendar_days": 30,
+      "evidenced_days": 30,
+      "revenue": 161444,
+      "cash": 130595,
+      "scan": 30699,
+      "shift_exp": 3179,
+      "net_cash": 156882
+    }
+  },
+  "expenses_summary": {
+    "total_slips": 88,
+    "total_amount": 314130.11,
+    "cogs_pool": 128506.0,
+    "opex_pool": 118807.44,
+    "capex_assets": 27620.0,
+    "b4_quarantined": 31974.67,
+    "excluded_personal": 13745.0
+  }
+}

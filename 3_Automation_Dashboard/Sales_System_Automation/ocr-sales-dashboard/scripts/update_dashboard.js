@@ -9,7 +9,7 @@ const DASHBOARD_DIR = path.join(ROOT_DIR, '3_Automation_Dashboard');
 const DATA_JSON = path.join(DASHBOARD_DIR, 'data.json');
 const PARAMS_JSON = path.join(DASHBOARD_DIR, 'Sales_System_Automation', 'config', 'audit_params.json');
 
-const BRANCHES = ['B1', 'B2', 'B3'];
+const BRANCHES = ['B1', 'B2', 'B3', 'B4'];
 const MONTHS = ['Jan26', 'Feb26', 'Mar26', 'Apr26', 'May26', 'Jun26', 'Jul26', 'Aug26', 'Sep26', 'Oct26', 'Nov26', 'Dec26'];
 
 function extractSheetData(filePath, sheetName) {
