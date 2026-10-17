@@ -4,9 +4,11 @@ This connects the existing LINE Official Account **SomSaiJai Bot** (`@744byxku`)
 
 Staff send the day's photos **as pictures in the group chat**. The bot reads them, stores the original files, and sends you a short summary in a private chat with Approve / Reject buttons. Nothing is written into the Excel books and nothing is published to https://somsaijailive.vercel.app until you tap **อนุมัติ**.
 
-The bot is part of the same Vercel project as the dashboard. After this code is deployed, the webhook address is:
+The bot is part of the same Vercel project as the dashboard. Vercel builds this repo from the root, so the live routes are `api/webhook.js` and `api/review.js` at the root, and the settings for them are in the root `vercel.json`. After this code is deployed, the webhook address is:
 
 `https://somsaijailive.vercel.app/api/webhook`
+
+The Excel workbooks, bank statements, and receipt photos are not part of that deployment. The public site serves `index.html`, `data.json`, `reports_data.json`, and `stock_ledger.json`.
 
 Deploy this branch before you press Verify in LINE. Until the code is live, Verify will fail.
 

@@ -7,13 +7,38 @@ const { extractImage } = require('../line_bot/lib/extractor');
 const { createProductionDeps } = require('../line_bot/lib/publish');
 
 function readRaw(req) {
-  if (Buffer.isBuffer(req.body)) return Promise.resolve(req.body);
-  if (typeof req.body === 'string') return Promise.resolve(Buffer.from(req.body));
+  if (req && Buffer.isBuffer(req.body)) return Promise.resolve(req.body);
+  if (req && typeof req.body === 'string') return Promise.resolve(Buffer.from(req.body));
+  // A parsed object is not the original bytes. Do not wait on a stream that already ended.
+  if (req && req.body != null && typeof req.body === 'object') {
+    return Promise.resolve(Buffer.from(JSON.stringify(req.body)));
+  }
+  if (!req || typeof req.on !== 'function' || req.readableEnded) {
+    return Promise.resolve(Buffer.alloc(0));
+  }
   return new Promise((resolve, reject) => {
     const chunks = [];
-    req.on('data', chunk => chunks.push(chunk));
-    req.on('end', () => resolve(Buffer.concat(chunks)));
-    req.on('error', reject);
+    let settled = false;
+    const timer = setTimeout(() => finish(null, Buffer.concat(chunks)), 10000);
+    function finish(err, buf) {
+      if (settled) return;
+      settled = true;
+      clearTimeout(timer);
+      req.removeListener('data', onData);
+      req.removeListener('end', onEnd);
+      req.removeListener('error', onError);
+      if (err) reject(err);
+      else resolve(buf);
+    }
+    function onData(chunk) {
+      chunks.push(Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk));
+    }
+    function onEnd() { finish(null, Buffer.concat(chunks)); }
+    function onError(err) { finish(err); }
+    req.on('data', onData);
+    req.on('end', onEnd);
+    req.on('error', onError);
+    if (typeof req.resume === 'function') req.resume();
   });
 }
 
@@ -92,3 +117,4 @@ function scheduleBackground(job, options = {}) {
 
 module.exports.config = { api: { bodyParser: false }, maxDuration: 300 };
 module.exports.scheduleBackground = scheduleBackground;
+module.exports.readRaw = readRaw;

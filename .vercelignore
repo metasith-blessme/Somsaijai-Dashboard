@@ -1,0 +1,35 @@
+# Secrets
+.env
+.env.*
+**/.env
+**/.env.*
+
+# Workbooks and tabular source files. The site reads data.json, not these.
+*.xlsx
+*.xls
+*.csv
+
+# Receipts, sale photos, bank statements, and audit workpapers
+B1/
+B2/
+B3/
+B4/
+Bank Statement/
+SomSaiJai_Documents/
+3_Automation_Dashboard/audit/
+
+# Photos are source evidence, not dashboard assets
+*.png
+*.jpg
+*.jpeg
+*.webp
+*.gif
+*.pdf
+*.heic
+
+# Local tooling
+node_modules/
+.git/
+.vercel/
+**/*.log
+.DS_Store
