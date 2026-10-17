@@ -18,7 +18,7 @@
     }
   ],
   "rewrites": [
-    { "source": "/", "destination": "/3_Automation_Dashboard/index.html" },
+    { "source": "/", "destination": "/3_Automation_Dashboard/" },
     { "source": "/((?!api(?:/|$)).*)", "destination": "/3_Automation_Dashboard/$1" }
   ],
   "functions": {
