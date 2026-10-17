@@ -331,10 +331,65 @@ test('the webhook returns before OCR when Vercel can keep the function alive', a
   });
   assert.equal(viaAfter.deferred, true);
   await Promise.all(pending);
-  const vercel = require('../../vercel.json');
   const webhook = require('../../api/webhook');
+  const rootWebhook = require('../../../api/webhook');
+  const vercel = require('../../../vercel.json');
   assert.ok(webhook.config.maxDuration >= 120);
+  assert.equal(rootWebhook.config.api.bodyParser, false);
   assert.ok(vercel.functions['api/webhook.js'].maxDuration >= 120);
+  assert.ok(vercel.functions['api/review.js'].maxDuration >= 30);
+  assert.equal(vercel.functions['api/webhook.js'].includeFiles, '3_Automation_Dashboard/**');
+  assert.ok(vercel.functions['api/webhook.js'].includeFiles.length <= 256);
+  assert.equal(vercel.rewrites.find(rule => rule.source === '/').destination, '/3_Automation_Dashboard/');
+  assert.equal(vercel.rewrites.some(rule => rule.source === '/(.*)'), false);
+  assert.ok(vercel.rewrites.some(rule => rule.source.includes('(?!api')));
+});
+
+test('the webhook reads a raw or already-parsed body without hanging', async () => {
+  const { readRaw } = require('../../api/webhook');
+  const root = require('../../../api/webhook');
+  assert.equal(root.readRaw, readRaw);
+  const fromBuffer = await readRaw({ body: Buffer.from('abc') });
+  assert.equal(fromBuffer.toString(), 'abc');
+  const fromText = await readRaw({ body: 'hello' });
+  assert.equal(fromText.toString(), 'hello');
+  const started = Date.now();
+  const fromObject = await readRaw({ body: { events: [] }, readableEnded: true, on() {} });
+  assert.ok(Date.now() - started < 500);
+  assert.equal(fromObject.toString(), '{"events":[]}');
+  const fromEnded = await readRaw({ readableEnded: true, on() { throw new Error('should not listen'); } });
+  assert.equal(fromEnded.length, 0);
+
+  const { Readable } = require('stream');
+  const raw = Buffer.from('{"events":[]}');
+  const stream = Readable.from([raw]);
+  stream.method = 'POST';
+  const streamed = await readRaw(stream);
+  assert.equal(streamed.toString(), raw.toString());
+
+  const statuses = [];
+  await root({
+    method: 'GET',
+    headers: {},
+    readableEnded: true,
+  }, {
+    status(code) { statuses.push(code); return this; },
+    end() { return this; },
+  });
+  assert.deepEqual(statuses, [405]);
+
+  const rejected = [];
+  await root({
+    method: 'POST',
+    body: { events: [{ type: 'message' }] },
+    readableEnded: true,
+    headers: { 'x-line-signature': 'not-a-signature' },
+    on() {},
+  }, {
+    status(code) { rejected.push(code); return this; },
+    end() { return this; },
+  });
+  assert.equal(rejected[0], 401);
 });
 
 test('GEMINI_MODEL selects the reader and the fallback defaults to gemini-3.8-flash', () => {

@@ -1,8 +1,31 @@
 {
   "version": 2,
   "cleanUrls": true,
+  "headers": [
+    {
+      "source": "/(.*).html",
+      "headers": [
+        { "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate" },
+        { "key": "Pragma", "value": "no-cache" }
+      ]
+    },
+    {
+      "source": "/(.*).json",
+      "headers": [
+        { "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate" },
+        { "key": "Pragma", "value": "no-cache" }
+      ]
+    }
+  ],
   "rewrites": [
-    { "source": "/(.*)", "destination": "/3_Automation_Dashboard/$1" },
-    { "source": "/", "destination": "/3_Automation_Dashboard/index.html" }
-  ]
+    { "source": "/", "destination": "/3_Automation_Dashboard/" },
+    { "source": "/((?!api(?:/|$)).*)", "destination": "/3_Automation_Dashboard/$1" }
+  ],
+  "functions": {
+    "api/webhook.js": {
+      "maxDuration": 300,
+      "includeFiles": "3_Automation_Dashboard/**"
+    },
+    "api/review.js": { "maxDuration": 30 }
+  }
 }

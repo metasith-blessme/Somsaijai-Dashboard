@@ -1,0 +1,11 @@
+{
+  "name": "somsaijai-dashboard",
+  "private": true,
+  "description": "Vercel project root for the SomSaiJai dashboard and LINE bot.",
+  "dependencies": {
+    "@google/genai": "2.2.0",
+    "@vercel/blob": "2.8.2",
+    "@vercel/functions": "3.10.1",
+    "xlsx": "0.18.5"
+  }
+}
