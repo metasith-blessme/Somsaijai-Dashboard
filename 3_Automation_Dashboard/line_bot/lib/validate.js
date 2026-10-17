@@ -1,4 +1,5 @@
 const { observedNumber } = require('./fields');
+const { rowQtyCheck, rowAmountCheck, noteCheck } = require('./forms');
 
 function satang(n) { return Math.round(Number(n) * 100); }
 
@@ -45,6 +46,55 @@ function applyChecks(review) {
     if (check.status === 'fail') {
       record.status = 'needs_review';
       review.issues.push({ source_id: record.record_id, field: 'channels', issue: check.reason });
+    }
+    for (const item of record.sales_items || []) {
+      if (item.struck) continue;
+      const qtyCheck = rowQtyCheck(item);
+      if (qtyCheck.status === 'fail') {
+        record.status = 'needs_review';
+        review.checks.push({ rule: 'row_qty', record_id: record.record_id, item: item.item_raw, ...qtyCheck });
+        review.issues.push({ source_id: record.record_id, field: 'row_qty', issue: `${item.item_raw}: ${qtyCheck.reason}` });
+      }
+      const amountCheck = rowAmountCheck(item);
+      if (amountCheck.status === 'fail') {
+        record.status = 'needs_review';
+        review.checks.push({ rule: 'row_amount', record_id: record.record_id, item: item.item_raw, ...amountCheck });
+        review.issues.push({ source_id: record.record_id, field: 'row_amount', issue: `${item.item_raw}: ${amountCheck.reason}` });
+      }
+    }
+    for (const note of record.notes || []) {
+      const parsed = noteCheck(note, record.financials);
+      if (!parsed) continue;
+      review.checks.push({
+        rule: 'note_equation',
+        record_id: record.record_id,
+        status: parsed.equationOk ? 'pass' : 'fail',
+        observed: parsed.c,
+        expected: Math.round((parsed.a - parsed.b) * 100) / 100,
+        difference: parsed.equationOk ? 0 : Math.round((parsed.c - (parsed.a - parsed.b)) * 100) / 100,
+        reason: parsed.equationOk ? `note arithmetic holds: ${parsed.raw}` : `note arithmetic does not hold: ${parsed.raw}`,
+      });
+      if (!parsed.equationOk) {
+        record.status = 'needs_review';
+        review.issues.push({ source_id: record.record_id, field: 'note', issue: `note arithmetic does not hold: ${parsed.raw}` });
+      }
+      if (parsed.comparable && !parsed.startsFromReport) {
+        record.status = 'needs_review';
+        review.checks.push({
+          rule: 'note_vs_payment',
+          record_id: record.record_id,
+          status: 'fail',
+          observed: parsed.a,
+          expected: null,
+          difference: null,
+          reason: `note starts from ${parsed.a}, which is not the written cash total or the written sales total`,
+        });
+        review.issues.push({
+          source_id: record.record_id,
+          field: 'note',
+          issue: `note starts from ${parsed.a}, which is not the written cash total or the written sales total`,
+        });
+      }
     }
   }
   for (const doc of review.expense_documents || []) {

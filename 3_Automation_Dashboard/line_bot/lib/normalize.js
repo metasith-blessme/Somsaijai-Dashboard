@@ -3,13 +3,15 @@ const { asField, observedNumber } = require('./fields');
 const { normalizeDate } = require('./dates');
 const { redactText } = require('./redact');
 
-const PROMPT_VERSION = 'line-bot-ocr-1';
+const { formTemplate } = require('./forms');
+
+const PROMPT_VERSION = 'line-bot-ocr-2';
 const OPENED = { B1: '2026-01-01', B2: '2026-04-18', B3: '2026-07-11' };
 
 function branchField(raw) {
   const text = raw == null ? '' : String(raw).trim();
   if (!text) return { raw_text: null, value: null, state: 'missing' };
-  const direct = text.toUpperCase().match(/\bB([123])\b/);
+  const direct = text.toUpperCase().match(/\bB[\s-]*([123])\b/);
   if (direct) return { raw_text: text, value: 'B' + direct[1], state: 'observed' };
   const thai = text.match(/สาขา\s*([123])/);
   if (thai) return { raw_text: text, value: 'B' + thai[1], state: 'observed' };
@@ -44,7 +46,8 @@ function confirm(first, second, label) {
   if (a.state === 'observed' && b.state === 'observed') return { field: a, issue: null };
   if (a.state !== 'observed' && b.state !== 'observed') {
     const state = a.state === 'missing' && b.state === 'missing' ? 'missing' : 'ambiguous';
-    return { field: { raw_text: a.raw_text || b.raw_text, value: null, state, unit: 'THB', alternatives: [] }, issue: null };
+    const alternatives = (a.alternatives && a.alternatives.length) ? a.alternatives : (b.alternatives || []);
+    return { field: { raw_text: a.raw_text || b.raw_text, value: null, state, unit: 'THB', alternatives }, issue: null };
   }
   return {
     field: { raw_text: (a.raw_text || b.raw_text), value: null, state: 'ambiguous', unit: 'THB', alternatives: [a.value, b.value].filter(v => v != null) },
@@ -56,6 +59,7 @@ function unconfirm(field, second, label, issues) {
   if (!field || field.state !== 'observed') return;
   if (second && second.state === 'observed' && second.value === field.value) return;
   const disagreed = second && second.state === 'observed' && second.value !== field.value;
+  if (disagreed) field.alternatives = [field.value, second.value];
   field.value = null;
   field.state = 'ambiguous';
   issues.push({
@@ -70,19 +74,29 @@ function staffList(raw) {
   return list.map(s => String(s).trim()).filter(Boolean);
 }
 
+function countCell(row, key) {
+  if (!row || row[key] == null || row[key] === '') return qty(null);
+  return qty(row[key]);
+}
+
 function menuRows(list) {
   if (!Array.isArray(list)) return [];
   return list.map((row, i) => ({
     item_raw: row && row.item_raw != null ? String(row.item_raw) : null,
     price_written: row ? (row.price_raw ?? row.price_written ?? null) : null,
+    price_overridden_from: row && row.price_overridden_from != null ? row.price_overridden_from : null,
+    price_overridden_to: row && row.price_overridden_to != null ? row.price_overridden_to : null,
+    cash_qty: countCell(row, 'cash_qty'),
+    scan_qty: countCell(row, 'scan_qty'),
     qty: qty(row ? (row.qty ?? { raw: row.qty_raw, value: row.qty_value, state: row.qty_state || (row.uncertain ? 'ambiguous' : row.qty_raw == null && row.qty_value == null ? 'missing' : 'observed') }) : null),
     amount: money(row ? (row.amount ?? { raw: row.amount_raw, value: row.amount_value, state: row.amount_raw == null && row.amount_value == null ? 'missing' : 'observed' }) : null),
     uncertain: !!(row && (row.uncertain || row.qty_uncertain)),
+    struck: !!(row && row.struck),
     source_row: i + 1,
   }));
 }
 
-function oneImage({ sourceId, sha256, contentType, extraction, second, secondError }) {
+function oneImage({ sourceId, sha256, contentType, extraction, second, secondError, branch_hint, line_group_id }) {
   const ext = extraction && typeof extraction === 'object' ? extraction : {};
   const sec = second && typeof second === 'object' ? second : null;
   const issues = [];
@@ -97,11 +111,16 @@ function oneImage({ sourceId, sha256, contentType, extraction, second, secondErr
   const branch2raw = sec ? (sec.branch_raw || (sec.header && sec.header.branch_raw)) : null;
   const branch2 = branch2raw == null || branch2raw === '' ? null : branchField(branch2raw);
   unconfirm(branch, branch2, 'branch', issues);
+  if (branch_hint && branch.state === 'observed' && branch.value !== branch_hint) {
+    issues.push({ field: 'branch', issue: `form says ${branch.value} but this LINE group is mapped to ${branch_hint}` });
+  } else if (branch_hint && branch.state !== 'observed') {
+    issues.push({ field: 'branch_hint', issue: `LINE group is mapped to ${branch_hint}; the form did not show a branch, so the hint was not used` });
+  }
 
   const salesIn = ext.sales || {};
   const sales2 = (sec && sec.sales) || {};
   const financials = {};
-  for (const key of ['cash_sales', 'scan_sales', 'total_sales', 'total_expense', 'net_sales', 'opening_cash', 'counted_cash']) {
+  for (const key of ['cash_sales', 'scan_sales', 'total_sales', 'total_expense', 'net_sales', 'opening_cash', 'counted_cash', 'expected_cash']) {
     const result = confirm(salesIn[key], sec ? sales2[key] : null, key);
     financials[key] = result.field;
     if (result.issue && (key === 'total_sales' || key === 'cash_sales' || key === 'scan_sales')) issues.push(result.issue);
@@ -131,8 +150,19 @@ function oneImage({ sourceId, sha256, contentType, extraction, second, secondErr
       branch,
       staff_raw: staffList(ext.header && ext.header.staff_raw),
       shift_raw: ext.header && ext.header.shift_raw != null ? String(ext.header.shift_raw) : null,
+      open_raw: ext.header && ext.header.open_raw != null ? String(ext.header.open_raw) : null,
+      close_raw: ext.header && ext.header.close_raw != null ? String(ext.header.close_raw) : null,
     },
+    form_template: formTemplate(ext),
+    orientation: ext.orientation || null,
+    branch_hint: branch_hint || null,
+    line_group_id: line_group_id || null,
     financials,
+    other: {
+      ice: money(ext.other && ext.other.ice),
+      other: money(ext.other && ext.other.other),
+    },
+    notes: Array.isArray(ext.notes) ? ext.notes.map(note => String(note)) : [],
     sales_items: menuRows(ext.menu_rows),
     handwritten_additions: menuRows(ext.handwritten_additions),
     shift_expenses: Array.isArray(ext.shift_expenses) ? ext.shift_expenses : [],
@@ -203,7 +233,15 @@ function buildReview({ batchId, images }) {
       date: page.header.date,
       staff_raw: page.header.staff_raw,
       shift_raw: page.header.shift_raw,
+      open_raw: page.header.open_raw,
+      close_raw: page.header.close_raw,
+      form_template: page.form_template,
+      orientation: page.orientation,
+      branch_hint: page.branch_hint,
+      line_group_id: page.line_group_id,
       financials: page.financials,
+      other: page.other,
+      notes: page.notes,
       sales_items: page.sales_items.concat(page.handwritten_additions),
       stock_items: page.stock_items,
       shift_expenses: page.shift_expenses,

@@ -1,19 +1,8 @@
 const { observedNumber } = require('./fields');
+const { classifyItem } = require('./forms');
 const { monthTag, weekday, before, memoMonthConflict } = require('./dates');
 const { redactText } = require('./redact');
 const { OPENED } = require('./normalize');
-
-const MENU = [
-  { code: 'or_100', test: /ส้ม\s*100|premium orange|orange\s*100|100%/i },
-  { code: 'yco', test: /young\s*coco|มะพร้าวอ่อน/i },
-  { code: 'or', test: /ส้ม|orange/i },
-  { code: 'wm', test: /แตงโม|watermelon/i },
-  { code: 'mg', test: /มะม่วง|mango/i },
-  { code: 'co', test: /มะพร้าว|coconut/i },
-  { code: 'ap', test: /แอปเปิ้ล|แอปเปิล|apple/i },
-  { code: 'guava', test: /ฝรั่ง|guava/i },
-  { code: 'pineapple', test: /สับปะรด|pineapple/i },
-];
 
 const KEYWORDS = [
   { bucket: 'COGS', cat: 'Durain', test: /ทุเรียน|durian|durain/i },
@@ -36,10 +25,7 @@ const KEYWORDS = [
 ];
 
 function menuCode(itemRaw) {
-  const text = itemRaw || '';
-  if (/ขวด|bottle/i.test(text)) return null;
-  for (const row of MENU) if (row.test.test(text)) return row.code;
-  return null;
+  return classifyItem(itemRaw).code;
 }
 
 function hold(held, entry) { held.push(entry); }
@@ -59,6 +45,9 @@ function salesRow(record, review, held) {
   if (branch && date && OPENED[branch] && before(date, OPENED[branch])) why.push(`${branch} was not open yet on ${date}`);
   const channel = (review.checks || []).find(c => c.record_id === record.record_id && c.rule === 'channels');
   if (channel && channel.status === 'fail') why.push('cash + scan does not equal the written total');
+  for (const check of review.checks || []) {
+    if (check.record_id === record.record_id && check.status === 'fail' && check.rule !== 'channels') why.push(check.reason);
+  }
   for (const issue of record.issues || []) {
     if (issue.field === 'total_sales' || issue.field === 'date' || issue.field === 'branch' || issue.field === 'second_reading' || issue.field === 'extraction') {
       why.push(issue.issue);
@@ -90,9 +79,13 @@ function salesRow(record, review, held) {
   const cups = {};
   let cupsUncertain = false;
   for (const item of record.sales_items || []) {
+    if (item.struck) continue;
     const code = menuCode(item.item_raw);
     const q = observedNumber(item.qty);
-    if (!code) continue;
+    if (!code) {
+      if (q != null || observedNumber(item.amount) != null) cupsUncertain = true;
+      continue;
+    }
     if (item.uncertain || q == null) { cupsUncertain = true; continue; }
     cups[code] = (cups[code] || 0) + q;
   }

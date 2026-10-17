@@ -62,16 +62,24 @@ On the Messaging API page (Official Account Manager or Developers Console — th
 
 You can turn on webhook redelivery if it is offered. Repeating the same event does not download or import twice.
 
-## 4. Add the bot to the staff group
+## 4. Add the bot to the staff groups
 
-In the staff group: invite → search **SomSaiJai Bot** or `@744byxku`.
+There are two report groups. One is the Platinum shop group (the Daily Shop Report). The other is the group where B1 and B2 both post the Daily Sales Record. Invite **SomSaiJai Bot** (`@744byxku`) into each group that should be read. A group can hold only one Official Account, so this bot cannot join a group that already has a different one.
 
-Tell staff:
+In each group, send `id`. The reply contains that group's id (starts with `C`).
+
+`LINE_GROUP_ID` can list more than one group, separated by commas. A branch after a colon is a hint for photos that do not already name a branch:
+
+`Cxxxx:B3,Cyyyy`
+
+`Cxxxx:B3` means that group is allowed, and a form with no branch printed is reported as "this group is mapped to B3". The hint is not written into the books as the branch. `Cyyyy` with no branch is the right shape for the group that receives both B1 and B2, because the paper itself says B-1 or B-2. If the paper says B2 and the hint says B1, the bot keeps the paper's branch and flags the clash. It does not import that photo until you resolve it.
+
+Tell staff, and the bot will say this itself whenever it replies in a group:
 
 - Send photos **directly in the chat** (pick several at once if they belong together).
-- Do **not** put them in a LINE album. LINE does not notify the bot about group albums, so an album is invisible to it.
+- Do **not** put them in a LINE album. The 16 Oct samples were posted as "1 item added to album". LINE does not notify the bot about group albums, so an album is invisible to it.
 
-When the bot joins, it replies with the group id if you have not locked the group yet. That reply is free.
+When the bot joins, it replies with the group id if you have not locked the groups yet. That reply is free. Sending `ช่วย` in the group repeats the album warning, also as a reply.
 
 ## 5. Get your userId and the groupId
 
@@ -97,7 +105,7 @@ After saving variables, redeploy once so the webhook can see them.
 | `LINE_CHANNEL_SECRET` | Channel secret from the Messaging API page |
 | `LINE_CHANNEL_ACCESS_TOKEN` | Long-lived channel access token |
 | `LINE_OWNER_USER_ID` | Your userId from the `id` reply (starts with `U`) |
-| `LINE_GROUP_ID` | The staff group's id from the `id` reply (starts with `C`) |
+| `LINE_GROUP_ID` | One group id, or several separated by commas. Add `:B1`, `:B2`, or `:B3` only as a hint. The B1/B2 group should have no branch suffix. |
 | `LINE_ORDER_SENDER_USER_IDS` | Ming's userId from her `id` reply. Several ids are separated by commas. Your own id does not need to be in this list. |
 | `GEMINI_API_KEY` | The Gemini key already used for reading reports |
 | `GEMINI_OCR_MODEL` | Optional. Default `gemini-3.5-flash` |

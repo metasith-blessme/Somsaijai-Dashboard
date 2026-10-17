@@ -22,4 +22,16 @@ function loadConfig(env = process.env) {
   };
 }
 
-module.exports = { loadConfig };
+function parseGroupConfig(raw) {
+  const table = new Map();
+  for (const part of String(raw || '').split(',')) {
+    const token = part.trim();
+    if (!token) continue;
+    const match = token.match(/^([^:\s]+?)(?::(B[123]))?$/i);
+    if (!match) continue;
+    table.set(match[1], match[2] ? match[2].toUpperCase() : null);
+  }
+  return table;
+}
+
+module.exports = { loadConfig, parseGroupConfig };

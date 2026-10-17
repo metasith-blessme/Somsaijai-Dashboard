@@ -1,6 +1,7 @@
 const crypto = require('crypto');
 const { observedNumber } = require('./fields');
 const { buildChangePlan } = require('./adapter');
+const { reportLines } = require('./forms');
 
 function baht(n) {
   if (n == null) return 'ไม่ทราบ';
@@ -14,6 +15,11 @@ function reviewToken(batchId, secret) {
 function formatSummary(review, { publicUrl, channelSecret } = {}) {
   const plan = buildChangePlan(review);
   const lines = [`ชุด ${review.batch_id}`, `รูป ${review.sources.length} ใบ`, ''];
+  for (const record of review.records || []) {
+    const detail = reportLines(record);
+    if (!detail.length) continue;
+    lines.push(...detail, '');
+  }
   const importable = [];
   for (const list of plan.salesLists) {
     for (const row of list.rows) {
