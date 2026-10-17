@@ -295,7 +295,8 @@ test('a group list maps each id to a branch and a foreign group is ignored', asy
   const raw = Buffer.from(JSON.stringify({ events: [event] }));
   const help = await handleWebhook({ rawBody: raw, signature: signBody(raw, 's'), ctx });
   assert.equal(help.outcomes[0].help, true);
-  assert.match(replies[0][0].text, /อัลบั้ม/);
+  assert.match(replies[0][0].text, /not as an album/i);
+  assert.doesNotMatch(replies[0][0].text, /[\u0E00-\u0E7F]/);
   const photo = {
     ...event,
     webhookEventId: 'g2',
@@ -303,7 +304,8 @@ test('a group list maps each id to a branch and a foreign group is ignored', asy
   };
   const rawPhoto = Buffer.from(JSON.stringify({ events: [photo] }));
   await handleWebhook({ rawBody: rawPhoto, signature: signBody(rawPhoto, 's'), ctx });
-  assert.match(replies.at(-1)[0].text, /อัลบั้ม/);
+  assert.match(replies.at(-1)[0].text, /one by one/i);
+  assert.doesNotMatch(replies.at(-1)[0].text, /[\u0E00-\u0E7F]/);
   const saved = await store.getJson('review:set_singlep1');
   assert.ok(saved);
   assert.equal(saved.records[0].branch_hint, 'B3');

@@ -159,7 +159,8 @@ test('an incomplete imageSet is still summarized once the wait expires', async (
   await post(imageEvent('a3', 3, 3, 'SETWAIT', 'wh-c'));
   assert.equal(c.extracts.length, 0);
   assert.equal(tails.length, 2);
-  assert.match(replies[0], /ภายใน 2 นาที/);
+  assert.match(replies[0], /within 2 minutes/i);
+  assert.doesNotMatch(replies[0], /[\u0E00-\u0E7F]/);
   waits.forEach(release => release());
   await Promise.all(tails);
   assert.equal(c.extracts.length, 2);
@@ -169,7 +170,8 @@ test('an incomplete imageSet is still summarized once the wait expires', async (
   assert.equal(late.outcomes[0].late, true);
   assert.equal(c.extracts.length, 2);
   assert.equal(c.pushes.length, 1);
-  assert.match(replies.join('\n'), /หลังสรุป/);
+  assert.match(replies.join('\n'), /arrived after the summary/i);
+  assert.doesNotMatch(replies.join('\n'), /[\u0E00-\u0E7F]/);
 });
 
 test('two messages for one index are not read', async () => {
@@ -185,7 +187,8 @@ test('two messages for one index are not read', async () => {
   const clash = await post(imageEvent('c1b', 1, 2, 'SETC', 'wh-c1b'));
   assert.equal(clash.outcomes[0].conflict, true);
   assert.equal(c.extracts.length, 0);
-  assert.match(replies.join('\n'), /ซ้ำซ้อน/);
+  assert.match(replies.join('\n'), /overlap/i);
+  assert.doesNotMatch(replies.join('\n'), /[\u0E00-\u0E7F]/);
 });
 
 test('summarizeParts names the holes in a set', () => {

@@ -1,6 +1,7 @@
 const { observedNumber } = require('./fields');
+const { ALBUM_HELP } = require('./staff_text');
 
-const ALBUM_HELP_TH = 'ส่งรูปในแชทนี้โดยตรง ไม่ต้องใส่ในอัลบั้ม บอทไม่เห็นรูปที่อยู่ในอัลบั้มกลุ่ม';
+const ALBUM_HELP_TH = ALBUM_HELP;
 
 const MIXED = /volcano|blend|mixed|sticky\s*rice|ข้าวเหนียว|มังคุด|mangosteen|เงาะ|rambutan|ลิ้นจี่|lychee|ทับทิม|pomegranate|องุ่น|grape/i;
 
