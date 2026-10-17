@@ -5,6 +5,7 @@
  */
 
 const { ALBUM_HELP } = require('./staff_text');
+const { dashboardFetchHeaders } = require('../../../lib/dashboard_auth');
 
 const MINIMAX_URL = 'https://api.minimax.io/v1/text/chatcompletion_v2';
 const DEFAULT_MODEL = 'MiniMax-M2';
@@ -289,7 +290,7 @@ function compactSales(data, options = {}) {
   return lines.join('\n').slice(0, 4000);
 }
 
-async function fetchSalesContext({ publicUrl, fetchImpl, now, timeoutMs }) {
+async function fetchSalesContext({ publicUrl, fetchImpl, now, timeoutMs, auth }) {
   const base = String(publicUrl || '').replace(/\/$/, '');
   if (!base) return null;
   const fetchFn = fetchImpl || fetch;
@@ -298,7 +299,9 @@ async function fetchSalesContext({ publicUrl, fetchImpl, now, timeoutMs }) {
   let timer;
   const pending = fetchFn(`${base}/data.json`, {
     method: 'GET',
+    headers: dashboardFetchHeaders(auth || {}),
     signal: controller ? controller.signal : undefined,
+    cache: 'no-store',
   });
   pending.catch(() => {});
   try {

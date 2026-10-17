@@ -341,7 +341,7 @@ test('the webhook returns before OCR when Vercel can keep the function alive', a
   assert.equal(rootWebhook.config.api.bodyParser, false);
   assert.ok(vercel.functions['api/webhook.js'].maxDuration >= 120);
   assert.ok(vercel.functions['api/review.js'].maxDuration >= 30);
-  assert.equal(vercel.functions['api/webhook.js'].includeFiles, '{3_Automation_Dashboard/**,node_modules/xlsx/**}');
+  assert.equal(vercel.functions['api/webhook.js'].includeFiles, '{3_Automation_Dashboard/**,node_modules/xlsx/**,lib/dashboard_auth.js}');
   assert.ok(vercel.functions['api/webhook.js'].includeFiles.length <= 256);
   assert.equal(vercel.rewrites.find(rule => rule.source === '/').destination, '/3_Automation_Dashboard/');
   assert.equal(vercel.rewrites.some(rule => rule.source === '/(.*)'), false);

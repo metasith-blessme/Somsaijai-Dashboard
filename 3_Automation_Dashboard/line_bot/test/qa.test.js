@@ -216,6 +216,7 @@ test('the owner gets sales context and the reply drops thinking', async () => {
   assert.equal(pushes.length, 0);
   assert.equal(dataCalls(calls).length, 1);
   assert.equal(dataCalls(calls)[0].url, 'https://somsaijailive.vercel.app/data.json');
+  assert.deepEqual(dataCalls(calls)[0].options.headers, {});
   const sent = minimaxCalls(calls);
   assert.equal(sent.length, 1);
   assert.equal(sent[0].options.method, 'POST');
@@ -231,6 +232,19 @@ test('the owner gets sales context and the reply drops thinking', async () => {
   assert.equal(replies[0].messages[0].text, 'Send photos one by one, not in an album.');
   assert.equal(replyText(replies).includes('HIDDEN-REASONING'), false);
   assert.equal(replyText(replies).includes('</think>'), false);
+});
+
+test('the owner sales fetch sends the internal token and not the browser password', async () => {
+  const { calls, ctx } = harness({
+    config: { dashboardInternalToken: 'sekret', dashboardPassword: 'browser-secret', dashboardUser: 'somsaijai' },
+  });
+  await post(ctx, textEvent('ยอดขาย B1 เมื่อวาน', 'U-parn', { webhookEventId: 'owner-token' }));
+  const data = dataCalls(calls);
+  assert.equal(data.length, 1);
+  assert.equal(data[0].url, 'https://somsaijailive.vercel.app/data.json');
+  assert.equal(data[0].options.headers['x-dashboard-internal-token'], 'sekret');
+  assert.equal(data[0].options.headers.Authorization, undefined);
+  assert.equal(JSON.stringify(data[0].options).includes('browser-secret'), false);
 });
 
 test('staff and Ming get no sales data and no data.json fetch', async () => {

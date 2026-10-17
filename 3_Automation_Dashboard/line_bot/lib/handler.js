@@ -485,6 +485,7 @@ async function onQuestion(event, ctx) {
         fetchImpl: ctx.fetchImpl,
         now: ctx.now,
         timeoutMs: ctx.config.salesTimeoutMs,
+        auth: ctx.config,
       });
     } catch (err) {
       salesContext = null;

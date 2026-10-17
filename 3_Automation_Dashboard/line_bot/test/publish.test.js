@@ -290,6 +290,7 @@ test('the webhook bundle pattern includes xlsx and the import scripts', () => {
     'node_modules/xlsx/package.json',
     'node_modules/xlsx/xlsx.js',
     'node_modules/xlsx/dist/cpexcel.js',
+    'lib/dashboard_auth.js',
   ];
   for (const file of wanted) {
     assert.ok(patterns.some(pattern => globMatch(pattern, file)), `${file} not matched by ${includeFiles}`);

@@ -28,7 +28,7 @@
   "functions": {
     "api/webhook.js": {
       "maxDuration": 300,
-      "includeFiles": "{3_Automation_Dashboard/**,node_modules/xlsx/**}"
+      "includeFiles": "{3_Automation_Dashboard/**,node_modules/xlsx/**,lib/dashboard_auth.js}"
     },
     "api/review.js": { "maxDuration": 30 }
   }

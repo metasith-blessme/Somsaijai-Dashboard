@@ -4,6 +4,7 @@ const path = require('path');
 const { spawnSync } = require('child_process');
 const { assertApproval, GateError } = require('./approval');
 const { buildChangePlan } = require('./adapter');
+const { dashboardFetchHeaders } = require('../../../lib/dashboard_auth');
 
 // The importers and update_dashboard.js are spawned, so the file tracer never
 // sees their require('xlsx'). This static require is what puts the package,
@@ -237,7 +238,17 @@ function createProductionDeps(config, opts = {}) {
       return deployProduction(config, commit, fetchImpl);
     },
     readback(expectations) {
-      return readbackLive({ publicUrl: config.publicUrl, expectations, fetchImpl, attempts: opts.readbackAttempts || 12, delayMs: opts.readbackDelayMs || 10000 });
+      // Fetch the live alias, not the copy bundled in this function. The
+      // function is the deployment that started the publish, so its data.json
+      // is the previous one until the new deployment is aliased.
+      return readbackLive({
+        publicUrl: config.publicUrl,
+        expectations,
+        fetchImpl,
+        attempts: opts.readbackAttempts || 12,
+        delayMs: opts.readbackDelayMs || 10000,
+        headers: dashboardFetchHeaders(config),
+      });
     },
   };
 }
@@ -345,11 +356,14 @@ function rowMatches(data, expected) {
     && (expected.cash == null || Number(row.cash) === Number(expected.cash)));
 }
 
-async function readbackLive({ publicUrl, expectations, fetchImpl, attempts, delayMs }) {
+async function readbackLive({ publicUrl, expectations, fetchImpl, attempts, delayMs, headers }) {
   let lastError = null;
   for (let i = 0; i < attempts; i++) {
     try {
-      const res = await fetchImpl(`${publicUrl}/data.json?linebot=${Date.now()}`);
+      const res = await fetchImpl(`${publicUrl}/data.json?linebot=${Date.now()}`, {
+        headers: headers || {},
+        cache: 'no-store',
+      });
       if (res.ok) {
         const data = await res.json();
         const missing = expectations.filter(item => !rowMatches(data, item));

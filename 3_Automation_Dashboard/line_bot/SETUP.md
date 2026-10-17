@@ -8,7 +8,7 @@ The bot is part of the same Vercel project as the dashboard. Vercel builds this 
 
 `https://somsaijailive.vercel.app/api/webhook`
 
-The Excel workbooks, bank statements, and receipt photos are not part of that deployment. The public site serves `index.html`, `data.json`, `reports_data.json`, and `stock_ledger.json`.
+The Excel workbooks, bank statements, and receipt photos are not part of that deployment. The site serves `index.html`, `data.json`, `reports_data.json`, and `stock_ledger.json` behind the dashboard password described below. `/api/webhook` and `/api/review` are not behind that password.
 
 Deploy this branch before you press Verify in LINE. Until the code is live, Verify will fail.
 
@@ -124,6 +124,28 @@ After saving variables, redeploy once so the webhook can see them.
 | `VERCEL_SCOPE` | `parn` |
 | `VERCEL_PROJECT_ID` | The project id (Vercel → Project → Settings → General) |
 | `LINE_BOT_PUBLIC_URL` | `https://somsaijailive.vercel.app` |
+| `DASHBOARD_USER` | Optional. The browser login name. When unset, the name is `somsaijai`. |
+| `DASHBOARD_PASSWORD` | Password for the dashboard. Required on Production. If it is unset there, protected pages return **503** with the text `Dashboard password not configured` and the numbers are not served. |
+| `DASHBOARD_INTERNAL_TOKEN` | A long random string you invent. The bot sends it as the header `x-dashboard-internal-token` when it reads the live `data.json`. This is not the browser password. Do not reuse the channel secret or the GitHub token. |
+| `DASHBOARD_AUTH_DISABLED` | Leave unset. Set to exactly `1` only on a Preview you want open for a test. Production ignores this flag. |
+
+### Dashboard password
+
+The browser login covers `/`, `SomSaiJai_Dashboard.html`, `data.json`, `reports_data.json`, `stock_ledger.json`, the workbook paths, and every other file. After the browser prompt, the page loads `data.json` and `reports_data.json` from the same site with that same login.
+
+These stay open, with no login prompt:
+
+- `/api/webhook` — LINE verify and message delivery
+- `/api/review` — the review link still checks its own signed token
+- Vercel paths under `/_vercel` and `/_next`
+
+`/line_bot` still returns 404.
+
+On Production, an unset `DASHBOARD_PASSWORD` fails closed for everyone, including the bot. Set the password and the internal token, then redeploy.
+
+On Preview and on a local `vercel dev`, the password is required as well. An unset password returns **401** and does not show the numbers. The only way to open a Preview without a password is `DASHBOARD_AUTH_DISABLED=1`. That flag does nothing when `VERCEL_ENV` is `production`.
+
+The bot does not read the `data.json` baked into the function. That copy is the deployment that started the publish, so it is the previous numbers until the new deployment is live. After Approve, the bot requests `https://somsaijailive.vercel.app/data.json` and waits until those live numbers match the rows you approved. The request sends `x-dashboard-internal-token` when `DASHBOARD_INTERNAL_TOKEN` is set. If that token is unset and `DASHBOARD_PASSWORD` is set, the bot sends HTTP Basic auth (`DASHBOARD_USER` / `DASHBOARD_PASSWORD`) instead. The owner's sales answers use the same header when they load `data.json`.
 
 Approve does all of this, in order, and only for the rows that were actually readable:
 
@@ -131,7 +153,7 @@ Approve does all of this, in order, and only for the rows that were actually rea
 2. Writes only those rows with the safe importers (`safe_import_sales.js` / `safe_import_expenses.js`). It does not run `verify-sales`, `process-expenses`, `sync`, or `pipeline`.
 3. Rebuilds `data.json` and `reports_data.json` from the Excel files.
 4. Commits those files to `main`. That push is what deploys the dashboard. A second deploy through the Vercel API runs only when `LINE_BOT_VERCEL_DEPLOY` is `1`.
-5. Reads `https://somsaijailive.vercel.app/data.json` back and tells you whether the live numbers match. It will not say the dashboard is updated if they do not. The readback runs either way.
+5. Reads the live `https://somsaijailive.vercel.app/data.json` (with `x-dashboard-internal-token`, or Basic auth if that token is unset) and tells you whether the live numbers match. It will not say the dashboard is updated if they do not. The readback runs either way.
 
 If `LINE_BOT_ALLOW_DEPLOY` is not `1`, or the GitHub token is missing, tapping Approve **saves your decision and writes nothing**. The reply says what is missing.
 

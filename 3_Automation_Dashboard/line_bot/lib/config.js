@@ -24,6 +24,9 @@ function loadConfig(env = process.env) {
     vercelScope: env.VERCEL_SCOPE || 'parn',
     vercelProjectId: env.VERCEL_PROJECT_ID || '',
     publicUrl: (env.LINE_BOT_PUBLIC_URL || 'https://somsaijailive.vercel.app').replace(/\/$/, ''),
+    dashboardUser: env.DASHBOARD_USER || 'somsaijai',
+    dashboardPassword: env.DASHBOARD_PASSWORD || '',
+    dashboardInternalToken: env.DASHBOARD_INTERNAL_TOKEN || '',
     dashboardDir: env.SOMSAIJAI_DASHBOARD_DIR || path.join(__dirname, '..', '..'),
   };
 }
