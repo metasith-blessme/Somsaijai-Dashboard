@@ -5,13 +5,13 @@ const { redactText } = require('./redact');
 
 const { formTemplate } = require('./forms');
 
-const PROMPT_VERSION = 'line-bot-ocr-2';
+const PROMPT_VERSION = 'line-bot-ocr-3';
 const OPENED = { B1: '2026-01-01', B2: '2026-04-18', B3: '2026-07-11' };
 
 function branchField(raw) {
   const text = raw == null ? '' : String(raw).trim();
   if (!text) return { raw_text: null, value: null, state: 'missing' };
-  const direct = text.toUpperCase().match(/\bB[\s-]*([123])\b/);
+  const direct = text.toUpperCase().match(/\bB[\s.\-]*([123])\b/);
   if (direct) return { raw_text: text, value: 'B' + direct[1], state: 'observed' };
   const thai = text.match(/สาขา\s*([123])/);
   if (thai) return { raw_text: text, value: 'B' + thai[1], state: 'observed' };
@@ -21,6 +21,30 @@ function branchField(raw) {
   return { raw_text: text, value: null, state: 'ambiguous' };
 }
 
+/**
+ * Daily Shop Report prints the branch in the Shift box (B-3, B - 3, B.3).
+ * A shift that is itself a branch code fills an empty branch cell.
+ * Two different codes stay unresolved.
+ */
+function resolveBranch(header, template) {
+  const direct = branchField(header && header.branch_raw);
+  const shift = branchField(header && header.shift_raw);
+  const shop = template === 'daily_shop_report';
+  if (direct.state === 'observed' && shift.state === 'observed' && direct.value !== shift.value) {
+    return {
+      raw_text: direct.raw_text,
+      value: null,
+      state: 'ambiguous',
+      alternatives: [direct.value, shift.value],
+    };
+  }
+  if (direct.state === 'observed') return direct;
+  if (shift.state === 'observed' && (shop || direct.state === 'missing')) {
+    return { raw_text: shift.raw_text, value: shift.value, state: 'observed' };
+  }
+  return direct;
+}
+
 function money(input) { return asField(input, 'THB'); }
 function qty(input) { return asField(input, 'count'); }
 
@@ -28,8 +52,11 @@ function qty(input) { return asField(input, 'count'); }
  * Two readings of the same critical field. Disagreement or a missing
  * confirmation becomes ambiguous with a null value — we do not pick one.
  */
-function confirm(first, second, label) {
+function confirm(first, second, label, mode) {
   const a = money(first);
+  // skip: the second call was deliberately not made. keep: it failed.
+  // Either way the first reading stays. A real second reading still has to agree.
+  if (mode === 'skip' || mode === 'keep') return { field: a, issue: null };
   const b = second == null ? null : money(second);
   if (!b) {
     return {
@@ -55,7 +82,8 @@ function confirm(first, second, label) {
   };
 }
 
-function unconfirm(field, second, label, issues) {
+function unconfirm(field, second, label, issues, mode) {
+  if (mode === 'skip' || mode === 'keep') return;
   if (!field || field.state !== 'observed') return;
   if (second && second.state === 'observed' && second.value === field.value) return;
   const disagreed = second && second.state === 'observed' && second.value !== field.value;
@@ -96,21 +124,34 @@ function menuRows(list) {
   }));
 }
 
-function oneImage({ sourceId, sha256, contentType, extraction, second, secondError, branch_hint, line_group_id }) {
+function readingHeader(obj) {
+  if (!obj || typeof obj !== 'object') return null;
+  return {
+    branch_raw: obj.branch_raw != null ? obj.branch_raw : (obj.header && obj.header.branch_raw),
+    shift_raw: obj.shift_raw != null ? obj.shift_raw : (obj.header && obj.header.shift_raw),
+  };
+}
+
+function oneImage({ sourceId, sha256, contentType, extraction, second, secondError, secondSkipped, branch_hint, line_group_id }) {
   const ext = extraction && typeof extraction === 'object' ? extraction : {};
   const sec = second && typeof second === 'object' ? second : null;
   const issues = [];
   if (secondError) issues.push({ field: 'second_reading', issue: String(secondError) });
   if (!extraction) issues.push({ field: 'extraction', issue: 'first reading failed' });
 
+  const template = formTemplate(ext);
+  const confirmMode = secondSkipped || secondError ? (secondSkipped ? 'skip' : 'keep') : 'compare';
+
   const date = normalizeDate(ext.header && ext.header.date_raw);
   const date2 = sec ? normalizeDate(sec.date_raw || (sec.header && sec.header.date_raw)) : null;
-  unconfirm(date, date2, 'date', issues);
+  unconfirm(date, date2, 'date', issues, confirmMode);
 
-  const branch = branchField(ext.header && ext.header.branch_raw);
-  const branch2raw = sec ? (sec.branch_raw || (sec.header && sec.header.branch_raw)) : null;
-  const branch2 = branch2raw == null || branch2raw === '' ? null : branchField(branch2raw);
-  unconfirm(branch, branch2, 'branch', issues);
+  const branch = resolveBranch(ext.header, template);
+  const branch2 = sec ? resolveBranch(readingHeader(sec), sec.form_template || template) : null;
+  if (branch.alternatives && branch.alternatives.length > 1 && branch.state !== 'observed') {
+    issues.push({ field: 'branch', issue: `branch and shift disagree (${branch.alternatives.join(' vs ')})` });
+  }
+  unconfirm(branch, branch2, 'branch', issues, confirmMode);
   if (branch_hint && branch.state === 'observed' && branch.value !== branch_hint) {
     issues.push({ field: 'branch', issue: `form says ${branch.value} but this LINE group is mapped to ${branch_hint}` });
   } else if (branch_hint && branch.state !== 'observed') {
@@ -121,19 +162,19 @@ function oneImage({ sourceId, sha256, contentType, extraction, second, secondErr
   const sales2 = (sec && sec.sales) || {};
   const financials = {};
   for (const key of ['cash_sales', 'scan_sales', 'total_sales', 'total_expense', 'net_sales', 'opening_cash', 'counted_cash', 'expected_cash']) {
-    const result = confirm(salesIn[key], sec ? sales2[key] : null, key);
+    const result = confirm(salesIn[key], sec ? sales2[key] : null, key, confirmMode);
     financials[key] = result.field;
     if (result.issue && (key === 'total_sales' || key === 'cash_sales' || key === 'scan_sales')) issues.push(result.issue);
   }
   financials.total_cups = qty(salesIn.total_cups);
-  if (sec) unconfirm(financials.total_cups, qty(sales2.total_cups), 'total_cups', issues);
+  if (sec) unconfirm(financials.total_cups, qty(sales2.total_cups), 'total_cups', issues, confirmMode);
 
   const docType = ['sales_report', 'closing_cash', 'stock_report', 'transfer_slip', 'supplier_receipt', 'other', 'unreadable'].includes(ext.document_type)
     ? ext.document_type : 'other';
 
   const slipIn = ext.slip || {};
   const slip2 = (sec && sec.slip) || {};
-  const amount = confirm(slipIn.amount, sec ? slip2.amount : null, 'slip.amount');
+  const amount = confirm(slipIn.amount, sec ? slip2.amount : null, 'slip.amount', confirmMode);
   if (docType === 'transfer_slip' || docType === 'supplier_receipt') {
     if (amount.issue) issues.push(amount.issue);
   }
@@ -153,7 +194,7 @@ function oneImage({ sourceId, sha256, contentType, extraction, second, secondErr
       open_raw: ext.header && ext.header.open_raw != null ? String(ext.header.open_raw) : null,
       close_raw: ext.header && ext.header.close_raw != null ? String(ext.header.close_raw) : null,
     },
-    form_template: formTemplate(ext),
+    form_template: template,
     orientation: ext.orientation || null,
     branch_hint: branch_hint || null,
     line_group_id: line_group_id || null,
@@ -164,7 +205,7 @@ function oneImage({ sourceId, sha256, contentType, extraction, second, secondErr
     },
     notes: Array.isArray(ext.notes) ? ext.notes.map(note => String(note)) : [],
     sales_items: menuRows(ext.menu_rows),
-    handwritten_additions: menuRows(ext.handwritten_additions),
+    handwritten_additions: menuRows(ext.handwritten_additions).map(row => ({ ...row, handwritten: true })),
     shift_expenses: Array.isArray(ext.shift_expenses) ? ext.shift_expenses : [],
     stock_items: Array.isArray(ext.stock_rows) ? ext.stock_rows : [],
     slip: {
@@ -283,4 +324,4 @@ function sha256(buf) {
   return crypto.createHash('sha256').update(buf).digest('hex');
 }
 
-module.exports = { buildReview, sha256, PROMPT_VERSION, OPENED, observedNumber, branchField };
+module.exports = { buildReview, sha256, PROMPT_VERSION, OPENED, observedNumber, branchField, resolveBranch };

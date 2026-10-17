@@ -52,7 +52,8 @@ async function main() {
       buf,
       mimeType: mime(file),
       apiKey: process.env.GEMINI_API_KEY,
-      model: process.env.GEMINI_OCR_MODEL || 'gemini-3.5-flash',
+      model: process.env.GEMINI_MODEL || process.env.GEMINI_OCR_MODEL || 'gemini-3.5-flash',
+      fallbackModel: process.env.GEMINI_MODEL_FALLBACK || 'gemini-3.8-flash',
     });
     pages.push({
       sourceId: path.basename(file),
@@ -61,6 +62,7 @@ async function main() {
       extraction: reading.extraction,
       second: reading.second,
       secondError: reading.secondError,
+      secondSkipped: reading.secondSkipped === true,
     });
   }
   const review = applyChecks(buildReview({ batchId, images: pages }));

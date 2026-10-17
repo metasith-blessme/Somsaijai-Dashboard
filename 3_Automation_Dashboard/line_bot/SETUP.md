@@ -108,7 +108,8 @@ After saving variables, redeploy once so the webhook can see them.
 | `LINE_GROUP_ID` | One group id, or several separated by commas. Add `:B1`, `:B2`, or `:B3` only as a hint. The B1/B2 group should have no branch suffix. |
 | `LINE_ORDER_SENDER_USER_IDS` | Ming's userId from her `id` reply. Several ids are separated by commas. Your own id does not need to be in this list. |
 | `GEMINI_API_KEY` | The Gemini key already used for reading reports |
-| `GEMINI_OCR_MODEL` | Optional. Default `gemini-3.5-flash` |
+| `GEMINI_MODEL` | Optional. Default `gemini-3.5-flash`. `GEMINI_OCR_MODEL` still works if `GEMINI_MODEL` is unset |
+| `GEMINI_MODEL_FALLBACK` | Optional. Default `gemini-3.8-flash`, used after the first model returns 503 or 429 |
 | `BLOB_READ_WRITE_TOKEN` | Filled in when the Blob store is connected |
 | `LINE_BOT_ALLOW_DEPLOY` | Set to exactly `1` only when you want Approve to write the books and publish. Leave it unset while you are still testing the summaries. |
 | `GITHUB_TOKEN` | A GitHub token that can write to `metasith-blessme/Somsaijai-Dashboard` (contents permission) |

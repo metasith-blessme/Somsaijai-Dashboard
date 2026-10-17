@@ -119,15 +119,17 @@ test('B1 keeps the conflicting grand total, the guava price change, and ice', ()
   assert.equal(review.review.import_allowed, false);
 });
 
-test('B2 uses the bracket counts, does not treat the unread column as cups, and flags the note', () => {
+test('B2 uses the bracket counts, does not treat the unread column as cups, and the payment box is 2743 / 1315 / 4058', () => {
   const review = reviewOf(b2);
   const record = review.records[0];
   assert.equal(record.branch.value, 'B2');
   assert.equal(record.date.raw_text, '16/10/26');
   assert.equal(record.date.value, null);
-  assert.equal(record.financials.cash_sales.value, 2143);
+  assert.equal(record.financials.cash_sales.value, 2743);
   assert.equal(record.financials.scan_sales.value, 1315);
-  assert.equal(record.financials.total_sales.value, null);
+  assert.equal(record.financials.total_sales.value, 4058);
+  const channels = review.checks.find(check => check.rule === 'channels');
+  assert.equal(channels.status, 'pass');
   const orange = record.sales_items.find(item => item.item_raw === 'Orange');
   assert.equal(orange.cash_qty.value, 6);
   assert.equal(orange.scan_qty.value, 2);
@@ -140,7 +142,7 @@ test('B2 uses the bracket counts, does not treat the unread column as cups, and 
   const note = review.checks.find(check => check.rule === 'note_equation');
   assert.equal(note.status, 'pass');
   const against = review.checks.find(check => check.rule === 'note_vs_payment');
-  assert.equal(against.status, 'fail');
+  assert.equal(against, undefined);
   const summary = formatSummary(review, {}).text;
   assert.match(summary, /2743 - 60 = 2683/);
   assert.match(summary, /น้ำแข็ง 60/);
@@ -245,4 +247,5 @@ test('the prompt knows both paper forms and does not invent scan', () => {
   assert.match(FULL_PROMPT, /Daily Sales Record/);
   assert.match(FULL_PROMPT, /Never set scan = total - cash/);
   assert.match(FULL_PROMPT, /Total Qty sometimes contains baht/);
+  assert.match(FULL_PROMPT, /Shift box/);
 });

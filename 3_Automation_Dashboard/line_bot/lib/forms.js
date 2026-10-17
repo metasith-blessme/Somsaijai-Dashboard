@@ -79,6 +79,9 @@ function reportLines(record) {
       ? 'แบบ Daily Sales Record'
       : 'แบบฟอร์มที่ยังไม่ระบุชื่อ';
   lines.push(formName);
+  if ((record.sales_items || []).some(item => handwritingFlags(item).length)) {
+    lines.push('มีราคาหรือเมนูที่เขียนทับ ต้องตรวจก่อนอนุมัติ');
+  }
   if (record.orientation && record.orientation !== 'upright') lines.push('รูปเอียง อ่านหลังหมุนให้หัวกระดาษอยู่บน');
   const staff = (record.staff_raw || []).filter(Boolean);
   if (staff.length) lines.push(`พนักงาน ${staff.join(', ')}`);
@@ -147,6 +150,71 @@ function rowAmountCheck(item) {
   };
 }
 
+const FLAVOR_TESTS = [
+  { name: 'sticky rice', test: /sticky\s*rice|ข้าวเหนียว/i },
+  { name: 'roseapple', test: /rose\s*apple|roseapple|ชมพู่/i },
+  { name: 'pomegranate', test: /pomegranate|pomegra|(?<![a-z])pome\b|ทับทิม/i },
+  { name: 'pineapple', test: /pineapple|สับปะรด/i },
+  { name: 'watermelon', test: /watermelon|แตงโม/i },
+  { name: 'mangosteen', test: /mangosteen|มังคุด/i },
+  { name: 'lychee', test: /lychee|ลิ้นจี่/i },
+  { name: 'rambutan', test: /rambutan|เงาะ/i },
+  { name: 'orange', test: /orange|ส้ม/i },
+  { name: 'mango', test: /mango(?!steen)|มะม่วง/i },
+  { name: 'coconut', test: /coconut|มะพร้าว/i },
+  { name: 'guava', test: /guava|ฝรั่ง/i },
+  { name: 'grape', test: /grape|องุ่น/i },
+  { name: 'apple', test: /(?<!pine)(?<!rose)apple|แอปเปิ้ล|แอปเปิล/i },
+];
+
+function flavorsIn(text) {
+  const found = [];
+  for (const flavor of FLAVOR_TESTS) {
+    if (flavor.test.test(String(text || ''))) found.push(flavor.name);
+  }
+  return [...new Set(found)];
+}
+
+function baseFlavors(text, found) {
+  const lower = String(text || '').toLowerCase();
+  if (/mango sticky rice|ข้าวเหนียวมะม่วง|มะม่วงข้าวเหนียว/.test(lower)) return ['mango', 'sticky rice'];
+  if ((/mangosteen|มังคุด/.test(lower)) && (/lychee|ลิ้นจี่/.test(lower))) return ['mangosteen', 'lychee'];
+  if (/volcano/.test(lower)) {
+    const cup = found.filter(name => ['orange', 'watermelon', 'mango', 'coconut', 'apple', 'guava', 'pineapple'].includes(name));
+    if (!cup.length) return found.slice();
+    return [cup[0]];
+  }
+  if (found.length <= 1) return found.slice();
+  const primary = found.find(name => ['orange', 'watermelon', 'mango', 'coconut', 'apple', 'guava', 'pineapple', 'mangosteen', 'rambutan'].includes(name));
+  return primary ? [primary] : [found[0]];
+}
+
+function extraFlavors(itemRaw) {
+  const found = flavorsIn(itemRaw);
+  const base = new Set(baseFlavors(itemRaw, found));
+  return found.filter(name => !base.has(name));
+}
+
+function handwritingFlags(item) {
+  if (!item) return [];
+  const flags = [];
+  const name = item.item_raw || 'แถว';
+  if (item.price_overridden_from != null || item.price_overridden_to != null) {
+    flags.push({
+      kind: 'price_change',
+      text: `${name}: ราคาเขียนทับ ${item.price_overridden_from ?? '?'} เป็น ${item.price_overridden_to ?? '?'}`,
+    });
+  }
+  const extra = extraFlavors(item.item_raw);
+  if (extra.length) {
+    flags.push({ kind: 'flavor_shift', text: `${name}: มีรสที่เขียนเพิ่ม (${extra.join(', ')})` });
+  }
+  if (item.struck || item.handwritten) {
+    flags.push({ kind: 'row_shift', text: `${name}: แถวถูกเขียนเพิ่มหรือขีดฆ่า` });
+  }
+  return flags;
+}
+
 function noteCheck(note, financials) {
   const match = String(note).match(/(\d[\d,]*)\s*[-–]\s*(\d[\d,]*)\s*=\s*(\d[\d,]*)/);
   if (!match) return null;
@@ -175,4 +243,6 @@ module.exports = {
   rowAmountCheck,
   noteCheck,
   moneyText,
+  handwritingFlags,
+  extraFlavors,
 };

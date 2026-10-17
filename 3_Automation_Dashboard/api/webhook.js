@@ -46,18 +46,15 @@ module.exports = async function webhook(req, res) {
     now: Date.now(),
   };
   const job = handleWebhook({ rawBody, signature, ctx });
-  // LINE retries when the webhook is slow. Answer 200 first, then keep reading
-  // the photos. Reply messages in that work use the reply token and do not
-  // spend the free-plan push quota.
-  let waitUntil = null;
-  try { ({ waitUntil } = require('@vercel/functions')); } catch (e) { waitUntil = null; }
-  if (typeof waitUntil === 'function' && process.env.VERCEL) {
-    waitUntil(job.catch(err => console.error(err)));
+  // LINE retries a slow webhook. Answer 200 first and keep reading the photo.
+  // OCR is one or two Gemini calls of about half a minute each, plus retries.
+  const scheduled = scheduleBackground(job);
+  if (scheduled.deferred) {
     res.status(200).end('ok');
     return;
   }
   try {
-    const result = await job;
+    const result = await scheduled.job;
     res.status(result.status).end(result.body || 'ok');
   } catch (err) {
     console.error(err);
@@ -65,4 +62,33 @@ module.exports = async function webhook(req, res) {
   }
 };
 
+function loadVercelHooks() {
+  try {
+    const mod = require('@vercel/functions');
+    return { waitUntil: mod.waitUntil, after: mod.after };
+  } catch (e) {
+    return {};
+  }
+}
+
+function scheduleBackground(job, options = {}) {
+  const vercel = options.vercel != null ? options.vercel : Boolean(process.env.VERCEL);
+  const hooks = options.hooks || (vercel ? loadVercelHooks() : {});
+  const run = [hooks.waitUntil, hooks.after].find(fn => typeof fn === 'function');
+  const wrapped = Promise.resolve(job).catch(err => {
+    console.error(err);
+    throw err;
+  });
+  if (vercel && run) {
+    try {
+      run(wrapped.catch(err => console.error(err)));
+      return { deferred: true };
+    } catch (err) {
+      console.error(err);
+    }
+  }
+  return { deferred: false, job: wrapped };
+}
+
 module.exports.config = { api: { bodyParser: false }, maxDuration: 300 };
+module.exports.scheduleBackground = scheduleBackground;

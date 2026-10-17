@@ -10,6 +10,7 @@ const { parseGroupConfig } = require('./config');
 const { ALBUM_HELP_TH } = require('./forms');
 
 const PROCESSING_MS = 5 * 60 * 1000;
+const OCR_FAIL_TH = 'อ่านรูปไม่สำเร็จ จะลองอ่านใหม่อีกครั้ง ถ้ายังไม่ได้ กรุณาส่งรูปนี้อีกครั้งในแชท';
 
 function isIdCommand(text) {
   return /^(id|\/id|ไอดี)$/i.test(String(text || '').trim());
@@ -68,15 +69,23 @@ async function finishBatch(batchId, parts, ctx) {
   if (existing && existing.review) return existing;
 
   const images = [];
+  let failed = 0;
   for (const part of parts) {
     const saved = await store.getJson(`msg:${part.messageId}`);
     const bytes = await store.get(`bytes:${part.messageId}`);
     if (!saved || !bytes) continue;
     let reading;
     try {
-      reading = await extractImage({ buf: bytes, mimeType: saved.contentType, apiKey: config.geminiKey, model: config.geminiModel });
+      reading = await extractImage({
+        buf: bytes,
+        mimeType: saved.contentType,
+        apiKey: config.geminiKey,
+        model: config.geminiModel,
+        fallbackModel: config.geminiFallbackModel,
+      });
     } catch (err) {
-      reading = { extraction: null, second: null, secondError: err.message || String(err) };
+      failed += 1;
+      reading = { extraction: null, second: null, secondError: err.message || String(err), secondSkipped: false };
     }
     images.push({
       sourceId: part.messageId,
@@ -85,10 +94,23 @@ async function finishBatch(batchId, parts, ctx) {
       extraction: reading.extraction,
       second: reading.second,
       secondError: reading.secondError,
+      secondSkipped: reading.secondSkipped === true,
       branch_hint: ctx.branchHint || null,
       line_group_id: ctx.lineGroupId || null,
     });
   }
+  if (images.length && failed === images.length) {
+    const error = new Error(OCR_FAIL_TH);
+    error.ocrFailed = true;
+    try {
+      await reply(line, ctx.replyToken, OCR_FAIL_TH);
+      error.replied = true;
+    } catch (replyErr) {
+      error.replied = false;
+    }
+    throw error;
+  }
+  if (failed) ctx.ocrWarning = OCR_FAIL_TH;
   const review = applyChecks(buildReview({ batchId, images }));
   await store.putJson(`review:${batchId}`, review);
   const summary = formatSummary(review, { publicUrl: config.publicUrl, channelSecret: config.channelSecret });
@@ -150,7 +172,8 @@ async function onImage(event, ctx) {
   ctx.replyToken = event.replyToken;
   const batch = await finishBatch(batchId, orderedParts(state), ctx);
   if (!batch.push_error && ctx.config.ownerUserId) {
-    await reply(line, event.replyToken, `ได้รับรูปครบแล้ว ส่งสรุปให้คุณปานในแชทส่วนตัว ยังไม่ลงบัญชี\n${ALBUM_HELP_TH}`);
+    const warning = ctx.ocrWarning ? `\n${ctx.ocrWarning}` : '';
+    await reply(line, event.replyToken, `ได้รับรูปครบแล้ว ส่งสรุปให้คุณปานในแชทส่วนตัว ยังไม่ลงบัญชี\n${ALBUM_HELP_TH}${warning}`);
   }
   return { batch_id: batchId, status: batch.status };
 }
@@ -307,9 +330,11 @@ async function handleEvent(event, ctx) {
     return outcome;
   } catch (err) {
     await ctx.store.putJson(claim.key, { status: 'error', at: ctx.now, message: err.message || String(err) });
-    try {
-      await reply(ctx.line, event.replyToken, `ทำไม่สำเร็จ: ${(err.message || err).toString().slice(0, 300)}`);
-    } catch (replyErr) { /* the reply token may already have been used */ }
+    if (!err.replied) {
+      try {
+        await reply(ctx.line, event.replyToken, `ทำไม่สำเร็จ: ${(err.message || err).toString().slice(0, 300)}`);
+      } catch (replyErr) { /* the reply token may already have been used */ }
+    }
     return { error: err.message || String(err) };
   }
 }
@@ -326,4 +351,4 @@ async function handleWebhook({ rawBody, signature, ctx }) {
   return { status: 200, body: 'ok', outcomes };
 }
 
-module.exports = { handleWebhook, handleEvent, isIdCommand };
+module.exports = { handleWebhook, handleEvent, isIdCommand, OCR_FAIL_TH };

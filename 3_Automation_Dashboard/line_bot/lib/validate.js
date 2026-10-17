@@ -1,5 +1,5 @@
 const { observedNumber } = require('./fields');
-const { rowQtyCheck, rowAmountCheck, noteCheck } = require('./forms');
+const { rowQtyCheck, rowAmountCheck, noteCheck, handwritingFlags } = require('./forms');
 
 function satang(n) { return Math.round(Number(n) * 100); }
 
@@ -36,6 +36,62 @@ function channelCheck(financials) {
   };
 }
 
+function lineSumCheck(record) {
+  const total = observedNumber(record.financials && record.financials.total_sales);
+  const items = (record.sales_items || []).filter(item => item && !item.struck);
+  const amounts = items.map(item => observedNumber(item.amount)).filter(n => n != null);
+  if (total == null || amounts.length === 0) {
+    return {
+      rule: 'line_sum',
+      status: 'not_testable',
+      observed: total,
+      expected: null,
+      difference: null,
+      reason: 'total or line amounts were not observed',
+    };
+  }
+  const expected = amounts.reduce((sum, n) => sum + satang(n), 0) / 100;
+  const difference = Math.round((total - expected) * 100) / 100;
+  return {
+    rule: 'line_sum',
+    status: difference === 0 ? 'pass' : 'fail',
+    observed: total,
+    expected,
+    difference,
+    reason: difference === 0
+      ? 'line amounts add up to the written total'
+      : 'line amounts do not add up to the written total',
+  };
+}
+
+function netCheck(financials) {
+  const total = observedNumber(financials && financials.total_sales);
+  const expense = observedNumber(financials && financials.total_expense);
+  const net = observedNumber(financials && financials.net_sales);
+  if (total == null || expense == null || net == null) {
+    return {
+      rule: 'net',
+      status: 'not_testable',
+      observed: net,
+      expected: null,
+      difference: null,
+      reason: 'total, expense, or net was not observed',
+    };
+  }
+  const expected = Math.round((total - expense) * 100) / 100;
+  const difference = Math.round((net - expected) * 100) / 100;
+  return {
+    rule: 'net',
+    status: difference === 0 ? 'pass' : 'fail',
+    observed: net,
+    expected,
+    difference,
+    reason: difference === 0
+      ? 'total minus expense equals the written net'
+      : 'total minus expense does not equal the written net',
+  };
+}
+
 function applyChecks(review) {
   review.checks = [];
   for (const record of review.records) {
@@ -47,7 +103,25 @@ function applyChecks(review) {
       record.status = 'needs_review';
       review.issues.push({ source_id: record.record_id, field: 'channels', issue: check.reason });
     }
+    const lineSum = lineSumCheck(record);
+    lineSum.record_id = record.record_id;
+    review.checks.push(lineSum);
+    if (lineSum.status === 'fail') {
+      record.status = 'needs_review';
+      review.issues.push({ source_id: record.record_id, field: 'line_sum', issue: lineSum.reason });
+    }
+    const net = netCheck(record.financials || {});
+    net.record_id = record.record_id;
+    review.checks.push(net);
+    if (net.status === 'fail') {
+      record.status = 'needs_review';
+      review.issues.push({ source_id: record.record_id, field: 'net', issue: net.reason });
+    }
     for (const item of record.sales_items || []) {
+      for (const flag of handwritingFlags(item)) {
+        record.status = 'needs_review';
+        review.issues.push({ source_id: record.record_id, field: flag.kind, issue: flag.text });
+      }
       if (item.struck) continue;
       const qtyCheck = rowQtyCheck(item);
       if (qtyCheck.status === 'fail') {
@@ -121,4 +195,4 @@ function applyChecks(review) {
   return review;
 }
 
-module.exports = { channelCheck, applyChecks, satang };
+module.exports = { channelCheck, lineSumCheck, netCheck, applyChecks, satang };

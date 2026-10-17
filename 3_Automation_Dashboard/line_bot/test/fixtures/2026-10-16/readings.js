@@ -176,9 +176,9 @@ const b2 = {
     orientation: 'upright',
     header: { date_raw: '16/10/26', branch_raw: 'B-2', staff_raw: [], shift_raw: null },
     sales: {
-      cash_sales: observed(2143),
+      cash_sales: observed(2743),
       scan_sales: observed(1315),
-      total_sales: unclear('3458 or 4058', [3458, 4058]),
+      total_sales: observed(4058),
       total_expense: missing(),
       net_sales: missing(),
       opening_cash: missing(),
@@ -203,9 +203,6 @@ const b2 = {
     handwritten_additions: [],
     uncertainties: [
       'Total Qty column was not stable enough to record; on this form that column holds baht, so those digits were not copied into cup counts',
-      'grand total was read as 3458 in a zoom of the payment box and as 4058 on a full-frame look',
-      '2143 + 1315 = 3458, which is why 3458 is one of the two readings',
-      'the note 2743 - 60 = 2683 is written on the page; 2743 is not the cash total 2143',
     ],
   },
 };
