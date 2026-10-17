@@ -1,0 +1,84 @@
+{
+  "items": [
+    {
+      "id": "watermelon",
+      "label_th": "แตงโม",
+      "label_en": "Watermelon",
+      "default_unit": "ลูก",
+      "supplier": "kob",
+      "aliases": ["watermelon", "แตงโม"]
+    },
+    {
+      "id": "pomegranate",
+      "label_th": "ทับทิม",
+      "label_en": "Pomegranate",
+      "default_unit": "กล่อง",
+      "supplier": "phao",
+      "aliases": ["pomegranate", "ทับทิม"]
+    },
+    {
+      "id": "apple",
+      "label_th": "แอปเปิ้ล",
+      "label_en": "Apple",
+      "default_unit": "กล่อง",
+      "supplier": "phao",
+      "aliases": ["apple", "แอปเปิ้ล", "แอปเปิล"]
+    },
+    {
+      "id": "grapes",
+      "label_th": "องุ่น",
+      "label_en": "Grapes",
+      "default_unit": "กล่อง",
+      "supplier": "phao",
+      "aliases": ["grape", "grapes", "องุ่น"]
+    },
+    {
+      "id": "pear",
+      "label_th": "สาลี่",
+      "label_en": "Pear",
+      "default_unit": "กล่อง",
+      "supplier": "phao",
+      "aliases": ["pear", "pears", "สาลี่", "สาลี"]
+    },
+    {
+      "id": "mango",
+      "label_th": "มะม่วง",
+      "label_en": "Mango",
+      "default_unit": "กก",
+      "supplier": "porn",
+      "aliases": ["mango", "mangoes", "มะม่วง"]
+    },
+    {
+      "id": "guava",
+      "label_th": "ฝรั่ง",
+      "label_en": "Guava",
+      "default_unit": "กก",
+      "handled_by": "ming",
+      "aliases": ["guava", "ฝรั่ง"]
+    }
+  ],
+  "suppliers": [
+    {
+      "id": "kob",
+      "name": "พี่กบ",
+      "kind": "count_line",
+      "message": "วันนี้ {qty} {unit}ครับผม"
+    },
+    {
+      "id": "phao",
+      "name": "เจ๊เภา",
+      "also_known_as": "เจ๊เภาพรีเมี่ยมฟรุ๊ต",
+      "kind": "item_list",
+      "greeting": "สวัสดีครับผม",
+      "item_line": "{label_th} - {qty}",
+      "delivery_line": "ส่งร้านแตงโมครับผม"
+    },
+    {
+      "id": "porn",
+      "name": "เจ๊พร",
+      "also_known_as": "คุณพร",
+      "kind": "price_question",
+      "message": "วันนี้ราคาเท่าไหร่ครับ"
+    }
+  ]
+}

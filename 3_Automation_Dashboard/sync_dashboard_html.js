@@ -1,6 +1,7 @@
 // One rendering implementation for live and standalone views; embed the current source snapshots.
 const fs = require('fs'), path = require('path'), assert = require('assert');
-const read = name => fs.readFileSync(path.join(__dirname, name), 'utf8');
+const DIR = process.env.SOMSAIJAI_DASHBOARD_DIR || __dirname;
+const read = name => fs.readFileSync(path.join(DIR, name), 'utf8');
 let html = read('index.html').replace(/[ \t]+$/gm, '');
 const marker = '<script>\nlet DATA =';
 assert.equal(html.split(marker).length, 2, 'main dashboard script marker must be unique');
@@ -15,5 +16,5 @@ for (const library of ['xlsx.full.min.js', 'chart.umd.min.js']) {
     assert.ok(tag.test(html), `missing library ${library}`);
     html = html.replace(tag, () => `<script data-library="${library}">${read(library)}</script>`);
 }
-fs.writeFileSync(path.join(__dirname, 'SomSaiJai_Dashboard.html'), html);
+fs.writeFileSync(path.join(DIR, 'SomSaiJai_Dashboard.html'), html);
 console.log('✅ Standalone backup uses the live renderer and current embedded data, P&L, and libraries.');

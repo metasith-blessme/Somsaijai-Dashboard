@@ -20,8 +20,29 @@ const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
 
-const DIR = __dirname;
+// Tests and the LINE bot point this at a throwaway copy. Unset, the script writes the
+// workbooks beside itself, which is what the CLI and the acceptance tests do.
+const DIR = process.env.SOMSAIJAI_DASHBOARD_DIR || __dirname;
 const NOTE_COL = 'Source Note';
+// Optional observed counts. Unknown stays off the row (the cell is left empty, never 0).
+// A value whose column is not on this month's sheet is recorded on the receipt and in the
+// source note — it is not dropped and it is not written into a different column.
+const OPTIONAL_FIELDS = {
+  exp: { header: 'Expenses (฿)', integer: false },
+  or: { header: 'Orange', integer: true },
+  or_100: { header: 'Orange (100)', integer: true },
+  wm: { header: 'Watermelon', integer: true },
+  mg: { header: 'Mango', integer: true },
+  co: { header: 'Coconut', integer: true },
+  ap: { header: 'Apple', integer: true },
+  yco: { header: 'Young Coco', integer: true },
+  guava: { header: 'Guava', integer: true },
+  pineapple: { header: 'Pineapple', integer: true },
+  tot: { header: 'Total Cups', integer: true },
+  bb: { header: 'Bot Big', integer: true },
+  bs: { header: 'Bot Small', integer: true },
+  bottle_rev: { header: 'Bottle Revenue (฿)', integer: false },
+};
 const wbPath = b => path.join(DIR, `SomSaiJai_Dashboard_${b}_2026.xlsx`);
 const sha256 = f => crypto.createHash('sha256').update(fs.readFileSync(f)).digest('hex');
 const fail = m => { console.error('\n  FAIL — ' + m + '\n  Nothing was written.\n'); process.exit(1); };
@@ -45,6 +66,13 @@ cl.rows.forEach((r, i) => {
   if (dt.getUTCDate() !== d || dt.getUTCMonth() !== m - 1) fail(`${at}: impossible calendar date`);
   if (typeof r.revenue !== 'number' || !isFinite(r.revenue) || r.revenue < 0) fail(`${at}: bad revenue`);
   if (!norm(r.note)) fail(`${at}: every row needs a source note`);
+  for (const [key, spec] of Object.entries(OPTIONAL_FIELDS)) {
+    if (r[key] == null) continue;
+    if (typeof r[key] !== 'number' || !isFinite(r[key]) || r[key] < 0) fail(`${at}: bad ${key}`);
+    if (spec.integer && !Number.isInteger(r[key])) fail(`${at}: ${key} must be a whole number`);
+  }
+  if (r.cash != null && (typeof r.cash !== 'number' || !isFinite(r.cash) || r.cash < 0)) fail(`${at}: bad cash`);
+  if (r.scan != null && (typeof r.scan !== 'number' || !isFinite(r.scan) || r.scan < 0)) fail(`${at}: bad scan`);
   if (r.estimated && !/ESTIMATED/i.test(r.note)) fail(`${at}: estimated row must say so in its note`);
   const k = r.branch + '|' + r.date;
   if (seen.has(k)) fail(`${at}: duplicate date for this branch in the change list`);
@@ -113,7 +141,7 @@ const bdir = path.join(DIR, 'audit', 'backups', stamp);
 fs.mkdirSync(bdir, { recursive: true });
 const receipt = { batch_id: cl.batch_id, month: cl.month, change_list: path.resolve(clPath),
                   imported_at: new Date().toISOString(), rows_written: 0, rows_skipped: nSkip,
-                  estimated_rows: [], branches: {} };
+                  estimated_rows: [], unmapped: [], branches: {} };
 
 branches.forEach(b => {
   const bk = books[b], add = plan[b];
@@ -132,10 +160,31 @@ branches.forEach(b => {
     row[bk.col['Date']] = r.date;
     row[bk.col['Day']] = r.day || '';
     row[bk.col['Revenue (฿)']] = r.revenue;
-    // Cash / Scan stay EMPTY when unknown — never 0
-    if (r.cash != null) row[bk.col['Cash (฿)']] = r.cash;
-    if (r.scan != null && bk.col['Scan/Transfer (฿)'] !== undefined) row[bk.col['Scan/Transfer (฿)']] = r.scan;
-    row[bk.noteCol] = (r.estimated ? '[ESTIMATED] ' : '') + r.note;
+    // Cash / Scan stay EMPTY when unknown — never 0.
+    if (r.cash != null) {
+      if (bk.col['Cash (฿)'] === undefined) receipt.unmapped.push({ branch: b, date: r.date, field: 'cash', value: r.cash });
+      else row[bk.col['Cash (฿)']] = r.cash;
+    }
+    if (r.scan != null) {
+      if (bk.col['Scan/Transfer (฿)'] === undefined) receipt.unmapped.push({ branch: b, date: r.date, field: 'scan', value: r.scan });
+      else row[bk.col['Scan/Transfer (฿)']] = r.scan;
+    }
+    const missed = [];
+    r._written = {};
+    for (const [key, spec] of Object.entries(OPTIONAL_FIELDS)) {
+      if (r[key] == null) continue;
+      const c = bk.col[spec.header];
+      if (c === undefined) {
+        receipt.unmapped.push({ branch: b, date: r.date, field: key, header: spec.header, value: r[key] });
+        missed.push(`${spec.header}=${r[key]}`);
+        continue;
+      }
+      row[c] = r[key];
+      r._written[key] = spec.header;
+    }
+    let note = (r.estimated ? '[ESTIMATED] ' : '') + r.note;
+    if (missed.length) note += ' | not on this sheet: ' + missed.join(', ');
+    row[bk.noteCol] = note;
     return row;
   });
   XLSX.utils.sheet_add_aoa(bk.sh, aoa, { origin: bk.grid.length });
@@ -150,7 +199,13 @@ branches.forEach(b => {
   for (let i = h2 + 1; i < g2.length; i++) { const r = g2[i]; if (r && r[0]) got[norm(r[0])] = r; }
   const bad = add.filter(r => {
     const g = got[norm(r.date)];
-    return !g || Number(g[c2['Revenue (฿)']]) !== r.revenue;
+    if (!g || Number(g[c2['Revenue (฿)']]) !== r.revenue) return true;
+    if (r.cash != null && c2['Cash (฿)'] !== undefined && Number(g[c2['Cash (฿)']]) !== r.cash) return true;
+    if (r.scan != null && c2['Scan/Transfer (฿)'] !== undefined && Number(g[c2['Scan/Transfer (฿)']]) !== r.scan) return true;
+    for (const [key, header] of Object.entries(r._written || {})) {
+      if (Number(g[c2[header]]) !== r[key]) return true;
+    }
+    return false;
   });
   if (bad.length) {
     fs.copyFileSync(bak, bk.file);
