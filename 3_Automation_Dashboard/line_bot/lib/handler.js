@@ -19,6 +19,20 @@ const { publishApprovedBatch } = require('./publish');
 const { loadCatalog, parseOrder, buildOrderMessages, buildSenderConfirm, isOrderReplay, packBubbles } = require('./orders');
 const { parseGroupConfig } = require('./config');
 const {
+  qaEnabled,
+  qaQuestion,
+  isOwnerDirect,
+  buildChatMessages,
+  consumeQuota,
+  dailyLimit,
+  fetchSalesContext,
+  askMinimax,
+  QA_ERROR,
+  QA_LIMIT,
+  QA_EMPTY,
+  QA_TIMEOUT_MS,
+} = require('./qa');
+const {
   ALBUM_HELP,
   OCR_FAIL,
   ONLY_PARN_APPROVE,
@@ -436,7 +450,66 @@ async function onText(event, ctx) {
     const outcome = await onOrder(event, ctx);
     if (outcome) return outcome;
   }
+  const answered = await onQuestion(event, ctx);
+  if (answered) return answered;
   return { ignored: true };
+}
+
+async function onQuestion(event, ctx) {
+  if (!qaEnabled(ctx.config)) return null;
+  const parsed = qaQuestion(event);
+  if (!parsed) return null;
+  if (!parsed.question) {
+    await reply(ctx.line, event.replyToken, QA_EMPTY);
+    return { qa: true, empty: true };
+  }
+  const source = event.source || {};
+  const userId = source.userId || 'anonymous';
+  let quota;
+  try {
+    quota = await consumeQuota(ctx.store, userId, ctx.now, dailyLimit(ctx.config));
+  } catch (err) {
+    await reply(ctx.line, event.replyToken, QA_ERROR);
+    return { qa: true, error: true };
+  }
+  if (!quota.allowed) {
+    await reply(ctx.line, event.replyToken, QA_LIMIT);
+    return { qa: true, limited: true };
+  }
+  const owner = isOwnerDirect(source, ctx.config);
+  let salesContext = null;
+  if (owner) {
+    try {
+      salesContext = await fetchSalesContext({
+        publicUrl: ctx.config.publicUrl,
+        fetchImpl: ctx.fetchImpl,
+        now: ctx.now,
+        timeoutMs: ctx.config.salesTimeoutMs,
+      });
+    } catch (err) {
+      salesContext = null;
+    }
+  }
+  const messages = buildChatMessages({
+    owner,
+    question: parsed.question,
+    salesContext: owner ? salesContext : null,
+  });
+  try {
+    const answer = await askMinimax({
+      apiKey: ctx.config.minimaxKey,
+      model: ctx.config.minimaxModel,
+      messages,
+      fetchImpl: ctx.fetchImpl,
+      timeoutMs: ctx.config.qaTimeoutMs || QA_TIMEOUT_MS,
+      maxTokens: ctx.config.qaMaxTokens,
+    });
+    await reply(ctx.line, event.replyToken, answer);
+    return { qa: true, owner };
+  } catch (err) {
+    await reply(ctx.line, event.replyToken, QA_ERROR);
+    return { qa: true, error: true };
+  }
 }
 
 async function replayOrder(event, ctx) {

@@ -109,6 +109,8 @@ After saving variables, redeploy once so the webhook can see them.
 | `LINE_OWNER_USER_ID` | Your userId from the `id` reply (starts with `U`) |
 | `LINE_GROUP_ID` | One group id, or several separated by commas. Add `:B1`, `:B2`, or `:B3` only as a hint. The B1/B2 group should have no branch suffix. |
 | `LINE_ORDER_SENDER_USER_IDS` | Ming's userId from her `id` reply. Several ids are separated by commas. Your own id does not need to be in this list. |
+| `MINIMAX_API_KEY` | Optional. Turns on questions. Leave it unset and the bot stays silent on questions. |
+| `MINIMAX_MODEL` | Optional. Default `MiniMax-M2`. |
 | `GEMINI_API_KEY` | The Gemini key already used for reading reports |
 | `GEMINI_MODEL` | Optional. Default `gemini-3.5-flash`. `GEMINI_OCR_MODEL` still works if `GEMINI_MODEL` is unset |
 | `GEMINI_MODEL_FALLBACK` | Optional. Default `gemini-3.8-flash`, used after the first model returns 503 or 429 |
@@ -180,3 +182,13 @@ Nothing is sent to พี่กบ, เจ๊เภา, or เจ๊พร. เ�
 Sending `ออเดอร์` in your private chat with the bot shows those bubbles again. That answer is a reply, so it does not use the monthly quota. Use it when a push does not arrive.
 
 The shops, the fruit names, and the wording live in `line_bot/orders/suppliers.json`. Change `delivery_line` if the delivery line should say more than `ส่งร้านแตงโมครับผม`. Add a fruit by copying an item and setting `supplier` to `kob`, `phao`, or `porn`. A fruit Ming orders herself stays `handled_by` `ming` and has no supplier. Redeploy after saving the file.
+
+## 9. Questions
+
+If `MINIMAX_API_KEY` is not set, this does nothing. The bot does not reply to ordinary chat.
+
+Anyone can ask in a private chat. A message that is already a command (`id`, `help`, `สรุป` / `summary`, `ออเดอร์` / `order`) stays that command. A fruit order from you or from someone in `LINE_ORDER_SENDER_USER_IDS` stays an order. In a group, the bot answers only when it is mentioned, or when the message starts with `bot` or `@bot`. It does not answer every group message. Photos are unchanged.
+
+The answer is a reply, so it does not use the monthly quota. Each person gets 30 answers a day.
+
+You (`LINE_OWNER_USER_ID`) can ask about recent sales in the private chat. The bot reads the live `data.json` and gives the model the last 14 days per branch: date, revenue, cash, and scan. Staff, including Ming, get general help only (how to send photos one by one, simple translations, shop questions). Their answers are not given those figures, and the model is told not to invent numbers. A question you ask in the group is treated like a staff question, so sales figures are not posted in the group.

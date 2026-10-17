@@ -5,6 +5,7 @@ const { lineClient } = require('../line_bot/lib/line_client');
 const { createStore } = require('../line_bot/lib/store');
 const { extractImage } = require('../line_bot/lib/extractor');
 const { createProductionDeps, publishBundleReport } = require('../line_bot/lib/publish');
+const { qaEnabled } = require('../line_bot/lib/qa');
 
 function readRaw(req) {
   if (req && Buffer.isBuffer(req.body)) return Promise.resolve(req.body);
@@ -42,11 +43,15 @@ function readRaw(req) {
   });
 }
 
-function wantsBundleReport(req) {
-  if (req && req.query && String(req.query.bundle) === '1') return true;
+function wantsQueryFlag(req, name) {
+  if (req && req.query && String(req.query[name]) === '1') return true;
   const raw = String(req && req.url || '');
   const q = raw.includes('?') ? raw.slice(raw.indexOf('?') + 1) : '';
-  return new URLSearchParams(q).get('bundle') === '1';
+  return new URLSearchParams(q).get(name) === '1';
+}
+
+function wantsBundleReport(req) {
+  return wantsQueryFlag(req, 'bundle');
 }
 
 module.exports = async function webhook(req, res) {
@@ -60,6 +65,15 @@ module.exports = async function webhook(req, res) {
       res.setHeader('Content-Type', 'application/json; charset=utf-8');
       res.setHeader('Cache-Control', 'no-store');
       res.end(JSON.stringify(report));
+      return;
+    }
+    // Preview-only. Says whether Q&A is on. Does not call MiniMax or LINE.
+    if (req.method === 'GET' && preview && wantsQueryFlag(req, 'qa')) {
+      const config = loadConfig();
+      res.status(200);
+      res.setHeader('Content-Type', 'application/json; charset=utf-8');
+      res.setHeader('Cache-Control', 'no-store');
+      res.end(JSON.stringify({ enabled: qaEnabled(config), model: config.minimaxModel }));
       return;
     }
     res.status(405).end('POST only');

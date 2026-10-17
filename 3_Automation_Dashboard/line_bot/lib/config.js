@@ -11,6 +11,8 @@ function loadConfig(env = process.env) {
     geminiKey: env.GEMINI_API_KEY || '',
     geminiModel: env.GEMINI_MODEL || env.GEMINI_OCR_MODEL || 'gemini-3.5-flash',
     geminiFallbackModel: env.GEMINI_MODEL_FALLBACK || 'gemini-3.8-flash',
+    minimaxKey: env.MINIMAX_API_KEY || '',
+    minimaxModel: env.MINIMAX_MODEL || 'MiniMax-M2',
     allowDeploy: env.LINE_BOT_ALLOW_DEPLOY === '1',
     // Pushing the commit to main already starts the Vercel Git deploy.
     // The bot calls the deployments API only when this is exactly "1".
