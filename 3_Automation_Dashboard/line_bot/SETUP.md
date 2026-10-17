@@ -114,6 +114,7 @@ After saving variables, redeploy once so the webhook can see them.
 | `GEMINI_MODEL_FALLBACK` | Optional. Default `gemini-3.8-flash`, used after the first model returns 503 or 429 |
 | `BLOB_READ_WRITE_TOKEN` | Filled in when the Blob store is connected |
 | `LINE_BOT_ALLOW_DEPLOY` | Set to exactly `1` only when you want Approve to write the books and publish. Leave it unset while you are still testing the summaries. |
+| `LINE_BOT_VERCEL_DEPLOY` | Optional. Set to exactly `1` to also call the Vercel deployments API after the git push. Leave unset: pushing to `main` already starts the Git integration deploy, and Approve waits for that deploy in the live readback. |
 | `GITHUB_TOKEN` | A GitHub token that can write to `metasith-blessme/Somsaijai-Dashboard` (contents permission) |
 | `GITHUB_REPO` | `metasith-blessme/Somsaijai-Dashboard` |
 | `GITHUB_BRANCH` | `main` |
@@ -127,8 +128,8 @@ Approve does all of this, in order, and only for the rows that were actually rea
 1. Checks that you are `LINE_OWNER_USER_ID` and that the approval still matches these exact photos.
 2. Writes only those rows with the safe importers (`safe_import_sales.js` / `safe_import_expenses.js`). It does not run `verify-sales`, `process-expenses`, `sync`, or `pipeline`.
 3. Rebuilds `data.json` and `reports_data.json` from the Excel files.
-4. Commits those files to `main` and asks Vercel to deploy.
-5. Reads `https://somsaijailive.vercel.app/data.json` back and tells you whether the live numbers match. It will not say the dashboard is updated if they do not.
+4. Commits those files to `main`. That push is what deploys the dashboard. A second deploy through the Vercel API runs only when `LINE_BOT_VERCEL_DEPLOY` is `1`.
+5. Reads `https://somsaijailive.vercel.app/data.json` back and tells you whether the live numbers match. It will not say the dashboard is updated if they do not. The readback runs either way.
 
 If `LINE_BOT_ALLOW_DEPLOY` is not `1`, or the GitHub token is missing, tapping Approve **saves your decision and writes nothing**. The reply says what is missing.
 

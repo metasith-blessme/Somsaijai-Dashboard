@@ -4,7 +4,7 @@ const { loadConfig } = require('../line_bot/lib/config');
 const { lineClient } = require('../line_bot/lib/line_client');
 const { createStore } = require('../line_bot/lib/store');
 const { extractImage } = require('../line_bot/lib/extractor');
-const { createProductionDeps } = require('../line_bot/lib/publish');
+const { createProductionDeps, publishBundleReport } = require('../line_bot/lib/publish');
 
 function readRaw(req) {
   if (req && Buffer.isBuffer(req.body)) return Promise.resolve(req.body);
@@ -42,8 +42,26 @@ function readRaw(req) {
   });
 }
 
+function wantsBundleReport(req) {
+  if (req && req.query && String(req.query.bundle) === '1') return true;
+  const raw = String(req && req.url || '');
+  const q = raw.includes('?') ? raw.slice(raw.indexOf('?') + 1) : '';
+  return new URLSearchParams(q).get('bundle') === '1';
+}
+
 module.exports = async function webhook(req, res) {
   if (req.method !== 'POST') {
+    // Preview deployments can show whether xlsx and the importers are in this
+    // function. Production stays POST-only. No LINE, Gemini, git, or deploy calls.
+    const preview = process.env.VERCEL_ENV === 'preview' || process.env.VERCEL_ENV === 'development';
+    if (req.method === 'GET' && preview && wantsBundleReport(req)) {
+      const report = publishBundleReport();
+      res.status(report.ok ? 200 : 500);
+      res.setHeader('Content-Type', 'application/json; charset=utf-8');
+      res.setHeader('Cache-Control', 'no-store');
+      res.end(JSON.stringify(report));
+      return;
+    }
     res.status(405).end('POST only');
     return;
   }

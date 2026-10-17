@@ -14,7 +14,7 @@ const {
 const { sha256, buildReview } = require('./normalize');
 const { applyChecks } = require('./validate');
 const { formatSummary, parsePostback } = require('./summary');
-const { makeApproval } = require('./approval');
+const { makeApproval, approvalMatchesReview } = require('./approval');
 const { publishApprovedBatch } = require('./publish');
 const { loadCatalog, parseOrder, buildOrderMessages, buildSenderConfirm, isOrderReplay, packBubbles } = require('./orders');
 const { parseGroupConfig } = require('./config');
@@ -346,24 +346,48 @@ async function onPostback(event, ctx) {
     await reply(ctx.line, event.replyToken, `ชุด ${batch} ขึ้น dashboard ไปแล้ว ไม่ได้ทำซ้ำ`);
     return { status: 'published', duplicate: true };
   }
-  const approval = record.approval && record.approval.decision === 'approve'
-    ? record.approval
+  // Reuse a saved approval only while it still describes this review. A rewritten
+  // reading (the 2-digit year fix, for example) gets a new approval from this tap.
+  // assertApproval still rejects a mismatched approval if one is passed through.
+  const previous = record.approval;
+  const reusable = previous && previous.decision === 'approve' && approvalMatchesReview(previous, review);
+  const approval = reusable
+    ? previous
     : makeApproval({ review, userId: source.userId, decision: 'approve', at: new Date(ctx.now).toISOString() });
+  if (previous && previous.decision === 'approve' && !reusable) {
+    console.error(`[publish] stale approval regenerated for ${batch}`);
+  }
   record.approval = approval;
   record.status = 'approved';
   await ctx.store.putJson(`batch:${batch}`, record);
-  const result = await publishApprovedBatch({
-    review, approval, ownerUserId: ctx.config.ownerUserId, config: ctx.config, deps: ctx.deps,
-  });
+  let result;
+  try {
+    result = await publishApprovedBatch({
+      review, approval, ownerUserId: ctx.config.ownerUserId, config: ctx.config, deps: ctx.deps,
+    });
+  } catch (err) {
+    const step = err.step || err.code || 'publish';
+    const reason = (err.message || String(err)).toString().replace(/\s+/g, ' ').trim().slice(0, 300);
+    console.error(`[publish] ${step}: ${reason}`);
+    record.last_result = { status: 'error', step, reason };
+    await ctx.store.putJson(`batch:${batch}`, record);
+    await reply(ctx.line, event.replyToken, `ทำไม่สำเร็จ (${step}): ${reason}`);
+    return { status: 'error', step, reason };
+  }
   if (result.status === 'published') {
     record.status = 'published';
     record.approval.publish_receipt = result;
   } else {
-    record.last_result = { status: result.status, reason: result.reason || null, held: result.plan && result.plan.held };
+    record.last_result = {
+      status: result.status,
+      step: result.step || null,
+      reason: result.reason || null,
+      held: result.plan && result.plan.held,
+    };
   }
   await ctx.store.putJson(`batch:${batch}`, record);
   await reply(ctx.line, event.replyToken, result.message);
-  return { status: result.status };
+  return { status: result.status, step: result.step || null };
 }
 
 async function onText(event, ctx) {

@@ -38,6 +38,12 @@ function payloadHash(review) {
   return crypto.createHash('sha256').update(JSON.stringify(body)).digest('hex');
 }
 
+function approvalMatchesReview(approval, review) {
+  if (!approval || !review) return false;
+  if (approval.batch_id && review.batch_id && approval.batch_id !== review.batch_id) return false;
+  return approval.payload_hash === payloadHash(review) && approval.source_hash === sourceHash(review);
+}
+
 function assertApproval({ review, approval, ownerUserId }) {
   if (!review || !review.review || review.review.import_allowed !== false) {
     throw new GateError('extractor_contract', 'The reading must keep import_allowed false. Approval is a separate record.');
@@ -68,4 +74,4 @@ function makeApproval({ review, userId, decision, at }) {
   };
 }
 
-module.exports = { GateError, sourceHash, payloadHash, assertApproval, makeApproval };
+module.exports = { GateError, sourceHash, payloadHash, approvalMatchesReview, assertApproval, makeApproval };
