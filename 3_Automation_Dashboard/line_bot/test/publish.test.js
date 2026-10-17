@@ -326,8 +326,9 @@ test('the bundle report is only served on preview GETs', async () => {
 
     process.env.VERCEL_ENV = 'preview';
     await webhook({ method: 'GET', url: '/api/webhook?bundle=1', headers: {} }, res());
-    assert.equal(statuses[1], 200);
-    const report = JSON.parse(bodies[0]);
+    assert.deepEqual(statuses, [405, 200]);
+    assert.equal(bodies[0], 'POST only');
+    const report = JSON.parse(bodies[1]);
     assert.equal(report.ok, true);
     assert.equal(report.files['safe_import_sales.js'], true);
     assert.equal(report.xlsxResolved, true);
