@@ -1272,7 +1272,10 @@ function renderAnalytics(sales) {
         Coconut: sum(sales,'co'), 
         Apple: sum(sales,'ap'),
         Guava: sum(sales,'guava'),
-        Pineapple: sum(sales,'pineapple')
+        Pineapple: sum(sales,'pineapple'),
+        Mangosteen: sum(sales,'mangosteen'),
+        'Mangosteen & Lychee': sum(sales,'mangosteen_lychee'),
+        Rambutan: sum(sales,'rambutan')
     };
     charts.mix = new Chart(document.getElementById('chartProductMix'), { 
         type: 'doughnut', 
@@ -1457,7 +1460,9 @@ function renderDailyLog(sales) {
                     <th class="num">Expense</th><th class="num">Net</th>
                     <th class="num">Or</th><th class="num">WM</th><th class="num">MG</th>
                     <th class="num">CO</th><th class="num">AP</th><th class="num">YCo</th>
-                    <th class="num">Guava</th><th class="num">Pine</th><th class="num">Total</th>
+                    <th class="num">Guava</th><th class="num">Pine</th>
+                    <th class="num">Mst</th><th class="num">M&amp;L</th><th class="num">Ram</th>
+                    <th class="num">Total</th>
                     <th class="num">u:Or</th><th class="num">u:WM</th><th class="num">u:MG</th>
                     <th class="num">u:Co</th><th class="num">u:AP</th><th class="num">Audit</th>
                 </tr></thead>
@@ -1480,6 +1485,9 @@ function renderDailyLog(sales) {
                         <td class="num">${r.yco||0}</td>
                         <td class="num">${r.guava||0}</td>
                         <td class="num">${r.pineapple||0}</td>
+                        <td class="num">${r.mangosteen||0}</td>
+                        <td class="num">${r.mangosteen_lychee||0}</td>
+                        <td class="num">${r.rambutan||0}</td>
                         <td class="num"><b>${r.tot||0}</b></td>
                         <td class="num">${r.uo||0}</td>
                         <td class="num">${r.uw||0}</td>

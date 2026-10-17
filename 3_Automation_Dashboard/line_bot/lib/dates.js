@@ -14,10 +14,12 @@ function calendarOk(d, m, y) {
 
 function pad(n) { return String(n).padStart(2, '0'); }
 
+const DATE_AGE_DAYS = 60;
+
 /**
- * Normalize a date only when the calendar is unambiguous.
+ * Normalize a written date.
  * A Buddhist year (>= 2400) becomes Gregorian by subtracting 543.
- * A two-digit year is not guessed. An impossible day stays null.
+ * A two-digit year is 20xx (1/10/26 is 01/10/2026). An impossible day stays null.
  */
 function normalizeDate(raw) {
   const text = raw == null ? '' : String(raw).trim();
@@ -27,14 +29,35 @@ function normalizeDate(raw) {
   const d = Number(numeric[1]);
   const m = Number(numeric[2]);
   let y = Number(numeric[3]);
-  if (numeric[3].length <= 2) {
-    return { raw_text: text, value: null, state: 'ambiguous', reason: 'two-digit year is not assumed' };
-  }
+  if (numeric[3].length === 2) y += 2000;
   if (y >= 2400) y -= 543;
   if (!calendarOk(d, m, y)) {
     return { raw_text: text, value: null, state: 'illegible', reason: 'impossible calendar date' };
   }
   return { raw_text: text, value: `${pad(d)}/${pad(m)}/${y}`, state: 'observed' };
+}
+
+function todayStamp(now) {
+  const date = now instanceof Date ? now : new Date(now == null ? Date.now() : now);
+  const parts = new Intl.DateTimeFormat('en-US', {
+    timeZone: 'Asia/Bangkok',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  }).formatToParts(date);
+  const pick = type => Number(parts.find(part => part.type === type).value);
+  return Date.UTC(pick('year'), pick('month') - 1, pick('day'));
+}
+
+/** A usable date that is in the future, or more than 60 days old, still needs a look. */
+function dateAgeIssue(ddmmyyyy, now) {
+  const match = /^(\d{2})\/(\d{2})\/(\d{4})$/.exec(ddmmyyyy || '');
+  if (!match) return null;
+  const day = Date.UTC(Number(match[3]), Number(match[2]) - 1, Number(match[1]));
+  const age = Math.round((todayStamp(now) - day) / 86400000);
+  if (age < 0) return `date ${ddmmyyyy} is in the future`;
+  if (age > DATE_AGE_DAYS) return `date ${ddmmyyyy} is more than ${DATE_AGE_DAYS} days old`;
+  return null;
 }
 
 function monthTag(ddmmyyyy) {
@@ -69,4 +92,4 @@ function memoMonthConflict(memoText, paymentDate) {
   return null;
 }
 
-module.exports = { normalizeDate, monthTag, weekday, before, memoMonthConflict, calendarOk };
+module.exports = { normalizeDate, monthTag, weekday, before, memoMonthConflict, calendarOk, dateAgeIssue, DATE_AGE_DAYS };

@@ -122,7 +122,7 @@ async function finishBatch(batchId, parts, ctx) {
     throw error;
   }
   if (failed) ctx.ocrWarning = OCR_FAIL_TH;
-  const review = applyChecks(buildReview({ batchId, images }));
+  const review = applyChecks(buildReview({ batchId, images, now: new Date(ctx.now) }));
   await store.putJson(`review:${batchId}`, review);
   const summary = formatSummary(review, { publicUrl: config.publicUrl, channelSecret: config.channelSecret });
   if (ctx.setNote) {
