@@ -2,8 +2,9 @@ const fs = require('fs');
 const path = require('path');
 const { calculatePL } = require('./Sales_System_Automation/logic/business_rules');
 
-const DATA_JSON = path.join(__dirname, 'data.json');
-const REPORTS_JSON = path.join(__dirname, 'reports_data.json');
+const DIR = process.env.SOMSAIJAI_DASHBOARD_DIR || __dirname;
+const DATA_JSON = path.join(DIR, 'data.json');
+const REPORTS_JSON = path.join(DIR, 'reports_data.json');
 
 try {
     if (!fs.existsSync(DATA_JSON)) {

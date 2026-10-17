@@ -19,7 +19,9 @@ const path = require('path');
 const crypto = require('crypto');
 
 const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-const DIR = __dirname;
+// Tests and the LINE bot point this at a throwaway copy. Unset, the script writes the
+// workbooks beside itself, which is what the CLI and the acceptance tests do.
+const DIR = process.env.SOMSAIJAI_DASHBOARD_DIR || __dirname;
 const wbPath = b => path.join(DIR, `SomSaiJai_Dashboard_${b}_2026.xlsx`);
 const sha256 = f => crypto.createHash('sha256').update(fs.readFileSync(f)).digest('hex');
 

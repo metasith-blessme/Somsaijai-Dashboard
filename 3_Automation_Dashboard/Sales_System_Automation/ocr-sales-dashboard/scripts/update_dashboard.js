@@ -5,7 +5,7 @@ const { execSync } = require('child_process');
 const { auditRecord, normalizeExpense } = require('../../logic/business_rules');
 
 const ROOT_DIR = path.join(__dirname, '..', '..', '..', '..');
-const DASHBOARD_DIR = path.join(ROOT_DIR, '3_Automation_Dashboard');
+const DASHBOARD_DIR = process.env.SOMSAIJAI_DASHBOARD_DIR || path.join(ROOT_DIR, '3_Automation_Dashboard');
 const DATA_JSON = path.join(DASHBOARD_DIR, 'data.json');
 const PARAMS_JSON = path.join(DASHBOARD_DIR, 'Sales_System_Automation', 'config', 'audit_params.json');
 
@@ -178,11 +178,14 @@ function update() {
     fs.writeFileSync(DATA_JSON, JSON.stringify(result, null, 2));
     console.log(`✅ Updated ${DATA_JSON}`);
 
-    // Generate full report data
+    // Generate full report data. The scripts live next to the repo copy of the dashboard;
+    // SOMSAIJAI_DASHBOARD_DIR tells them which workbook/JSON directory to read and write.
     console.log('--- Generating reports_data.json ---');
-    execSync(`cd "${DASHBOARD_DIR}" && node gen_report.js`, { stdio: 'inherit' });
+    const scriptDir = path.join(__dirname, '..', '..', '..');
+    const childEnv = { ...process.env, SOMSAIJAI_DASHBOARD_DIR: DASHBOARD_DIR };
+    execSync(`"${process.execPath}" "${path.join(scriptDir, 'gen_report.js')}"`, { stdio: 'inherit', env: childEnv });
     // Embed the newly calculated reports, not the previous run's P&L.
-    execSync(`cd "${DASHBOARD_DIR}" && node sync_dashboard_html.js`, { stdio: 'inherit' });
+    execSync(`"${process.execPath}" "${path.join(scriptDir, 'sync_dashboard_html.js')}"`, { stdio: 'inherit', env: childEnv });
 
     if (process.argv.includes('--no-deploy')) {
       console.log('--- Skipping deploy (--no-deploy). Run `npm run deploy` when the numbers look right. ---');
