@@ -1,5 +1,16 @@
 const { verifySignature } = require('./signature');
-const { partFromMessage, emptySet, addPart, orderedParts } = require('./image_set');
+const {
+  partFromMessage,
+  partKey,
+  doneKey,
+  conflictKey,
+  partPrefix,
+  conflictPrefix,
+  batchIdFor,
+  summarizeParts,
+  missingNote,
+  IMAGE_SET_TIMEOUT_MS,
+} = require('./image_set');
 const { sha256, buildReview } = require('./normalize');
 const { applyChecks } = require('./validate');
 const { formatSummary, parsePostback } = require('./summary');
@@ -114,6 +125,10 @@ async function finishBatch(batchId, parts, ctx) {
   const review = applyChecks(buildReview({ batchId, images }));
   await store.putJson(`review:${batchId}`, review);
   const summary = formatSummary(review, { publicUrl: config.publicUrl, channelSecret: config.channelSecret });
+  if (ctx.setNote) {
+    summary.text = `${ctx.setNote}\n\n${summary.text}`.slice(0, 4800);
+    if (summary.messages[0]) summary.messages[0].text = summary.text;
+  }
   const batch = { batch_id: batchId, review, summary_text: summary.text, created_at: ctx.now, status: 'pending_review' };
   await store.putJson(`batch:${batchId}`, batch);
   await store.putJson('latest:pending', { batch_id: batchId });
@@ -131,6 +146,112 @@ async function finishBatch(batchId, parts, ctx) {
   }
   await store.putJson(`batch:${batchId}`, batch);
   return batch;
+}
+
+async function savePart(store, part) {
+  const body = Buffer.from(JSON.stringify({
+    setId: part.setId,
+    messageId: part.messageId,
+    index: part.index,
+    total: part.total,
+    sha256: part.sha256 || null,
+  }));
+  const written = await store.putIfAbsent(partKey(part.setId, part.index), body, 'application/json');
+  if (written.created) return { duplicate: false, conflict: false };
+  const existing = await store.getJson(partKey(part.setId, part.index));
+  if (existing && existing.messageId === part.messageId) return { duplicate: true, conflict: false };
+  await store.putIfAbsent(conflictKey(part.setId, part.index), Buffer.from(JSON.stringify({
+    type: 'index_conflict',
+    index: part.index,
+    messageId: part.messageId,
+    previous: existing && existing.messageId,
+  })), 'application/json');
+  return { duplicate: false, conflict: true };
+}
+
+async function loadSet(store, setId) {
+  const parts = [];
+  for (const key of await store.list(partPrefix(setId))) {
+    const part = await store.getJson(key);
+    if (part) parts.push(part);
+  }
+  const conflicts = [];
+  for (const key of await store.list(conflictPrefix(setId))) {
+    const row = await store.getJson(key);
+    if (row) conflicts.push(row);
+  }
+  return summarizeParts(parts, conflicts);
+}
+
+async function claimSet(store, setId, reason) {
+  const payload = Buffer.from(JSON.stringify({
+    at: Date.now(),
+    reason,
+    claimId: require('crypto').randomUUID(),
+  }));
+  const result = await store.putIfAbsent(doneKey(setId), payload, 'application/json');
+  return result.created === true;
+}
+
+function sleep(ms, ctx) {
+  if (ctx && typeof ctx.sleep === 'function') return ctx.sleep(ms);
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function processClaimedSet(setId, summary, ctx, replyToken) {
+  const batchId = batchIdFor(setId);
+  const note = missingNote(summary);
+  const batchCtx = { ...ctx, replyToken, setNote: note, ocrWarning: undefined };
+  const batch = await finishBatch(batchId, summary.ordered, batchCtx);
+  if (!batch.push_error && ctx.config.ownerUserId) {
+    const warning = batchCtx.ocrWarning ? `\n${batchCtx.ocrWarning}` : '';
+    const head = note
+      ? `${note}\n${ALBUM_HELP_TH}`
+      : `ได้รับรูปครบแล้ว ส่งสรุปให้คุณปานในแชทส่วนตัว ยังไม่ลงบัญชี\n${ALBUM_HELP_TH}`;
+    try {
+      await reply(ctx.line, replyToken, `${head}${warning}`);
+    } catch (err) { /* a reply token expires before the two-minute fallback */ }
+  }
+  return { batch_id: batchId, status: batch.status, missing: summary.missing || [] };
+}
+
+async function settleImageSet(setId, ctx, replyToken) {
+  if (await ctx.store.getJson(doneKey(setId))) return { skipped: true };
+  const summary = await loadSet(ctx.store, setId);
+  if (summary.conflicts.length) {
+    const claimed = await claimSet(ctx.store, setId, 'conflict');
+    if (!claimed) return { claimed: false };
+    try {
+      await reply(ctx.line, replyToken, `รูปชุดนี้ซ้ำซ้อนกัน อ่านไม่ได้ ส่งใหม่อีกครั้งเป็นรูปในแชท\n${ALBUM_HELP_TH}`);
+    } catch (err) { /* the reply token may already have been used */ }
+    return { conflict: true };
+  }
+  if (!summary.ordered.length) return { empty: true };
+  const claimed = await claimSet(ctx.store, setId, summary.complete ? 'complete' : 'timeout');
+  if (!claimed) return { claimed: false };
+  try {
+    return await processClaimedSet(setId, summary, ctx, replyToken);
+  } catch (err) {
+    // A failed read must not keep the claim, or LINE's retry cannot try again.
+    try { await ctx.store.delete(doneKey(setId)); } catch (deleteErr) { console.error(deleteErr); }
+    throw err;
+  }
+}
+
+function scheduleImageSetTimeout(setId, ctx, replyToken) {
+  if (typeof ctx.scheduleBackground !== 'function') return;
+  const ms = Number.isFinite(ctx.imageSetTimeoutMs) && ctx.imageSetTimeoutMs >= 0
+    ? ctx.imageSetTimeoutMs
+    : IMAGE_SET_TIMEOUT_MS;
+  const job = (async () => {
+    await sleep(ms, ctx);
+    try {
+      await settleImageSet(setId, ctx, replyToken);
+    } catch (err) {
+      console.error(err);
+    }
+  })();
+  ctx.scheduleBackground(job);
 }
 
 async function onImage(event, ctx) {
@@ -154,28 +275,27 @@ async function onImage(event, ctx) {
     await store.putJson(`msg:${message.id}`, saved);
   }
   const part = partFromMessage(message);
-  const key = `set:${part.setId}`;
-  const state = (await store.getJson(key)) || emptySet(part.setId, part.total);
-  const result = addPart(state, { ...part, sha256: saved.sha256 });
-  await store.putJson(key, state);
-  if (!result.complete) {
-    if (part.index === 1 && !result.duplicate) {
-      await reply(line, event.replyToken, `ได้รับรูปชุดนี้แล้ว ${Object.keys(state.parts).length}/${state.total} จะสรุปเมื่อครบ\n${ALBUM_HELP_TH}`);
+  const write = await savePart(store, { ...part, sha256: saved.sha256 });
+  if (await store.getJson(doneKey(part.setId))) {
+    if (!write.duplicate) {
+      try {
+        await reply(line, event.replyToken, `รูปนี้มาถึงหลังสรุปชุดแล้ว ถ้าเป็นรูปที่ขาด ให้ส่งรูปนั้นอีกครั้งเป็นข้อความใหม่\n${ALBUM_HELP_TH}`);
+      } catch (err) { /* the reply token may already have been used */ }
     }
-    return { pending: true, have: Object.keys(state.parts).length, total: state.total };
+    return { late: true, duplicate: write.duplicate };
   }
-  if (state.conflicts.length) {
-    await reply(line, event.replyToken, `รูปชุดนี้ซ้ำซ้อนกัน อ่านไม่ได้ ส่งใหม่อีกครั้งเป็นรูปในแชท\n${ALBUM_HELP_TH}`);
-    return { conflict: true };
+  const summary = await loadSet(store, part.setId);
+  if (summary.conflicts.length || summary.complete) {
+    const outcome = await settleImageSet(part.setId, ctx, event.replyToken);
+    if (outcome.claimed === false || outcome.skipped) return { claimed: false, pending: !summary.complete };
+    return outcome;
   }
-  const batchId = `set_${part.setId}`.replace(/[^a-zA-Z0-9_-]/g, '').slice(0, 80);
-  ctx.replyToken = event.replyToken;
-  const batch = await finishBatch(batchId, orderedParts(state), ctx);
-  if (!batch.push_error && ctx.config.ownerUserId) {
-    const warning = ctx.ocrWarning ? `\n${ctx.ocrWarning}` : '';
-    await reply(line, event.replyToken, `ได้รับรูปครบแล้ว ส่งสรุปให้คุณปานในแชทส่วนตัว ยังไม่ลงบัญชี\n${ALBUM_HELP_TH}${warning}`);
+  scheduleImageSetTimeout(part.setId, ctx, event.replyToken);
+  if (part.index === 1 && !write.duplicate) {
+    const waitMin = Math.max(1, Math.round(IMAGE_SET_TIMEOUT_MS / 60000));
+    await reply(line, event.replyToken, `ได้รับรูปชุดนี้แล้ว ${summary.have}/${summary.total} จะสรุปเมื่อครบ หรือภายใน ${waitMin} นาที\n${ALBUM_HELP_TH}`);
   }
-  return { batch_id: batchId, status: batch.status };
+  return { pending: true, have: summary.have, total: summary.total };
 }
 
 async function onPostback(event, ctx) {

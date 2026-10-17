@@ -1,9 +1,12 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
-const { emptySet, addPart, isComplete, orderedParts } = require('../lib/image_set');
+const fs = require('fs');
+const os = require('os');
+const path = require('path');
+const { emptySet, addPart, isComplete, orderedParts, summarizeParts, partKey, doneKey } = require('../lib/image_set');
 const { handleWebhook } = require('../lib/handler');
 const { signBody } = require('../lib/signature');
-const { MemoryStore } = require('../lib/store');
+const { MemoryStore, FileStore, createBlobStoreFromClient } = require('../lib/store');
 
 test('photos in one imageSet complete only when every index has arrived', () => {
   const state = emptySet('setA', 3);
@@ -110,6 +113,147 @@ test('the webhook waits for the whole imageSet, then reads each photo once', asy
   assert.equal(c.extracts.length, 2);
   assert.deepEqual(c.downloads, ['m2', 'm1']);
   assert.equal(c.pushes.length, 1);
+});
+
+test('ten imageSet parts delivered together are read once', async () => {
+  const c = ctx();
+  const secret = c.config.channelSecret;
+  const events = [];
+  for (let index = 1; index <= 10; index++) {
+    events.push(imageEvent('m' + index, index, 10, 'SET10', 'wh-' + index));
+  }
+  const results = await Promise.all(events.map(event => {
+    const raw = Buffer.from(JSON.stringify({ events: [event] }));
+    return handleWebhook({ rawBody: raw, signature: signBody(raw, secret), ctx: c });
+  }));
+  assert.equal(results.every(result => result.status === 200), true);
+  assert.equal(c.extracts.length, 10);
+  assert.equal(new Set(c.extracts).size, 10);
+  assert.equal(c.downloads.length, 10);
+  assert.equal(c.pushes.length, 1);
+  assert.equal(c.pushes[0].to, 'U-owner');
+  assert.match(c.pushes[0].messages[0].text, /ยังไม่เข้าระบบ/);
+  const parts = await c.store.list('set:SET10:part:');
+  assert.equal(parts.length, 10);
+  assert.equal(parts.includes(doneKey('SET10')), false);
+  assert.equal(parts.includes(partKey('SET10', 1)), true);
+  const done = await c.store.getJson(doneKey('SET10'));
+  assert.equal(done.reason, 'complete');
+});
+
+test('an incomplete imageSet is still summarized once the wait expires', async () => {
+  const c = ctx();
+  const tails = [];
+  const waits = [];
+  const replies = [];
+  c.scheduleBackground = (job) => { tails.push(job); };
+  c.imageSetTimeoutMs = 5;
+  c.sleep = () => new Promise(resolve => { waits.push(resolve); });
+  c.line.reply = async (_token, messages) => { replies.push(messages[0].text); };
+  const secret = c.config.channelSecret;
+  async function post(event) {
+    const raw = Buffer.from(JSON.stringify({ events: [event] }));
+    return handleWebhook({ rawBody: raw, signature: signBody(raw, secret), ctx: c });
+  }
+  await post(imageEvent('a1', 1, 3, 'SETWAIT', 'wh-a'));
+  await post(imageEvent('a3', 3, 3, 'SETWAIT', 'wh-c'));
+  assert.equal(c.extracts.length, 0);
+  assert.equal(tails.length, 2);
+  assert.match(replies[0], /ภายใน 2 นาที/);
+  waits.forEach(release => release());
+  await Promise.all(tails);
+  assert.equal(c.extracts.length, 2);
+  assert.equal(c.pushes.length, 1);
+  assert.match(c.pushes[0].messages[0].text, /ขาดลำดับ 2/);
+  const late = await post(imageEvent('a2', 2, 3, 'SETWAIT', 'wh-b'));
+  assert.equal(late.outcomes[0].late, true);
+  assert.equal(c.extracts.length, 2);
+  assert.equal(c.pushes.length, 1);
+  assert.match(replies.join('\n'), /หลังสรุป/);
+});
+
+test('two messages for one index are not read', async () => {
+  const c = ctx();
+  const replies = [];
+  c.line.reply = async (_token, messages) => { replies.push(messages[0].text); };
+  const secret = c.config.channelSecret;
+  async function post(event) {
+    const raw = Buffer.from(JSON.stringify({ events: [event] }));
+    return handleWebhook({ rawBody: raw, signature: signBody(raw, secret), ctx: c });
+  }
+  await post(imageEvent('c1', 1, 2, 'SETC', 'wh-c1'));
+  const clash = await post(imageEvent('c1b', 1, 2, 'SETC', 'wh-c1b'));
+  assert.equal(clash.outcomes[0].conflict, true);
+  assert.equal(c.extracts.length, 0);
+  assert.match(replies.join('\n'), /ซ้ำซ้อน/);
+});
+
+test('summarizeParts names the holes in a set', () => {
+  const summary = summarizeParts([
+    { messageId: 'm2', index: 2, total: 6 },
+    { messageId: 'm4', index: 4, total: 6 },
+    { messageId: 'm1', index: 1, total: 6 },
+    { messageId: 'm6', index: 6, total: 6 },
+  ]);
+  assert.deepEqual(summary.missing, [3, 5]);
+  assert.equal(summary.complete, false);
+  assert.deepEqual(summary.ordered.map(part => part.index), [1, 2, 4, 6]);
+});
+
+test('only one putIfAbsent creates a key, and list follows a blob cursor', async () => {
+  const memory = new MemoryStore();
+  const winners = await Promise.all([1, 2, 3, 4].map(n => memory.putIfAbsent('set:1:done', Buffer.from(String(n)))));
+  assert.equal(winners.filter(result => result.created).length, 1);
+
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'line-set-'));
+  const files = new FileStore(dir);
+  assert.equal((await files.putIfAbsent('set:9:part:1', Buffer.from('a'))).created, true);
+  assert.equal((await files.putIfAbsent('set:9:part:1', Buffer.from('b'))).created, false);
+  assert.deepEqual(await files.list('set:9:part:'), ['set:9:part:1']);
+
+  const objects = new Map();
+  let storedThenFailed = false;
+  const client = {
+    async put(key, body, options) {
+      assert.equal(options.addRandomSuffix, false);
+      if (options.allowOverwrite === false && objects.has(key)) {
+        throw new Error('Vercel Blob: Unknown error, please visit https://vercel.com/help.');
+      }
+      objects.set(key, Buffer.from(body));
+      if (key === 'set:7:done' && !storedThenFailed) {
+        storedThenFailed = true;
+        throw new Error('Vercel Blob: Unknown error, please visit https://vercel.com/help.');
+      }
+    },
+    async get(key) {
+      const hit = objects.get(key);
+      return hit ? { stream: [hit] } : null;
+    },
+    async list({ prefix, cursor }) {
+      const keys = [...objects.keys()].filter(key => key.startsWith(prefix)).sort();
+      const start = cursor ? Number(cursor) : 0;
+      const slice = keys.slice(start, start + 1);
+      return {
+        blobs: slice.map(pathname => ({ pathname })),
+        hasMore: start + 1 < keys.length,
+        cursor: String(start + 1),
+      };
+    },
+  };
+  const blobs = createBlobStoreFromClient(client);
+  const claimed = await blobs.putIfAbsent('set:7:done', Buffer.from('mine'), 'application/json');
+  assert.equal(claimed.created, true);
+  await blobs.putIfAbsent('set:7:part:1', Buffer.from('p1'));
+  await blobs.putIfAbsent('set:7:part:2', Buffer.from('p2'));
+  const second = await blobs.putIfAbsent('set:7:done', Buffer.from('other'));
+  assert.equal(second.created, false);
+  assert.equal((await blobs.get('set:7:done')).toString(), 'mine');
+  const listed = await blobs.list('set:7:part:');
+  assert.deepEqual(listed.sort(), ['set:7:part:1', 'set:7:part:2']);
+  const exists = await blobs.putIfAbsent('set:7:part:1', Buffer.from('nope'));
+  assert.equal(exists.created, false);
+  client.put = async () => { throw new Error('This blob already exists'); };
+  assert.equal((await blobs.putIfAbsent('set:7:part:9', Buffer.from('x'))).created, false);
 });
 
 test('a photo from any other group is ignored', async () => {
