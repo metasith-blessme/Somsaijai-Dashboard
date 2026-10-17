@@ -62,6 +62,7 @@ module.exports = async function webhook(req, res) {
     res.status(500).end('photo store is not configured');
     return;
   }
+  const tails = [];
   const ctx = {
     config,
     store,
@@ -69,8 +70,17 @@ module.exports = async function webhook(req, res) {
     extractImage,
     deps: createProductionDeps(config),
     now: Date.now(),
+    scheduleBackground(job) { tails.push(Promise.resolve(job)); },
   };
-  const job = handleWebhook({ rawBody, signature, ctx });
+  // The image-set fallback sleeps for about two minutes. It has to stay inside
+  // the same waitUntil as OCR, or the function freezes before the set is read.
+  const job = (async () => {
+    try {
+      return await handleWebhook({ rawBody, signature, ctx });
+    } finally {
+      if (tails.length) await Promise.all(tails);
+    }
+  })();
   // LINE retries a slow webhook. Answer 200 first and keep reading the photo.
   // OCR is one or two Gemini calls of about half a minute each, plus retries.
   const scheduled = scheduleBackground(job);
