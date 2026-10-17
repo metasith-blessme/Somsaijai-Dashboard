@@ -19,8 +19,15 @@ const CUPS = [
 function classifyItem(itemRaw) {
   const text = String(itemRaw || '').trim();
   if (!text) return { code: null, reason: 'blank' };
-  if (MIXED.test(text)) return { code: null, reason: 'not_a_single_cup' };
   if (/ขวด|bottle/i.test(text)) return { code: null, reason: 'bottle' };
+  if (/volcano/i.test(text)) return { code: null, reason: 'not_a_single_cup' };
+  // These three printed drinks have their own cup columns, including the "Blended" names.
+  if (/mangosteen.*lychee|lychee.*mangosteen|มังคุด.*ลิ้นจี่|ลิ้นจี่.*มังคุด/i.test(text)) {
+    return { code: 'mangosteen_lychee', reason: 'mapped' };
+  }
+  if (/mangosteen|มังคุด/i.test(text)) return { code: 'mangosteen', reason: 'mapped' };
+  if (/rambutan|เงาะ/i.test(text)) return { code: 'rambutan', reason: 'mapped' };
+  if (MIXED.test(text)) return { code: null, reason: 'not_a_single_cup' };
   for (const row of CUPS) {
     if (row.test.test(text)) return { code: row.code, reason: 'mapped' };
   }

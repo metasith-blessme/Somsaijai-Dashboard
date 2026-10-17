@@ -45,6 +45,14 @@ test('annual loss balance is the closing balance; offsets sum actual monthly rec
   assert.equal(r.all.b2.closing_loss,0);
 });
 
+test('mangosteen, mangosteen & lychee, and rambutan add their own revenue', () => {
+  const plain = { d: '16/10/2026', or: 2, rev: 120 };
+  assert.equal(calculateTheoreticalRevenue(plain, 'B1'), 120);
+  const withNew = { ...plain, mangosteen: 1, mangosteen_lychee: 1, rambutan: 1, rev: 120 + 387 };
+  assert.equal(calculateTheoreticalRevenue(withNew, 'B1'), 120 + 129 * 3);
+  assert.equal(calculatePL(input({ Oct26: [plain] })).Oct26.fruit_performance.find(x => x.name === 'Orange').rev, 120);
+});
+
 test('unknown Young Coco cost remains unknown in monthly and annual reporting', () => {
   const r=calculatePL(input({Jul26:[{d:'03/07/2026',yco:2,rev:180}]}));
   for(const m of ['Jul26','all']) {

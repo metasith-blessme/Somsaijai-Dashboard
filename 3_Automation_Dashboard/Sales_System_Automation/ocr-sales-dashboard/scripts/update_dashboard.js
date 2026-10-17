@@ -53,12 +53,16 @@ function extractSheetData(filePath, sheetName) {
       const yco = Number(r[col['Young Coco']] || (col['Orange (100)'] ? r[13] : r[12])) || 0;
       const guava = Number(r[col['Guava']] || 0);
       const pineapple = Number(r[col['Pineapple']] || 0);
-      const tot = Number(r[col['Total Cups']] || (col['Orange (100)'] ? r[14] : r[13])) || (or + wm + mg + co + ap + yco + guava + pineapple);
+      // Absent on older sheets. A missing header is 0 and does not change the cups already stored.
+      const mangosteen = Number(r[col['Mangosteen']] || 0);
+      const mangosteen_lychee = Number(r[col['Mangosteen & Lychee']] || 0);
+      const rambutan = Number(r[col['Rambutan']] || 0);
+      const tot = Number(r[col['Total Cups']] || (col['Orange (100)'] ? r[14] : r[13])) || (or + wm + mg + co + ap + yco + guava + pineapple + mangosteen + mangosteen_lychee + rambutan);
 
       rows.push({
         d: String(r[0]), day: String(r[1] || ''),
         rev, cash, exp, net, scan,
-        or, or_100, wm, mg, co, ap, yco, guava, pineapple, tot,
+        or, or_100, wm, mg, co, ap, yco, guava, pineapple, mangosteen, mangosteen_lychee, rambutan, tot,
         bb: Number(r[col['Bot Big']]) || 0,
         bs: Number(r[col['Bot Small']]) || 0,
         bottle_rev: Number(r[col['Bottle Revenue (฿)']]) || 0,

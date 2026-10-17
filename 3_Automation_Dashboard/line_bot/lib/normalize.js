@@ -1,6 +1,6 @@
 const crypto = require('crypto');
 const { asField, observedNumber } = require('./fields');
-const { normalizeDate } = require('./dates');
+const { normalizeDate, dateAgeIssue } = require('./dates');
 const { redactText } = require('./redact');
 
 const { formTemplate } = require('./forms');
@@ -132,7 +132,7 @@ function readingHeader(obj) {
   };
 }
 
-function oneImage({ sourceId, sha256, contentType, extraction, second, secondError, secondSkipped, branch_hint, line_group_id }) {
+function oneImage({ sourceId, sha256, contentType, extraction, second, secondError, secondSkipped, branch_hint, line_group_id }, now) {
   const ext = extraction && typeof extraction === 'object' ? extraction : {};
   const sec = second && typeof second === 'object' ? second : null;
   const issues = [];
@@ -145,6 +145,10 @@ function oneImage({ sourceId, sha256, contentType, extraction, second, secondErr
   const date = normalizeDate(ext.header && ext.header.date_raw);
   const date2 = sec ? normalizeDate(sec.date_raw || (sec.header && sec.header.date_raw)) : null;
   unconfirm(date, date2, 'date', issues, confirmMode);
+  if (date.state === 'observed' && date.value) {
+    const age = dateAgeIssue(date.value, now);
+    if (age) issues.push({ field: 'date_age', issue: age });
+  }
 
   const branch = resolveBranch(ext.header, template);
   const branch2 = sec ? resolveBranch(readingHeader(sec), sec.form_template || template) : null;
@@ -232,6 +236,7 @@ function recordStatus(image) {
   if (image.disposition === 'unreadable') return 'needs_review';
   if (image.issues.some(issue => BLOCKING_FIELDS.has(issue.field))) return 'needs_review';
   if (image.header.date.state !== 'observed' || image.header.branch.state !== 'observed') return 'needs_review';
+  if (image.issues.some(issue => issue.field === 'date_age')) return 'needs_review';
   return 'ready_for_review';
 }
 
@@ -239,8 +244,8 @@ function recordStatus(image) {
  * Build the review artifact. import_allowed is always false here.
  * Human approval is a separate record.
  */
-function buildReview({ batchId, images }) {
-  const pages = (images || []).map(oneImage);
+function buildReview({ batchId, images, now }) {
+  const pages = (images || []).map(image => oneImage(image, now));
   const records = [];
   const expense_documents = [];
   pages.forEach((page) => {

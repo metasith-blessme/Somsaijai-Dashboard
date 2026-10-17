@@ -10,7 +10,7 @@ const path = require('path');
 const PARAMS_PATH = path.join(__dirname, '..', 'config', 'audit_params.json');
 let params = {
     yields: { orange: 29.3, watermelon: 3.5, apple: 0.5, mango: 0.5 },
-    prices: { orange: 60, orange_premium: 100, watermelon: 50, apple: 60, mango: 90, coconut: 60, young: 90, guava: 60, pineapple: 60 },
+    prices: { orange: 60, orange_premium: 100, watermelon: 50, apple: 60, mango: 90, coconut: 60, young: 90, guava: 60, pineapple: 60, mangosteen: 129, mangosteen_lychee: 129, rambutan: 129 },
     thresholds: { revenue_pct: 0.05, revenue_abs: 500, stock_pct: 0.10 }
 };
 
@@ -131,7 +131,10 @@ function fruitRevenue(r, branch) {
         coconut: (r.co || 0) * PRICES.coconut,
         young: (r.yco || 0) * PRICES.young,
         guava: (r.guava || 0) * PRICES.guava,
-        pineapple: (r.pineapple || 0) * PRICES.pineapple
+        pineapple: (r.pineapple || 0) * PRICES.pineapple,
+        mangosteen: (r.mangosteen || 0) * (PRICES.mangosteen || 0),
+        mangosteen_lychee: (r.mangosteen_lychee || 0) * (PRICES.mangosteen_lychee || 0),
+        rambutan: (r.rambutan || 0) * (PRICES.rambutan || 0)
     };
 }
 
@@ -183,8 +186,8 @@ function calculatePL(data) {
         let total_cogs = 0;
         const fruit_summary = {};
         const daily_cogs = [];
-        const fruit_sales = { orange: 0, orange_100: 0, watermelon: 0, mango: 0, coconut: 0, apple: 0, young: 0, guava: 0, pineapple: 0 };
-        const fruit_revenue = { orange: 0, watermelon: 0, mango: 0, coconut: 0, apple: 0, young: 0, guava: 0, pineapple: 0 };
+        const fruit_sales = { orange: 0, orange_100: 0, watermelon: 0, mango: 0, coconut: 0, apple: 0, young: 0, guava: 0, pineapple: 0, mangosteen: 0, mangosteen_lychee: 0, rambutan: 0 };
+        const fruit_revenue = { orange: 0, watermelon: 0, mango: 0, coconut: 0, apple: 0, young: 0, guava: 0, pineapple: 0, mangosteen: 0, mangosteen_lychee: 0, rambutan: 0 };
 
         // 1. Calculate branch specifics (revenue, usage, cup sales)
         branchNames.forEach(b => {
@@ -207,6 +210,9 @@ function calculatePL(data) {
                 fruit_sales.young += (r.yco || 0);
                 fruit_sales.guava += (r.guava || 0);
                 fruit_sales.pineapple += (r.pineapple || 0);
+                fruit_sales.mangosteen += (r.mangosteen || 0);
+                fruit_sales.mangosteen_lychee += (r.mangosteen_lychee || 0);
+                fruit_sales.rambutan += (r.rambutan || 0);
 
                 usage.orange += (r.uo || 0);
                 usage.watermelon += (r.uw || 0);
@@ -375,7 +381,10 @@ function calculatePL(data) {
             { name: 'Coconut', rev: fruit_revenue.coconut, cost: fruit_costs['Coconut'], cups: fruit_sales.coconut },
             { name: 'Young Coco', rev: fruit_revenue.young, cost: null, cups: fruit_sales.young },
             { name: 'Guava', rev: fruit_revenue.guava, cost: fruit_costs['Guava'], cups: fruit_sales.guava },
-            { name: 'Pineapple', rev: fruit_revenue.pineapple, cost: fruit_costs['Pineapple'], cups: fruit_sales.pineapple }
+            { name: 'Pineapple', rev: fruit_revenue.pineapple, cost: fruit_costs['Pineapple'], cups: fruit_sales.pineapple },
+            { name: 'Mangosteen', rev: fruit_revenue.mangosteen, cost: null, cups: fruit_sales.mangosteen },
+            { name: 'Mangosteen & Lychee', rev: fruit_revenue.mangosteen_lychee, cost: null, cups: fruit_sales.mangosteen_lychee },
+            { name: 'Rambutan', rev: fruit_revenue.rambutan, cost: null, cups: fruit_sales.rambutan }
         ].map(f => ({ ...f, roi: f.cost > 0 ? ((f.rev - f.cost) / f.cost * 100).toFixed(1) + '%' : 'N/A' }));
 
         fullReport[m] = {

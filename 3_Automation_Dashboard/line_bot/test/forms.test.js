@@ -13,6 +13,7 @@ const { handleWebhook } = require('../lib/handler');
 const { signBody } = require('../lib/signature');
 const { MemoryStore } = require('../lib/store');
 const { shop, b1, b2 } = require('./fixtures/2026-10-16/readings');
+const { normalizeDate, dateAgeIssue } = require('../lib/dates');
 
 const FIXTURE_DIR = path.join(__dirname, 'fixtures', '2026-10-16');
 
@@ -28,6 +29,7 @@ function secondOf(extraction) {
 function reviewOf(page, hint) {
   const review = buildReview({
     batchId: 'oct16',
+    now: new Date('2026-10-17T12:00:00+07:00'),
     images: [{
       sourceId: page.file,
       sha256: 'abc',
@@ -63,9 +65,14 @@ test('single fruits map onto cup columns and mixed drinks do not', () => {
   assert.equal(classifyItem('Apple').code, 'ap');
   assert.equal(classifyItem('Volcano Orange').code, null);
   assert.equal(classifyItem('Mango Sticky Rice').code, null);
-  assert.equal(classifyItem('Mangosteen & Lychee').code, null);
+  assert.equal(classifyItem('Mangosteen').code, 'mangosteen');
+  assert.equal(classifyItem('Mangosteen Blended').code, 'mangosteen');
+  assert.equal(classifyItem('Mangosteen & Lychee').code, 'mangosteen_lychee');
+  assert.equal(classifyItem('Mangosteen Lychee Blended').code, 'mangosteen_lychee');
+  assert.equal(classifyItem('Rambutan').code, 'rambutan');
+  assert.equal(classifyItem('Rambutan Blended').code, 'rambutan');
   assert.equal(classifyItem('Pomegranate').code, null);
-  assert.equal(classifyItem('Rambutan Blended').code, null);
+  assert.equal(classifyItem('Volcano Mangosteen').code, null);
 });
 
 test('the shop report keeps blank quantities and names every unmapped drink', () => {
@@ -96,8 +103,8 @@ test('B1 keeps the conflicting grand total, the guava price change, and ice', ()
   assert.equal(record.form_template, 'daily_sales_record');
   assert.equal(record.branch.value, 'B1');
   assert.equal(record.date.raw_text, '16/10/26');
-  assert.equal(record.date.value, null);
-  assert.equal(record.date.state, 'ambiguous');
+  assert.equal(record.date.value, '16/10/2026');
+  assert.equal(record.date.state, 'observed');
   assert.equal(record.financials.scan_sales.value, 1125);
   assert.equal(record.financials.total_sales.value, null);
   assert.deepEqual(record.financials.total_sales.alternatives, [3089, 3090]);
@@ -124,7 +131,9 @@ test('B2 uses the bracket counts, does not treat the unread column as cups, and 
   const record = review.records[0];
   assert.equal(record.branch.value, 'B2');
   assert.equal(record.date.raw_text, '16/10/26');
-  assert.equal(record.date.value, null);
+  assert.equal(record.date.value, '16/10/2026');
+  assert.equal(record.date.state, 'observed');
+  assert.equal(record.issues.some(issue => issue.field === 'date_age'), false);
   assert.equal(record.financials.cash_sales.value, 2743);
   assert.equal(record.financials.scan_sales.value, 1315);
   assert.equal(record.financials.total_sales.value, 4058);
@@ -147,11 +156,78 @@ test('B2 uses the bracket counts, does not treat the unread column as cups, and 
   assert.match(summary, /2743 - 60 = 2683/);
   assert.match(summary, /น้ำแข็ง 60/);
   assert.match(summary, /Mangosteen/);
-  assert.match(summary, /ไม่มีช่องในตาราง/);
+  assert.match(summary, /mangosteen_lychee/);
+  assert.match(summary, /→ rambutan/);
   const plan = buildChangePlan(review);
-  assert.equal(plan.salesLists.length, 0);
+  assert.equal(plan.held.length, 0);
+  assert.equal(plan.salesLists.length, 1);
+  const row = plan.salesLists[0].rows[0];
+  assert.equal(row.date, '16/10/2026');
+  assert.equal(row.revenue, 4058);
+  assert.equal(row.cash, 2743);
+  assert.equal(row.scan, 1315);
+  assert.equal(row.mangosteen, undefined);
+  assert.equal(row.or, undefined);
   const imported = JSON.stringify(plan.salesLists);
   assert.equal(imported.includes('640'), false);
+});
+
+test('a two-digit year is 20xx, and a future or stale date stays expanded but is flagged', () => {
+  assert.equal(normalizeDate('1/10/26').value, '01/10/2026');
+  assert.equal(normalizeDate('1/10/26').state, 'observed');
+  assert.equal(normalizeDate('16/10/26').value, '16/10/2026');
+  assert.equal(normalizeDate('25/08/2569').value, '25/08/2026');
+  assert.equal(normalizeDate('32/10/26').value, null);
+  const now = new Date('2026-10-17T12:00:00+07:00');
+  assert.equal(dateAgeIssue('16/10/2026', now), null);
+  assert.equal(dateAgeIssue('18/08/2026', now), null);
+  assert.match(dateAgeIssue('17/08/2026', now), /more than 60 days old/);
+  assert.match(dateAgeIssue('18/10/2026', now), /future/);
+
+  const extraction = {
+    document_type: 'sales_report',
+    form_template: 'daily_sales_record',
+    header: { date_raw: '1/10/26', branch_raw: 'B1' },
+    sales: {
+      cash_sales: { raw: '258', value: 258, state: 'observed' },
+      scan_sales: { raw: '129', value: 129, state: 'observed' },
+      total_sales: { raw: '387', value: 387, state: 'observed' },
+    },
+    menu_rows: [
+      { item_raw: 'Mangosteen', price_raw: 129, qty_raw: '1', qty_value: 1, qty_state: 'observed' },
+      { item_raw: 'Mangosteen & Lychee', price_raw: 129, qty_raw: '1', qty_value: 1, qty_state: 'observed' },
+      { item_raw: 'Rambutan', price_raw: 129, qty_raw: '1', qty_value: 1, qty_state: 'observed' },
+    ],
+  };
+  const review = applyChecks(buildReview({
+    batchId: 'flavors',
+    now,
+    images: [{ sourceId: 'b1-oct', sha256: 'h', extraction, second: secondOf(extraction) }],
+  }));
+  const record = review.records[0];
+  assert.equal(record.date.value, '01/10/2026');
+  assert.equal(record.issues.some(issue => issue.field === 'date_age'), false);
+  const plan = buildChangePlan(review);
+  const row = plan.salesLists[0].rows[0];
+  assert.equal(row.mangosteen, 1);
+  assert.equal(row.mangosteen_lychee, 1);
+  assert.equal(row.rambutan, 1);
+  assert.equal(row.or, undefined);
+
+  const stale = applyChecks(buildReview({
+    batchId: 'old',
+    now,
+    images: [{
+      sourceId: 'old',
+      sha256: 'h',
+      extraction: { ...extraction, header: { date_raw: '1/8/26', branch_raw: 'B1' } },
+      second: { date_raw: '1/8/26', branch_raw: 'B1', sales: extraction.sales },
+    }],
+  }));
+  assert.equal(stale.records[0].date.value, '01/08/2026');
+  assert.equal(stale.records[0].status, 'needs_review');
+  assert.match(stale.issues.find(issue => issue.field === 'date_age').issue, /60 days/);
+  assert.equal(buildChangePlan(stale).salesLists.length, 1);
 });
 
 test('a baht figure in the total column is not stored as a cup count', () => {
