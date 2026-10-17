@@ -24,7 +24,7 @@
   "functions": {
     "api/webhook.js": {
       "maxDuration": 300,
-      "includeFiles": "3_Automation_Dashboard/{safe_import_sales.js,safe_import_expenses.js,gen_report.js,sync_dashboard_html.js,index.html,stock_ledger.json,xlsx.full.min.js,chart.umd.min.js,Sales_System_Automation/logic/**,Sales_System_Automation/config/**,Sales_System_Automation/ocr-sales-dashboard/scripts/update_dashboard.js,line_bot/**}"
+      "includeFiles": "3_Automation_Dashboard/**"
     },
     "api/review.js": { "maxDuration": 30 }
   }
