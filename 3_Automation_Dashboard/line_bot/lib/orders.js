@@ -1,4 +1,16 @@
 const fs = require('fs');
+const {
+  showUnit,
+  ORDER_RECEIVED,
+  ORDER_SENT,
+  ORDER_NOT_SENT,
+  ORDER_NO_OWNER,
+  YOU_ORDER,
+  UNKNOWN_ITEM,
+  NO_SHOP,
+  COULD_NOT_READ,
+  isOrderCommand,
+} = require('./staff_text');
 
 const THAI_DIGITS = '๐๑๒๓๔๕๖๗๘๙';
 const MAX_BUBBLES = 5;
@@ -244,20 +256,22 @@ function packBubbles(summary, bubbles) {
 }
 
 function buildSenderConfirm(parsed, { delivered, ownerSet }) {
-  const lines = ['รับออเดอร์แล้ว'];
+  const lines = [ORDER_RECEIVED];
   for (const item of parsed.items) {
+    const unit = showUnit(item.display_unit);
     const dest = item.handled_by === 'ming'
-      ? 'คุณเมนสั่งเอง ไม่ได้ใส่ในข้อความสั่ง'
-      : (item.supplier ? `→ ${supplierName(parsed, item.supplier)}` : 'ไม่มีร้าน');
-    lines.push(`• ${item.label_en} ${formatQty(item.qty)} ${item.display_unit} ${dest}`);
+      ? `— ${YOU_ORDER}`
+      : (item.supplier ? `→ ${supplierName(parsed, item.supplier)}` : `— ${NO_SHOP}`);
+    lines.push(`• ${item.label_en} ${formatQty(item.qty)} ${unit} ${dest}`.replace(/ +/g, ' ').trim());
   }
   for (const row of parsed.unknown) {
-    lines.push(`• ${row.name} ${formatQty(row.qty)} ${row.unit || row.rawUnit || ''} → ไม่รู้จัก ยังไม่ใส่ในข้อความ`.trim());
+    const unit = showUnit(row.unit || row.rawUnit || '');
+    lines.push(`• ${row.name} ${formatQty(row.qty)} ${unit} — ${UNKNOWN_ITEM}`.replace(/ +/g, ' ').trim());
   }
-  for (const row of parsed.unparsed) lines.push(`• อ่านไม่ได้: ${row}`);
-  if (!ownerSet) lines.push('ยังไม่ได้ตั้ง LINE_OWNER_USER_ID จึงยังไม่ส่งให้คุณปาน');
-  else if (delivered) lines.push('ส่งร่างให้คุณปานแล้ว บอทยังไม่ได้ส่งให้ร้าน');
-  else lines.push('ส่งให้คุณปานไม่สำเร็จ ให้คุณปานพิมพ์ ออเดอร์ ในแชทกับบอท');
+  for (const row of parsed.unparsed) lines.push(`• ${COULD_NOT_READ} ${row}`);
+  if (!ownerSet) lines.push(ORDER_NO_OWNER);
+  else if (delivered) lines.push(ORDER_SENT);
+  else lines.push(ORDER_NOT_SENT);
   return lines.join('\n').slice(0, 4800);
 }
 
@@ -267,7 +281,7 @@ function supplierName(parsed, id) {
 }
 
 function isOrderReplay(text) {
-  return /^(order|\/order|ออเดอร์)$/i.test(String(text || '').trim());
+  return isOrderCommand(text);
 }
 
 module.exports = {

@@ -16,22 +16,36 @@ const { applyChecks } = require('./validate');
 const { formatSummary, parsePostback } = require('./summary');
 const { makeApproval } = require('./approval');
 const { publishApprovedBatch } = require('./publish');
-const { loadCatalog, parseOrder, buildOrderMessages, buildSenderConfirm, isOrderReplay } = require('./orders');
+const { loadCatalog, parseOrder, buildOrderMessages, buildSenderConfirm, isOrderReplay, packBubbles } = require('./orders');
 const { parseGroupConfig } = require('./config');
-const { ALBUM_HELP_TH } = require('./forms');
+const {
+  ALBUM_HELP,
+  OCR_FAIL,
+  ONLY_PARN_APPROVE,
+  ONLY_PARN_SUMMARY,
+  SUMMARY_IS_PRIVATE,
+  NO_ORDER,
+  ORDER_REPLAY_NOTE,
+  isIdCommand,
+  isReviewCommand,
+  isHelpCommand,
+  idReply,
+  unconfiguredPhoto,
+  unconfiguredText,
+  partialPhotos,
+  conflictPhotos,
+  photosDone,
+  latePhoto,
+  missingPhotosNote,
+  pushFailed,
+  ownerMissing,
+  helpText,
+  catalogFailed,
+  wentWrong,
+} = require('./staff_text');
 
 const PROCESSING_MS = 5 * 60 * 1000;
-const OCR_FAIL_TH = 'อ่านรูปไม่สำเร็จ จะลองอ่านใหม่อีกครั้ง ถ้ายังไม่ได้ กรุณาส่งรูปนี้อีกครั้งในแชท';
-
-function isIdCommand(text) {
-  return /^(id|\/id|ไอดี)$/i.test(String(text || '').trim());
-}
-function isReviewCommand(text) {
-  return /^(review|สรุป|\/review)$/i.test(String(text || '').trim());
-}
-function isHelpCommand(text) {
-  return /^(help|\/help|ช่วย|วิธีส่งรูป)$/i.test(String(text || '').trim());
-}
+const OCR_FAIL_TH = OCR_FAIL;
 
 function groupTable(config) {
   if (config && config.groupTable instanceof Map) return config.groupTable;
@@ -139,10 +153,10 @@ async function finishBatch(batchId, parts, ctx) {
       batch.review_pushed = true;
     } catch (err) {
       batch.push_error = err.message || String(err);
-      await reply(line, ctx.replyToken, `อ่านรูปแล้ว แต่ส่งเข้าแชทส่วนตัวไม่สำเร็จ (${batch.push_error}). เปิดแชทกับบอทแล้วพิมพ์ สรุป`);
+      await reply(line, ctx.replyToken, pushFailed(batch.push_error));
     }
   } else {
-    await reply(line, ctx.replyToken, 'อ่านรูปแล้ว แต่ยังไม่ได้ตั้ง LINE_OWNER_USER_ID จึงยังไม่ส่งให้คุณปานอนุมัติ');
+    await reply(line, ctx.replyToken, ownerMissing());
   }
   await store.putJson(`batch:${batchId}`, batch);
   return batch;
@@ -201,13 +215,14 @@ function sleep(ms, ctx) {
 async function processClaimedSet(setId, summary, ctx, replyToken) {
   const batchId = batchIdFor(setId);
   const note = missingNote(summary);
+  const staffNote = missingPhotosNote(summary);
   const batchCtx = { ...ctx, replyToken, setNote: note, ocrWarning: undefined };
   const batch = await finishBatch(batchId, summary.ordered, batchCtx);
   if (!batch.push_error && ctx.config.ownerUserId) {
     const warning = batchCtx.ocrWarning ? `\n${batchCtx.ocrWarning}` : '';
-    const head = note
-      ? `${note}\n${ALBUM_HELP_TH}`
-      : `ได้รับรูปครบแล้ว ส่งสรุปให้คุณปานในแชทส่วนตัว ยังไม่ลงบัญชี\n${ALBUM_HELP_TH}`;
+    const head = staffNote
+      ? `${staffNote}\n${ALBUM_HELP}`
+      : photosDone();
     try {
       await reply(ctx.line, replyToken, `${head}${warning}`);
     } catch (err) { /* a reply token expires before the two-minute fallback */ }
@@ -222,7 +237,7 @@ async function settleImageSet(setId, ctx, replyToken) {
     const claimed = await claimSet(ctx.store, setId, 'conflict');
     if (!claimed) return { claimed: false };
     try {
-      await reply(ctx.line, replyToken, `รูปชุดนี้ซ้ำซ้อนกัน อ่านไม่ได้ ส่งใหม่อีกครั้งเป็นรูปในแชท\n${ALBUM_HELP_TH}`);
+      await reply(ctx.line, replyToken, conflictPhotos());
     } catch (err) { /* the reply token may already have been used */ }
     return { conflict: true };
   }
@@ -260,7 +275,10 @@ async function onImage(event, ctx) {
   const scope = inScope(event, ctx.config);
   if (scope.foreign) return { ignored: 'foreign_group' };
   if (scope.setup) {
-    await reply(line, event.replyToken, `กลุ่มนี้คือ ${scope.groupId}\nตั้งค่า LINE_GROUP_ID เป็นค่านี้ก่อน บอทจึงจะอ่านรูป\nรหัสของคุณคือ ${event.source && event.source.userId}\n${ALBUM_HELP_TH}`);
+    await reply(line, event.replyToken, unconfiguredPhoto({
+      groupId: scope.groupId,
+      userId: event.source && event.source.userId,
+    }));
     return { setup: true, groupId: scope.groupId };
   }
   ctx.branchHint = scope.branchHint || null;
@@ -279,7 +297,7 @@ async function onImage(event, ctx) {
   if (await store.getJson(doneKey(part.setId))) {
     if (!write.duplicate) {
       try {
-        await reply(line, event.replyToken, `รูปนี้มาถึงหลังสรุปชุดแล้ว ถ้าเป็นรูปที่ขาด ให้ส่งรูปนั้นอีกครั้งเป็นข้อความใหม่\n${ALBUM_HELP_TH}`);
+        await reply(line, event.replyToken, latePhoto());
       } catch (err) { /* the reply token may already have been used */ }
     }
     return { late: true, duplicate: write.duplicate };
@@ -293,7 +311,7 @@ async function onImage(event, ctx) {
   scheduleImageSetTimeout(part.setId, ctx, event.replyToken);
   if (part.index === 1 && !write.duplicate) {
     const waitMin = Math.max(1, Math.round(IMAGE_SET_TIMEOUT_MS / 60000));
-    await reply(line, event.replyToken, `ได้รับรูปชุดนี้แล้ว ${summary.have}/${summary.total} จะสรุปเมื่อครบ หรือภายใน ${waitMin} นาที\n${ALBUM_HELP_TH}`);
+    await reply(line, event.replyToken, partialPhotos(summary.have, summary.total, waitMin));
   }
   return { pending: true, have: summary.have, total: summary.total };
 }
@@ -303,7 +321,7 @@ async function onPostback(event, ctx) {
   const { action, batch } = parsePostback(event.postback && event.postback.data);
   if (!action || !batch) return { ignored: true };
   if (!ctx.config.ownerUserId || source.userId !== ctx.config.ownerUserId) {
-    await reply(ctx.line, event.replyToken, 'เฉพาะคุณปานอนุมัติชุดนี้ได้');
+    await reply(ctx.line, event.replyToken, ONLY_PARN_APPROVE);
     return { denied: true };
   }
   const review = await ctx.store.getJson(`review:${batch}`);
@@ -354,24 +372,29 @@ async function onText(event, ctx) {
   const scope = inScope(event, ctx.config);
   if (scope.foreign) return { ignored: 'foreign_group' };
   if (isIdCommand(text) || (event.type === 'join' && scope.setup)) {
-    const lines = [`รหัสของคุณคือ ${source.userId || '(ไม่มี)'}`];
-    if (source.groupId || scope.groupId) lines.push(`รหัสกลุ่มคือ ${source.groupId || scope.groupId}`);
-    if (!ctx.config.groupId) lines.push('เอาสองค่านี้ไปใส่ LINE_OWNER_USER_ID และ LINE_GROUP_ID');
-    if (source.type === 'group' || event.type === 'join') lines.push(ALBUM_HELP_TH);
-    await reply(ctx.line, event.replyToken, lines.join('\n'));
+    await reply(ctx.line, event.replyToken, idReply({
+      userId: source.userId,
+      groupId: source.groupId || scope.groupId,
+      groupsLocked: Boolean(ctx.config.groupId),
+      inGroup: source.type === 'group' || event.type === 'join',
+    }));
     return { id: true };
   }
   if (scope.setup && event.type === 'message') {
-    await reply(ctx.line, event.replyToken, `รหัสกลุ่มคือ ${scope.groupId} ตั้ง LINE_GROUP_ID ก่อน บอทจึงจะอ่านรูป\n${ALBUM_HELP_TH}`);
+    await reply(ctx.line, event.replyToken, unconfiguredText(scope.groupId));
     return { setup: true };
   }
   if (isHelpCommand(text)) {
-    await reply(ctx.line, event.replyToken, `${ALBUM_HELP_TH}\nเลือกหลายรูปแล้วส่งในแชทได้ อย่ากดอัลบั้ม`);
+    await reply(ctx.line, event.replyToken, helpText());
     return { help: true };
   }
   if (isReviewCommand(text)) {
+    if (source.type !== 'user') {
+      await reply(ctx.line, event.replyToken, source.userId === ctx.config.ownerUserId ? SUMMARY_IS_PRIVATE : ONLY_PARN_SUMMARY);
+      return { denied: true };
+    }
     if (source.userId !== ctx.config.ownerUserId) {
-      await reply(ctx.line, event.replyToken, 'เฉพาะคุณปานขอดูสรุปได้');
+      await reply(ctx.line, event.replyToken, ONLY_PARN_SUMMARY);
       return { denied: true };
     }
     const latest = await ctx.store.getJson('latest:pending');
@@ -395,10 +418,15 @@ async function onText(event, ctx) {
 async function replayOrder(event, ctx) {
   const saved = await ctx.store.getJson('latest:order');
   if (!saved || !saved.messages) {
-    await reply(ctx.line, event.replyToken, 'ยังไม่มีออเดอร์');
+    await reply(ctx.line, event.replyToken, NO_ORDER);
     return { empty: true };
   }
-  await ctx.line.reply(event.replyToken, saved.messages);
+  const senderIsOwner = event.source && event.source.userId === ctx.config.ownerUserId;
+  if (senderIsOwner) {
+    await ctx.line.reply(event.replyToken, saved.messages);
+  } else {
+    await ctx.line.reply(event.replyToken, packBubbles({ type: 'text', text: ORDER_REPLAY_NOTE }, saved.messages.slice(1)));
+  }
   return { order_replay: true };
 }
 
@@ -407,7 +435,7 @@ async function onOrder(event, ctx) {
   try {
     catalog = orderCatalog(ctx);
   } catch (err) {
-    await reply(ctx.line, event.replyToken, `อ่านรายชื่อร้านไม่ได้: ${(err.message || err).toString().slice(0, 200)}`);
+    await reply(ctx.line, event.replyToken, catalogFailed((err.message || err).toString()));
     return { error: 'catalog' };
   }
   const parsed = parseOrder(event.message.text, catalog);
@@ -452,7 +480,7 @@ async function handleEvent(event, ctx) {
     await ctx.store.putJson(claim.key, { status: 'error', at: ctx.now, message: err.message || String(err) });
     if (!err.replied) {
       try {
-        await reply(ctx.line, event.replyToken, `ทำไม่สำเร็จ: ${(err.message || err).toString().slice(0, 300)}`);
+        await reply(ctx.line, event.replyToken, wentWrong((err.message || err).toString()));
       } catch (replyErr) { /* the reply token may already have been used */ }
     }
     return { error: err.message || String(err) };
@@ -471,4 +499,13 @@ async function handleWebhook({ rawBody, signature, ctx }) {
   return { status: 200, body: 'ok', outcomes };
 }
 
-module.exports = { handleWebhook, handleEvent, isIdCommand, OCR_FAIL_TH };
+module.exports = {
+  handleWebhook,
+  handleEvent,
+  isIdCommand,
+  isReviewCommand,
+  isHelpCommand,
+  OCR_FAIL,
+  OCR_FAIL_TH,
+  ALBUM_HELP,
+};

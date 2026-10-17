@@ -182,9 +182,11 @@ test('Ming\'s 1:1 order replies to her and pushes Parn exactly once', async () =
   assert.equal(pushes[0].messages.length, 3);
   assert.equal(pushes[0].messages[1].text, 'วันนี้ 40 ลูกครับผม');
   assert.equal(replies.length, 1);
-  assert.match(replies[0].messages[0].text, /Watermelon 40 ลูก → พี่กบ/);
-  assert.match(replies[0].messages[0].text, /Guava 50 กก คุณเมนสั่งเอง/);
-  assert.match(replies[0].messages[0].text, /ส่งร่างให้คุณปานแล้ว/);
+  assert.match(replies[0].messages[0].text, /Order received/);
+  assert.match(replies[0].messages[0].text, /Watermelon 40 pcs → พี่กบ/);
+  assert.match(replies[0].messages[0].text, /Guava 50 kg — you order this yourself/);
+  assert.match(replies[0].messages[0].text, /Sent the draft to Parn/);
+  assert.doesNotMatch(replies[0].messages[0].text, /รับออเดอร์|ส่งร่าง|คุณเมน/);
 });
 
 test('the same webhook event does not push a second time', async () => {
@@ -222,11 +224,39 @@ test('ออเดอร์ repeats the last drafts as a reply', async () => {
   const again = await post(ctx, orderEvent('ออเดอร์', 'U-parn', { webhookEventId: 'replay' }));
   assert.equal(again.outcomes[0].order_replay, true);
   assert.equal(pushes.length, 1);
+  assert.match(replies[0].messages[0].text, /ออเดอร์พรุ่งนี้/);
   assert.equal(replies[0].messages[1].text, 'วันนี้ 40 ลูกครับผม');
+});
+
+test('Ming replaying order gets English, and the shop draft stays Thai', async () => {
+  const { pushes, replies, ctx } = harness();
+  await post(ctx, orderEvent(EXAMPLE, 'U-ming'));
+  replies.length = 0;
+  const again = await post(ctx, orderEvent('  order  ', 'U-ming', { webhookEventId: 'replay-ming' }));
+  assert.equal(again.outcomes[0].order_replay, true);
+  assert.equal(pushes.length, 1);
+  assert.match(replies[0].messages[0].text, /Last order/);
+  assert.doesNotMatch(replies[0].messages[0].text, /[\u0E00-\u0E7F]/);
+  assert.equal(replies[0].messages[1].text, 'วันนี้ 40 ลูกครับผม');
+});
+
+test('summary and order aliases work for staff and the owner', async () => {
+  const { replies, ctx } = harness();
+  await post(ctx, orderEvent('  SUMMARY  ', 'U-ming', { webhookEventId: 'sum-ming' }));
+  assert.equal(replies[0].messages[0].text, 'Only Parn can ask for the summary.');
+  await post(ctx, orderEvent('สรุป', 'U-staff', { webhookEventId: 'sum-staff' }));
+  assert.equal(replies[1].messages[0].text, 'Only Parn can ask for the summary.');
+  const owner = await post(ctx, orderEvent('summary', 'U-parn', { webhookEventId: 'sum-owner' }));
+  assert.equal(owner.outcomes[0].empty, true);
+  assert.equal(replies[2].messages[0].text, 'ยังไม่มีชุดที่รอตรวจ');
+  const none = await post(ctx, orderEvent('ออเดอร์', 'U-ming', { webhookEventId: 'no-order' }));
+  assert.equal(none.outcomes[0].empty, true);
+  assert.equal(replies[3].messages[0].text, 'No order yet.');
 });
 
 test('id still answers in the 1:1 chat', async () => {
   const { replies, ctx } = harness();
-  await post(ctx, orderEvent('id', 'U-ming', { webhookEventId: 'id-1' }));
-  assert.match(replies[0].messages[0].text, /U-ming/);
+  await post(ctx, orderEvent('  ID  ', 'U-ming', { webhookEventId: 'id-1' }));
+  assert.match(replies[0].messages[0].text, /Your id: U-ming/);
+  assert.doesNotMatch(replies[0].messages[0].text, /[\u0E00-\u0E7F]/);
 });

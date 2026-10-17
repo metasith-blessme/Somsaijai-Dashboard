@@ -18,6 +18,10 @@
     }
   ],
   "rewrites": [
+    { "source": "/line_bot", "destination": "/__line_bot_not_found" },
+    { "source": "/line_bot/:path*", "destination": "/__line_bot_not_found" },
+    { "source": "/3_Automation_Dashboard/line_bot", "destination": "/__line_bot_not_found" },
+    { "source": "/3_Automation_Dashboard/line_bot/:path*", "destination": "/__line_bot_not_found" },
     { "source": "/", "destination": "/3_Automation_Dashboard/" },
     { "source": "/((?!api(?:/|$)).*)", "destination": "/3_Automation_Dashboard/$1" }
   ],

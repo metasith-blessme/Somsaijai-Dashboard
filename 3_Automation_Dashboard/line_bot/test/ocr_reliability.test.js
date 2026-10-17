@@ -264,7 +264,7 @@ test('503 and 429 back off, then the fallback model is used, and other errors do
   assert.deepEqual(once, []);
 });
 
-test('a final OCR failure is replied in Thai and the event can be retried', async () => {
+test('a final OCR failure is replied in English and the event can be retried', async () => {
   const replies = [];
   const store = new MemoryStore();
   let calls = 0;
@@ -298,8 +298,9 @@ test('a final OCR failure is replied in Thai and the event can be retried', asyn
   const failed = await post();
   assert.equal(failed.outcomes[0].error != null, true);
   assert.equal(replies.length, 1);
-  assert.match(replies[0], /ลองอ่านใหม่อีกครั้ง/);
-  assert.match(replies[0], /ส่งรูปนี้อีกครั้ง/);
+  assert.match(replies[0], /Could not read this photo/);
+  assert.match(replies[0], /send this photo again/);
+  assert.doesNotMatch(replies[0], /[\u0E00-\u0E7F]/);
   assert.equal(replies[0], OCR_FAIL_TH);
   const claim = await store.getJson('event:ocr-1');
   assert.equal(claim.status, 'error');
