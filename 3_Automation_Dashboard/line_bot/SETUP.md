@@ -21,7 +21,9 @@ What counts:
 
 A busy month of one batch per branch per day is on the order of 90 pushes, inside 300. What burns the quota is lots of separate sends (each send becomes its own batch and its own push). Ask staff to select the day's photos and send them together in one go.
 
-If the 300 run out, LINE rejects further pushes until next month. The reading is still saved. Open the private chat with SomSaiJai Bot and send `สรุป`. That answer is a reply, so it does not use the quota.
+Each fruit order Ming sends the bot is **one more push** (the summary plus the copy-ready drafts travel together, and several bubbles in that one push still count as one). A busy month of one order a day is about 30, on top of the photo summaries. Her confirmation, and a later `ออเดอร์` to show the drafts again, are replies and do not count. If you paste the order into the bot yourself, the drafts come back as a reply and that one does not count either.
+
+If the 300 run out, LINE rejects further pushes until next month. The reading and the fruit drafts are still saved. Open the private chat with SomSaiJai Bot and send `สรุป` for the latest photo batch, or `ออเดอร์` for the latest fruit drafts. Those answers are replies, so they do not use the quota.
 
 Do not let the bot push into the staff group. A group push is counted **once per member**.
 
@@ -96,6 +98,7 @@ After saving variables, redeploy once so the webhook can see them.
 | `LINE_CHANNEL_ACCESS_TOKEN` | Long-lived channel access token |
 | `LINE_OWNER_USER_ID` | Your userId from the `id` reply (starts with `U`) |
 | `LINE_GROUP_ID` | The staff group's id from the `id` reply (starts with `C`) |
+| `LINE_ORDER_SENDER_USER_IDS` | Ming's userId from her `id` reply. Several ids are separated by commas. Your own id does not need to be in this list. |
 | `GEMINI_API_KEY` | The Gemini key already used for reading reports |
 | `GEMINI_OCR_MODEL` | Optional. Default `gemini-3.5-flash` |
 | `BLOB_READ_WRITE_TOKEN` | Filled in when the Blob store is connected |
@@ -129,3 +132,39 @@ Unclear photos, unbalanced totals, profit-share transfers, mixed receipts withou
 5. The bot replies in that same private chat with the result, including the live check. That confirmation is a reply, so it does not use the monthly quota.
 
 Sending `สรุป` in the private chat shows the latest batch again, also as a free reply.
+
+## 8. Fruit orders
+
+Ming cannot add this bot to the shareholder group, because that group already has another Official Account. She sends the same order text to **SomSaiJai Bot in a private chat**.
+
+1. Send her the account **SomSaiJai Bot** (`@744byxku`) and ask her to add it as a friend.
+2. She opens the private chat and sends `id`. The reply contains her userId (starts with `U`).
+3. Put that id in `LINE_ORDER_SENDER_USER_IDS` on Vercel and redeploy. Until it is set, the bot ignores her order text. You can send an order yourself without being in that list.
+4. She sends the order the way she already writes it, for example:
+
+```
+Orders for tomorrow, please @Parn
+Watermelon -40
+Pomegranate -3
+Apple-3
+Guava-50Kg
+```
+
+Thai names work too (`แตงโม`, `ทับทิม`, `แอปเปิ้ล`, `องุ่น`, `สาลี่`, `มะม่วง`, `ฝรั่ง`), and so do spaces around the dash (`Apple - 3`, `Apple-3`) and a unit when she writes one (`50Kg`, `3 กล่อง`, `40 ลูก`).
+
+The bot replies to her, for free, with what it read. You get **one** push. The first bubble is the summary. Each bubble after that is one supplier message, with nothing extra in it, so a long-press copies the text you send.
+
+From the example above the bubbles are:
+
+- พี่กบ: `วันนี้ 40 ลูกครับผม`
+- เจ๊เภา: a greeting, then `ทับทิม - 3` and `แอปเปิ้ล - 3`, then `ส่งร้านแตงโมครับผม`
+
+ฝรั่ง is listed in the summary as ordered by Ming and is not given a supplier message. A fruit the list does not know (ส้ม, สับปะรด, anything new) is named in the summary and left out of the drafts. The bot does not pick a shop for it.
+
+If the order includes mango, the เจ๊พร bubble is only `วันนี้ราคาเท่าไหร่ครับ`. The summary still shows how many kilos she asked for, so you can order after you have the price.
+
+Nothing is sent to พี่กบ, เจ๊เภา, or เจ๊พร. เจ๊เภา is an Official Account, so this bot could not message her anyway, and the others only if they had added SomSaiJai Bot as a friend. You copy each bubble into the chat you already use.
+
+Sending `ออเดอร์` in your private chat with the bot shows those bubbles again. That answer is a reply, so it does not use the monthly quota. Use it when a push does not arrive.
+
+The shops, the fruit names, and the wording live in `line_bot/orders/suppliers.json`. Change `delivery_line` if the delivery line should say more than `ส่งร้านแตงโมครับผม`. Add a fruit by copying an item and setting `supplier` to `kob`, `phao`, or `porn`. A fruit Ming orders herself stays `handled_by` `ming` and has no supplier. Redeploy after saving the file.

@@ -5,6 +5,7 @@ const { applyChecks } = require('./validate');
 const { formatSummary, parsePostback } = require('./summary');
 const { makeApproval } = require('./approval');
 const { publishApprovedBatch } = require('./publish');
+const { loadCatalog, parseOrder, buildOrderMessages, buildSenderConfirm, isOrderReplay } = require('./orders');
 
 const PROCESSING_MS = 5 * 60 * 1000;
 
@@ -13,6 +14,18 @@ function isIdCommand(text) {
 }
 function isReviewCommand(text) {
   return /^(review|สรุป|\/review)$/i.test(String(text || '').trim());
+}
+
+function isAllowedOrderSender(source, config) {
+  if (!source || source.type !== 'user' || !source.userId) return false;
+  if (config.ownerUserId && source.userId === config.ownerUserId) return true;
+  return (config.orderSenderUserIds || []).includes(source.userId);
+}
+
+function orderCatalog(ctx) {
+  if (ctx.config.orderCatalog) return ctx.config.orderCatalog;
+  if (!ctx._orderCatalog) ctx._orderCatalog = loadCatalog(ctx.config.suppliersPath);
+  return ctx._orderCatalog;
 }
 
 async function claimEvent(store, event, now) {
@@ -208,7 +221,56 @@ async function onText(event, ctx) {
     await ctx.line.reply(event.replyToken, summary.messages);
     return { batch_id: latest.batch_id };
   }
+  if (source.type === 'user' && isAllowedOrderSender(source, ctx.config)) {
+    if (isOrderReplay(text)) return replayOrder(event, ctx);
+    const outcome = await onOrder(event, ctx);
+    if (outcome) return outcome;
+  }
   return { ignored: true };
+}
+
+async function replayOrder(event, ctx) {
+  const saved = await ctx.store.getJson('latest:order');
+  if (!saved || !saved.messages) {
+    await reply(ctx.line, event.replyToken, 'ยังไม่มีออเดอร์');
+    return { empty: true };
+  }
+  await ctx.line.reply(event.replyToken, saved.messages);
+  return { order_replay: true };
+}
+
+async function onOrder(event, ctx) {
+  let catalog;
+  try {
+    catalog = orderCatalog(ctx);
+  } catch (err) {
+    await reply(ctx.line, event.replyToken, `อ่านรายชื่อร้านไม่ได้: ${(err.message || err).toString().slice(0, 200)}`);
+    return { error: 'catalog' };
+  }
+  const parsed = parseOrder(event.message.text, catalog);
+  if (!parsed.isOrder) return null;
+  const packed = buildOrderMessages(parsed, catalog);
+  const senderIsOwner = event.source.userId === ctx.config.ownerUserId;
+  await ctx.store.putJson('latest:order', {
+    at: ctx.now,
+    from: event.source.userId,
+    messages: packed.messages,
+  });
+  if (senderIsOwner) {
+    await ctx.line.reply(event.replyToken, packed.messages);
+    return { order: true, pushed: false, drafts: packed.drafts.length };
+  }
+  let pushed = false;
+  if (ctx.config.ownerUserId && ctx.line) {
+    try {
+      await ctx.line.push(ctx.config.ownerUserId, packed.messages);
+      pushed = true;
+    } catch (err) {
+      pushed = false;
+    }
+  }
+  await reply(ctx.line, event.replyToken, buildSenderConfirm(parsed, { delivered: pushed, ownerSet: Boolean(ctx.config.ownerUserId) }));
+  return { order: true, pushed, drafts: packed.drafts.length };
 }
 
 async function handleEvent(event, ctx) {
