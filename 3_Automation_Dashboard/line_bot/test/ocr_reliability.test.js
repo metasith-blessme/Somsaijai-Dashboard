@@ -1,5 +1,7 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
+const fs = require('fs');
+const path = require('path');
 const { branchField, buildReview } = require('../lib/normalize');
 const { applyChecks } = require('../lib/validate');
 const { buildChangePlan } = require('../lib/adapter');
@@ -339,11 +341,19 @@ test('the webhook returns before OCR when Vercel can keep the function alive', a
   assert.equal(rootWebhook.config.api.bodyParser, false);
   assert.ok(vercel.functions['api/webhook.js'].maxDuration >= 120);
   assert.ok(vercel.functions['api/review.js'].maxDuration >= 30);
-  assert.equal(vercel.functions['api/webhook.js'].includeFiles, '3_Automation_Dashboard/**');
+  assert.equal(vercel.functions['api/webhook.js'].includeFiles, '{3_Automation_Dashboard/**,node_modules/xlsx/**}');
   assert.ok(vercel.functions['api/webhook.js'].includeFiles.length <= 256);
   assert.equal(vercel.rewrites.find(rule => rule.source === '/').destination, '/3_Automation_Dashboard/');
   assert.equal(vercel.rewrites.some(rule => rule.source === '/(.*)'), false);
   assert.ok(vercel.rewrites.some(rule => rule.source.includes('(?!api')));
+  for (const source of ['/line_bot', '/line_bot/:path*', '/3_Automation_Dashboard/line_bot', '/3_Automation_Dashboard/line_bot/:path*']) {
+    const rule = vercel.rewrites.find(item => item.source === source);
+    assert.ok(rule, source);
+    assert.equal(rule.destination, '/__line_bot_not_found');
+  }
+  const middleware = fs.readFileSync(path.join(__dirname, '..', '..', '..', 'middleware.js'), 'utf8');
+  assert.ok(middleware.includes('/line_bot'));
+  assert.ok(middleware.includes('3_Automation_Dashboard/line_bot'));
 });
 
 test('the webhook reads a raw or already-parsed body without hanging', async () => {

@@ -201,4 +201,14 @@ function update() {
     process.exitCode = 1;
   }
 }
-update();
+// SSJ_BUNDLE_CHECK loads this file (and xlsx) without reading or writing the books.
+// Approve's real run leaves the variable unset and always calls update().
+if (process.env.SSJ_BUNDLE_CHECK === '1') {
+  process.stdout.write(JSON.stringify({
+    ok: true,
+    xlsx: require.resolve('xlsx'),
+    rules: require.resolve('../../logic/business_rules'),
+  }));
+} else {
+  update();
+}

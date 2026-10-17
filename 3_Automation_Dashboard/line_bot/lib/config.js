@@ -12,6 +12,9 @@ function loadConfig(env = process.env) {
     geminiModel: env.GEMINI_MODEL || env.GEMINI_OCR_MODEL || 'gemini-3.5-flash',
     geminiFallbackModel: env.GEMINI_MODEL_FALLBACK || 'gemini-3.8-flash',
     allowDeploy: env.LINE_BOT_ALLOW_DEPLOY === '1',
+    // Pushing the commit to main already starts the Vercel Git deploy.
+    // The bot calls the deployments API only when this is exactly "1".
+    vercelApiDeploy: env.LINE_BOT_VERCEL_DEPLOY === '1',
     githubToken: env.GITHUB_TOKEN || '',
     githubRepo: env.GITHUB_REPO || '',
     githubBranch: env.GITHUB_BRANCH || 'main',
