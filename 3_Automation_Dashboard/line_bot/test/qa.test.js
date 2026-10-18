@@ -12,8 +12,10 @@ const {
   QA_LIMIT,
   QA_EMPTY,
   QA_MAX_TOKENS,
+  QA_RETRY_TOKENS,
   STAFF_RULES,
   OWNER_RULES,
+  askMinimax,
   stripThinking,
   extractAnswer,
   compactSales,
@@ -227,7 +229,7 @@ test('the owner gets sales context and the reply drops thinking', async () => {
   assert.equal(body.model, DEFAULT_MODEL);
   assert.equal(body.max_completion_tokens, QA_MAX_TOKENS);
   assert.equal(body.max_tokens, QA_MAX_TOKENS);
-  assert.ok(QA_MAX_TOKENS <= 300);
+  assert.equal(QA_MAX_TOKENS, 1000);
   assert.match(body.messages[0].content, /Answer in 1-3 short sentences unless asked for more/);
   assert.match(STAFF_RULES, /Answer in 1-3 short sentences unless asked for more/);
   assert.match(OWNER_RULES, /Answer in 1-3 short sentences unless asked for more/);
@@ -368,6 +370,79 @@ test('the daily limit replies in English and stops calling MiniMax', async () =>
   assert.equal(third.outcomes[0].limited, true);
   assert.equal(minimaxCalls(calls).length, 2);
   assert.equal(replies[2].messages[0].text, QA_LIMIT);
+});
+
+function minimaxPayload(content, finish) {
+  return {
+    base_resp: { status_code: 0 },
+    choices: [{ finish_reason: finish, message: { content } }],
+  };
+}
+
+test('a length cutoff that is only thinking is retried once at 2000 tokens', async () => {
+  const bodies = [];
+  const answer = await askMinimax({
+    apiKey: 'k',
+    messages: [{ role: 'user', content: 'hi' }],
+    fetchImpl: async (_url, options) => {
+      bodies.push(JSON.parse(options.body));
+      const payload = bodies.length === 1
+        ? minimaxPayload('<think>still reasoning', 'length')
+        : minimaxPayload('<think>done</think>\nSend them one by one.', 'stop');
+      return { ok: true, async json() { return payload; } };
+    },
+  });
+  assert.equal(bodies.length, 2);
+  assert.equal(bodies[0].max_tokens, QA_MAX_TOKENS);
+  assert.equal(bodies[0].max_completion_tokens, 1000);
+  assert.equal(bodies[1].max_tokens, QA_RETRY_TOKENS);
+  assert.equal(bodies[1].max_completion_tokens, 2000);
+  assert.equal(answer, 'Send them one by one.');
+});
+
+test('a length cutoff that already has an answer is not retried', async () => {
+  let calls = 0;
+  const answer = await askMinimax({
+    apiKey: 'k',
+    messages: [{ role: 'user', content: 'hi' }],
+    fetchImpl: async () => {
+      calls += 1;
+      return { ok: true, async json() { return minimaxPayload('<think>x</think>\nShort.', 'length'); } };
+    },
+  });
+  assert.equal(calls, 1);
+  assert.equal(answer, 'Short.');
+});
+
+test('an empty stop reply is not retried', async () => {
+  const { replies, calls, ctx } = harness({
+    fetchImpl: async (url, options) => {
+      calls.push({ url: String(url), options });
+      return { ok: true, async json() { return minimaxPayload('<think>only</think>', 'stop'); } };
+    },
+  });
+  const result = await post(ctx, textEvent('hello', 'U-staff', { webhookEventId: 'empty-stop' }));
+  assert.equal(result.outcomes[0].error, true);
+  assert.equal(replies[0].messages[0].text, QA_ERROR);
+  assert.equal(minimaxCalls(calls).length, 1);
+});
+
+test('a second thinking cutoff falls back to the error text', async () => {
+  const { replies, calls, pushes, ctx } = harness({
+    fetchImpl: async (url, options) => {
+      calls.push({ url: String(url), options });
+      return { ok: true, async json() { return minimaxPayload('<think>still reasoning', 'length'); } };
+    },
+  });
+  const result = await post(ctx, textEvent('hello', 'U-staff', { webhookEventId: 'think-cut' }));
+  assert.equal(result.outcomes[0].error, true);
+  assert.equal(replies[0].messages[0].text, QA_ERROR);
+  assert.equal(pushes.length, 0);
+  const sent = minimaxCalls(calls);
+  assert.equal(sent.length, 2);
+  assert.equal(JSON.parse(sent[0].options.body).max_tokens, 1000);
+  assert.equal(JSON.parse(sent[1].options.body).max_tokens, 2000);
+  assert.equal(JSON.parse(sent[1].options.body).max_completion_tokens, 2000);
 });
 
 test('a timeout or HTTP error becomes a short English reply and does not push', async () => {
