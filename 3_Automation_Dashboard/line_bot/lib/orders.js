@@ -234,15 +234,13 @@ function buildOrderMessages(parsed, catalog) {
   }
   for (const row of parsed.unknown) {
     const unit = row.unit || row.rawUnit || 'ไม่บอกหน่วย';
-    lines.push(`• ${row.name} ${formatQty(row.qty)} ${unit} → ไม่รู้จักสินค้านี้ ยังไม่ใส่ในข้อความ`);
+    lines.push(`• ${row.name} ${formatQty(row.qty)} ${unit} → ไม่รู้จักสินค้านี้`);
   }
   for (const row of parsed.unparsed) lines.push(`• อ่านบรรทัดนี้ไม่ได้: ${row}`);
   if (!parsed.items.length && !parsed.unknown.length && !parsed.unparsed.length) lines.push('ไม่มีรายการ');
   const draftNames = parsed.drafts.map((draft, index) => `${index + 1}. ${draft.name}`);
-  if (draftNames.length) {
-    lines.push('', 'ก๊อปข้อความด้านล่างไปส่งเองตามลำดับ', ...draftNames);
-  }
-  lines.push('', 'บอทไม่ได้ส่งให้ร้าน');
+  if (draftNames.length) lines.push(`ก๊อปไปส่งเอง: ${draftNames.join(' ')}`);
+  lines.push('บอทไม่ได้ส่งให้ร้าน');
   const summary = { type: 'text', text: lines.join('\n').slice(0, 4800) };
   const bubbles = parsed.drafts.map(draft => ({ type: 'text', text: String(draft.text).slice(0, 4800) }));
   return { summaryText: summary.text, messages: packBubbles(summary, bubbles), drafts: parsed.drafts };

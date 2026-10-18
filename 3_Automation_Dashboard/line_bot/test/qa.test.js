@@ -11,6 +11,9 @@ const {
   QA_ERROR,
   QA_LIMIT,
   QA_EMPTY,
+  QA_MAX_TOKENS,
+  STAFF_RULES,
+  OWNER_RULES,
   stripThinking,
   extractAnswer,
   compactSales,
@@ -222,7 +225,12 @@ test('the owner gets sales context and the reply drops thinking', async () => {
   assert.equal(sent[0].options.headers.Authorization, 'Bearer test-key');
   const body = JSON.parse(sent[0].options.body);
   assert.equal(body.model, DEFAULT_MODEL);
-  assert.ok(body.max_completion_tokens <= 1000);
+  assert.equal(body.max_completion_tokens, QA_MAX_TOKENS);
+  assert.equal(body.max_tokens, QA_MAX_TOKENS);
+  assert.ok(QA_MAX_TOKENS <= 300);
+  assert.match(body.messages[0].content, /Answer in 1-3 short sentences unless asked for more/);
+  assert.match(STAFF_RULES, /Answer in 1-3 short sentences unless asked for more/);
+  assert.match(OWNER_RULES, /Answer in 1-3 short sentences unless asked for more/);
   assert.match(body.messages[1].content, /revenue 5789/);
   assert.equal(JSON.stringify(body).includes('SUPPLIER-SECRET-PRICE'), false);
   assert.equal(JSON.stringify(body).includes('7777'), false);
