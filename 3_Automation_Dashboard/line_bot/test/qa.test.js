@@ -243,6 +243,34 @@ test('the owner gets sales context and the reply drops thinking', async () => {
   assert.equal(replyText(replies).includes('</think>'), false);
 });
 
+test('staff and owner prompts refuse guessed menu and shop facts', async () => {
+  const asked = /menu, ingredients, sugar, recipes, prices, promotions, or shop rules/;
+  const example = /I don't know that yet\. Please ask Parn\./;
+  for (const rules of [STAFF_RULES, OWNER_RULES]) {
+    assert.match(rules, asked);
+    assert.match(rules, /Never guess or state those product facts/);
+    assert.match(rules, example);
+    assert.match(rules, /food safety, storage, polite customer phrases, and English help/);
+  }
+  assert.match(OWNER_RULES, /Use only figures that appear in that note/);
+  assert.match(STAFF_RULES, /Never state sales numbers/);
+
+  const staff = harness();
+  await post(staff.ctx, textEvent('what is in the mango juice?', 'U-staff', { webhookEventId: 'menu-staff' }));
+  const staffPrompt = JSON.parse(minimaxCalls(staff.calls)[0].options.body).messages[0].content;
+  assert.match(staffPrompt, asked);
+  assert.match(staffPrompt, example);
+  assert.equal(staffPrompt.includes('Recent sales'), false);
+
+  const owner = harness();
+  await post(owner.ctx, textEvent('สูตรส้มมีน้ำตาลไหม', 'U-parn', { webhookEventId: 'menu-owner' }));
+  const ownerBody = JSON.parse(minimaxCalls(owner.calls)[0].options.body);
+  assert.match(ownerBody.messages[0].content, asked);
+  assert.match(ownerBody.messages[0].content, example);
+  assert.match(ownerBody.messages[0].content, /Use only figures that appear in that note/);
+  assert.match(ownerBody.messages[1].content, /revenue 5789/);
+});
+
 test('staff and Ming get no sales data and no data.json fetch', async () => {
   for (const userId of ['U-staff', 'U-ming']) {
     const { pushes, replies, calls, ctx } = harness();
