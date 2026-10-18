@@ -9,7 +9,8 @@ const { ALBUM_HELP } = require('./staff_text');
 const MINIMAX_URL = 'https://api.minimax.io/v1/text/chatcompletion_v2';
 const DEFAULT_MODEL = 'MiniMax-M2';
 const QA_DAILY_LIMIT = 30;
-const QA_MAX_TOKENS = 300;
+const QA_MAX_TOKENS = 1000;
+const QA_RETRY_TOKENS = 2000;
 const QA_REPLY_MAX = 1000;
 const QA_TIMEOUT_MS = 15000;
 const SALES_FETCH_MS = 8000;
@@ -183,7 +184,7 @@ function messageText(message) {
   return '';
 }
 
-function extractAnswer(payload) {
+function choiceOf(payload) {
   if (!payload || typeof payload !== 'object') {
     const error = new Error('bad minimax response');
     error.qa = true;
@@ -200,7 +201,11 @@ function extractAnswer(payload) {
     error.qa = true;
     throw error;
   }
-  const choice = Array.isArray(payload.choices) ? payload.choices[0] : null;
+  return Array.isArray(payload.choices) ? payload.choices[0] : null;
+}
+
+function extractAnswer(payload) {
+  const choice = choiceOf(payload);
   const answer = stripThinking(messageText(choice && choice.message));
   if (!answer) {
     const error = new Error('empty minimax answer');
@@ -208,6 +213,12 @@ function extractAnswer(payload) {
     throw error;
   }
   return answer.slice(0, QA_REPLY_MAX);
+}
+
+function thinkingCutOff(payload) {
+  const choice = choiceOf(payload);
+  const answer = stripThinking(messageText(choice && choice.message));
+  return !answer && Boolean(choice) && choice.finish_reason === 'length';
 }
 
 function clipReply(text) {
@@ -319,11 +330,10 @@ async function fetchSalesContext({ publicUrl, fetchImpl, now, timeoutMs }) {
   }
 }
 
-async function askMinimax({ apiKey, model, messages, fetchImpl, timeoutMs, maxTokens }) {
+async function postMinimax({ apiKey, model, messages, fetchImpl, timeoutMs, tokens }) {
   const fetchFn = fetchImpl || fetch;
   const controller = typeof AbortController === 'function' ? new AbortController() : null;
   const ms = timeoutMs || QA_TIMEOUT_MS;
-  const tokens = maxTokens || QA_MAX_TOKENS;
   let timer;
   const pending = fetchFn(MINIMAX_URL, {
     method: 'POST',
@@ -355,15 +365,22 @@ async function askMinimax({ apiKey, model, messages, fetchImpl, timeoutMs, maxTo
     error.qa = true;
     throw error;
   }
-  let payload;
   try {
-    payload = await res.json();
+    return await res.json();
   } catch (err) {
     const error = new Error('minimax json');
     error.qa = true;
     throw error;
   }
-  return extractAnswer(payload);
+}
+
+async function askMinimax({ apiKey, model, messages, fetchImpl, timeoutMs, maxTokens }) {
+  const request = tokens => postMinimax({
+    apiKey, model, messages, fetchImpl, timeoutMs, tokens,
+  });
+  const first = await request(maxTokens || QA_MAX_TOKENS);
+  if (!thinkingCutOff(first)) return extractAnswer(first);
+  return extractAnswer(await request(QA_RETRY_TOKENS));
 }
 
 module.exports = {
@@ -371,6 +388,7 @@ module.exports = {
   DEFAULT_MODEL,
   QA_DAILY_LIMIT,
   QA_MAX_TOKENS,
+  QA_RETRY_TOKENS,
   QA_REPLY_MAX,
   QA_TIMEOUT_MS,
   QA_ERROR,
