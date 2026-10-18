@@ -320,6 +320,27 @@
         "cost": 0,
         "cups": 0,
         "roi": "N/A"
+      },
+      {
+        "name": "Mangosteen",
+        "rev": 0,
+        "cost": null,
+        "cups": 0,
+        "roi": "N/A"
+      },
+      {
+        "name": "Mangosteen & Lychee",
+        "rev": 0,
+        "cost": null,
+        "cups": 0,
+        "roi": "N/A"
+      },
+      {
+        "name": "Rambutan",
+        "rev": 0,
+        "cost": null,
+        "cups": 0,
+        "roi": "N/A"
       }
     ],
     "b1": {
@@ -686,6 +707,27 @@
         "name": "Pineapple",
         "rev": 0,
         "cost": 0,
+        "cups": 0,
+        "roi": "N/A"
+      },
+      {
+        "name": "Mangosteen",
+        "rev": 0,
+        "cost": null,
+        "cups": 0,
+        "roi": "N/A"
+      },
+      {
+        "name": "Mangosteen & Lychee",
+        "rev": 0,
+        "cost": null,
+        "cups": 0,
+        "roi": "N/A"
+      },
+      {
+        "name": "Rambutan",
+        "rev": 0,
+        "cost": null,
         "cups": 0,
         "roi": "N/A"
       }
@@ -1093,6 +1135,27 @@
         "name": "Pineapple",
         "rev": 0,
         "cost": 0,
+        "cups": 0,
+        "roi": "N/A"
+      },
+      {
+        "name": "Mangosteen",
+        "rev": 0,
+        "cost": null,
+        "cups": 0,
+        "roi": "N/A"
+      },
+      {
+        "name": "Mangosteen & Lychee",
+        "rev": 0,
+        "cost": null,
+        "cups": 0,
+        "roi": "N/A"
+      },
+      {
+        "name": "Rambutan",
+        "rev": 0,
+        "cost": null,
         "cups": 0,
         "roi": "N/A"
       }
@@ -1728,6 +1791,27 @@
         "cost": 1500,
         "cups": 0,
         "roi": "-100.0%"
+      },
+      {
+        "name": "Mangosteen",
+        "rev": 0,
+        "cost": null,
+        "cups": 0,
+        "roi": "N/A"
+      },
+      {
+        "name": "Mangosteen & Lychee",
+        "rev": 0,
+        "cost": null,
+        "cups": 0,
+        "roi": "N/A"
+      },
+      {
+        "name": "Rambutan",
+        "rev": 0,
+        "cost": null,
+        "cups": 0,
+        "roi": "N/A"
       }
     ],
     "b1": {
@@ -2344,6 +2428,27 @@
         "cost": 5634,
         "cups": 222,
         "roi": "136.4%"
+      },
+      {
+        "name": "Mangosteen",
+        "rev": 0,
+        "cost": null,
+        "cups": 0,
+        "roi": "N/A"
+      },
+      {
+        "name": "Mangosteen & Lychee",
+        "rev": 0,
+        "cost": null,
+        "cups": 0,
+        "roi": "N/A"
+      },
+      {
+        "name": "Rambutan",
+        "rev": 0,
+        "cost": null,
+        "cups": 0,
+        "roi": "N/A"
       }
     ],
     "b1": {
@@ -3157,6 +3262,27 @@
         "cost": 6042,
         "cups": 178,
         "roi": "76.8%"
+      },
+      {
+        "name": "Mangosteen",
+        "rev": 0,
+        "cost": null,
+        "cups": 0,
+        "roi": "N/A"
+      },
+      {
+        "name": "Mangosteen & Lychee",
+        "rev": 0,
+        "cost": null,
+        "cups": 0,
+        "roi": "N/A"
+      },
+      {
+        "name": "Rambutan",
+        "rev": 0,
+        "cost": null,
+        "cups": 0,
+        "roi": "N/A"
       }
     ],
     "b1": {
@@ -3885,6 +4011,27 @@
         "cost": 9281,
         "cups": 251,
         "roi": "62.3%"
+      },
+      {
+        "name": "Mangosteen",
+        "rev": 0,
+        "cost": null,
+        "cups": 0,
+        "roi": "N/A"
+      },
+      {
+        "name": "Mangosteen & Lychee",
+        "rev": 0,
+        "cost": null,
+        "cups": 0,
+        "roi": "N/A"
+      },
+      {
+        "name": "Rambutan",
+        "rev": 0,
+        "cost": null,
+        "cups": 0,
+        "roi": "N/A"
       }
     ],
     "b1": {
@@ -4882,6 +5029,27 @@
         "cost": 11778,
         "cups": 0,
         "roi": "-100.0%"
+      },
+      {
+        "name": "Mangosteen",
+        "rev": 0,
+        "cost": null,
+        "cups": 0,
+        "roi": "N/A"
+      },
+      {
+        "name": "Mangosteen & Lychee",
+        "rev": 0,
+        "cost": null,
+        "cups": 0,
+        "roi": "N/A"
+      },
+      {
+        "name": "Rambutan",
+        "rev": 0,
+        "cost": null,
+        "cups": 0,
+        "roi": "N/A"
       }
     ],
     "b1": {
@@ -5486,6 +5654,27 @@
         "cost": 9190,
         "cups": 197,
         "roi": "28.6%"
+      },
+      {
+        "name": "Mangosteen",
+        "rev": 0,
+        "cost": null,
+        "cups": 0,
+        "roi": "N/A"
+      },
+      {
+        "name": "Mangosteen & Lychee",
+        "rev": 0,
+        "cost": null,
+        "cups": 0,
+        "roi": "N/A"
+      },
+      {
+        "name": "Rambutan",
+        "rev": 0,
+        "cost": null,
+        "cups": 0,
+        "roi": "N/A"
       }
     ],
     "b1": {
@@ -5746,8 +5935,157 @@
       "share_pct": 0.7
     }
   },
+  "Oct26": {
+    "total_rev": 6821,
+    "total_cogs": 0,
+    "fruit_summary": {},
+    "daily_cogs": [],
+    "fruit_performance": [
+      {
+        "name": "Orange",
+        "rev": 0,
+        "cost": 0,
+        "cups": 0,
+        "roi": "N/A"
+      },
+      {
+        "name": "Watermelon",
+        "rev": 0,
+        "cost": 0,
+        "cups": 0,
+        "roi": "N/A"
+      },
+      {
+        "name": "Mango",
+        "rev": 0,
+        "cost": 0,
+        "cups": 0,
+        "roi": "N/A"
+      },
+      {
+        "name": "Apple",
+        "rev": 0,
+        "cost": 0,
+        "cups": 0,
+        "roi": "N/A"
+      },
+      {
+        "name": "Coconut",
+        "rev": 0,
+        "cost": 0,
+        "cups": 0,
+        "roi": "N/A"
+      },
+      {
+        "name": "Young Coco",
+        "rev": 0,
+        "cost": null,
+        "cups": 0,
+        "roi": "N/A"
+      },
+      {
+        "name": "Guava",
+        "rev": 0,
+        "cost": 0,
+        "cups": 0,
+        "roi": "N/A"
+      },
+      {
+        "name": "Pineapple",
+        "rev": 0,
+        "cost": 0,
+        "cups": 0,
+        "roi": "N/A"
+      },
+      {
+        "name": "Mangosteen",
+        "rev": 0,
+        "cost": null,
+        "cups": 0,
+        "roi": "N/A"
+      },
+      {
+        "name": "Mangosteen & Lychee",
+        "rev": 0,
+        "cost": null,
+        "cups": 0,
+        "roi": "N/A"
+      },
+      {
+        "name": "Rambutan",
+        "rev": 0,
+        "cost": null,
+        "cups": 0,
+        "roi": "N/A"
+      }
+    ],
+    "b1": {
+      "rev": 0,
+      "rental": 0,
+      "opex": 0,
+      "daily_exp": 0,
+      "opex_list": [],
+      "cogs": 0,
+      "net": 0,
+      "loss_carry_forward": 0,
+      "closing_loss": 0,
+      "loss_offset": 0,
+      "adjusted_net": 0,
+      "share": 0,
+      "ming_share": 0,
+      "share_pct": 0.7
+    },
+    "b2": {
+      "rev": 0,
+      "rental": 0,
+      "opex": 0,
+      "daily_exp": 0,
+      "opex_list": [],
+      "cogs": 0,
+      "net": 0,
+      "loss_carry_forward": 31076.536620889485,
+      "closing_loss": 31076.536620889485,
+      "loss_offset": 0,
+      "adjusted_net": 0,
+      "share": 0,
+      "ming_share": 0,
+      "share_pct": 0.7
+    },
+    "b3": {
+      "rev": 6821,
+      "rental": 0,
+      "opex": 0,
+      "daily_exp": 55,
+      "opex_list": [],
+      "cogs": 0,
+      "net": 6766,
+      "loss_carry_forward": 0,
+      "closing_loss": 0,
+      "loss_offset": 0,
+      "adjusted_net": 6766,
+      "share": 4736.2,
+      "ming_share": 2029.8000000000004,
+      "share_pct": 0.7
+    },
+    "b4": {
+      "rev": 0,
+      "rental": 0,
+      "opex": 0,
+      "daily_exp": 0,
+      "opex_list": [],
+      "cogs": 0,
+      "net": 0,
+      "loss_carry_forward": 33790.08517121726,
+      "closing_loss": 33790.08517121726,
+      "loss_offset": 0,
+      "adjusted_net": 0,
+      "share": 0,
+      "ming_share": 0,
+      "share_pct": 0.7
+    }
+  },
   "all": {
-    "total_rev": 3522394.92,
+    "total_rev": 3529215.92,
     "total_cogs": 1551622,
     "fruit_summary": {
       "Packaging": 234762,
@@ -8815,6 +9153,27 @@
         "cost": 43425,
         "cups": 848,
         "roi": "17.2%"
+      },
+      {
+        "name": "Mangosteen",
+        "rev": 0,
+        "cost": null,
+        "cups": 0,
+        "roi": "N/A"
+      },
+      {
+        "name": "Mangosteen & Lychee",
+        "rev": 0,
+        "cost": null,
+        "cups": 0,
+        "roi": "N/A"
+      },
+      {
+        "name": "Rambutan",
+        "rev": 0,
+        "cost": null,
+        "cups": 0,
+        "roi": "N/A"
       }
     ],
     "b1": {
@@ -10067,10 +10426,10 @@
       "share_pct": 0.7
     },
     "b3": {
-      "rev": 575343,
+      "rev": 582164,
       "opex": 162830.35,
       "rental": 61706.600000000006,
-      "daily_exp": 5489,
+      "daily_exp": 5544,
       "opex_list": [
         {
           "date": "22/07/2026",
@@ -10290,11 +10649,11 @@
         }
       ],
       "cogs": 245402.2974918707,
-      "net": 99914.75250812931,
-      "share": 69940.32675569052,
-      "ming_share": 29974.4257524388,
+      "net": 106680.75250812931,
+      "share": 74676.52675569052,
+      "ming_share": 32004.2257524388,
       "loss_carry_forward": 0,
-      "adjusted_net": 99914.75250812931,
+      "adjusted_net": 106680.75250812931,
       "closing_loss": 0,
       "loss_offset": 0,
       "share_pct": 0.7
