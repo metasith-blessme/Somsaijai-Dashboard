@@ -36,6 +36,6 @@ module.exports = async function review(req, res) {
   res.end(`<!doctype html><meta name="robots" content="noindex"><title>Review ${escapeHtml(batch)}</title>
 <style>body{font-family:sans-serif;max-width:40rem;margin:2rem auto;padding:0 1rem;white-space:pre-wrap}</style>
 <h1>ชุด ${escapeHtml(batch)}</h1>
-<p>ลิงก์นี้เป็นของเจ้าของร้าน อย่าส่งต่อ รูปต้นฉบับไม่ได้อยู่ในหน้านี้</p>
+<p>อย่าส่งต่อลิงก์นี้</p>
 <pre>${escapeHtml(summary.text)}</pre>`);
 };

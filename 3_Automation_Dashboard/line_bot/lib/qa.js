@@ -9,16 +9,16 @@ const { ALBUM_HELP } = require('./staff_text');
 const MINIMAX_URL = 'https://api.minimax.io/v1/text/chatcompletion_v2';
 const DEFAULT_MODEL = 'MiniMax-M2';
 const QA_DAILY_LIMIT = 30;
-const QA_MAX_TOKENS = 700;
+const QA_MAX_TOKENS = 300;
 const QA_REPLY_MAX = 1000;
 const QA_TIMEOUT_MS = 15000;
 const SALES_FETCH_MS = 8000;
 const SALES_DAYS = 14;
 const QUESTION_MAX = 1500;
 
-const QA_ERROR = 'Sorry, I could not answer just now. Please try again.';
-const QA_LIMIT = 'Too many questions today. Please try again tomorrow.';
-const QA_EMPTY = 'Send a short question. Report photos go in this chat one by one, not in an album.';
+const QA_ERROR = 'Could not answer. Try again.';
+const QA_LIMIT = 'Too many questions today. Try again tomorrow.';
+const QA_EMPTY = 'Ask a short question. Photos: one by one, not an album.';
 
 const STAFF_RULES = [
   'You are a helpful assistant for SomSaiJai, a cold-press juice shop with branches B1, B2, and B3.',
@@ -29,7 +29,7 @@ const STAFF_RULES = [
   'Never state sales numbers, revenue, cash, scan totals, costs, profit, wages, rent, or supplier prices.',
   'You do not have that data. If they ask for any figure, say only Parn can see sales numbers in a private chat, and do not guess.',
   'Never invent numbers.',
-  'Keep the answer to a few short sentences.',
+  'Answer in 1-3 short sentences unless asked for more.',
 ].join('\n');
 
 const OWNER_RULES = [
@@ -41,7 +41,7 @@ const OWNER_RULES = [
   'A sales note may be included in the user message. It lists only date, revenue, cash, and scan in THB for recent days.',
   'Use only figures that appear in that note. If a day or branch is missing, or the note says sales are unavailable, say you do not have that figure.',
   'Never invent numbers. Do not state costs, wages, rent, or supplier prices. Those are not in the note.',
-  'Keep the answer to a few short sentences.',
+  'Answer in 1-3 short sentences unless asked for more.',
 ].join('\n');
 
 const BOT_PREFIX = /^\s*@?bot\b[:\s,-]*/i;

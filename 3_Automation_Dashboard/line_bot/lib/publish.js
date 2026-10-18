@@ -23,26 +23,26 @@ const PUBLISH_FILES = [
 function resultMessage(result) {
   if (result.status === 'published') {
     const live = result.readback && result.readback.ok
-      ? 'ตรวจเลขบนเว็บจริงแล้ว ตรงกับที่อนุมัติ'
-      : 'commit แล้ว แต่เลขบนเว็บจริงยังไม่ตรง ยังไม่ถือว่าขึ้น dashboard';
-    return `อนุมัติแล้ว และเขียนลงสมุดบัญชี\n${live}\n${result.url || 'https://somsaijailive.vercel.app'}`;
+      ? 'เว็บตรงกับที่อนุมัติ'
+      : 'เว็บยังไม่ตรง ยังไม่ขึ้น dashboard';
+    return `อนุมัติแล้ว\n${live}\n${result.url || 'https://somsaijailive.vercel.app'}`;
   }
   if (result.status === 'held') {
     const first = (result.plan.held[0] && result.plan.held[0].reasons[0]) || 'ไม่มีรายการที่อ่านชัด';
-    return `บันทึกการอนุมัติแล้ว แต่ยังไม่เขียนอะไร เพราะ ${first}`;
+    return `อนุมัติแล้ว แต่ยังไม่เขียน: ${first}`;
   }
   if (result.status === 'approved_not_deployed') {
-    return `บันทึกการอนุมัติแล้ว แต่ยังไม่เขียนสมุดและยังไม่ deploy\n${result.reason}`;
+    return `อนุมัติแล้ว แต่ยังไม่เขียนและยังไม่ deploy\n${result.reason}`;
   }
   if (result.status === 'deployed_readback_failed') {
-    return 'เขียนและสั่ง deploy แล้ว แต่ตัวเลขบนเว็บจริงยังไม่ตรงกับที่อนุมัติ ยังไม่ประกาศว่าขึ้น dashboard';
+    return 'เขียนและ deploy แล้ว แต่เว็บยังไม่ตรง';
   }
   if (result.status === 'error') {
     const step = result.step || 'publish';
     const reason = result.reason || result.status;
     return `ทำไม่สำเร็จ (${step}): ${reason}`.slice(0, 400);
   }
-  return `อนุมัติถูกบันทึกแล้ว แต่การเขียนไม่สำเร็จ: ${result.reason || result.status}`;
+  return `อนุมัติแล้ว แต่เขียนไม่สำเร็จ: ${result.reason || result.status}`;
 }
 
 function stepReason(err) {

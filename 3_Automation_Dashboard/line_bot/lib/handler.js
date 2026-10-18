@@ -234,9 +234,7 @@ async function processClaimedSet(setId, summary, ctx, replyToken) {
   const batch = await finishBatch(batchId, summary.ordered, batchCtx);
   if (!batch.push_error && ctx.config.ownerUserId) {
     const warning = batchCtx.ocrWarning ? `\n${batchCtx.ocrWarning}` : '';
-    const head = staffNote
-      ? `${staffNote}\n${ALBUM_HELP}`
-      : photosDone();
+    const head = staffNote || photosDone();
     try {
       await reply(ctx.line, replyToken, `${head}${warning}`);
     } catch (err) { /* a reply token expires before the two-minute fallback */ }
@@ -346,18 +344,18 @@ async function onPostback(event, ctx) {
   }
   if (action === 'reject') {
     if (record.status === 'published') {
-      await reply(ctx.line, event.replyToken, 'ชุดนี้ลงบัญชีไปแล้ว ปุ่มไม่รับยกเลิกย้อนหลังไม่ได้');
+      await reply(ctx.line, event.replyToken, 'ชุดนี้ลงบัญชีแล้ว ยกเลิกไม่ได้');
       return { status: record.status };
     }
     record.status = 'rejected';
     record.approval = makeApproval({ review, userId: source.userId, decision: 'reject', at: new Date(ctx.now).toISOString() });
     await ctx.store.putJson(`batch:${batch}`, record);
-    await reply(ctx.line, event.replyToken, `ไม่รับชุด ${batch} ไม่มีอะไรถูกเขียน`);
+    await reply(ctx.line, event.replyToken, `ไม่รับชุด ${batch}`);
     return { status: 'rejected' };
   }
   if (action !== 'approve') return { ignored: true };
   if (record.status === 'published' && record.approval && record.approval.publish_receipt) {
-    await reply(ctx.line, event.replyToken, `ชุด ${batch} ขึ้น dashboard ไปแล้ว ไม่ได้ทำซ้ำ`);
+    await reply(ctx.line, event.replyToken, `ชุด ${batch} ขึ้นแล้ว`);
     return { status: 'published', duplicate: true };
   }
   // Reuse a saved approval only while it still describes this review. A rewritten
