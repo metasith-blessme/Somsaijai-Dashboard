@@ -1,0 +1,22 @@
+{
+  "batch_id": "manual_B1_Oct26_01-17_parn_photos",
+  "month": "Oct26",
+  "change_list": "/workspace/ssj-b1oct-publish/3_Automation_Dashboard/audit/batch_2026-10-18_B1Oct01-17/b1_oct26_sales_change_list.json",
+  "imported_at": "2026-10-18T06:17:19.205Z",
+  "rows_written": 17,
+  "rows_skipped": 0,
+  "estimated_rows": [],
+  "unmapped": [],
+  "branches": {
+    "B1": {
+      "file": "SomSaiJai_Dashboard_B1_2026.xlsx",
+      "rows_added": 17,
+      "revenue": 110471,
+      "estimated_count": 0,
+      "backup": "audit/backups/2026-10-18T06-17-19-205Z/SomSaiJai_Dashboard_B1_2026.xlsx",
+      "hash_before": "8c013655222195f0841ed0e5f224a340d0c954c44e0cc93ced23de82dbfd24fd",
+      "hash_after": "8aefc127ada53cc336fb2d1529bc41ef04ef01b26d7b635ddab64fc74e6310e7",
+      "readback": "verified"
+    }
+  }
+}

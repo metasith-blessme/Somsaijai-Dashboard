@@ -5936,44 +5936,44 @@
     }
   },
   "Oct26": {
-    "total_rev": 12456,
+    "total_rev": 117292,
     "total_cogs": 0,
     "fruit_summary": {},
     "daily_cogs": [],
     "fruit_performance": [
       {
         "name": "Orange",
-        "rev": 0,
+        "rev": 15980,
         "cost": 0,
-        "cups": 0,
+        "cups": 265,
         "roi": "N/A"
       },
       {
         "name": "Watermelon",
-        "rev": 0,
+        "rev": 26250,
         "cost": 0,
-        "cups": 0,
+        "cups": 525,
         "roi": "N/A"
       },
       {
         "name": "Mango",
-        "rev": 0,
+        "rev": 6570,
         "cost": 0,
-        "cups": 0,
+        "cups": 73,
         "roi": "N/A"
       },
       {
         "name": "Apple",
-        "rev": 0,
+        "rev": 8340,
         "cost": 0,
-        "cups": 0,
+        "cups": 139,
         "roi": "N/A"
       },
       {
         "name": "Coconut",
-        "rev": 0,
+        "rev": 11160,
         "cost": 0,
-        "cups": 0,
+        "cups": 186,
         "roi": "N/A"
       },
       {
@@ -5985,16 +5985,16 @@
       },
       {
         "name": "Guava",
-        "rev": 0,
+        "rev": 14820,
         "cost": 0,
-        "cups": 0,
+        "cups": 247,
         "roi": "N/A"
       },
       {
         "name": "Pineapple",
-        "rev": 0,
+        "rev": 1800,
         "cost": 0,
-        "cups": 0,
+        "cups": 30,
         "roi": "N/A"
       },
       {
@@ -6020,19 +6020,19 @@
       }
     ],
     "b1": {
-      "rev": 5635,
+      "rev": 110471,
       "rental": 0,
       "opex": 0,
-      "daily_exp": 0,
+      "daily_exp": 2307,
       "opex_list": [],
       "cogs": 0,
-      "net": 5635,
+      "net": 108164,
       "loss_carry_forward": 0,
       "closing_loss": 0,
       "loss_offset": 0,
-      "adjusted_net": 5635,
-      "share": 3944.4999999999995,
-      "ming_share": 1690.5000000000002,
+      "adjusted_net": 108164,
+      "share": 75714.79999999999,
+      "ming_share": 32449.200000000004,
       "share_pct": 0.7
     },
     "b2": {
@@ -6085,7 +6085,7 @@
     }
   },
   "all": {
-    "total_rev": 3534850.92,
+    "total_rev": 3639686.92,
     "total_cogs": 1551622,
     "fruit_summary": {
       "Packaging": 234762,
@@ -9100,38 +9100,38 @@
     "fruit_performance": [
       {
         "name": "Orange",
-        "rev": 1079060,
+        "rev": 1095040,
         "cost": 461052,
-        "cups": 17412,
-        "roi": "134.0%"
+        "cups": 17677,
+        "roi": "137.5%"
       },
       {
         "name": "Watermelon",
-        "rev": 877675,
+        "rev": 903925,
         "cost": 299138,
-        "cups": 17348,
-        "roi": "193.4%"
+        "cups": 17873,
+        "roi": "202.2%"
       },
       {
         "name": "Mango",
-        "rev": 168210,
+        "rev": 174780,
         "cost": 120086,
-        "cups": 1869,
-        "roi": "40.1%"
+        "cups": 1942,
+        "roi": "45.5%"
       },
       {
         "name": "Apple",
-        "rev": 151980,
+        "rev": 160320,
         "cost": 63515,
-        "cups": 2533,
-        "roi": "139.3%"
+        "cups": 2672,
+        "roi": "152.4%"
       },
       {
         "name": "Coconut",
-        "rev": 373920,
+        "rev": 385080,
         "cost": 118526,
-        "cups": 6232,
-        "roi": "215.5%"
+        "cups": 6418,
+        "roi": "224.9%"
       },
       {
         "name": "Young Coco",
@@ -9142,17 +9142,17 @@
       },
       {
         "name": "Guava",
-        "rev": 63780,
+        "rev": 78600,
         "cost": 67535,
-        "cups": 1063,
-        "roi": "-5.6%"
+        "cups": 1310,
+        "roi": "16.4%"
       },
       {
         "name": "Pineapple",
-        "rev": 50880,
+        "rev": 52680,
         "cost": 43425,
-        "cups": 848,
-        "roi": "17.2%"
+        "cups": 878,
+        "roi": "21.3%"
       },
       {
         "name": "Mangosteen",
@@ -9177,10 +9177,10 @@
       }
     ],
     "b1": {
-      "rev": 2260207.92,
+      "rev": 2365043.92,
       "opex": 415891.3,
       "rental": 375324,
-      "daily_exp": 35135,
+      "daily_exp": 37442,
       "opex_list": [
         {
           "date": "08/01/2026",
@@ -10066,14 +10066,14 @@
         }
       ],
       "cogs": 966496.9888989622,
-      "net": 467360.63110103784,
-      "share": 290268.2335890204,
-      "ming_share": 177092.39751201737,
+      "net": 569889.6311010378,
+      "share": 362038.5335890204,
+      "ming_share": 207851.09751201738,
       "loss_carry_forward": 0,
-      "adjusted_net": 467360.6311010378,
+      "adjusted_net": 569889.6311010378,
       "closing_loss": 0,
       "loss_offset": 16230.291128732293,
-      "share_pct": 0.6210797706798454
+      "share_pct": 0.6352783308051331
     },
     "b2": {
       "rev": 680044,
