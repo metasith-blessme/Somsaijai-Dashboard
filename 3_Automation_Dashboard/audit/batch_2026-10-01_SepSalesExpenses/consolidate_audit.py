@@ -115,6 +115,14 @@ print(f"Revenue Share: B1={b1_totals['total']/combined_rev*100:.2f}%, B2={b2_tot
 # 3. Fruit and Item Usage
 def get_fruit_category(name):
     n = name.lower()
+    # Check the longer names first: "pineapple" contains "apple" and "mangosteen" contains "mango".
+    # The plain substring order booked B4 Sep pineapple as Apple and mangosteen as Mango (fixed 20/10/2026).
+    if "pineapple" in n or "สับปะรด" in n or "[pineapple]" in n:
+        return "Pineapple"
+    if "mangosteen" in n or "มังคุด" in n:
+        return "Mangosteen"
+    if "volcano water" in n:
+        return "Watermelon"
     if "orange" in n or "ส้ม" in n or "[or]" in n or "or_100" in n:
         return "Orange"
     elif "watermelon" in n or "แตงโม" in n or "[wm]" in n:

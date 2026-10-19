@@ -9,8 +9,9 @@ const KEYWORDS = [
   { bucket: 'COGS', cat: 'Sticky Rice', test: /ข้าวเหนียว|sticky\s*rice/i },
   { bucket: 'COGS', cat: 'Orange', test: /ส้ม|orange/i },
   { bucket: 'COGS', cat: 'Watermelon', test: /แตงโม|watermelon/i },
-  { bucket: 'COGS', cat: 'Mango', test: /มะม่วง|mango/i },
-  { bucket: 'COGS', cat: 'Apple', test: /แอปเปิ้ล|แอปเปิล|apple/i },
+  // "mangosteen" is not mango and "pineapple" is not apple (both were misread by plain substring matches).
+  { bucket: 'COGS', cat: 'Mango', test: /มะม่วง|mango(?!steen)/i },
+  { bucket: 'COGS', cat: 'Apple', test: /แอปเปิ้ล|แอปเปิล|(?<!pine)apple/i },
   { bucket: 'COGS', cat: 'Coconut', test: /มะพร้าว(?!อ่อน)|coconut/i },
   { bucket: 'COGS', cat: 'Guava', test: /ฝรั่ง|guava/i },
   { bucket: 'COGS', cat: 'Pineapple', test: /สับปะรด|pineapple/i },
@@ -207,4 +208,4 @@ function buildChangePlan(review) {
   return { salesLists, expenseList, held };
 }
 
-module.exports = { buildChangePlan, menuCode };
+module.exports = { buildChangePlan, menuCode, KEYWORDS };
