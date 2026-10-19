@@ -285,7 +285,7 @@ async function commitDashboard(request, config, dir, batchId) {
   const commit = await request(`/repos/${owner}/${repo}/git/commits/${baseSha}`);
   const files = [
     'SomSaiJai_Dashboard_B1_2026.xlsx', 'SomSaiJai_Dashboard_B2_2026.xlsx', 'SomSaiJai_Dashboard_B3_2026.xlsx',
-    'data.json', 'reports_data.json', 'SomSaiJai_Dashboard.html',
+    'SomSaiJai_Dashboard_B4_2026.xlsx', 'data.json', 'reports_data.json', 'SomSaiJai_Dashboard.html',
   ];
   const tree = [];
   for (const name of files) {

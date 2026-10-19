@@ -14,7 +14,6 @@ const QA_RETRY_TOKENS = 2000;
 const QA_REPLY_MAX = 1000;
 const QA_TIMEOUT_MS = 15000;
 const SALES_FETCH_MS = 8000;
-const SALES_DAYS = 14;
 const QUESTION_MAX = 1500;
 
 const QA_ERROR = 'Could not answer. Try again.';
@@ -29,7 +28,7 @@ const PRODUCT_FACTS = [
 ];
 
 const STAFF_RULES = [
-  'You are a helpful assistant for SomSaiJai, a cold-press juice shop with branches B1, B2, and B3.',
+  'You are a helpful assistant for SomSaiJai, a cold-press juice shop with branches B1, B2, B3, and B4.',
   'The person you are talking to is staff, not the owner. Staff are often from Myanmar and use simple English.',
   'Reply in the language they wrote in. If you are not sure, use short simple English.',
   'You may explain how to send the daily report photos and do simple translations.',
@@ -42,15 +41,17 @@ const STAFF_RULES = [
 ].join('\n');
 
 const OWNER_RULES = [
-  'You are a helpful assistant for SomSaiJai, a cold-press juice shop with branches B1, B2, and B3.',
+  'You are a helpful assistant for SomSaiJai, a cold-press juice shop with branches B1, B2, B3, and B4.',
   'The person you are talking to is the owner, Parn. They may write in Thai or English.',
   'Reply in the language they wrote in. If you are not sure, use short simple English.',
   'You may explain how to send report photos.',
   `Photo rule: ${ALBUM_HELP}`,
   ...PRODUCT_FACTS,
-  'A sales note may be included in the user message. It lists only date, revenue, cash, and scan in THB for recent days.',
-  'Use only figures that appear in that note. If a day or branch is missing, or the note says sales are unavailable, say you do not have that figure.',
-  'Never invent numbers. Do not state costs, wages, rent, or supplier prices. Those are not in the note.',
+  'A SALES NOTE may be included in the user message. It comes from the live dashboard data and covers every published day for every branch: month totals, all-branch month totals, cups by fruit, booked expenses, and daily revenue/cash/scan/expense.',
+  'Answer sales, revenue, cash, scan, cups, fruit, and expense questions from that note. Copy figures exactly; you may add them up when asked (for example several branches or days).',
+  'If a day, month, branch, or figure is not in the note, or the note says sales are unavailable, say you do not have that figure yet. Do not guess.',
+  'Never invent numbers. Wages, rent, and supplier prices: only state them if they appear in the note.',
+  'Give the figure first, in THB with thousands separators, for example "B3 Oct 2026: ฿97,420 (15 days)".',
   'Answer in 1-3 short sentences unless asked for more.',
 ].join('\n');
 
@@ -269,44 +270,128 @@ function figure(value) {
   return 'unknown';
 }
 
+const MONTH_NAMES = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+const FRUITS = [
+  ['or', 'orange'], ['or_100', 'orange premium/no-ice (inside orange)'], ['wm', 'watermelon'], ['mg', 'mango'],
+  ['co', 'coconut'], ['ap', 'apple'], ['yco', 'young coconut'], ['guava', 'guava'], ['pineapple', 'pineapple'],
+  ['mangosteen', 'mangosteen'], ['mangosteen_lychee', 'mangosteen & lychee'], ['rambutan', 'rambutan'],
+];
+const SALES_NOTE_MAX = 60000;
+
+function num(value) {
+  return typeof value === 'number' && Number.isFinite(value) ? value : 0;
+}
+
+function monthKey(tag) {
+  const m = String(tag || '').match(/^([A-Z][a-z]{2})(\d{2})$/);
+  if (!m || MONTH_NAMES.indexOf(m[1]) < 0) return null;
+  return (2000 + Number(m[2])) * 100 + MONTH_NAMES.indexOf(m[1]) + 1;
+}
+
+function monthLabel(tag) {
+  const k = monthKey(tag);
+  return k ? `${MONTH_NAMES[k % 100 - 1]} ${Math.floor(k / 100)}` : String(tag);
+}
+
+/**
+ * Owner sales note built from the same data.json the dashboard renders.
+ * Every published month for every branch: month totals, cups by fruit, booked expenses,
+ * and one compact line of daily figures per branch-month. Oldest daily lines are
+ * dropped first if the note would be too long; month totals are always kept.
+ */
 function compactSales(data, options = {}) {
-  const days = Number.isFinite(options.days) && options.days > 0 ? Math.floor(options.days) : SALES_DAYS;
-  const end = bangkokStamp(options.now);
-  const start = end - (days - 1) * 86400000;
-  const branches = data && data.branches && typeof data.branches === 'object' ? data.branches : {};
-  const lines = [
-    `Recent sales, last ${days} days, THB. One line per branch per day: date, revenue, cash, scan. Missing days are not listed.`,
-  ];
-  for (const branch of ['B1', 'B2', 'B3']) {
-    const sales = branches[branch] && branches[branch].sales;
-    const rows = [];
-    if (sales && typeof sales === 'object') {
-      for (const month of Object.values(sales)) {
-        if (!Array.isArray(month)) continue;
-        for (const row of month) {
-          if (!row || typeof row !== 'object') continue;
-          const stamp = saleStamp(row.d);
-          if (stamp == null || stamp < start || stamp > end) continue;
-          rows.push({
-            stamp,
-            date: formatStamp(stamp),
-            rev: figure(row.rev),
-            cash: figure(row.cash),
-            scan: figure(row.scan),
-          });
-        }
+  const todayStamp = bangkokStamp(options.now);
+  const today = formatStamp(todayStamp);
+  const thisMonth = (() => { const p = bangkokParts(options.now); return `${MONTH_NAMES[p.month - 1]}${String(p.year).slice(2)}`; })();
+  const branchesObj = data && data.branches && typeof data.branches === 'object' ? data.branches : {};
+  const branches = Object.keys(branchesObj).filter(b => /^B\d+$/.test(b)).sort();
+  const months = new Set();
+  const groups = [];
+  for (const branch of branches) {
+    const sales = branchesObj[branch] && branchesObj[branch].sales;
+    if (!sales || typeof sales !== 'object') continue;
+    for (const [tag, list] of Object.entries(sales)) {
+      if (!Array.isArray(list) || monthKey(tag) == null) continue;
+      const rows = [];
+      for (const row of list) {
+        if (!row || typeof row !== 'object') continue;
+        const stamp = saleStamp(row.d);
+        if (stamp == null || stamp > todayStamp) continue; // a future date is a data error, not a sale
+        rows.push({ stamp, row });
       }
-    }
-    rows.sort((a, b) => a.stamp - b.stamp);
-    if (!rows.length) {
-      lines.push(`${branch}: no sales in this window`);
-      continue;
-    }
-    for (const row of rows) {
-      lines.push(`${branch} ${row.date} revenue ${row.rev} cash ${row.cash} scan ${row.scan}`);
+      if (!rows.length) continue;
+      rows.sort((a, b) => a.stamp - b.stamp);
+      months.add(tag);
+      groups.push({ branch, tag, key: monthKey(tag), rows });
     }
   }
-  return lines.join('\n').slice(0, 4000);
+  groups.sort((a, b) => a.key - b.key || a.branch.localeCompare(b.branch));
+  const monthList = [...months].sort((a, b) => monthKey(a) - monthKey(b));
+
+  const head = [
+    'SALES NOTE. Source: the live SomSaiJai dashboard data (data.json), all published days. THB.',
+    `Today in Bangkok: ${today}. "This month" = ${monthLabel(thisMonth)}.`,
+    `Branches: ${branches.join(', ')}. A day that is not listed has no published sales.`,
+    'Revenue = gross sales before shift expenses (ice etc.). Cash and scan (QR/transfer) are the payment split; in some older months they do not add up to revenue, so always quote revenue for totals. Shift exp = expenses paid from the till that day.',
+  ];
+  const totals = ['MONTH TOTALS (branch month: days, date range, revenue, cash, scan, shift exp):'];
+  const cups = ['CUPS BY FRUIT (branch month). Only mangosteen also has booked revenue; other fruit revenue is not recorded:'];
+  const daily = [];
+  for (const g of groups) {
+    const sum = k => Math.round(g.rows.reduce((t, x) => t + num(x.row[k]), 0) * 100) / 100;
+    const first = formatStamp(g.rows[0].stamp).slice(0, 5), last = formatStamp(g.rows[g.rows.length - 1].stamp).slice(0, 5);
+    totals.push(`${g.branch} ${monthLabel(g.tag)}: ${g.rows.length} days ${first}-${last}, revenue ${sum('rev')}, cash ${sum('cash')}, scan ${sum('scan')}, shift exp ${sum('exp')}`);
+    const parts = [];
+    for (const [k, name] of FRUITS) {
+      const v = sum(k);
+      if (!v) continue;
+      let text = `${name} ${v}`;
+      if (k === 'mangosteen' && g.rows.some(x => typeof x.row.mangosteen_rev === 'number')) text += ` (revenue ${sum('mangosteen_rev')})`;
+      parts.push(text);
+    }
+    cups.push(`${g.branch} ${monthLabel(g.tag)}: total cups ${sum('tot')}${parts.length ? '; ' + parts.join(', ') : ''}`);
+    daily.push({ key: g.key, text: `${g.branch} ${monthLabel(g.tag)} daily (day revenue/cash/scan/exp): ` + g.rows.map(x => {
+      const dd = formatStamp(x.stamp).slice(0, 2);
+      return `${dd} ${figure(x.row.rev)}/${figure(x.row.cash)}/${figure(x.row.scan)}/${num(x.row.exp)}`;
+    }).join('; ') });
+  }
+  const all = ['ALL BRANCHES BY MONTH (revenue):'];
+  for (const tag of monthList) {
+    const parts = groups.filter(g => g.tag === tag).map(g => [g.branch, Math.round(g.rows.reduce((t, x) => t + num(x.row.rev), 0) * 100) / 100]);
+    all.push(`${monthLabel(tag)}: total ${Math.round(parts.reduce((t, p) => t + p[1], 0) * 100) / 100} (${parts.map(p => `${p[0]} ${p[1]}`).join(', ')})`);
+  }
+  const exp = ['BOOKED EXPENSES from the expense sheets (branch month: bucket total, then categories):'];
+  const ex = Array.isArray(data && data.expenses) ? data.expenses : [];
+  const eg = new Map();
+  for (const e of ex) {
+    if (!e || !num(e.amt) || monthKey(e.month) == null) continue;
+    const key = `${e.branch || '?'}|${e.month}`;
+    if (!eg.has(key)) eg.set(key, { branch: e.branch || '?', tag: e.month, buckets: new Map() });
+    const b = eg.get(key).buckets;
+    const bucket = e.bucket || 'Other';
+    if (!b.has(bucket)) b.set(bucket, { total: 0, cats: new Map() });
+    const t = b.get(bucket); t.total += num(e.amt);
+    const cat = e.cat || 'Other'; t.cats.set(cat, (t.cats.get(cat) || 0) + num(e.amt));
+  }
+  const round = v => Math.round(v * 100) / 100;
+  for (const g of [...eg.values()].sort((a, b) => monthKey(a.tag) - monthKey(b.tag) || a.branch.localeCompare(b.branch))) {
+    const parts = [...g.buckets.entries()].map(([name, t]) => `${name} ${round(t.total)} (${[...t.cats.entries()].map(([c, v]) => `${c} ${round(v)}`).join(', ')})`);
+    exp.push(`${g.branch} ${monthLabel(g.tag)}: ${parts.join('; ')}`);
+  }
+  const fixed = [head, all, totals, cups, exp].map(x => x.join('\n')).join('\n\n');
+  // keep the newest daily lines; drop the oldest months first if too long
+  daily.sort((a, b) => b.key - a.key);
+  const kept = [];
+  let size = fixed.length + 40;
+  let dropped = 0;
+  for (const d of daily) {
+    if (size + d.text.length + 1 > (options.maxChars || SALES_NOTE_MAX)) { dropped++; continue; }
+    kept.push(d); size += d.text.length + 1;
+  }
+  kept.sort((a, b) => a.key - b.key);
+  const tail = ['DAILY FIGURES:', ...kept.map(d => d.text)];
+  if (dropped) tail.push(`(${dropped} older branch-months have month totals above but no daily lines here.)`);
+  return `${fixed}\n\n${tail.join('\n')}`;
 }
 
 async function fetchSalesContext({ publicUrl, fetchImpl, now, timeoutMs }) {
@@ -333,7 +418,7 @@ async function fetchSalesContext({ publicUrl, fetchImpl, now, timeoutMs }) {
     ]);
     if (!res || !res.ok) return null;
     const data = await res.json();
-    return compactSales(data, { now, days: SALES_DAYS });
+    return compactSales(data, { now });
   } finally {
     clearTimeout(timer);
   }

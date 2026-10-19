@@ -76,7 +76,9 @@ function extractSheetData(filePath, sheetName) {
         uap: Number(r[col['Used Apple']]) || 0,
         uguava: Number(r[col['Used Guava']]) || 0,
         upine: Number(r[col['Used Pineapple']]) || 0,
-        uyco: Number(r[col['Used Young Coco']]) || 0
+        uyco: Number(r[col['Used Young Coco']]) || 0,
+        // Only sheets with a "Mangosteen (฿)" column (B4 from Sep26) carry this; other rows are unchanged.
+        ...(col['Mangosteen (฿)'] !== undefined ? { mangosteen_rev: Number(r[col['Mangosteen (฿)']]) || 0 } : {})
       });
     }
     return rows;

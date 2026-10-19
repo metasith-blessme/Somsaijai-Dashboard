@@ -80,17 +80,46 @@ test('a failed or sensitive MiniMax payload is not an answer', () => {
   }));
 });
 
-test('sales context is the last 14 days of date, revenue, cash, and scan', () => {
-  const note = compactSales(SALES, { now: NOW, days: 14 });
-  assert.match(note, /B1 04\/10\/2026 revenue 5789 cash 4000 scan 1789/);
-  assert.match(note, /B1 17\/10\/2026 revenue 2200 cash 1200 scan 1000/);
-  assert.match(note, /B2 16\/10\/2026 revenue 800 cash 500 scan 300/);
-  assert.match(note, /B3: no sales in this window/);
-  assert.equal(note.includes('111'), false);
-  assert.equal(note.includes('99999'), false);
-  assert.equal(note.includes('4242'), false);
+test('sales context covers every published day for every branch from data.json', () => {
+  const note = compactSales(SALES, { now: NOW });
+  assert.match(note, /Branches: B1, B2, B3, B4\./);
+  assert.match(note, /B1 Oct 2026: 3 days 03\/10-17\/10, revenue 8100, cash 5211, scan 2790, shift exp 0/);
+  assert.match(note, /B1 Oct 2026 daily \(day revenue\/cash\/scan\/exp\): 03 111\/11\/1\/0; 04 5789\/4000\/1789\/0; 17 2200\/1200\/1000\/0/);
+  assert.match(note, /B2 Oct 2026 daily .*16 800\/500\/300\/0/);
+  assert.match(note, /B4 Oct 2026: 1 days 16\/10-16\/10, revenue 4242/);
+  assert.match(note, /Oct 2026: total 13142 \(B1 8100, B2 800, B4 4242\)/);
+  assert.equal(/B3 Oct 2026/.test(note), false);
+  assert.equal(note.includes('99999'), false, 'a date after today is not a sale');
   assert.equal(note.includes('SUPPLIER-SECRET-PRICE'), false);
   assert.equal(note.includes('7777'), false);
+});
+
+test('sales context keeps old months, mangosteen cups and revenue, and expense totals without descriptions', () => {
+  const data = {
+    branches: {
+      B1: { sales: { Sep26: [{ d: '12/09/2026', rev: 4000, cash: 3000, scan: 1000, exp: 60, or: 10, tot: 10 }] } },
+      B4: { sales: { Oct26: [{ d: '01/10/2026', rev: 3780, cash: 1947, scan: 1833, exp: 60, mangosteen: 10, mangosteen_rev: 1290, tot: 46 }] } },
+    },
+    expenses: [
+      { month: 'Sep26', branch: 'B1', bucket: 'OPEX', cat: 'Rental', desc: 'SECRET-DESC', amt: 35000 },
+      { month: 'Sep26', branch: 'B1', bucket: 'COGS', cat: 'Orange', desc: 'SECRET-DESC', amt: 1200.5 },
+    ],
+  };
+  const note = compactSales(data, { now: NOW });
+  assert.match(note, /B1 Sep 2026: 1 days 12\/09-12\/09, revenue 4000/);
+  assert.match(note, /B4 Oct 2026: total cups 46; mangosteen 10 \(revenue 1290\)/);
+  assert.match(note, /B1 Sep 2026: OPEX 35000 \(Rental 35000\); COGS 1200.5 \(Orange 1200.5\)/);
+  assert.equal(note.includes('SECRET-DESC'), false);
+  const short = compactSales(data, { now: NOW, maxChars: 1300 });
+  assert.match(short, /B1 Sep 2026: 1 days/, 'month totals are always kept');
+  assert.match(short, /older branch-months have month totals above but no daily lines/);
+});
+
+test('B4 sheets are read as B4, including the B-5 label staff use', () => {
+  const { branchField } = require('../lib/normalize');
+  for (const raw of ['B-4', 'B-04', 'B4', 'B - 4', 'สาขา 4', 'B-5']) assert.equal(branchField(raw).value, 'B4', raw);
+  assert.equal(branchField('B-6').value, null);
+  assert.equal(branchField('B-3').value, 'B3');
 });
 
 test('staff messages drop sales context even if a caller passes it', () => {
@@ -233,7 +262,7 @@ test('the owner gets sales context and the reply drops thinking', async () => {
   assert.match(body.messages[0].content, /Answer in 1-3 short sentences unless asked for more/);
   assert.match(STAFF_RULES, /Answer in 1-3 short sentences unless asked for more/);
   assert.match(OWNER_RULES, /Answer in 1-3 short sentences unless asked for more/);
-  assert.match(body.messages[1].content, /revenue 5789/);
+  assert.match(body.messages[1].content, /04 5789\/4000\/1789/);
   assert.equal(JSON.stringify(body).includes('SUPPLIER-SECRET-PRICE'), false);
   assert.equal(JSON.stringify(body).includes('7777'), false);
   assert.equal(replies.length, 1);
@@ -252,7 +281,8 @@ test('staff and owner prompts refuse guessed menu and shop facts', async () => {
     assert.match(rules, example);
     assert.match(rules, /food safety, storage, polite customer phrases, and English help/);
   }
-  assert.match(OWNER_RULES, /Use only figures that appear in that note/);
+  assert.match(OWNER_RULES, /Copy figures exactly/);
+  assert.match(OWNER_RULES, /say you do not have that figure yet\. Do not guess\./);
   assert.match(STAFF_RULES, /Never state sales numbers/);
 
   const staff = harness();
@@ -260,15 +290,15 @@ test('staff and owner prompts refuse guessed menu and shop facts', async () => {
   const staffPrompt = JSON.parse(minimaxCalls(staff.calls)[0].options.body).messages[0].content;
   assert.match(staffPrompt, asked);
   assert.match(staffPrompt, example);
-  assert.equal(staffPrompt.includes('Recent sales'), false);
+  assert.equal(JSON.stringify(minimaxCalls(staff.calls)[0].options.body).includes('SALES NOTE'), false);
 
   const owner = harness();
   await post(owner.ctx, textEvent('สูตรส้มมีน้ำตาลไหม', 'U-parn', { webhookEventId: 'menu-owner' }));
   const ownerBody = JSON.parse(minimaxCalls(owner.calls)[0].options.body);
   assert.match(ownerBody.messages[0].content, asked);
   assert.match(ownerBody.messages[0].content, example);
-  assert.match(ownerBody.messages[0].content, /Use only figures that appear in that note/);
-  assert.match(ownerBody.messages[1].content, /revenue 5789/);
+  assert.match(ownerBody.messages[0].content, /Copy figures exactly/);
+  assert.match(ownerBody.messages[1].content, /04 5789\/4000\/1789/);
 });
 
 test('staff and Ming get no sales data and no data.json fetch', async () => {
@@ -281,7 +311,7 @@ test('staff and Ming get no sales data and no data.json fetch', async () => {
     const body = JSON.parse(minimaxCalls(calls)[0].options.body);
     assert.match(body.messages[0].content, /Never state sales numbers/);
     assert.equal(JSON.stringify(body).includes('5789'), false);
-    assert.equal(JSON.stringify(body).includes('Recent sales'), false);
+    assert.equal(JSON.stringify(body).includes('SALES NOTE'), false);
     assert.equal(JSON.stringify(body).includes('SUPPLIER-SECRET-PRICE'), false);
     assert.match(replies[0].messages[0].text, /one by one/);
   }

@@ -5615,10 +5615,10 @@
       },
       {
         "name": "Mango",
-        "rev": 37350,
+        "rev": 34290,
         "cost": 21584,
-        "cups": 415,
-        "roi": "73.0%"
+        "cups": 381,
+        "roi": "58.9%"
       },
       {
         "name": "Apple",
@@ -5657,9 +5657,9 @@
       },
       {
         "name": "Mangosteen",
-        "rev": 0,
+        "rev": 4386,
         "cost": null,
-        "cups": 0,
+        "cups": 34,
         "roi": "N/A"
       },
       {
@@ -5999,9 +5999,9 @@
       },
       {
         "name": "Mangosteen",
-        "rev": 0,
+        "rev": 9675,
         "cost": null,
-        "cups": 0,
+        "cups": 75,
         "roi": "N/A"
       },
       {
@@ -9114,10 +9114,10 @@
       },
       {
         "name": "Mango",
-        "rev": 194310,
+        "rev": 191250,
         "cost": 120086,
-        "cups": 2159,
-        "roi": "61.8%"
+        "cups": 2125,
+        "roi": "59.3%"
       },
       {
         "name": "Apple",
@@ -9156,9 +9156,9 @@
       },
       {
         "name": "Mangosteen",
-        "rev": 0,
+        "rev": 14061,
         "cost": null,
-        "cups": 0,
+        "cups": 109,
         "roi": "N/A"
       },
       {

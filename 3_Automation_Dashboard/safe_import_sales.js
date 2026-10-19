@@ -39,6 +39,7 @@ const OPTIONAL_FIELDS = {
   guava: { header: 'Guava', integer: true },
   pineapple: { header: 'Pineapple', integer: true },
   mangosteen: { header: 'Mangosteen', integer: true },
+  mangosteen_rev: { header: 'Mangosteen (฿)', integer: false },
   mangosteen_lychee: { header: 'Mangosteen & Lychee', integer: true },
   rambutan: { header: 'Rambutan', integer: true },
   tot: { header: 'Total Cups', integer: true },

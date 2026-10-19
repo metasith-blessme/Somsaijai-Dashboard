@@ -7,7 +7,7 @@ Rules:
 - A zero is state "observed" and value 0 only when a zero is actually written.
 - Do not compute one number from another. Never set scan = total - cash.
 - Do not guess the branch from a filename or a folder. Read it from the page. If it is not on the page, branch_raw is null.
-- On a Daily Shop Report the branch is often written in the Shift box, as B-3, B - 3, B.3, or B 1. Copy that text into shift_raw and also into branch_raw. Do not leave branch_raw null when Shift contains a branch code.
+- On a Daily Shop Report the branch is often written in the Shift box, as B-3, B - 3, B.3, B 1, B-4, or B-04. Copy that text into shift_raw and also into branch_raw. Do not leave branch_raw null when Shift contains a branch code.
 - Keep date_raw exactly as written (25.8.2026 or 25/08/2569). Do not invent a year.
 - Copy every menu row, including blanks and handwritten additions. qty null when the cell is blank.
 - Set uncertain true when a digit could be another digit. Do not pick the digit that makes the total balance.

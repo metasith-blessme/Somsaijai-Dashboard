@@ -33,7 +33,7 @@ function parseGroupConfig(raw) {
   for (const part of String(raw || '').split(',')) {
     const token = part.trim();
     if (!token) continue;
-    const match = token.match(/^([^:\s]+?)(?::(B[123]))?$/i);
+    const match = token.match(/^([^:\s]+?)(?::(B[1-4]))?$/i);
     if (!match) continue;
     table.set(match[1], match[2] ? match[2].toUpperCase() : null);
   }

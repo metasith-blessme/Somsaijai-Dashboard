@@ -6,14 +6,16 @@ const { redactText } = require('./redact');
 const { formTemplate } = require('./forms');
 
 const PROMPT_VERSION = 'line-bot-ocr-3';
-const OPENED = { B1: '2026-01-01', B2: '2026-04-18', B3: '2026-07-11' };
+const OPENED = { B1: '2026-01-01', B2: '2026-04-18', B3: '2026-07-11', B4: '2026-09-19' };
 
 function branchField(raw) {
   const text = raw == null ? '' : String(raw).trim();
   if (!text) return { raw_text: null, value: null, state: 'missing' };
-  const direct = text.toUpperCase().match(/\bB[\s.\-]*([123])\b/);
+  const direct = text.toUpperCase().match(/\bB[\s.\-]*0?([1234])\b/);
   if (direct) return { raw_text: text, value: 'B' + direct[1], state: 'observed' };
-  const thai = text.match(/สาขา\s*([123])/);
+  // B4 staff write "B-5" on their Daily Sales Record (Sep and Oct 2026). Parn confirmed these are B4.
+  if (/\bB[\s.\-]*0?5\b/.test(text.toUpperCase())) return { raw_text: text, value: 'B4', state: 'observed', note: 'written B-5; B4 per Parn' };
+  const thai = text.match(/สาขา\s*([1234])/);
   if (thai) return { raw_text: text, value: 'B' + thai[1], state: 'observed' };
   if (/platinum\s*pop|แพลตตินัม|แพลทินัม/i.test(text)) {
     return { raw_text: text, value: 'B3', state: 'observed' };
