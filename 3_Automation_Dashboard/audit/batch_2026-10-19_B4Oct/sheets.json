@@ -1,0 +1,1087 @@
+{
+ "note": "B4 Daily Sales Record, Oct 2026, transcribed from Parn's 18 photos (19/10/2026). items: [name, price, cash_qty, scan_qty]. w_* = written on sheet (null = blank).",
+ "days": {
+  "01": {
+   "src": "01M59J90GR140C7NWESP7HBDJE.jpg",
+   "branch_raw": "B-5",
+   "staff": "Chan, Phyo",
+   "w_cash": 1947,
+   "w_scan": 1833,
+   "w_grand": 3780,
+   "ice": 60,
+   "items": [
+    [
+     "Orange",
+     80,
+     4,
+     4
+    ],
+    [
+     "Watermelon",
+     50,
+     8,
+     5
+    ],
+    [
+     "Apple",
+     60,
+     1,
+     1
+    ],
+    [
+     "Mango",
+     90,
+     2,
+     2
+    ],
+    [
+     "Pineapple",
+     60,
+     2,
+     0
+    ],
+    [
+     "Guava",
+     60,
+     3,
+     2
+    ],
+    [
+     "Mangosteen",
+     129,
+     3,
+     7
+    ],
+    [
+     "Pomegranate",
+     150,
+     2,
+     0
+    ]
+   ]
+  },
+  "02": {
+   "src": "01M59J91CQJHZ1H6GQWYSH15T0.jpg",
+   "branch_raw": null,
+   "w_cash": 2970,
+   "w_scan": 1299,
+   "w_grand": 4269,
+   "ice": 60,
+   "items": [
+    [
+     "Orange",
+     80,
+     7,
+     4
+    ],
+    [
+     "Watermelon",
+     50,
+     9,
+     3
+    ],
+    [
+     "Apple",
+     60,
+     1,
+     1
+    ],
+    [
+     "Mango",
+     90,
+     4,
+     2
+    ],
+    [
+     "Pineapple",
+     60,
+     1,
+     1
+    ],
+    [
+     "Guava",
+     60,
+     1,
+     2
+    ],
+    [
+     "Watermelon big",
+     109,
+     0,
+     1
+    ],
+    [
+     "Watermelon no ice",
+     70,
+     1,
+     0
+    ],
+    [
+     "Pomegranate",
+     150,
+     9,
+     2
+    ]
+   ]
+  },
+  "03": {
+   "src": "01M59J91CE83KN64KME60GJ66C.jpg",
+   "branch_raw": "B-5",
+   "w_cash": 2623,
+   "w_scan": 2503,
+   "w_grand": 5126,
+   "ice": 0,
+   "items": [
+    [
+     "Orange",
+     80,
+     5,
+     9
+    ],
+    [
+     "Watermelon",
+     50,
+     2,
+     3
+    ],
+    [
+     "Apple",
+     60,
+     2,
+     2
+    ],
+    [
+     "Mango",
+     90,
+     3,
+     1
+    ],
+    [
+     "Pineapple",
+     60,
+     3,
+     1
+    ],
+    [
+     "Guava",
+     60,
+     1,
+     1
+    ],
+    [
+     "Mangosteen",
+     129,
+     6,
+     4
+    ],
+    [
+     "Grape",
+     80,
+     2,
+     2
+    ],
+    [
+     "Watermelon big",
+     109,
+     1,
+     3
+    ],
+    [
+     "Pomegranate",
+     150,
+     3,
+     2
+    ]
+   ]
+  },
+  "04": {
+   "src": "01M59J9S2F8Z1WNM683T3F3ZER.jpg",
+   "branch_raw": "B-5",
+   "w_cash": 2691,
+   "w_scan": 2325,
+   "w_grand": 5016,
+   "ice": 60,
+   "items": [
+    [
+     "Orange",
+     80,
+     2,
+     5
+    ],
+    [
+     "Watermelon",
+     50,
+     4,
+     2
+    ],
+    [
+     "Apple",
+     60,
+     1,
+     2
+    ],
+    [
+     "Apple no ice",
+     120,
+     0,
+     1
+    ],
+    [
+     "Mango",
+     90,
+     2,
+     2
+    ],
+    [
+     "Pineapple",
+     60,
+     2,
+     1
+    ],
+    [
+     "Guava",
+     60,
+     1,
+     2
+    ],
+    [
+     "Mangosteen",
+     129,
+     7,
+     2
+    ],
+    [
+     "Grape",
+     80,
+     2,
+     2
+    ],
+    [
+     "Watermelon big",
+     109,
+     2,
+     3
+    ],
+    [
+     "Pomegranate",
+     150,
+     3,
+     2
+    ],
+    [
+     "Mangosteen no ice",
+     180,
+     0,
+     1
+    ]
+   ]
+  },
+  "05": {
+   "src": "01M59J91AM9M9BMFPWVR3PJFEJ.jpg",
+   "branch_raw": "B-5",
+   "w_cash": 1705,
+   "w_scan": 1136,
+   "w_grand": 2841,
+   "ice": 60,
+   "items": [
+    [
+     "Orange",
+     80,
+     1,
+     2
+    ],
+    [
+     "Watermelon",
+     50,
+     4,
+     1
+    ],
+    [
+     "Apple",
+     60,
+     0,
+     3
+    ],
+    [
+     "Mango",
+     90,
+     1,
+     1
+    ],
+    [
+     "Guava",
+     60,
+     1,
+     1
+    ],
+    [
+     "Mangosteen",
+     129,
+     4,
+     4
+    ],
+    [
+     "Grape",
+     80,
+     1,
+     1
+    ],
+    [
+     "Pomegranate",
+     150,
+     3,
+     0
+    ],
+    [
+     "Watermelon big",
+     109,
+     1,
+     0
+    ],
+    [
+     "Orange no ice",
+     120,
+     1,
+     0
+    ]
+   ]
+  },
+  "06": {
+   "src": "01M59J9K44G95R8NMDKVV135ZR.jpg",
+   "branch_raw": "B-5",
+   "w_cash": 869,
+   "w_scan": 439,
+   "w_grand": 1308,
+   "ice": 0,
+   "items": [
+    [
+     "Orange",
+     80,
+     0,
+     2
+    ],
+    [
+     "Watermelon",
+     50,
+     1,
+     0
+    ],
+    [
+     "Mango",
+     90,
+     3,
+     1
+    ],
+    [
+     "Guava",
+     60,
+     0,
+     1
+    ],
+    [
+     "Mangosteen",
+     129,
+     1,
+     1
+    ],
+    [
+     "Grape",
+     80,
+     1,
+     0
+    ],
+    [
+     "Pomegranate",
+     150,
+     1,
+     0
+    ],
+    [
+     "Mango no ice",
+     120,
+     1,
+     0
+    ],
+    [
+     "Watermelon no ice",
+     70,
+     1,
+     0
+    ]
+   ]
+  },
+  "07": {
+   "src": "01M59J9NN1659SB4KXXHTQHHYN.jpg",
+   "branch_raw": "B-04",
+   "staff": "Phyo",
+   "w_cash": 380,
+   "w_scan": 998,
+   "w_grand": 1378,
+   "ice": 60,
+   "items": [
+    [
+     "Orange",
+     80,
+     1,
+     3
+    ],
+    [
+     "Watermelon",
+     50,
+     3,
+     7
+    ],
+    [
+     "Mango",
+     90,
+     0,
+     1
+    ],
+    [
+     "Guava",
+     60,
+     0,
+     1
+    ],
+    [
+     "Mangosteen",
+     129,
+     0,
+     2
+    ],
+    [
+     "Pomegranate",
+     150,
+     1,
+     0
+    ]
+   ]
+  },
+  "08": {
+   "src": "01M59J91C84W60ZV60XAC5R6V3.jpg",
+   "branch_raw": "B-04",
+   "w_cash": 1089,
+   "w_scan": 877,
+   "w_grand": 1963,
+   "ice": 0,
+   "ice_note": "ice 60 written then crossed out",
+   "items": [
+    [
+     "Orange",
+     80,
+     1,
+     1
+    ],
+    [
+     "Watermelon",
+     50,
+     2,
+     0
+    ],
+    [
+     "Apple",
+     60,
+     4,
+     1
+    ],
+    [
+     "Mango",
+     90,
+     1,
+     0
+    ],
+    [
+     "Guava",
+     60,
+     1,
+     2
+    ],
+    [
+     "Mangosteen",
+     129,
+     1,
+     3
+    ],
+    [
+     "Pomegranate",
+     150,
+     1,
+     1
+    ],
+    [
+     "Grape",
+     80,
+     3,
+     1
+    ]
+   ],
+   "book_cash": 1086,
+   "parn_decision": "Parn 19/10/2026: book written grand total 1963 (not 1966); 3 taken off cash (1089 -> 1086), QR 877 unchanged"
+  },
+  "09": {
+   "src": "01M59J91D2ZT3CV2DWW9GJGHC0.jpg",
+   "branch_raw": "B-04",
+   "w_cash": 886,
+   "w_scan": 360,
+   "w_grand": null,
+   "ice": 0,
+   "items": [
+    [
+     "Watermelon",
+     50,
+     2,
+     2
+    ],
+    [
+     "Apple",
+     60,
+     1,
+     1
+    ],
+    [
+     "Guava",
+     60,
+     1,
+     2
+    ],
+    [
+     "Mangosteen",
+     129,
+     4,
+     0
+    ],
+    [
+     "Pomegranate",
+     150,
+     1,
+     0
+    ],
+    [
+     "Grape",
+     80,
+     0,
+     1
+    ]
+   ]
+  },
+  "10": {
+   "src": "01M59J9W15MTJBBSM3HW27H67W.jpg",
+   "branch_raw": "B-5",
+   "w_cash": 1713,
+   "w_scan": 849,
+   "w_grand": 2562,
+   "ice": 60,
+   "items": [
+    [
+     "Orange",
+     80,
+     2,
+     4
+    ],
+    [
+     "Watermelon",
+     50,
+     4,
+     1
+    ],
+    [
+     "Apple",
+     60,
+     4,
+     2
+    ],
+    [
+     "Grape",
+     80,
+     2,
+     1
+    ],
+    [
+     "Mangosteen",
+     129,
+     2,
+     1
+    ],
+    [
+     "Pomegranate",
+     150,
+     1,
+     1
+    ],
+    [
+     "Watermelon big",
+     109,
+     5,
+     0
+    ]
+   ]
+  },
+  "11": {
+   "src": "01M59J9JG37K1VYNWM1E9HNJYM.jpg",
+   "branch_raw": "B-4",
+   "w_cash": 1855,
+   "w_scan": 1316,
+   "w_grand": 3171,
+   "ice": 0,
+   "items": [
+    [
+     "Orange",
+     80,
+     3,
+     5
+    ],
+    [
+     "Watermelon",
+     50,
+     9,
+     3
+    ],
+    [
+     "Apple",
+     60,
+     2,
+     2
+    ],
+    [
+     "Mango",
+     90,
+     1,
+     0
+    ],
+    [
+     "Mangosteen",
+     129,
+     5,
+     3
+    ],
+    [
+     "Pomegranate",
+     150,
+     1,
+     1
+    ],
+    [
+     "Grape",
+     80,
+     2,
+     0
+    ],
+    [
+     "Watermelon big",
+     109,
+     0,
+     1
+    ]
+   ]
+  },
+  "12": {
+   "src": "01M59J9QSHRE98Q4HPM1DFAWG2.jpg",
+   "branch_raw": "B-4",
+   "w_cash": 409,
+   "w_scan": 900,
+   "w_grand": 1309,
+   "ice": 60,
+   "items": [
+    [
+     "Orange",
+     80,
+     1,
+     1
+    ],
+    [
+     "Watermelon",
+     50,
+     2,
+     2
+    ],
+    [
+     "Apple",
+     60,
+     1,
+     1
+    ],
+    [
+     "Mango",
+     90,
+     0,
+     2
+    ],
+    [
+     "Guava",
+     60,
+     1,
+     1
+    ],
+    [
+     "Pomegranate",
+     150,
+     0,
+     2
+    ],
+    [
+     "Watermelon big",
+     109,
+     1,
+     0
+    ],
+    [
+     "Orange no ice",
+     120,
+     0,
+     1
+    ]
+   ]
+  },
+  "13": {
+   "src": "01M59J9QWVD64QHPK4D8GBFXW2.jpg",
+   "branch_raw": "B-4",
+   "staff": "Myat",
+   "w_cash": 1269,
+   "w_scan": 518,
+   "w_grand": 1787,
+   "ice": 0,
+   "items": [
+    [
+     "Orange",
+     80,
+     2,
+     0
+    ],
+    [
+     "Watermelon",
+     50,
+     3,
+     0
+    ],
+    [
+     "Apple",
+     60,
+     1,
+     0
+    ],
+    [
+     "Mango",
+     90,
+     0,
+     2
+    ],
+    [
+     "Guava",
+     60,
+     2,
+     0
+    ],
+    [
+     "Mangosteen",
+     129,
+     0,
+     2
+    ],
+    [
+     "Pomegranate",
+     150,
+     3,
+     0
+    ],
+    [
+     "Grape",
+     80,
+     2,
+     1
+    ],
+    [
+     "Watermelon big",
+     109,
+     1,
+     0
+    ],
+    [
+     "Pear",
+     60,
+     1,
+     0
+    ]
+   ],
+   "price_assumed": "Pear 60 (no price written)"
+  },
+  "14": {
+   "src": "01M59J9R227FMK8RSXAKR7E6M5.jpg",
+   "branch_raw": "B-4",
+   "staff": "Myat, Phyo",
+   "w_cash": 1178,
+   "w_scan": 120,
+   "w_grand": 1298,
+   "ice": 60,
+   "sheet_note": "Total row: 1176-60-1118 (net-cash side note; 1176 is a slip for 1178)",
+   "items": [
+    [
+     "Orange",
+     80,
+     4,
+     0
+    ],
+    [
+     "Watermelon",
+     50,
+     5,
+     0
+    ],
+    [
+     "Apple",
+     60,
+     0,
+     2
+    ],
+    [
+     "Guava",
+     60,
+     2,
+     0
+    ],
+    [
+     "Mangosteen",
+     129,
+     2,
+     0
+    ],
+    [
+     "Pomegranate",
+     150,
+     1,
+     0
+    ],
+    [
+     "Grape",
+     80,
+     1,
+     0
+    ]
+   ]
+  },
+  "15": {
+   "src": "01M59J9R6FFZ1CKESJ3KWJVWNK.jpg",
+   "branch_raw": "B-4",
+   "w_cash": 1388,
+   "w_scan": 528,
+   "w_grand": 1916,
+   "ice": 0,
+   "items": [
+    [
+     "Orange",
+     80,
+     4,
+     0
+    ],
+    [
+     "Watermelon",
+     50,
+     3,
+     0
+    ],
+    [
+     "Apple",
+     60,
+     4,
+     1
+    ],
+    [
+     "Mango",
+     90,
+     1,
+     0
+    ],
+    [
+     "Guava",
+     60,
+     2,
+     1
+    ],
+    [
+     "Mangosteen",
+     129,
+     1,
+     2
+    ],
+    [
+     "Grape",
+     80,
+     1,
+     0
+    ],
+    [
+     "Pomegranate",
+     150,
+     1,
+     1
+    ],
+    [
+     "Watermelon big",
+     109,
+     1,
+     0
+    ]
+   ]
+  },
+  "16": {
+   "src": "01M59J9VECNZD8JCVTAZKJQ4QT.jpg",
+   "branch_raw": "B4",
+   "w_cash": 558,
+   "w_scan": 819,
+   "w_grand": 1377,
+   "ice": 60,
+   "after_ice": true,
+   "sheet_note": "Total row 618-60-558; under summary 1437-60-1377",
+   "items": [
+    [
+     "Orange",
+     80,
+     0,
+     1
+    ],
+    [
+     "Watermelon",
+     50,
+     3,
+     3
+    ],
+    [
+     "Apple",
+     60,
+     1,
+     0
+    ],
+    [
+     "Mango",
+     90,
+     0,
+     1
+    ],
+    [
+     "Mangosteen",
+     129,
+     2,
+     1
+    ],
+    [
+     "Pomegranate",
+     150,
+     1,
+     1
+    ],
+    [
+     "Mango no ice",
+     120,
+     0,
+     1
+    ],
+    [
+     "Guava no ice",
+     100,
+     0,
+     1
+    ]
+   ]
+  },
+  "17": {
+   "src": "01M59J9R6H13PYS5JQN9Y3C7KJ.jpg",
+   "branch_raw": "B-4",
+   "staff": "Phyo, Myat",
+   "w_cash": 439,
+   "w_scan": 468,
+   "w_grand": 907,
+   "ice": 0,
+   "items": [
+    [
+     "Orange",
+     80,
+     2,
+     1
+    ],
+    [
+     "Watermelon",
+     50,
+     1,
+     0
+    ],
+    [
+     "Apple",
+     60,
+     2,
+     0
+    ],
+    [
+     "Mangosteen",
+     129,
+     0,
+     1
+    ],
+    [
+     "Pomegranate",
+     150,
+     0,
+     1
+    ],
+    [
+     "Watermelon big",
+     109,
+     1,
+     1
+    ]
+   ]
+  },
+  "UNDATED": {
+   "src": "01M59J9RT4N01RJ9EQEA7BH6K3.jpg",
+   "branch_raw": null,
+   "w_cash": 1257,
+   "w_scan": 529,
+   "w_grand": 1786,
+   "ice": 60,
+   "sheet_note": "no date, no branch; amounts written per row; Pome written in Coconut row, Grape in Pineapple row, V.Watermelon (109) in Mangosteen&Lychee row",
+   "items": [
+    [
+     "Orange",
+     80,
+     0,
+     3
+    ],
+    [
+     "Apple",
+     60,
+     3,
+     2
+    ],
+    [
+     "Pomegranate",
+     150,
+     3,
+     0
+    ],
+    [
+     "Grape",
+     80,
+     3,
+     0
+    ],
+    [
+     "Guava",
+     60,
+     0,
+     1
+    ],
+    [
+     "Mangosteen",
+     129,
+     3,
+     0
+    ],
+    [
+     "Watermelon big",
+     109,
+     0,
+     1
+    ]
+   ],
+   "parn_decision": "Parn 19/10/2026: undated sheet is 18 Oct"
+  }
+ }
+}

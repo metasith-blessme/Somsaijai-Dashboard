@@ -62,7 +62,7 @@ if (!Array.isArray(cl.rows) || !cl.rows.length) fail('no rows');
 const seen = new Set();
 cl.rows.forEach((r, i) => {
   const at = `row ${i + 1} (${r.branch} ${r.date})`;
-  if (!['B1', 'B2', 'B3'].includes(r.branch)) fail(`${at}: bad branch`);
+  if (!['B1', 'B2', 'B3', 'B4'].includes(r.branch)) fail(`${at}: bad branch`);
   if (!/^\d{2}\/\d{2}\/\d{4}$/.test(r.date)) fail(`${at}: date must be DD/MM/YYYY`);
   const [d, m, y] = r.date.split('/').map(Number);
   const dt = new Date(Date.UTC(y, m - 1, d));

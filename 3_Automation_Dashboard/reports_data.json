@@ -5936,37 +5936,37 @@
     }
   },
   "Oct26": {
-    "total_rev": 271815,
+    "total_rev": 314915,
     "total_cogs": 0,
     "fruit_summary": {},
     "daily_cogs": [],
     "fruit_performance": [
       {
         "name": "Orange",
-        "rev": 30720,
+        "rev": 35960,
         "cost": 0,
-        "cups": 506,
+        "cups": 592,
         "roi": "N/A"
       },
       {
         "name": "Watermelon",
-        "rev": 53300,
+        "rev": 59400,
         "cost": 0,
-        "cups": 1066,
+        "cups": 1188,
         "roi": "N/A"
       },
       {
         "name": "Mango",
-        "rev": 22950,
+        "rev": 26100,
         "cost": 0,
-        "cups": 255,
+        "cups": 290,
         "roi": "N/A"
       },
       {
         "name": "Apple",
-        "rev": 20160,
+        "rev": 23160,
         "cost": 0,
-        "cups": 336,
+        "cups": 386,
         "roi": "N/A"
       },
       {
@@ -5985,16 +5985,16 @@
       },
       {
         "name": "Guava",
-        "rev": 24540,
+        "rev": 26580,
         "cost": 0,
-        "cups": 409,
+        "cups": 443,
         "roi": "N/A"
       },
       {
         "name": "Pineapple",
-        "rev": 3960,
+        "rev": 4620,
         "cost": 0,
-        "cups": 66,
+        "cups": 77,
         "roi": "N/A"
       },
       {
@@ -6068,24 +6068,24 @@
       "share_pct": 0.7
     },
     "b4": {
-      "rev": 0,
+      "rev": 43100,
       "rental": 0,
       "opex": 0,
-      "daily_exp": 0,
+      "daily_exp": 600,
       "opex_list": [],
       "cogs": 0,
-      "net": 0,
+      "net": 42500,
       "loss_carry_forward": 33790.08517121726,
-      "closing_loss": 33790.08517121726,
-      "loss_offset": 0,
-      "adjusted_net": 0,
-      "share": 0,
-      "ming_share": 0,
+      "closing_loss": 0,
+      "loss_offset": 33790.08517121726,
+      "adjusted_net": 8709.914828782741,
+      "share": 6096.940380147918,
+      "ming_share": 2612.9744486348227,
       "share_pct": 0.7
     }
   },
   "all": {
-    "total_rev": 3794209.92,
+    "total_rev": 3837309.92,
     "total_cogs": 1551622,
     "fruit_summary": {
       "Packaging": 234762,
@@ -9100,31 +9100,31 @@
     "fruit_performance": [
       {
         "name": "Orange",
-        "rev": 1109780,
+        "rev": 1115020,
         "cost": 461052,
-        "cups": 17918,
-        "roi": "140.7%"
+        "cups": 18004,
+        "roi": "141.8%"
       },
       {
         "name": "Watermelon",
-        "rev": 930975,
+        "rev": 937075,
         "cost": 299138,
-        "cups": 18414,
-        "roi": "211.2%"
+        "cups": 18536,
+        "roi": "213.3%"
       },
       {
         "name": "Mango",
-        "rev": 191160,
+        "rev": 194310,
         "cost": 120086,
-        "cups": 2124,
-        "roi": "59.2%"
+        "cups": 2159,
+        "roi": "61.8%"
       },
       {
         "name": "Apple",
-        "rev": 172140,
+        "rev": 175140,
         "cost": 63515,
-        "cups": 2869,
-        "roi": "171.0%"
+        "cups": 2919,
+        "roi": "175.7%"
       },
       {
         "name": "Coconut",
@@ -9142,17 +9142,17 @@
       },
       {
         "name": "Guava",
-        "rev": 88320,
+        "rev": 90360,
         "cost": 67535,
-        "cups": 1472,
-        "roi": "30.8%"
+        "cups": 1506,
+        "roi": "33.8%"
       },
       {
         "name": "Pineapple",
-        "rev": 54840,
+        "rev": 55500,
         "cost": 43425,
-        "cups": 914,
-        "roi": "26.3%"
+        "cups": 925,
+        "roi": "27.8%"
       },
       {
         "name": "Mangosteen",
@@ -10659,10 +10659,10 @@
       "share_pct": 0.7
     },
     "b4": {
-      "rev": 12435,
+      "rev": 55535,
       "opex": 15423.05,
       "rental": 25966.67,
-      "daily_exp": 420,
+      "daily_exp": 1020,
       "opex_list": [
         {
           "date": "01/09/2026",
@@ -10711,13 +10711,13 @@
         }
       ],
       "cogs": 4415.365171217259,
-      "net": -33790.08517121726,
-      "share": 0,
-      "ming_share": 0,
-      "loss_carry_forward": 33790.08517121726,
-      "adjusted_net": 0,
-      "closing_loss": 33790.08517121726,
-      "loss_offset": 0,
+      "net": 8709.914828782741,
+      "share": 6096.940380147918,
+      "ming_share": 2612.9744486348227,
+      "loss_carry_forward": 0,
+      "adjusted_net": 8709.914828782741,
+      "closing_loss": 0,
+      "loss_offset": 33790.08517121726,
       "share_pct": 0.7
     }
   }
