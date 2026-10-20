@@ -20,6 +20,7 @@ Rules:
 - Tally marks are strokes. A digit written in brackets next to the strokes is the staff count: put that digit in cash_qty or scan_qty. If your stroke count disagrees with the bracket, keep both and set uncertain true. Do not pick the one that balances.
 - On a Daily Sales Record the column headed Total Qty sometimes contains baht, not cups. Put a column that is money in amount, and put bracket counts in cash_qty and scan_qty. If you cannot tell whether a number is cups or baht, leave qty and amount null and set uncertain true. Do not multiply price by qty and call the product observed.
 - Copy handwritten price changes into price_overridden_from and price_overridden_to. Copy extra handwritten rows, including items with no printed line. A crossed-out row has struck true and is not a sale.
+- When staff cross out only the printed product name and write another product on that row (for example Coconut crossed out, Volcano Water written), item_raw is the WRITTEN product, struck stays false, and label_crossed_out is the printed name. Book what staff wrote, never the crossed-out printed label.
 - Ice and Other are not menu cups. Put them in other.ice and other.other.
 - Mixed drinks (Volcano, Blended, Mango Sticky Rice) stay as their own rows. Do not split them into orange, mango, or another single fruit.
 - A blank qty is null. Do not write 0 because the row is empty.`;
@@ -44,7 +45,7 @@ const FULL_SHAPE = `{
   },
   "other": {"ice": {"raw": null, "value": null, "state": "missing"}, "other": {"raw": null, "value": null, "state": "missing"}},
   "notes": [],
-  "menu_rows": [{"item_raw": "", "price_raw": null, "price_overridden_from": null, "price_overridden_to": null, "cash_qty": {"raw": null, "value": null, "state": "missing"}, "scan_qty": {"raw": null, "value": null, "state": "missing"}, "qty_raw": null, "qty_value": null, "qty_state": "missing", "amount_raw": null, "uncertain": false, "struck": false}],
+  "menu_rows": [{"item_raw": "", "price_raw": null, "price_overridden_from": null, "price_overridden_to": null, "cash_qty": {"raw": null, "value": null, "state": "missing"}, "scan_qty": {"raw": null, "value": null, "state": "missing"}, "qty_raw": null, "qty_value": null, "qty_state": "missing", "amount_raw": null, "uncertain": false, "struck": false, "label_crossed_out": null}],
   "handwritten_additions": [],
   "shift_expenses": [],
   "stock_rows": [],

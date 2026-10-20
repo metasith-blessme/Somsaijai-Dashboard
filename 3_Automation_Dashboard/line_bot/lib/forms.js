@@ -217,6 +217,9 @@ function handwritingFlags(item) {
   if (extra.length) {
     flags.push({ kind: 'flavor_shift', text: `${name}: มีรสที่เขียนเพิ่ม (${extra.join(', ')})` });
   }
+  if (item.label_crossed_out) {
+    flags.push({ kind: 'label_shift', text: `${name}: ป้ายเดิม ${item.label_crossed_out} ถูกขีดฆ่า ลงตามที่เขียน` });
+  }
   if (item.struck || item.handwritten) {
     flags.push({ kind: 'row_shift', text: `${name}: แถวถูกเขียนเพิ่มหรือขีดฆ่า` });
   }

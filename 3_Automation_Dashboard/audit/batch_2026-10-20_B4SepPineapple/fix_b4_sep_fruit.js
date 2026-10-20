@@ -30,7 +30,7 @@ const ALL = [
   ['30/09/2026', 'Used Coco (Raw)', 5, 0, P(1), ''], ['30/09/2026', 'Used Watermelon (pcs)', 9, 14, P(1), ''], ['30/09/2026', 'Used Mango', 7, 2, P(1), 'mango 2; the 5 mangosteen are in Mangosteen'],
 ];
 // Cups only: the Used-* cells drive the shared COGS split across branches, so they are left for Parn to decide.
-const CH = ALL.filter(c => !c[1].startsWith('Used '));
+const CH = process.argv.includes('--used') ? ALL.filter(c => c[1].startsWith('Used ')) : ALL.filter(c => !c[1].startsWith('Used '));
 const FRUIT = ['Orange', 'Orange (100)', 'Watermelon', 'Mango', 'Coconut', 'Apple', 'Young Coco', 'Guava', 'Pineapple', 'Mangosteen'];
 const wb = XLSX.readFile(FILE, { cellStyles: true }); const sh = wb.Sheets.Sep26;
 const g = XLSX.utils.sheet_to_json(sh, { header: 1, defval: null }); const hdr = g[2];

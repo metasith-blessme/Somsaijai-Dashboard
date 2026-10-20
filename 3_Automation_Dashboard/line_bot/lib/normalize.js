@@ -5,7 +5,7 @@ const { redactText } = require('./redact');
 
 const { formTemplate } = require('./forms');
 
-const PROMPT_VERSION = 'line-bot-ocr-3';
+const PROMPT_VERSION = 'line-bot-ocr-4';
 const OPENED = { B1: '2026-01-01', B2: '2026-04-18', B3: '2026-07-11', B4: '2026-09-19' };
 
 function branchField(raw) {
@@ -122,6 +122,7 @@ function menuRows(list) {
     amount: money(row ? (row.amount ?? { raw: row.amount_raw, value: row.amount_value, state: row.amount_raw == null && row.amount_value == null ? 'missing' : 'observed' }) : null),
     uncertain: !!(row && (row.uncertain || row.qty_uncertain)),
     struck: !!(row && row.struck),
+    label_crossed_out: row && row.label_crossed_out ? String(row.label_crossed_out) : null,
     source_row: i + 1,
   }));
 }

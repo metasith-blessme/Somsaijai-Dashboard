@@ -14,3 +14,11 @@ test('mangosteen expense is never booked as Mango', () => {
   assert.deepStrictEqual(cats('mango 2kg'), ['Mango']);
   assert.deepStrictEqual(cats('มะม่วง'), ['Mango']);
 });
+
+// Parn 20/10/2026: book the fruit staff wrote, never a crossed-out printed label.
+test('a crossed-out printed label keeps the written fruit and is held for review', () => {
+  const { handwritingFlags } = require('../lib/forms');
+  const flags = handwritingFlags({ item_raw: 'Volcano Water', label_crossed_out: 'Coconut', struck: false });
+  assert.ok(flags.some(f => f.kind === 'label_shift' && /Coconut/.test(f.text)));
+  assert.deepStrictEqual(handwritingFlags({ item_raw: 'Pineapple' }), []);
+});

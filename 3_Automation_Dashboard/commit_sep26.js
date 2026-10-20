@@ -1,3 +1,5 @@
+// ONE-OFF Sep 2026 onboarding writer (already applied). It rebuilds whole Sep26 sheets, so do not re-run it:
+// later fixes (B4 Mangosteen column, 20/10 fruit fixes) live in audit/batch_2026-10-20_*.
 const fs = require('fs');
 const path = require('path');
 const XLSX = require('xlsx');
@@ -30,6 +32,22 @@ function getDayOfWeek(dStr) {
   return days[dt.getUTCDay()];
 }
 
+// Book the fruit the sheet says. Longer names first: "pineapple" contains "apple", "mangosteen" contains "mango".
+// "Water"/"Volcano water" on B1/B4 sheets is watermelon (55 / 109), never coconut. Fixed 20/10/2026 (Parn).
+function sheetFruit(p) {
+  if (p.includes('pineapple') || p.includes('สับปะรด')) return 'pi';
+  if (p.includes('mangosteen') || p.includes('มังคุด')) return 'mangosteen';
+  if (p === 'orange premium cup 100%') return 'or_100';
+  if (p.includes('orange')) return 'or';
+  if (p.includes('watermelon') || p === 'water' || p.includes('volcano water') || p === 'vo water') return 'wm';
+  if (p.includes('mango')) return 'mg';
+  if (p.includes('young')) return 'yco';
+  if (p.includes('coconut') || p.includes('coco')) return 'co';
+  if (p.includes('apple')) return 'ap';
+  if (p.includes('guava')) return 'guava';
+  return null; // no column (mangosteen on B1-B3, volcano mix, ...): Total Cups only
+}
+
 function normDate(isoOrSlash) {
   if (!isoOrSlash) return '';
   if (isoOrSlash.includes('/')) return isoOrSlash;
@@ -54,15 +72,10 @@ b1Trans.forEach(t => {
     const p = (r.product || '').toLowerCase();
     const q = r.total_qty || (r.cash_qty + r.scan_qty) || 0;
     tot += q;
-    if (p === 'orange' || p === 'orange cup (regular)') or += q;
-    else if (p === 'orange premium cup 100%') or_100 += q;
-    else if (p.includes('watermelon')) wm += q;
-    else if (p.includes('mango') && !p.includes('mangosteen')) mg += q;
-    else if (p.includes('coconut') || p.includes('coco') || p.includes('volcano water') || p === 'water') co += q;
-    else if (p.includes('apple')) ap += q;
-    else if (p.includes('young')) yco += q;
-    else if (p.includes('guava')) guava += q;
-    else if (p.includes('pineapple') || p.includes('สับปะรด')) pi += q;
+    const f = sheetFruit(p);
+    if (f === 'or') or += q; else if (f === 'or_100') or_100 += q; else if (f === 'wm') wm += q;
+    else if (f === 'mg') mg += q; else if (f === 'co') co += q; else if (f === 'ap') ap += q;
+    else if (f === 'yco') yco += q; else if (f === 'guava') guava += q; else if (f === 'pi') pi += q;
   });
 
   b1Sales.push([
@@ -172,13 +185,10 @@ b4Records.forEach(r => {
     const p = (item.product || '').toLowerCase();
     const q = Number(item.total_qty || (Number(item.cash_qty || 0) + Number(item.scan_qty || 0))) || 0;
     tot += q;
-    if (p.includes('orange')) or += q;
-    else if (p.includes('watermelon')) wm += q;
-    else if (p.includes('mango')) mg += q;
-    else if (p.includes('coconut') || p.includes('volcano')) co += q;
-    else if (p.includes('apple')) ap += q;
-    else if (p.includes('guava')) guava += q;
-    else if (p.includes('pineapple')) pi += q;
+    const f = sheetFruit(p);
+    if (f === 'or') or += q; else if (f === 'or_100') or_100 += q; else if (f === 'wm') wm += q;
+    else if (f === 'mg') mg += q; else if (f === 'co') co += q; else if (f === 'ap') ap += q;
+    else if (f === 'yco') yco += q; else if (f === 'guava') guava += q; else if (f === 'pi') pi += q;
   });
 
   b4Sales.push([
