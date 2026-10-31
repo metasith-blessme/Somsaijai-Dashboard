@@ -1,6 +1,6 @@
 const crypto = require('crypto');
 const { observedNumber } = require('./fields');
-const { buildChangePlan } = require('./adapter');
+const { buildChangePlan, trustsWrittenTotal } = require('./adapter');
 const { classifyItem, handwritingFlags } = require('./forms');
 
 function baht(n) {
@@ -193,6 +193,7 @@ function formatSummary(review, { publicUrl, channelSecret } = {}) {
     const checks = (review.checks || []).filter(check => check.record_id === record.record_id && check.rule !== 'slip_allocation');
     const checksText = checkLine(checks);
     if (checksText) lines.push(checksText);
+    if (trustsWrittenTotal(review, record)) lines.push('- พี่สั่ง: เชื่อตัวเขียน (ใช้ยอดรวมที่เขียน)');
     for (const flag of recordFlags(record)) lines.push(`- ${flag}`);
   }
   for (const list of plan.salesLists) {

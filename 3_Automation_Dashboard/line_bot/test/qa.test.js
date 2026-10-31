@@ -157,7 +157,7 @@ test('a group message is a question only when the bot is mentioned or it starts 
   assert.equal(mentioned, 'please  help');
 });
 
-test('MINIMAX_MODEL defaults to MiniMax-M2 and a missing key stays empty', () => {
+test('MINIMAX_MODEL defaults to MiniMax-M3 and a missing key stays empty', () => {
   assert.equal(loadConfig({}).minimaxKey, '');
   assert.equal(loadConfig({}).minimaxModel, DEFAULT_MODEL);
   assert.equal(loadConfig({ MINIMAX_API_KEY: 'k', MINIMAX_MODEL: 'MiniMax-M2.5' }).minimaxModel, 'MiniMax-M2.5');
@@ -557,7 +557,7 @@ test('a preview GET reports whether Q&A is on and does not call MiniMax', async 
     const off = JSON.parse(bodies[1]);
     const on = JSON.parse(bodies[2]);
     assert.equal(off.enabled, false);
-    assert.equal(off.model, 'MiniMax-M2');
+    assert.equal(off.model, 'MiniMax-M3');
     assert.equal(JSON.stringify(off).includes('present'), false);
     assert.equal(on.enabled, true);
     assert.equal(JSON.stringify(on).includes('present'), false);

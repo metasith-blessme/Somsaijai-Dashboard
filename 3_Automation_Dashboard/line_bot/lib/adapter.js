@@ -25,6 +25,15 @@ const KEYWORDS = [
   { bucket: 'OPEX', cat: 'Utilities', test: /ค่าน้ำ|ค่าไฟ|utilities/i },
 ];
 
+const WRITTEN_TOTAL_RULES = new Set(['channels', 'line_sum']);
+
+function trustsWrittenTotal(review, record) {
+  const o = review && review.owner_overrides;
+  if (!o || o.trust_written_total !== true) return false;
+  if (!Array.isArray(o.record_ids) || !o.record_ids.length) return true;
+  return o.record_ids.includes(record.record_id);
+}
+
 function menuCode(itemRaw) {
   return classifyItem(itemRaw).code;
 }
@@ -44,10 +53,15 @@ function salesRow(record, review, held) {
   if (revenue == null && record.document_type !== 'stock_report') why.push('revenue was not read');
   if (date && before(date, '2026-04-01')) why.push('January–March is closed; this bot will not add rows there');
   if (branch && date && OPENED[branch] && before(date, OPENED[branch])) why.push(`${branch} was not open yet on ${date}`);
+  // Parn's rule: the written total beats cash + scan and the row sums. He turns
+  // this on for one batch by replying "เชื่อตัวเขียน"; the batch still needs his tap.
+  const trustWritten = trustsWrittenTotal(review, record);
   const channel = (review.checks || []).find(c => c.record_id === record.record_id && c.rule === 'channels');
-  if (channel && channel.status === 'fail') why.push('cash + scan does not equal the written total');
+  if (channel && channel.status === 'fail' && !trustWritten) why.push('cash + scan does not equal the written total');
   for (const check of review.checks || []) {
-    if (check.record_id === record.record_id && check.status === 'fail' && check.rule !== 'channels') why.push(check.reason);
+    if (check.record_id !== record.record_id || check.status !== 'fail' || check.rule === 'channels') continue;
+    if (trustWritten && WRITTEN_TOTAL_RULES.has(check.rule)) continue;
+    why.push(check.reason);
   }
   for (const issue of record.issues || []) {
     if (issue.field === 'total_sales' || issue.field === 'date' || issue.field === 'branch' || issue.field === 'second_reading' || issue.field === 'extraction') {
@@ -208,4 +222,4 @@ function buildChangePlan(review) {
   return { salesLists, expenseList, held };
 }
 
-module.exports = { buildChangePlan, menuCode, KEYWORDS };
+module.exports = { buildChangePlan, menuCode, KEYWORDS, trustsWrittenTotal, WRITTEN_TOTAL_RULES };

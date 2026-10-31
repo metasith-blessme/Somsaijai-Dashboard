@@ -252,7 +252,7 @@ test('503 and 429 back off, then the fallback model is used, and other errors do
       return clearExtraction();
     },
   });
-  assert.deepEqual(models, ['gemini-3.5-flash', 'gemini-3.5-flash', 'gemini-3.8-flash', 'gemini-3.8-flash']);
+  assert.deepEqual(models, ['gemini-3.5-flash', 'gemini-3.8-flash', 'gemini-3.8-flash', 'gemini-3.8-flash']);
   assert.deepEqual(sleeps, [500, 1000, 2000]);
   assert.equal(reading.secondSkipped, true);
 
@@ -272,6 +272,7 @@ test('503 and 429 back off, then the fallback model is used, and other errors do
 
 test('a final OCR failure is replied in English and the event can be retried', async () => {
   const replies = [];
+  const pushes = [];
   const store = new MemoryStore();
   let calls = 0;
   const ctx = {
@@ -281,7 +282,7 @@ test('a final OCR failure is replied in English and the event can be retried', a
     line: {
       async getContent() { return { buf: Buffer.from('photo'), contentType: 'image/jpeg' }; },
       async reply(_token, messages) { replies.push(messages[0].text); },
-      async push() {},
+      async push(to, messages) { pushes.push({ to, text: messages[0].text }); },
     },
     extractImage: async () => {
       calls += 1;
@@ -303,11 +304,15 @@ test('a final OCR failure is replied in English and the event can be retried', a
   }
   const failed = await post();
   assert.equal(failed.outcomes[0].error != null, true);
+  // The photo is answered at once; the failure follows as a push to the same chat.
   assert.equal(replies.length, 1);
-  assert.match(replies[0], /Could not read this photo/);
-  assert.match(replies[0], /send this photo again/);
-  assert.doesNotMatch(replies[0], /[\u0E00-\u0E7F]/);
-  assert.equal(replies[0], OCR_FAIL_TH);
+  assert.match(replies[0], /Reading it now/);
+  assert.equal(pushes.length, 1);
+  assert.equal(pushes[0].to, 'C1');
+  assert.match(pushes[0].text, /Could not read this photo/);
+  assert.match(pushes[0].text, /send this photo again/);
+  assert.doesNotMatch(pushes[0].text, /[\u0E00-\u0E7F]/);
+  assert.equal(pushes[0].text, OCR_FAIL_TH);
   const claim = await store.getJson('event:ocr-1');
   assert.equal(claim.status, 'error');
   ctx.now = 80;

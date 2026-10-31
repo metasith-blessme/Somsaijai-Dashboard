@@ -56,6 +56,8 @@ const {
   helpText,
   catalogFailed,
   wentWrong,
+  readingPhoto,
+  isTrustWrittenCommand,
 } = require('./staff_text');
 
 const PROCESSING_MS = 5 * 60 * 1000;
@@ -102,6 +104,34 @@ async function reply(line, token, text) {
   await line.reply(token, [{ type: 'text', text: String(text).slice(0, 4800) }]);
 }
 
+/**
+ * Reply with the token when there is one. A photo read takes 1–3 minutes and the
+ * token is already spent on the "reading it now" note, so the answer then goes
+ * out as a push to the chat the photo came from (ctx.pushTo). Never silent.
+ */
+async function answer(ctx, token, text) {
+  if (token) {
+    try {
+      await reply(ctx.line, token, text);
+      return { replied: true };
+    } catch (err) {
+      console.error(`[reply] ${(err && err.message) || err}`);
+    }
+  }
+  if (ctx.pushTo && ctx.line && typeof ctx.line.push === 'function') {
+    await ctx.line.push(ctx.pushTo, [{ type: 'text', text: String(text).slice(0, 4800) }]);
+    return { pushed: true };
+  }
+  return { sent: false };
+}
+
+function chatOf(source) {
+  if (!source) return null;
+  if (source.type === 'group') return source.groupId || null;
+  if (source.type === 'room') return source.roomId || null;
+  return source.userId || null;
+}
+
 async function finishBatch(batchId, parts, ctx) {
   const { store, config, line, extractImage } = ctx;
   const existing = await store.getJson(`batch:${batchId}`);
@@ -142,8 +172,8 @@ async function finishBatch(batchId, parts, ctx) {
     const error = new Error(OCR_FAIL_TH);
     error.ocrFailed = true;
     try {
-      await reply(line, ctx.replyToken, OCR_FAIL_TH);
-      error.replied = true;
+      const sent = await answer(ctx, ctx.replyToken, OCR_FAIL_TH);
+      error.replied = sent.replied === true || sent.pushed === true;
     } catch (replyErr) {
       error.replied = false;
     }
@@ -167,10 +197,11 @@ async function finishBatch(batchId, parts, ctx) {
       batch.review_pushed = true;
     } catch (err) {
       batch.push_error = err.message || String(err);
-      await reply(line, ctx.replyToken, pushFailed(batch.push_error));
+      try { await answer({ ...ctx, pushTo: ctx.pushTo === config.ownerUserId ? null : ctx.pushTo }, ctx.replyToken, pushFailed(batch.push_error)); }
+      catch (replyErr) { console.error(replyErr); }
     }
   } else {
-    await reply(line, ctx.replyToken, ownerMissing());
+    try { await answer(ctx, ctx.replyToken, ownerMissing()); } catch (replyErr) { console.error(replyErr); }
   }
   await store.putJson(`batch:${batchId}`, batch);
   return batch;
@@ -235,9 +266,15 @@ async function processClaimedSet(setId, summary, ctx, replyToken) {
   if (!batch.push_error && ctx.config.ownerUserId) {
     const warning = batchCtx.ocrWarning ? `\n${batchCtx.ocrWarning}` : '';
     const head = staffNote || photosDone();
-    try {
-      await reply(ctx.line, replyToken, `${head}${warning}`);
-    } catch (err) { /* a reply token expires before the two-minute fallback */ }
+    // Only with a live reply token. The chat already got "reading it now", and the
+    // owner's own chat gets the summary card itself, so no extra push is spent here.
+    if (replyToken) {
+      try {
+        await reply(ctx.line, replyToken, `${head}${warning}`);
+      } catch (err) { /* a reply token expires before the two-minute fallback */ }
+    } else if (warning && ctx.pushTo && ctx.pushTo !== ctx.config.ownerUserId) {
+      try { await answer(ctx, null, `${head}${warning}`); } catch (err) { console.error(err); }
+    }
   }
   return { batch_id: batchId, status: batch.status, missing: summary.missing || [] };
 }
@@ -249,8 +286,8 @@ async function settleImageSet(setId, ctx, replyToken) {
     const claimed = await claimSet(ctx.store, setId, 'conflict');
     if (!claimed) return { claimed: false };
     try {
-      await reply(ctx.line, replyToken, conflictPhotos());
-    } catch (err) { /* the reply token may already have been used */ }
+      await answer(ctx, replyToken, conflictPhotos());
+    } catch (err) { console.error(err); }
     return { conflict: true };
   }
   if (!summary.ordered.length) return { empty: true };
@@ -295,6 +332,7 @@ async function onImage(event, ctx) {
   }
   ctx.branchHint = scope.branchHint || null;
   ctx.lineGroupId = scope.groupId || null;
+  ctx.pushTo = chatOf(event.source);
   const already = await store.getJson(`msg:${message.id}`);
   let saved = already;
   if (!already) {
@@ -316,7 +354,15 @@ async function onImage(event, ctx) {
   }
   const summary = await loadSet(store, part.setId);
   if (summary.conflicts.length || summary.complete) {
-    const outcome = await settleImageSet(part.setId, ctx, event.replyToken);
+    let token = event.replyToken;
+    if (!summary.conflicts.length && !write.duplicate) {
+      // Answer at once. The read takes 1–3 minutes and used to leave the chat silent.
+      try {
+        await reply(line, token, readingPhoto(isOwnerDirect(event.source, ctx.config)));
+        token = null;
+      } catch (err) { console.error(`[reply] ${(err && err.message) || err}`); }
+    }
+    const outcome = await settleImageSet(part.setId, ctx, token);
     if (outcome.claimed === false || outcome.skipped) return { claimed: false, pending: !summary.complete };
     return outcome;
   }
@@ -424,6 +470,9 @@ async function onText(event, ctx) {
     await reply(ctx.line, event.replyToken, helpText());
     return { help: true };
   }
+  if (isTrustWrittenCommand(text) && source.type === 'user' && ctx.config.ownerUserId && source.userId === ctx.config.ownerUserId) {
+    return trustWritten(event, ctx);
+  }
   if (isReviewCommand(text)) {
     if (source.type !== 'user') {
       await reply(ctx.line, event.replyToken, source.userId === ctx.config.ownerUserId ? SUMMARY_IS_PRIVATE : ONLY_PARN_SUMMARY);
@@ -451,6 +500,49 @@ async function onText(event, ctx) {
   const answered = await onQuestion(event, ctx);
   if (answered) return answered;
   return { ignored: true };
+}
+
+/**
+ * Parn: "เชื่อตัวเขียน". The latest pending batch books the written total even when
+ * cash + scan or the row sums do not match it. Nothing is written here; the new
+ * card still needs his อนุมัติ tap.
+ */
+async function trustWritten(event, ctx) {
+  const latest = await ctx.store.getJson('latest:pending');
+  const batchId = latest && latest.batch_id;
+  const review = batchId && await ctx.store.getJson(`review:${batchId}`);
+  const record = batchId && await ctx.store.getJson(`batch:${batchId}`);
+  if (!review || !record) {
+    await reply(ctx.line, event.replyToken, 'ยังไม่มีชุดที่รอตรวจ');
+    return { trust_written: false, empty: true };
+  }
+  if (record.status === 'published' || record.status === 'rejected') {
+    await reply(ctx.line, event.replyToken, `ชุด ${batchId} ${record.status === 'published' ? 'ลงบัญชีแล้ว' : 'ไม่รับไปแล้ว'} ไม่ได้แก้`);
+    return { trust_written: false, status: record.status };
+  }
+  const mismatched = (review.checks || [])
+    .filter(c => c.status === 'fail' && (c.rule === 'channels' || c.rule === 'line_sum'))
+    .map(c => c.record_id);
+  if (!mismatched.length) {
+    await reply(ctx.line, event.replyToken, `ชุด ${batchId} ยอดรวมตรงอยู่แล้ว ไม่ต้องแก้`);
+    return { trust_written: false, nothing_to_fix: true };
+  }
+  review.owner_overrides = {
+    trust_written_total: true,
+    record_ids: [...new Set(mismatched)],
+    by: event.source.userId,
+    at: new Date(ctx.now).toISOString(),
+    text: String(event.message && event.message.text || '').slice(0, 40),
+  };
+  await ctx.store.putJson(`review:${batchId}`, review);
+  const summary = formatSummary(review, { publicUrl: ctx.config.publicUrl, channelSecret: ctx.config.channelSecret });
+  record.review = review;
+  record.summary_text = summary.text;
+  record.status = 'pending_review';
+  await ctx.store.putJson(`batch:${batchId}`, record);
+  const head = { type: 'text', text: 'โอเค เชื่อยอดที่เขียน ยังไม่ลงบัญชี กดอนุมัติถ้าถูก' };
+  await ctx.line.reply(event.replyToken, [head, ...summary.messages].slice(0, 5));
+  return { trust_written: true, batch_id: batchId };
 }
 
 async function onQuestion(event, ctx) {
@@ -573,9 +665,10 @@ async function handleEvent(event, ctx) {
     return outcome;
   } catch (err) {
     await ctx.store.putJson(claim.key, { status: 'error', at: ctx.now, message: err.message || String(err) });
+    console.error(`[event] ${(err && err.message) || err}`);
     if (!err.replied) {
       try {
-        await reply(ctx.line, event.replyToken, wentWrong((err.message || err).toString()));
+        await answer(ctx, event.replyToken, wentWrong((err.message || err).toString()));
       } catch (replyErr) { /* the reply token may already have been used */ }
     }
     return { error: err.message || String(err) };

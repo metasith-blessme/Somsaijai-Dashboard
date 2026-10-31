@@ -74,11 +74,32 @@ function parseModelJson(text) {
   return JSON.parse(match[0]);
 }
 
-async function defaultGenerate({ buf, mimeType, prompt, apiKey, model }) {
+// One Gemini call may not hang the webhook. Vercel stops the function at 300 s
+// and then nobody gets a reply, so each call and the whole read have a limit.
+const CALL_TIMEOUT_MS = 90 * 1000;
+const READ_BUDGET_MS = 200 * 1000;
+
+function withTimeout(promise, ms, controller) {
+  let timer;
+  return Promise.race([
+    promise,
+    new Promise((_, reject) => {
+      timer = setTimeout(() => {
+        if (controller) { try { controller.abort(); } catch (e) { /* ignore */ } }
+        const err = new Error(`Gemini call timed out after ${Math.round(ms / 1000)} s`);
+        err.timeout = true;
+        reject(err);
+      }, ms);
+    }),
+  ]).finally(() => clearTimeout(timer));
+}
+
+async function defaultGenerate({ buf, mimeType, prompt, apiKey, model, timeoutMs }) {
   if (!apiKey) throw new Error('GEMINI_API_KEY is not set');
   const { GoogleGenAI } = require('@google/genai');
   const ai = new GoogleGenAI({ apiKey });
-  const response = await ai.models.generateContent({
+  const controller = typeof AbortController === 'function' ? new AbortController() : null;
+  const pending = ai.models.generateContent({
     model,
     contents: [{
       role: 'user',
@@ -87,7 +108,10 @@ async function defaultGenerate({ buf, mimeType, prompt, apiKey, model }) {
         { inlineData: { data: Buffer.from(buf).toString('base64'), mimeType: mimeType || 'image/jpeg' } },
       ],
     }],
+    config: controller ? { abortSignal: controller.signal } : undefined,
   });
+  pending.catch(() => {});
+  const response = await withTimeout(pending, timeoutMs || CALL_TIMEOUT_MS, controller);
   return parseModelJson(response.text);
 }
 
@@ -103,7 +127,8 @@ function errorText(err) {
 
 function isRetryable(err) {
   const status = Number(err && (err.status || err.statusCode || (err.error && err.error.status)));
-  if (status === 503 || status === 429) return true;
+  if (status === 503 || status === 429 || status === 500 || status === 504) return true;
+  if (err && err.timeout) return true;
   return /UNAVAILABLE|RESOURCE_EXHAUSTED|TOO MANY REQUESTS/i.test(errorText(err));
 }
 
@@ -169,20 +194,31 @@ function needsSecondReading(extraction) {
 
 const sleepMs = ms => new Promise(resolve => setTimeout(resolve, ms));
 
-async function generateWithRetry({ gen, args, fallbackModel, sleep, random, maxAttempts }) {
+async function generateWithRetry({ gen, args, fallbackModel, sleep, random, maxAttempts, deadlineAt, clock }) {
   const primary = args.model;
   const fallback = fallbackModel && fallbackModel !== primary ? fallbackModel : null;
   const attempts = maxAttempts || MAX_ATTEMPTS;
   const wait = sleep || sleepMs;
+  const now = clock || Date.now;
   let lastErr;
   for (let attempt = 1; attempt <= attempts; attempt++) {
-    const model = attempt >= 3 && fallback ? fallback : primary;
+    // A timed-out or 429 primary goes to the fallback model from the second try.
+    const model = attempt >= 2 && fallback ? fallback : primary;
+    const left = deadlineAt ? deadlineAt - now() : null;
+    if (left != null && left < 5000) {
+      const err = lastErr || new Error('no time left to read the photo');
+      err.outOfTime = true;
+      throw err;
+    }
     try {
-      return await gen({ ...args, model });
+      const timeoutMs = left != null ? Math.min(CALL_TIMEOUT_MS, left) : undefined;
+      return await gen({ ...args, model, timeoutMs });
     } catch (err) {
       lastErr = err;
       if (!isRetryable(err) || attempt === attempts) throw err;
-      await wait(backoffMs(attempt, random));
+      const pause = backoffMs(attempt, random);
+      if (deadlineAt && now() + pause + 5000 > deadlineAt) throw err;
+      await wait(pause);
     }
   }
   throw lastErr;
@@ -192,8 +228,10 @@ async function generateWithRetry({ gen, args, fallbackModel, sleep, random, maxA
  * Read one photo. A consistent first reading is not sent to Gemini again.
  * 503 and 429 are retried with backoff. This does not write any books.
  */
-async function extractImage({ buf, mimeType, apiKey, model, fallbackModel, generate, sleep, random, maxAttempts }) {
+async function extractImage({ buf, mimeType, apiKey, model, fallbackModel, generate, sleep, random, maxAttempts, budgetMs, clock }) {
   const gen = generate || defaultGenerate;
+  const now = clock || Date.now;
+  const deadlineAt = now() + (budgetMs || READ_BUDGET_MS);
   const first = await generateWithRetry({
     gen,
     args: { buf, mimeType, prompt: FULL_PROMPT, apiKey, model },
@@ -201,6 +239,8 @@ async function extractImage({ buf, mimeType, apiKey, model, fallbackModel, gener
     sleep,
     random,
     maxAttempts,
+    deadlineAt,
+    clock: now,
   });
   const decision = needsSecondReading(first);
   if (!decision.needed) {
@@ -216,6 +256,7 @@ async function extractImage({ buf, mimeType, apiKey, model, fallbackModel, gener
   let second = null;
   let secondError = null;
   try {
+    if (deadlineAt - now() < 20000) throw new Error('no time left for a second reading');
     second = await generateWithRetry({
       gen,
       args: { buf, mimeType, prompt: SECOND_PROMPT, apiKey, model },
@@ -223,6 +264,8 @@ async function extractImage({ buf, mimeType, apiKey, model, fallbackModel, gener
       sleep,
       random,
       maxAttempts,
+      deadlineAt,
+      clock: now,
     });
   } catch (err) {
     secondError = err.message || String(err);
@@ -247,4 +290,6 @@ module.exports = {
   isRetryable,
   backoffMs,
   MAX_ATTEMPTS,
+  CALL_TIMEOUT_MS,
+  READ_BUDGET_MS,
 };

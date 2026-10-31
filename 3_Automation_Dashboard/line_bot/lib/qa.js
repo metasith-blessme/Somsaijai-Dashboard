@@ -7,12 +7,16 @@
 const { ALBUM_HELP } = require('./staff_text');
 
 const MINIMAX_URL = 'https://api.minimax.io/v1/text/chatcompletion_v2';
-const DEFAULT_MODEL = 'MiniMax-M2';
+const DEFAULT_MODEL = 'MiniMax-M3';
+// MiniMax retires old models (MiniMax-M2 answered status 2069 on 31 Oct 2026).
+// A retired or unknown model falls through to the next one in this list.
+const FALLBACK_MODELS = ['MiniMax-M3', 'MiniMax-M2.7', 'MiniMax-M2.5'];
+const MODEL_GONE_CODES = new Set([2069, 2013]);
 const QA_DAILY_LIMIT = 30;
 const QA_MAX_TOKENS = 1000;
 const QA_RETRY_TOKENS = 2000;
 const QA_REPLY_MAX = 1000;
-const QA_TIMEOUT_MS = 15000;
+const QA_TIMEOUT_MS = 25000;
 const SALES_FETCH_MS = 8000;
 const QUESTION_MAX = 1500;
 
@@ -202,8 +206,10 @@ function choiceOf(payload) {
   }
   const base = payload.base_resp;
   if (base && Number(base.status_code) !== 0) {
-    const error = new Error('minimax status');
+    const error = new Error(`minimax status ${base.status_code}`);
     error.qa = true;
+    error.statusCode = Number(base.status_code);
+    error.modelGone = MODEL_GONE_CODES.has(error.statusCode) || /no longer available|not support model|unknown model/i.test(String(base.status_msg || ''));
     throw error;
   }
   if (payload.output_sensitive === true) {
@@ -468,7 +474,12 @@ async function postMinimax({ apiKey, model, messages, fetchImpl, timeoutMs, toke
   }
 }
 
-async function askMinimax({ apiKey, model, messages, fetchImpl, timeoutMs, maxTokens }) {
+function modelChain(model) {
+  const first = model || DEFAULT_MODEL;
+  return [first, ...FALLBACK_MODELS.filter(name => name !== first)];
+}
+
+async function askOneModel({ apiKey, model, messages, fetchImpl, timeoutMs, maxTokens }) {
   const request = tokens => postMinimax({
     apiKey, model, messages, fetchImpl, timeoutMs, tokens,
   });
@@ -477,9 +488,24 @@ async function askMinimax({ apiKey, model, messages, fetchImpl, timeoutMs, maxTo
   return extractAnswer(await request(QA_RETRY_TOKENS));
 }
 
+async function askMinimax({ apiKey, model, messages, fetchImpl, timeoutMs, maxTokens }) {
+  let lastErr;
+  for (const name of modelChain(model)) {
+    try {
+      return await askOneModel({ apiKey, model: name, messages, fetchImpl, timeoutMs, maxTokens });
+    } catch (err) {
+      lastErr = err;
+      if (!err || !err.modelGone) throw err;
+      console.error(`[qa] ${name} unavailable (${err.message}); trying the next model`);
+    }
+  }
+  throw lastErr;
+}
+
 module.exports = {
   MINIMAX_URL,
   DEFAULT_MODEL,
+  FALLBACK_MODELS,
   QA_DAILY_LIMIT,
   QA_MAX_TOKENS,
   QA_RETRY_TOKENS,

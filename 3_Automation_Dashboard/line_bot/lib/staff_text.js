@@ -108,6 +108,19 @@ function catalogFailed(error) {
   return `Shop list failed: ${String(error).slice(0, 200)}`;
 }
 
+// Sent at once, before the 1–3 minute read, so the chat is never silent.
+function readingPhoto(owner) {
+  return owner
+    ? 'ได้รับรูปแล้ว กำลังอ่าน สรุปจะส่งมาใน 1–3 นาที'
+    : 'Got the photo. Reading it now. Parn gets the summary in 1–3 min.';
+}
+
+const TRUST_WRITTEN_RE = /^(?:\/)?(?:เชื่อ\s*(?:ตัว|ยอด)?\s*เขียน|ใช้\s*(?:ตัว|ยอด)\s*เขียน|ยึด\s*(?:ตัว|ยอด)?\s*เขียน|trust\s+(?:the\s+)?written(?:\s+total)?|use\s+(?:the\s+)?written(?:\s+total)?)\s*[.!ครับค่ะคะ]*$/i;
+
+function isTrustWrittenCommand(text) {
+  return TRUST_WRITTEN_RE.test(String(text || '').trim());
+}
+
 function wentWrong(error) {
   return `Something went wrong: ${String(error).slice(0, 300)}`;
 }
@@ -148,4 +161,6 @@ module.exports = {
   helpText,
   catalogFailed,
   wentWrong,
+  readingPhoto,
+  isTrustWrittenCommand,
 };
