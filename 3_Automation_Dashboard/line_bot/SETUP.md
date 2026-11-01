@@ -192,3 +192,19 @@ Anyone can ask in a private chat. A message that is already a command (`id`, `he
 The answer is a reply, so it does not use the monthly quota. Each person gets 30 answers a day.
 
 You (`LINE_OWNER_USER_ID`) can ask about recent sales in the private chat. The bot reads the live `data.json` and gives the model the last 14 days per branch: date, revenue, cash, and scan. Staff, including Ming, get general help only (how to send photos one by one, simple translations, shop questions). Their answers are not given those figures, and the model is told not to invent numbers. A question you ask in the group is treated like a staff question, so sales figures are not posted in the group.
+
+## 10. Stock
+
+Staff send a stock sheet photo, or a text that starts with `stock` or `สต็อก`:
+
+```
+stock B1 31/10/2026
+orange 27 basket +20
+coconut 15 pcs
+```
+
+`+20` (or `in 20`, `รับ 20`) is what was delivered. Items are kept as written. Staff get "Got the stock list. Thank you." as a free reply. A stock photo sends no review card.
+
+Parn gets one push a day at about 22:00 Bangkok (Vercel cron `/api/stock-digest`, 15:00 UTC) when there are lists he has not seen. Typing `สต็อก` in the private chat shows the same list as a free reply. อนุมัติ writes every list that has a branch, a date, and a counted row into `stock_ledger.json` (`stock_counts`); ไม่รับ drops them all. The dashboard Stock tab shows usage as previous count + delivered − this count, blank when delivered was not written.
+
+Set `CRON_SECRET` in Vercel so only the Vercel cron can call the digest route. Without it the route accepts the Vercel cron user agent, and the one-per-day marker caps any call at one push.

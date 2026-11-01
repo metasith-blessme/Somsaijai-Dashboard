@@ -4,6 +4,7 @@ const path = require('path');
 const { spawnSync } = require('child_process');
 const { assertApproval, GateError } = require('./approval');
 const { buildChangePlan } = require('./adapter');
+const { mergeLedger } = require('./stock');
 
 // The importers and update_dashboard.js are spawned, so the file tracer never
 // sees their require('xlsx'). This static require is what puts the package,
@@ -56,6 +57,22 @@ async function runStep(step, fn) {
     const error = err instanceof Error ? err : new Error(String(err));
     error.step = step;
     throw error;
+  }
+}
+
+/**
+ * Approved stock rows go into stock_ledger.json on main. Pushing main starts
+ * the Vercel deploy. The same rows merged twice give the same file.
+ */
+async function publishStock({ rows, digestId, config, deps }) {
+  if (!rows.length) return { status: 'held', reason: 'no counted rows' };
+  if (!config || !config.allowDeploy) return { status: 'approved_not_deployed', reason: 'LINE_BOT_ALLOW_DEPLOY is not 1' };
+  if (!config.githubToken || !config.githubRepo) return { status: 'approved_not_deployed', reason: 'GITHUB_TOKEN or GITHUB_REPO is not set' };
+  try {
+    const commit = await runStep('commit_stock', () => deps.commitStock(rows, digestId));
+    return { status: 'published', commit: commit.sha, url: config.publicUrl || 'https://somsaijailive.vercel.app' };
+  } catch (err) {
+    return { status: 'error', step: err.step || 'commit_stock', reason: stepReason(err) };
   }
 }
 
@@ -231,7 +248,14 @@ function createProductionDeps(config, opts = {}) {
       return out.stdout;
     },
     commit(dir, batchId) {
-      return commitDashboard(request, config, dir, batchId);
+      return commitFiles(request, config, dir, DASHBOARD_FILES, `Import approved LINE batch ${batchId}`);
+    },
+    async commitStock(rows, digestId) {
+      const current = await downloadRepoFile(request, config, '3_Automation_Dashboard/stock_ledger.json');
+      const ledger = mergeLedger(current ? JSON.parse(current.toString('utf8')) : {}, rows);
+      const dir = fs.mkdtempSync(path.join(publishWorkRoot(), 'ssj-stock-'));
+      fs.writeFileSync(path.join(dir, 'stock_ledger.json'), `${JSON.stringify(ledger, null, 2)}\n`);
+      return commitFiles(request, config, dir, ['stock_ledger.json'], `Import approved LINE stock ${digestId}`);
     },
     deploy(commit) {
       return deployProduction(config, commit, fetchImpl);
@@ -278,15 +302,16 @@ async function downloadRepoFile(request, config, filePath) {
   return Buffer.from(blob.content, 'base64');
 }
 
-async function commitDashboard(request, config, dir, batchId) {
+const DASHBOARD_FILES = [
+  'SomSaiJai_Dashboard_B1_2026.xlsx', 'SomSaiJai_Dashboard_B2_2026.xlsx', 'SomSaiJai_Dashboard_B3_2026.xlsx',
+  'SomSaiJai_Dashboard_B4_2026.xlsx', 'data.json', 'reports_data.json', 'SomSaiJai_Dashboard.html',
+];
+
+async function commitFiles(request, config, dir, files, message) {
   const [owner, repo] = config.githubRepo.split('/');
   const ref = await request(`/repos/${owner}/${repo}/git/ref/heads/${config.githubBranch}`);
   const baseSha = ref.object.sha;
   const commit = await request(`/repos/${owner}/${repo}/git/commits/${baseSha}`);
-  const files = [
-    'SomSaiJai_Dashboard_B1_2026.xlsx', 'SomSaiJai_Dashboard_B2_2026.xlsx', 'SomSaiJai_Dashboard_B3_2026.xlsx',
-    'SomSaiJai_Dashboard_B4_2026.xlsx', 'data.json', 'reports_data.json', 'SomSaiJai_Dashboard.html',
-  ];
   const tree = [];
   for (const name of files) {
     const full = path.join(dir, name);
@@ -303,7 +328,7 @@ async function commitDashboard(request, config, dir, batchId) {
   });
   const next = await request(`/repos/${owner}/${repo}/git/commits`, {
     method: 'POST',
-    body: { message: `Import approved LINE batch ${batchId}`, tree: nextTree.sha, parents: [baseSha] },
+    body: { message, tree: nextTree.sha, parents: [baseSha] },
   });
   await request(`/repos/${owner}/${repo}/git/refs/heads/${config.githubBranch}`, {
     method: 'PATCH',
@@ -430,6 +455,6 @@ function publishBundleReport(opts = {}) {
 }
 
 module.exports = {
-  publishApprovedBatch, createProductionDeps, resultMessage, readbackLive, rowMatches, GateError,
+  publishApprovedBatch, publishStock, createProductionDeps, resultMessage, readbackLive, rowMatches, GateError,
   publishWorkRoot, publishBundleReport, PUBLISH_FILES,
 };

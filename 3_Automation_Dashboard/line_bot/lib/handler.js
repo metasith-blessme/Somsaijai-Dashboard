@@ -15,7 +15,8 @@ const { sha256, buildReview } = require('./normalize');
 const { applyChecks } = require('./validate');
 const { formatSummary, parsePostback } = require('./summary');
 const { makeApproval, approvalMatchesReview } = require('./approval');
-const { publishApprovedBatch } = require('./publish');
+const { publishApprovedBatch, publishStock } = require('./publish');
+const stock = require('./stock');
 const { loadCatalog, parseOrder, buildOrderMessages, buildSenderConfirm, isOrderReplay, packBubbles } = require('./orders');
 const { parseGroupConfig } = require('./config');
 const {
@@ -58,6 +59,9 @@ const {
   wentWrong,
   readingPhoto,
   isTrustWrittenCommand,
+  STOCK_SAVED,
+  STOCK_SAVED_TH,
+  STOCK_HOW,
 } = require('./staff_text');
 
 const PROCESSING_MS = 5 * 60 * 1000;
@@ -182,6 +186,20 @@ async function finishBatch(batchId, parts, ctx) {
   if (failed) ctx.ocrWarning = OCR_FAIL_TH;
   const review = applyChecks(buildReview({ batchId, images, now: new Date(ctx.now) }));
   await store.putJson(`review:${batchId}`, review);
+
+  // Stock counts wait for Parn's one daily digest, so a stock photo costs no push.
+  const stockRecords = review.records.filter(r => r.document_type === 'stock_report');
+  for (const record of stockRecords) {
+    const image = images.find(i => i.sourceId === record.record_id) || {};
+    await stock.saveList(store, stock.fromReviewRecord({
+      record, sha256: image.sha256, now: ctx.now, source: ctx.source, branchHint: ctx.branchHint,
+    }));
+  }
+  if (stockRecords.length && stockRecords.length === review.records.length && !(review.expense_documents || []).length) {
+    const batch = { batch_id: batchId, review, created_at: ctx.now, status: 'stock' };
+    await store.putJson(`batch:${batchId}`, batch);
+    return batch;
+  }
   const summary = formatSummary(review, { publicUrl: config.publicUrl, channelSecret: config.channelSecret });
   if (ctx.setNote) {
     summary.text = `${ctx.setNote}\n\n${summary.text}`.slice(0, 4800);
@@ -265,7 +283,8 @@ async function processClaimedSet(setId, summary, ctx, replyToken) {
   const batch = await finishBatch(batchId, summary.ordered, batchCtx);
   if (!batch.push_error && ctx.config.ownerUserId) {
     const warning = batchCtx.ocrWarning ? `\n${batchCtx.ocrWarning}` : '';
-    const head = staffNote || photosDone();
+    const owner = isOwnerDirect(ctx.source, ctx.config);
+    const head = batch.status === 'stock' ? (owner ? STOCK_SAVED_TH : STOCK_SAVED) : (staffNote || photosDone());
     // Only with a live reply token. The chat already got "reading it now", and the
     // owner's own chat gets the summary card itself, so no extra push is spent here.
     if (replyToken) {
@@ -333,6 +352,7 @@ async function onImage(event, ctx) {
   ctx.branchHint = scope.branchHint || null;
   ctx.lineGroupId = scope.groupId || null;
   ctx.pushTo = chatOf(event.source);
+  ctx.source = event.source || null;
   const already = await store.getJson(`msg:${message.id}`);
   let saved = already;
   if (!already) {
@@ -381,6 +401,17 @@ async function onPostback(event, ctx) {
   if (!ctx.config.ownerUserId || source.userId !== ctx.config.ownerUserId) {
     await reply(ctx.line, event.replyToken, ONLY_PARN_APPROVE);
     return { denied: true };
+  }
+  if (action === 'stock_approve' || action === 'stock_reject') {
+    const outcome = await stock.decideDigest({
+      store: ctx.store,
+      digestId: batch,
+      decision: action === 'stock_approve' ? 'approve' : 'reject',
+      now: ctx.now,
+      publish: (rows, id) => publishStock({ rows, digestId: id, config: ctx.config, deps: ctx.deps }),
+    });
+    await reply(ctx.line, event.replyToken, outcome.message);
+    return { stock: outcome.status };
   }
   const review = await ctx.store.getJson(`review:${batch}`);
   const record = await ctx.store.getJson(`batch:${batch}`);
@@ -470,6 +501,20 @@ async function onText(event, ctx) {
     await reply(ctx.line, event.replyToken, helpText());
     return { help: true };
   }
+  if (stock.isStockCommand(text)) return onStockCommand(event, ctx);
+  const saved = stock.isStockText(text) && stock.fromText({
+    id: event.message.id, text, now: ctx.now, source, branchHint: scope.branchHint,
+  });
+  // "stock left for orange?" from Parn is a question, not a count; staff get the format.
+  if (saved && !saved.rows.length && !isOwnerDirect(source, ctx.config)) {
+    await reply(ctx.line, event.replyToken, STOCK_HOW);
+    return { stock_help: true };
+  }
+  if (saved && saved.rows.length) {
+    await stock.saveList(ctx.store, saved);
+    await reply(ctx.line, event.replyToken, isOwnerDirect(source, ctx.config) ? STOCK_SAVED_TH : STOCK_SAVED);
+    return { stock: saved.id, rows: saved.rows.length, flags: saved.flags };
+  }
   if (isTrustWrittenCommand(text) && source.type === 'user' && ctx.config.ownerUserId && source.userId === ctx.config.ownerUserId) {
     return trustWritten(event, ctx);
   }
@@ -500,6 +545,21 @@ async function onText(event, ctx) {
   const answered = await onQuestion(event, ctx);
   if (answered) return answered;
   return { ignored: true };
+}
+
+/** "สต็อก" alone: Parn sees the open stock lists as a free reply; staff get the format. */
+async function onStockCommand(event, ctx) {
+  if (!isOwnerDirect(event.source, ctx.config)) {
+    await reply(ctx.line, event.replyToken, STOCK_HOW);
+    return { stock_help: true };
+  }
+  const opened = await stock.replyDigest({ store: ctx.store, now: ctx.now });
+  if (!opened) {
+    await reply(ctx.line, event.replyToken, 'ยังไม่มีสต็อกรอตรวจ');
+    return { stock_empty: true };
+  }
+  await ctx.line.reply(event.replyToken, opened.messages);
+  return { stock_digest: opened.digest.id };
 }
 
 /**

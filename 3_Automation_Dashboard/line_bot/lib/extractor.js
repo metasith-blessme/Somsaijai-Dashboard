@@ -23,7 +23,8 @@ Rules:
 - When staff cross out only the printed product name and write another product on that row (for example Coconut crossed out, Volcano Water written), item_raw is the WRITTEN product, struck stays false, and label_crossed_out is the printed name. Book what staff wrote, never the crossed-out printed label.
 - Ice and Other are not menu cups. Put them in other.ice and other.other.
 - Mixed drinks (Volcano, Blended, Mango Sticky Rice) stay as their own rows. Do not split them into orange, mango, or another single fruit.
-- A blank qty is null. Do not write 0 because the row is empty.`;
+- A blank qty is null. Do not write 0 because the row is empty.
+- A stock sheet or stock count (remaining fruit, cups, lids, milk, bottles) is document_type stock_report. Copy every row into stock_rows: item_raw exactly as written, qty is the count left, unit_raw as written, delivered only when the sheet has a received / delivered / in column for that row. Do not add rows that are not written. Stock rows are not sales.`;
 
 const FULL_SHAPE = `{
   "document_type": "sales_report",
@@ -48,7 +49,7 @@ const FULL_SHAPE = `{
   "menu_rows": [{"item_raw": "", "price_raw": null, "price_overridden_from": null, "price_overridden_to": null, "cash_qty": {"raw": null, "value": null, "state": "missing"}, "scan_qty": {"raw": null, "value": null, "state": "missing"}, "qty_raw": null, "qty_value": null, "qty_state": "missing", "amount_raw": null, "uncertain": false, "struck": false, "label_crossed_out": null}],
   "handwritten_additions": [],
   "shift_expenses": [],
-  "stock_rows": [],
+  "stock_rows": [{"item_raw": "", "qty": {"raw": null, "value": null, "state": "missing"}, "unit_raw": null, "delivered": {"raw": null, "value": null, "state": "missing"}, "uncertain": false}],
   "slip": {
     "bank": null, "status_raw": null, "datetime_raw": null,
     "amount": {"raw": null, "value": null, "state": "missing"},

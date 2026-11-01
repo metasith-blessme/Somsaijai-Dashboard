@@ -782,6 +782,7 @@ body {
 
     <div class="section" id="view-inventory">
         <div class="kpi-row" id="liveStockGrid"></div>
+        <div id="stockCountsContainer"></div>
         <div class="dashboard-grid">
             <div class="glass-card">
                 <h2>Inventory Intelligence</h2>
@@ -1261,6 +1262,37 @@ function renderInventory(sales) {
             document.getElementById('view-inventory').appendChild(div);
         }
     }
+    renderStockCounts();
+}
+
+// Usage = previous count + delivered - this count, per branch, item, and unit.
+// Blank when there is no earlier count or delivered was not written.
+function stockUsageRows(counts) {
+    const key = r => [r.branch, String(r.item).trim().toLowerCase(), String(r.unit || '').trim().toLowerCase()].join('|');
+    const last = new Map();
+    return counts.slice().sort((a, b) => a.date.localeCompare(b.date)).map(r => {
+        const prev = last.get(key(r));
+        last.set(key(r), r);
+        const usage = prev && r.delivered != null ? prev.qty + r.delivered - r.qty : null;
+        return { ...r, prev: prev ? prev.qty : null, usage };
+    });
+}
+
+function renderStockCounts() {
+    const host = document.getElementById('stockCountsContainer');
+    const counts = (LEDGER && LEDGER.stock_counts) || [];
+    if (!host) return;
+    if (!counts.length) { host.innerHTML = ''; return; }
+    const esc = v => String(v == null ? '' : v).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
+    const show = v => v == null ? '' : esc(v);
+    const rows = stockUsageRows(counts)
+        .filter(r => currentBranch === 'all' || r.branch === currentBranch)
+        .sort((a, b) => b.date.localeCompare(a.date) || a.branch.localeCompare(b.branch) || String(a.item).localeCompare(String(b.item)));
+    host.innerHTML = `<div class="glass-card" style="margin-top:24px"><h3>Stock by Branch (from LINE)</h3>
+        <p style="color:var(--muted)">Usage = previous count + delivered − this count. Blank when delivered is not written.</p>
+        <div style="max-height:480px; overflow-y:auto"><table class="premium-table"><thead><tr><th>Date</th><th>Branch</th><th>Item</th><th class="num">Stock</th><th>Unit</th><th class="num">Delivered</th><th class="num">Previous</th><th class="num">Usage</th></tr></thead><tbody>`
+        + rows.map(r => `<tr><td>${esc(r.date)}</td><td>${esc(r.branch)}</td><td>${esc(r.item)}</td><td class="num">${show(r.qty)}</td><td>${show(r.unit)}</td><td class="num">${show(r.delivered)}</td><td class="num">${show(r.prev)}</td><td class="num">${r.usage == null ? '' : esc(Math.round(r.usage * 100) / 100)}</td></tr>`).join('')
+        + `</tbody></table></div></div>`;
 }
 
 function renderAnalytics(sales) {
