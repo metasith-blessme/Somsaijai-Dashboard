@@ -6084,8 +6084,157 @@
       "share_pct": 0.7
     }
   },
+  "Nov26": {
+    "total_rev": 1480,
+    "total_cogs": 0,
+    "fruit_summary": {},
+    "daily_cogs": [],
+    "fruit_performance": [
+      {
+        "name": "Orange",
+        "rev": 0,
+        "cost": 0,
+        "cups": 0,
+        "roi": "N/A"
+      },
+      {
+        "name": "Watermelon",
+        "rev": 0,
+        "cost": 0,
+        "cups": 0,
+        "roi": "N/A"
+      },
+      {
+        "name": "Mango",
+        "rev": 0,
+        "cost": 0,
+        "cups": 0,
+        "roi": "N/A"
+      },
+      {
+        "name": "Apple",
+        "rev": 0,
+        "cost": 0,
+        "cups": 0,
+        "roi": "N/A"
+      },
+      {
+        "name": "Coconut",
+        "rev": 0,
+        "cost": 0,
+        "cups": 0,
+        "roi": "N/A"
+      },
+      {
+        "name": "Young Coco",
+        "rev": 0,
+        "cost": null,
+        "cups": 0,
+        "roi": "N/A"
+      },
+      {
+        "name": "Guava",
+        "rev": 0,
+        "cost": 0,
+        "cups": 0,
+        "roi": "N/A"
+      },
+      {
+        "name": "Pineapple",
+        "rev": 0,
+        "cost": 0,
+        "cups": 0,
+        "roi": "N/A"
+      },
+      {
+        "name": "Mangosteen",
+        "rev": 0,
+        "cost": null,
+        "cups": 0,
+        "roi": "N/A"
+      },
+      {
+        "name": "Mangosteen & Lychee",
+        "rev": 0,
+        "cost": null,
+        "cups": 0,
+        "roi": "N/A"
+      },
+      {
+        "name": "Rambutan",
+        "rev": 0,
+        "cost": null,
+        "cups": 0,
+        "roi": "N/A"
+      }
+    ],
+    "b1": {
+      "rev": 0,
+      "rental": 0,
+      "opex": 0,
+      "daily_exp": 0,
+      "opex_list": [],
+      "cogs": 0,
+      "net": 0,
+      "loss_carry_forward": 0,
+      "closing_loss": 0,
+      "loss_offset": 0,
+      "adjusted_net": 0,
+      "share": 0,
+      "ming_share": 0,
+      "share_pct": 0.7
+    },
+    "b2": {
+      "rev": 1480,
+      "rental": 0,
+      "opex": 0,
+      "daily_exp": 0,
+      "opex_list": [],
+      "cogs": 0,
+      "net": 1480,
+      "loss_carry_forward": 0,
+      "closing_loss": 0,
+      "loss_offset": 0,
+      "adjusted_net": 1480,
+      "share": 1036,
+      "ming_share": 444.00000000000006,
+      "share_pct": 0.7
+    },
+    "b3": {
+      "rev": 0,
+      "rental": 0,
+      "opex": 0,
+      "daily_exp": 0,
+      "opex_list": [],
+      "cogs": 0,
+      "net": 0,
+      "loss_carry_forward": 0,
+      "closing_loss": 0,
+      "loss_offset": 0,
+      "adjusted_net": 0,
+      "share": 0,
+      "ming_share": 0,
+      "share_pct": 0.7
+    },
+    "b4": {
+      "rev": 0,
+      "rental": 0,
+      "opex": 0,
+      "daily_exp": 0,
+      "opex_list": [],
+      "cogs": 0,
+      "net": 0,
+      "loss_carry_forward": 0,
+      "closing_loss": 0,
+      "loss_offset": 0,
+      "adjusted_net": 0,
+      "share": 0,
+      "ming_share": 0,
+      "share_pct": 0.7
+    }
+  },
   "all": {
-    "total_rev": 3837309.92,
+    "total_rev": 3838789.92,
     "total_cogs": 1551622,
     "fruit_summary": {
       "Packaging": 234762,
@@ -10076,7 +10225,7 @@
       "share_pct": 0.6350314778220266
     },
     "b2": {
-      "rev": 743968,
+      "rev": 745448,
       "opex": 154896.74,
       "rental": 194000,
       "daily_exp": 11950,
@@ -10416,11 +10565,11 @@
         }
       ],
       "cogs": 335361.6218950624,
-      "net": 47759.63810493759,
-      "share": 33431.74667345631,
-      "ming_share": 14327.891431481281,
+      "net": 49239.63810493759,
+      "share": 34467.74667345631,
+      "ming_share": 14771.891431481281,
       "loss_carry_forward": 0,
-      "adjusted_net": 47759.63810493759,
+      "adjusted_net": 49239.63810493759,
       "closing_loss": 0,
       "loss_offset": 78514.77030160754,
       "share_pct": 0.7
