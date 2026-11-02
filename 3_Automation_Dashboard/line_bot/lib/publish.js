@@ -80,11 +80,11 @@ async function publishStock({ rows, digestId, config, deps }) {
  * Nothing in deps is called unless the owner approval matches this exact reading.
  * A second call with a stored receipt does not import or deploy again.
  */
-async function publishApprovedBatch({ review, approval, ownerUserId, config, deps }) {
+async function publishApprovedBatch({ review, approval, approverUserIds, config, deps }) {
   if (approval && approval.publish_receipt && approval.publish_receipt.status === 'published') {
     return { ...approval.publish_receipt, duplicate: true, message: resultMessage(approval.publish_receipt) };
   }
-  assertApproval({ review, approval, ownerUserId });
+  assertApproval({ review, approval, approverUserIds });
   const plan = buildChangePlan(review);
   const salesCount = plan.salesLists.reduce((n, list) => n + list.rows.length, 0);
   const expenseCount = plan.expenseList ? plan.expenseList.rows.length : 0;

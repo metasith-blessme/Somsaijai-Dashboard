@@ -48,15 +48,15 @@ function approvalMatchesReview(approval, review) {
   return approval.payload_hash === payloadHash(review) && approval.source_hash === sourceHash(review);
 }
 
-function assertApproval({ review, approval, ownerUserId }) {
+function assertApproval({ review, approval, approverUserIds }) {
   if (!review || !review.review || review.review.import_allowed !== false) {
     throw new GateError('extractor_contract', 'The reading must keep import_allowed false. Approval is a separate record.');
   }
   if (!approval || approval.decision !== 'approve') {
     throw new GateError('not_approved', 'Nothing is imported without an owner approval.');
   }
-  if (!ownerUserId || approval.approver_user_id !== ownerUserId) {
-    throw new GateError('not_owner', 'This approval is not from the configured owner.');
+  if (!(approverUserIds || []).includes(approval.approver_user_id)) {
+    throw new GateError('not_owner', 'This approval is not from a configured approver.');
   }
   if (approval.payload_hash !== payloadHash(review)) {
     throw new GateError('hash_mismatch', 'The approval does not match this reading.');
@@ -66,10 +66,11 @@ function assertApproval({ review, approval, ownerUserId }) {
   }
 }
 
-function makeApproval({ review, userId, decision, at }) {
+function makeApproval({ review, userId, name, decision, at }) {
   return {
     decision,
     approver_user_id: userId,
+    approver_name: name || null,
     approved_at: at,
     batch_id: review.batch_id,
     payload_hash: payloadHash(review),

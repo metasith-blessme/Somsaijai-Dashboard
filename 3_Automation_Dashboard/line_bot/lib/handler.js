@@ -18,7 +18,7 @@ const { makeApproval, approvalMatchesReview } = require('./approval');
 const { publishApprovedBatch, publishStock } = require('./publish');
 const stock = require('./stock');
 const { loadCatalog, parseOrder, buildOrderMessages, buildSenderConfirm, isOrderReplay, packBubbles } = require('./orders');
-const { parseGroupConfig } = require('./config');
+const { parseGroupConfig, approversOf, isApprover } = require('./config');
 const {
   qaEnabled,
   qaQuestion,
@@ -74,7 +74,7 @@ function groupTable(config) {
 
 function isAllowedOrderSender(source, config) {
   if (!source || source.type !== 'user' || !source.userId) return false;
-  if (config.ownerUserId && source.userId === config.ownerUserId) return true;
+  if (isApprover(source.userId, config)) return true;
   return (config.orderSenderUserIds || []).includes(source.userId);
 }
 
@@ -209,13 +209,14 @@ async function finishBatch(batchId, parts, ctx) {
   await store.putJson(`batch:${batchId}`, batch);
   await store.putJson('latest:pending', { batch_id: batchId });
 
-  if (config.ownerUserId) {
-    try {
-      await line.push(config.ownerUserId, summary.messages);
-      batch.review_pushed = true;
-    } catch (err) {
-      batch.push_error = err.message || String(err);
-      try { await answer({ ...ctx, pushTo: ctx.pushTo === config.ownerUserId ? null : ctx.pushTo }, ctx.replyToken, pushFailed(batch.push_error)); }
+  const approvers = approversOf(config);
+  if (approvers.length) {
+    const sent = await pushEach(line, approvers, summary.messages);
+    batch.review_pushed_to = sent.ok;
+    batch.review_pushed = sent.ok.length > 0;
+    if (!sent.ok.length) {
+      batch.push_error = sent.errors[0];
+      try { await answer({ ...ctx, pushTo: approvers.includes(ctx.pushTo) ? null : ctx.pushTo }, ctx.replyToken, pushFailed(batch.push_error)); }
       catch (replyErr) { console.error(replyErr); }
     }
   } else {
@@ -281,7 +282,7 @@ async function processClaimedSet(setId, summary, ctx, replyToken) {
   const staffNote = missingPhotosNote(summary);
   const batchCtx = { ...ctx, replyToken, setNote: note, ocrWarning: undefined };
   const batch = await finishBatch(batchId, summary.ordered, batchCtx);
-  if (!batch.push_error && ctx.config.ownerUserId) {
+  if (!batch.push_error && approversOf(ctx.config).length) {
     const warning = batchCtx.ocrWarning ? `\n${batchCtx.ocrWarning}` : '';
     const owner = isOwnerDirect(ctx.source, ctx.config);
     const head = batch.status === 'stock' ? (owner ? STOCK_SAVED_TH : STOCK_SAVED) : (staffNote || photosDone());
@@ -291,7 +292,7 @@ async function processClaimedSet(setId, summary, ctx, replyToken) {
       try {
         await reply(ctx.line, replyToken, `${head}${warning}`);
       } catch (err) { /* a reply token expires before the two-minute fallback */ }
-    } else if (warning && ctx.pushTo && ctx.pushTo !== ctx.config.ownerUserId) {
+    } else if (warning && ctx.pushTo && !isApprover(ctx.pushTo, ctx.config)) {
       try { await answer(ctx, null, `${head}${warning}`); } catch (err) { console.error(err); }
     }
   }
@@ -398,18 +399,30 @@ async function onPostback(event, ctx) {
   const source = event.source || {};
   const { action, batch } = parsePostback(event.postback && event.postback.data);
   if (!action || !batch) return { ignored: true };
-  if (!ctx.config.ownerUserId || source.userId !== ctx.config.ownerUserId) {
+  if (!isApprover(source.userId, ctx.config)) {
     await reply(ctx.line, event.replyToken, ONLY_PARN_APPROVE);
     return { denied: true };
   }
+  const by = { userId: source.userId, name: await displayName(ctx, source.userId) };
   if (action === 'stock_approve' || action === 'stock_reject') {
+    const decision = action === 'stock_approve' ? 'approve' : 'reject';
+    const claim = await claimDecision(ctx.store, `stock:${batch}`, decision, by, ctx.now);
+    if (!claim.created) {
+      const who = claim.existing;
+      if (!who.name && who.userId) who.name = await displayName(ctx, who.userId);
+      await reply(ctx.line, event.replyToken, alreadyText(who));
+      return { stock: 'already' };
+    }
     const outcome = await stock.decideDigest({
       store: ctx.store,
       digestId: batch,
-      decision: action === 'stock_approve' ? 'approve' : 'reject',
+      decision,
+      by,
       now: ctx.now,
+      nameOf: userId => displayName(ctx, userId),
       publish: (rows, id) => publishStock({ rows, digestId: id, config: ctx.config, deps: ctx.deps }),
     });
+    if (!['published', 'rejected'].includes(outcome.status)) await releaseDecision(ctx.store, `stock:${batch}`);
     await reply(ctx.line, event.replyToken, outcome.message);
     return { stock: outcome.status };
   }
@@ -419,21 +432,22 @@ async function onPostback(event, ctx) {
     await reply(ctx.line, event.replyToken, 'ไม่พบชุดนี้แล้ว');
     return { missing: true };
   }
+  if (action !== 'approve' && action !== 'reject') return { ignored: true };
+  // One decision per batch, whoever taps first. A failed publish frees it for a retry.
+  const decided = decidedBy(record);
+  const claim = decided ? null : await claimDecision(ctx.store, `batch:${batch}`, action, by, ctx.now);
+  if (decided || !claim.created) {
+    const who = decided || claim.existing;
+    if (!who.name && who.userId) who.name = await displayName(ctx, who.userId);
+    await reply(ctx.line, event.replyToken, alreadyText(who));
+    return { status: 'already', decision: who.decision, by: who.userId };
+  }
   if (action === 'reject') {
-    if (record.status === 'published') {
-      await reply(ctx.line, event.replyToken, 'ชุดนี้ลงบัญชีแล้ว ยกเลิกไม่ได้');
-      return { status: record.status };
-    }
     record.status = 'rejected';
-    record.approval = makeApproval({ review, userId: source.userId, decision: 'reject', at: new Date(ctx.now).toISOString() });
+    record.approval = makeApproval({ review, userId: source.userId, name: by.name, decision: 'reject', at: new Date(ctx.now).toISOString() });
     await ctx.store.putJson(`batch:${batch}`, record);
     await reply(ctx.line, event.replyToken, `ไม่รับชุด ${batch}`);
     return { status: 'rejected' };
-  }
-  if (action !== 'approve') return { ignored: true };
-  if (record.status === 'published' && record.approval && record.approval.publish_receipt) {
-    await reply(ctx.line, event.replyToken, `ชุด ${batch} ขึ้นแล้ว`);
-    return { status: 'published', duplicate: true };
   }
   // Reuse a saved approval only while it still describes this review. A rewritten
   // reading (the 2-digit year fix, for example) gets a new approval from this tap.
@@ -441,8 +455,8 @@ async function onPostback(event, ctx) {
   const previous = record.approval;
   const reusable = previous && previous.decision === 'approve' && approvalMatchesReview(previous, review);
   const approval = reusable
-    ? previous
-    : makeApproval({ review, userId: source.userId, decision: 'approve', at: new Date(ctx.now).toISOString() });
+    ? { ...previous, approver_user_id: source.userId, approver_name: by.name }
+    : makeApproval({ review, userId: source.userId, name: by.name, decision: 'approve', at: new Date(ctx.now).toISOString() });
   if (previous && previous.decision === 'approve' && !reusable) {
     console.error(`[publish] stale approval regenerated for ${batch}`);
   }
@@ -452,9 +466,10 @@ async function onPostback(event, ctx) {
   let result;
   try {
     result = await publishApprovedBatch({
-      review, approval, ownerUserId: ctx.config.ownerUserId, config: ctx.config, deps: ctx.deps,
+      review, approval, approverUserIds: approversOf(ctx.config), config: ctx.config, deps: ctx.deps,
     });
   } catch (err) {
+    await releaseDecision(ctx.store, `batch:${batch}`);
     const step = err.step || err.code || 'publish';
     const reason = (err.message || String(err)).toString().replace(/\s+/g, ' ').trim().slice(0, 300);
     console.error(`[publish] ${step}: ${reason}`);
@@ -463,6 +478,7 @@ async function onPostback(event, ctx) {
     await reply(ctx.line, event.replyToken, `ทำไม่สำเร็จ (${step}): ${reason}`);
     return { status: 'error', step, reason };
   }
+  if (result.status === 'error') await releaseDecision(ctx.store, `batch:${batch}`);
   if (result.status === 'published') {
     record.status = 'published';
     record.approval.publish_receipt = result;
@@ -501,6 +517,10 @@ async function onText(event, ctx) {
     await reply(ctx.line, event.replyToken, helpText());
     return { help: true };
   }
+  if (/^(?:\/?senders|ผู้ส่ง|ใครทัก)$/i.test(String(text || '').trim()) && isOwnerDirect(source, ctx.config)) {
+    await reply(ctx.line, event.replyToken, await sendersText(ctx.store));
+    return { senders: true };
+  }
   if (stock.isStockCommand(text)) return onStockCommand(event, ctx);
   const saved = stock.isStockText(text) && stock.fromText({
     id: event.message.id, text, now: ctx.now, source, branchHint: scope.branchHint,
@@ -515,15 +535,15 @@ async function onText(event, ctx) {
     await reply(ctx.line, event.replyToken, isOwnerDirect(source, ctx.config) ? STOCK_SAVED_TH : STOCK_SAVED);
     return { stock: saved.id, rows: saved.rows.length, flags: saved.flags };
   }
-  if (isTrustWrittenCommand(text) && source.type === 'user' && ctx.config.ownerUserId && source.userId === ctx.config.ownerUserId) {
+  if (isTrustWrittenCommand(text) && isOwnerDirect(source, ctx.config)) {
     return trustWritten(event, ctx);
   }
   if (isReviewCommand(text)) {
     if (source.type !== 'user') {
-      await reply(ctx.line, event.replyToken, source.userId === ctx.config.ownerUserId ? SUMMARY_IS_PRIVATE : ONLY_PARN_SUMMARY);
+      await reply(ctx.line, event.replyToken, isApprover(source.userId, ctx.config) ? SUMMARY_IS_PRIVATE : ONLY_PARN_SUMMARY);
       return { denied: true };
     }
-    if (source.userId !== ctx.config.ownerUserId) {
+    if (!isApprover(source.userId, ctx.config)) {
       await reply(ctx.line, event.replyToken, ONLY_PARN_SUMMARY);
       return { denied: true };
     }
@@ -545,6 +565,20 @@ async function onText(event, ctx) {
   const answered = await onQuestion(event, ctx);
   if (answered) return answered;
   return { ignored: true };
+}
+
+/** Parn: "ผู้ส่ง". Who has messaged the bot 1:1, newest first, so a new approver's id is easy to find. */
+async function sendersText(store) {
+  const entries = [];
+  for (const key of await store.list('sender:')) {
+    const entry = await store.getJson(key);
+    if (entry && entry.first_seen_at) entries.push(entry);
+  }
+  if (!entries.length) return 'ยังไม่มีคนทักใหม่';
+  entries.sort((a, b) => b.first_seen_at.localeCompare(a.first_seen_at));
+  return entries.slice(0, 15)
+    .map(e => `${e.display_name || '(no name)'}\n${e.user_id}\n${e.first_seen_at.slice(0, 10)}`)
+    .join('\n\n');
 }
 
 /** "สต็อก" alone: Parn sees the open stock lists as a free reply; staff get the format. */
@@ -599,6 +633,9 @@ async function trustWritten(event, ctx) {
   record.review = review;
   record.summary_text = summary.text;
   record.status = 'pending_review';
+  // Approved but held on the mismatch: the new reading needs a new tap.
+  delete record.approval;
+  await releaseDecision(ctx.store, `batch:${batchId}`);
   await ctx.store.putJson(`batch:${batchId}`, record);
   const head = { type: 'text', text: 'โอเค เชื่อยอดที่เขียน ยังไม่ลงบัญชี กดอนุมัติถ้าถูก' };
   await ctx.line.reply(event.replyToken, [head, ...summary.messages].slice(0, 5));
@@ -668,8 +705,7 @@ async function replayOrder(event, ctx) {
     await reply(ctx.line, event.replyToken, NO_ORDER);
     return { empty: true };
   }
-  const senderIsOwner = event.source && event.source.userId === ctx.config.ownerUserId;
-  if (senderIsOwner) {
+  if (event.source && isApprover(event.source.userId, ctx.config)) {
     await ctx.line.reply(event.replyToken, saved.messages);
   } else {
     await ctx.line.reply(event.replyToken, packBubbles({ type: 'text', text: ORDER_REPLAY_NOTE }, saved.messages.slice(1)));
@@ -688,33 +724,122 @@ async function onOrder(event, ctx) {
   const parsed = parseOrder(event.message.text, catalog);
   if (!parsed.isOrder) return null;
   const packed = buildOrderMessages(parsed, catalog);
-  const senderIsOwner = event.source.userId === ctx.config.ownerUserId;
+  const sender = event.source.userId;
   await ctx.store.putJson('latest:order', {
     at: ctx.now,
-    from: event.source.userId,
+    from: sender,
     messages: packed.messages,
   });
-  if (senderIsOwner) {
+  if (sender === ctx.config.ownerUserId) {
     await ctx.line.reply(event.replyToken, packed.messages);
     return { order: true, pushed: false, drafts: packed.drafts.length };
   }
-  let pushed = false;
-  if (ctx.config.ownerUserId && ctx.line) {
-    try {
-      await ctx.line.push(ctx.config.ownerUserId, packed.messages);
-      pushed = true;
-    } catch (err) {
-      pushed = false;
-    }
+  // Parn always gets the drafts. An approver who sent the order gets them free in
+  // the reply; everyone else just gets the confirmation.
+  const senderApproves = isApprover(sender, ctx.config);
+  const targets = approversOf(ctx.config).filter(id => id !== sender);
+  const sent = ctx.line ? await pushEach(ctx.line, targets, packed.messages) : { ok: [] };
+  const pushed = sent.ok.length > 0;
+  if (senderApproves) {
+    const note = { type: 'text', text: buildSenderConfirm(parsed, { delivered: pushed, ownerSet: Boolean(ctx.config.ownerUserId) }) };
+    await ctx.line.reply(event.replyToken, packBubbles(note, packed.messages.slice(1)));
+    return { order: true, pushed, drafts: packed.drafts.length };
   }
   await reply(ctx.line, event.replyToken, buildSenderConfirm(parsed, { delivered: pushed, ownerSet: Boolean(ctx.config.ownerUserId) }));
   return { order: true, pushed, drafts: packed.drafts.length };
+}
+
+async function pushEach(line, userIds, messages) {
+  const ok = [];
+  const errors = [];
+  for (const id of userIds) {
+    try {
+      await line.push(id, messages);
+      ok.push(id);
+    } catch (err) {
+      errors.push((err && err.message) || String(err));
+    }
+  }
+  return { ok, errors };
+}
+
+/** LINE profile name, cached in the sender log. The userId tail when LINE has none. */
+async function displayName(ctx, userId) {
+  const known = await ctx.store.getJson(`sender:${userId}`);
+  if (known && known.display_name) return known.display_name;
+  try {
+    if (ctx.line && typeof ctx.line.profile === 'function') {
+      const profile = await ctx.line.profile(userId);
+      if (profile && profile.displayName) {
+        await ctx.store.putJson(`sender:${userId}`, { ...(known || { user_id: userId, first_seen_at: new Date(ctx.now).toISOString() }), display_name: profile.displayName });
+        return profile.displayName;
+      }
+    }
+  } catch (err) { console.error(`[profile] ${(err && err.message) || err}`); }
+  return `…${String(userId).slice(-6)}`;
+}
+
+function decidedBy(record) {
+  const a = record && record.approval;
+  if (!a || !['published', 'rejected', 'approved'].includes(record.status)) return null;
+  // Approved with no result means the publish was cut off; a retry may finish it.
+  if (record.status === 'approved' && (!record.last_result || record.last_result.status === 'error')) return null;
+  return { decision: a.decision, userId: a.approver_user_id, name: a.approver_name };
+}
+
+/**
+ * The first tap wins. A claim older than a publish can run (5 min) is left from a
+ * cut-off run, and the next tap takes it over.
+ */
+async function claimDecision(store, key, decision, by, now) {
+  const body = { decision, userId: by.userId, name: by.name, at: new Date(now).toISOString() };
+  const put = await store.putIfAbsent(`decision:${key}`, Buffer.from(JSON.stringify(body)), 'application/json');
+  if (!put || put.created !== false) return { created: true };
+  const existing = await store.getJson(`decision:${key}`);
+  if (existing && now - Date.parse(existing.at) > PROCESSING_MS) {
+    await store.putJson(`decision:${key}`, body);
+    return { created: true };
+  }
+  return { created: false, existing: existing || body };
+}
+
+async function releaseDecision(store, key) {
+  try { await store.delete(`decision:${key}`); } catch (err) { console.error(err); }
+}
+
+function alreadyText(who) {
+  const name = who.name || (who.userId ? `…${String(who.userId).slice(-6)}` : 'someone');
+  return who.decision === 'reject' || who.decision === 'stock_reject'
+    ? `Already rejected by ${name} (ไม่รับแล้วโดย ${name})`
+    : `Already approved by ${name} (อนุมัติแล้วโดย ${name})`;
+}
+
+/** First 1:1 message from someone who is not an approver: keep their id and LINE name. */
+async function logNewSender(event, ctx) {
+  const source = event.source || {};
+  if (source.type !== 'user' || !source.userId || isApprover(source.userId, ctx.config)) return;
+  const key = `sender:${source.userId}`;
+  if (await ctx.store.getJson(key)) return;
+  let name = null;
+  try {
+    if (ctx.line && typeof ctx.line.profile === 'function') name = (await ctx.line.profile(source.userId)).displayName || null;
+  } catch (err) { console.error(`[profile] ${(err && err.message) || err}`); }
+  const entry = {
+    user_id: source.userId,
+    display_name: name,
+    first_seen_at: new Date(ctx.now).toISOString(),
+    first_event: event.type === 'message' && event.message ? `message:${event.message.type}` : event.type,
+    first_text: event.message && event.message.type === 'text' ? String(event.message.text || '').slice(0, 60) : null,
+  };
+  await ctx.store.putIfAbsent(key, Buffer.from(JSON.stringify(entry)), 'application/json');
+  console.log(`[sender] new 1:1 sender ${source.userId} ${JSON.stringify(name)}`);
 }
 
 async function handleEvent(event, ctx) {
   const claim = await claimEvent(ctx.store, event, ctx.now);
   if (claim.duplicate) return { duplicate: true };
   try {
+    try { await logNewSender(event, ctx); } catch (err) { console.error(`[sender] ${(err && err.message) || err}`); }
     let outcome;
     if (event.type === 'message' && event.message && event.message.type === 'image') outcome = await onImage(event, ctx);
     else if (event.type === 'postback') outcome = await onPostback(event, ctx);

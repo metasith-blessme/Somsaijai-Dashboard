@@ -6,7 +6,9 @@ function loadConfig(env = process.env) {
     channelAccessToken: env.LINE_CHANNEL_ACCESS_TOKEN || '',
     ownerUserId: env.LINE_OWNER_USER_ID || '',
     groupId: env.LINE_GROUP_ID || '',
-    orderSenderUserIds: String(env.LINE_ORDER_SENDER_USER_IDS || '').split(',').map(id => id.trim()).filter(Boolean),
+    // Extra approvers (Parn's manager). They get every card Parn gets and can tap อนุมัติ.
+    approverUserIds: idList(env.LINE_APPROVER_USER_IDS),
+    orderSenderUserIds: idList(env.LINE_ORDER_SENDER_USER_IDS),
     suppliersPath: env.LINE_ORDER_SUPPLIERS_PATH || path.join(__dirname, '..', 'orders', 'suppliers.json'),
     geminiKey: env.GEMINI_API_KEY || '',
     geminiModel: env.GEMINI_MODEL || env.GEMINI_OCR_MODEL || 'gemini-3.5-flash',
@@ -28,6 +30,20 @@ function loadConfig(env = process.env) {
   };
 }
 
+function idList(raw) {
+  return String(raw || '').split(',').map(id => id.trim()).filter(Boolean);
+}
+
+/** Parn first, then the extra approvers, without repeats. The one list every owner check reads. */
+function approversOf(config) {
+  if (!config) return [];
+  return [...new Set([config.ownerUserId, ...(config.approverUserIds || [])].filter(Boolean))];
+}
+
+function isApprover(userId, config) {
+  return Boolean(userId) && approversOf(config).includes(userId);
+}
+
 function parseGroupConfig(raw) {
   const table = new Map();
   for (const part of String(raw || '').split(',')) {
@@ -40,4 +56,4 @@ function parseGroupConfig(raw) {
   return table;
 }
 
-module.exports = { loadConfig, parseGroupConfig };
+module.exports = { loadConfig, parseGroupConfig, approversOf, isApprover };

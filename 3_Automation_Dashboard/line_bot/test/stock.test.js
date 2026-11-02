@@ -85,7 +85,7 @@ test('a stock photo sends no review card; it waits for the digest', async () => 
 
 test('the daily digest pushes Parn once a day and only when something is new', async () => {
   const c = ctx();
-  const run = now => stock.runDailyDigest({ store: c.store, line: c.line, ownerUserId: 'U-parn', now });
+  const run = now => stock.runDailyDigest({ store: c.store, line: c.line, approverUserIds: ['U-parn'], now });
   assert.equal((await run(NOW)).skipped, 'nothing_new');
   await post(c, text('U-staff', 'stock B1 31/10/2026\norange 27'));
   assert.equal((await run(NOW)).pushed, true);

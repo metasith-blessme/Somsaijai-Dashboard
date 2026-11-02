@@ -1,4 +1,4 @@
-const { loadConfig } = require('../line_bot/lib/config');
+const { loadConfig, approversOf } = require('../line_bot/lib/config');
 const { lineClient } = require('../line_bot/lib/line_client');
 const { createStore } = require('../line_bot/lib/store');
 const { runDailyDigest } = require('../line_bot/lib/stock');
@@ -30,7 +30,7 @@ module.exports = async function stockDigest(req, res) {
     const result = await runDailyDigest({
       store: createStore(),
       line: lineClient({ token: config.channelAccessToken }),
-      ownerUserId: config.ownerUserId,
+      approverUserIds: approversOf(config),
       now: Date.now(),
     });
     res.status(200);

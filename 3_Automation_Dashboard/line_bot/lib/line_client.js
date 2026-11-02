@@ -26,6 +26,14 @@ function lineClient({ token, fetchImpl }) {
       const list = Array.isArray(messages) ? messages : [{ type: 'text', text: String(messages) }];
       return api('https://api.line.me/v2/bot/message/push', { to, messages: list.slice(0, 5) });
     },
+    /** Free. Works only for users who added the bot as a friend. */
+    async profile(userId) {
+      const res = await fetchFn(`https://api.line.me/v2/bot/profile/${encodeURIComponent(userId)}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (!res.ok) throw new Error(`LINE profile ${res.status}`);
+      return res.json();
+    },
     async getContent(messageId) {
       const res = await fetchFn(`https://api-data.line.me/v2/bot/message/${messageId}/content`, {
         headers: { Authorization: `Bearer ${token}` },

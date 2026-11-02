@@ -299,16 +299,24 @@ async function openDigest(store, digestId, lists, now) {
  * The 22:00 push. At most one per Bangkok day, and none when every open list
  * was already shown to Parn.
  */
-async function runDailyDigest({ store, line, ownerUserId, now }) {
-  if (!ownerUserId) return { skipped: 'owner_not_set' };
+async function runDailyDigest({ store, line, approverUserIds, now }) {
+  if (!approverUserIds || !approverUserIds.length) return { skipped: 'owner_not_set' };
   const open = await loadLists(store);
   if (!open.some(l => !l.seen_in)) return { skipped: 'nothing_new', open: open.length };
   const day = bangkokDay(now).iso;
   const claim = await store.putIfAbsent(dayKey(day), Buffer.from(JSON.stringify({ at: new Date(now).toISOString() })), 'application/json');
   if (claim && claim.created === false) return { skipped: 'already_sent_today', day };
   const opened = await openDigest(store, `stock-${day}`, open, now);
-  await line.push(ownerUserId, opened.messages);
-  return { pushed: true, digest_id: opened.digest.id, lists: open.length };
+  const pushed_to = [];
+  for (const id of approverUserIds) {
+    try {
+      await line.push(id, opened.messages);
+      pushed_to.push(id);
+    } catch (err) {
+      console.error(`[stock-digest] push ${id.slice(-6)}: ${(err && err.message) || err}`);
+    }
+  }
+  return { pushed: pushed_to.length > 0, pushed_to, digest_id: opened.digest.id, lists: open.length };
 }
 
 /** Parn types "สต็อก": the same view as a free reply. */
@@ -321,19 +329,27 @@ async function replyDigest({ store, now }) {
  * อนุมัติ / ไม่รับ on a digest. Covers only the lists the digest showed, so a
  * list sent after the card is not approved unseen. Safe to tap twice.
  */
-async function decideDigest({ store, digestId, decision, now, publish }) {
+async function decideDigest({ store, digestId, decision, by = {}, now, publish, nameOf }) {
   const digest = await store.getJson(digestKey(digestId));
   if (!digest) return { status: 'missing', message: 'ไม่พบชุดสต็อกนี้แล้ว' };
-  const lists = [];
+  if (digest.decision) return already(digest.decision, nameOf);
+  const all = [];
   for (const id of digest.list_ids) {
     const list = await store.getJson(listKey(id));
-    if (list && OPEN.has(list.status)) lists.push(list);
+    if (list) all.push(list);
   }
-  if (!lists.length) return { status: 'done', message: 'ชุดสต็อกนี้ตัดสินแล้ว' };
+  const lists = all.filter(l => OPEN.has(l.status));
+  if (!lists.length) {
+    const handled = all.find(l => l.decided_by);
+    return handled ? already(handled.decided_by, nameOf) : { status: 'done', message: 'ชุดสต็อกนี้ตัดสินแล้ว' };
+  }
   const at = new Date(now).toISOString();
+  const who = { decision, userId: by.userId || null, name: by.name || null, at };
   if (decision === 'reject') {
+    digest.decision = who;
+    await store.putJson(digestKey(digestId), digest);
     for (const list of lists) {
-      Object.assign(list, { status: STATUS.rejected, decided_at: at });
+      Object.assign(list, { status: STATUS.rejected, decided_at: at, decided_by: who });
       await store.putJson(listKey(list.id), list);
     }
     return { status: 'rejected', message: `ไม่รับสต็อก ${lists.length} ใบ` };
@@ -343,22 +359,35 @@ async function decideDigest({ store, digestId, decision, now, publish }) {
   const heldNote = held ? `\nค้าง ${held} ใบ (ไม่มีสาขา/วันที่/จำนวน) ยังรออยู่` : '';
   if (!ready.length) return { status: 'held', message: `ยังไม่มีใบที่ลงได้${heldNote}` };
   for (const list of ready) {
-    Object.assign(list, { status: STATUS.approved, decided_at: at });
+    Object.assign(list, { status: STATUS.approved, decided_at: at, decided_by: who });
     await store.putJson(listKey(list.id), list);
   }
   const rows = ready.flatMap(ledgerRows);
   const result = await publish(rows, digestId);
   if (result.status !== 'published') {
+    // Lists stay approved and open, so a tap after the config is fixed retries.
     return { status: result.status, message: `อนุมัติแล้ว แต่ยังไม่ขึ้น dashboard: ${result.reason || result.status}${heldNote}`.slice(0, 400) };
   }
   for (const list of ready) {
     Object.assign(list, { status: STATUS.published, publish: { commit: result.commit || null, at } });
     await store.putJson(listKey(list.id), list);
   }
+  digest.decision = who;
+  await store.putJson(digestKey(digestId), digest);
   return {
     status: 'published',
     message: `ลงสต็อก ${ready.length} ใบ (${rows.length} แถว) แล้ว เว็บอัปเดตใน 1–2 นาที${heldNote}\n${result.url || ''}`.trim(),
   };
+}
+
+async function already(who, nameOf) {
+  let name = who.name;
+  if (!name && who.userId && nameOf) name = await nameOf(who.userId);
+  name = name || 'someone';
+  const message = who.decision === 'reject'
+    ? `Already rejected by ${name} (ไม่รับแล้วโดย ${name})`
+    : `Already approved by ${name} (อนุมัติแล้วโดย ${name})`;
+  return { status: 'already', decision: who.decision, by: who.userId || null, message };
 }
 
 module.exports = {

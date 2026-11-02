@@ -212,7 +212,7 @@ test('assertApproval still rejects a stale approval that was not regenerated', a
   review.records[0].date.value = '18/10/2026';
   const deps = countingDeps();
   await assert.rejects(
-    () => publishApprovedBatch({ review, approval, ownerUserId: 'U-owner', config: armed, deps }),
+    () => publishApprovedBatch({ review, approval, approverUserIds: ['U-owner'], config: armed, deps }),
     (err) => err instanceof GateError && err.code === 'hash_mismatch'
   );
   assert.deepEqual(deps.calls, []);
@@ -222,7 +222,7 @@ test('readback still runs when the bot does not call the Vercel API', async () =
   const review = cleanSale();
   const approval = makeApproval({ review, userId: 'U-owner', decision: 'approve', at: '2026-10-17T00:00:00.000Z' });
   const deps = countingDeps();
-  const result = await publishApprovedBatch({ review, approval, ownerUserId: 'U-owner', config: armed, deps });
+  const result = await publishApprovedBatch({ review, approval, approverUserIds: ['U-owner'], config: armed, deps });
   assert.equal(result.status, 'published');
   assert.equal(result.deployment.triggered, false);
   assert.equal(result.readback.ok, true);

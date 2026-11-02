@@ -57,7 +57,7 @@ test('extractor output cannot import itself, and a missing approval calls nothin
   const review = cleanSale();
   const deps = countingDeps();
   await assert.rejects(
-    () => publishApprovedBatch({ review, approval: null, ownerUserId: 'U-owner', config: armed, deps }),
+    () => publishApprovedBatch({ review, approval: null, approverUserIds: ['U-owner'], config: armed, deps }),
     (err) => err instanceof GateError && err.code === 'not_approved'
   );
   assert.deepEqual(deps.calls, []);
@@ -69,7 +69,7 @@ test('flipping import_allowed does not authorize a write', async () => {
   const approval = makeApproval({ review, userId: 'U-owner', decision: 'approve', at: '2026-10-17T00:00:00Z' });
   const deps = countingDeps();
   await assert.rejects(
-    () => publishApprovedBatch({ review, approval, ownerUserId: 'U-owner', config: armed, deps }),
+    () => publishApprovedBatch({ review, approval, approverUserIds: ['U-owner'], config: armed, deps }),
     (err) => err.code === 'extractor_contract'
   );
   assert.deepEqual(deps.calls, []);
@@ -81,7 +81,7 @@ test('an approval whose reading no longer matches does not import or deploy', as
   review.records[0].financials.total_sales.value = 999;
   const deps = countingDeps();
   await assert.rejects(
-    () => publishApprovedBatch({ review, approval, ownerUserId: 'U-owner', config: armed, deps }),
+    () => publishApprovedBatch({ review, approval, approverUserIds: ['U-owner'], config: armed, deps }),
     (err) => err.code === 'hash_mismatch'
   );
   assert.deepEqual(deps.calls, []);
@@ -91,12 +91,12 @@ test('the owner approval is what allows import and deploy, and a second run does
   const review = cleanSale();
   const approval = makeApproval({ review, userId: 'U-owner', decision: 'approve', at: '2026-10-17T00:00:00Z' });
   const deps = countingDeps();
-  const first = await publishApprovedBatch({ review, approval, ownerUserId: 'U-owner', config: armed, deps });
+  const first = await publishApprovedBatch({ review, approval, approverUserIds: ['U-owner'], config: armed, deps });
   assert.equal(first.status, 'published');
   assert.deepEqual(deps.calls, ['prepare', 'sales', 'regen', 'commit', 'deploy', 'readback']);
 
   approval.publish_receipt = first;
-  const again = await publishApprovedBatch({ review, approval, ownerUserId: 'U-owner', config: armed, deps });
+  const again = await publishApprovedBatch({ review, approval, approverUserIds: ['U-owner'], config: armed, deps });
   assert.equal(again.duplicate, true);
   assert.equal(deps.calls.length, 6);
 });
@@ -106,7 +106,7 @@ test('approval is stored but nothing is deployed when the switch is off', async 
   const approval = makeApproval({ review, userId: 'U-owner', decision: 'approve', at: '2026-10-17T00:00:00Z' });
   const deps = countingDeps();
   const result = await publishApprovedBatch({
-    review, approval, ownerUserId: 'U-owner', config: { ...armed, allowDeploy: false }, deps,
+    review, approval, approverUserIds: ['U-owner'], config: { ...armed, allowDeploy: false }, deps,
   });
   assert.equal(result.status, 'approved_not_deployed');
   assert.deepEqual(deps.calls, []);

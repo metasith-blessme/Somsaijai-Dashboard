@@ -1,3 +1,4 @@
+const { isApprover } = require('./config');
 /**
  * MiniMax Q&A for the LINE bot.
  * Replies only (never push). Fully off when MINIMAX_API_KEY is missing.
@@ -144,13 +145,7 @@ function qaQuestion(event) {
 }
 
 function isOwnerDirect(source, config) {
-  return Boolean(
-    source
-    && source.type === 'user'
-    && config
-    && config.ownerUserId
-    && source.userId === config.ownerUserId,
-  );
+  return Boolean(source && source.type === 'user' && isApprover(source.userId, config));
 }
 
 function buildChatMessages({ owner, question, salesContext }) {
