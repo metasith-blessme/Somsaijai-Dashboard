@@ -6085,7 +6085,7 @@
     }
   },
   "Nov26": {
-    "total_rev": 1480,
+    "total_rev": 4520,
     "total_cogs": 0,
     "fruit_summary": {},
     "daily_cogs": [],
@@ -6185,19 +6185,19 @@
       "share_pct": 0.7
     },
     "b2": {
-      "rev": 1480,
+      "rev": 4520,
       "rental": 0,
       "opex": 0,
       "daily_exp": 0,
       "opex_list": [],
       "cogs": 0,
-      "net": 1480,
+      "net": 4520,
       "loss_carry_forward": 0,
       "closing_loss": 0,
       "loss_offset": 0,
-      "adjusted_net": 1480,
-      "share": 1036,
-      "ming_share": 444.00000000000006,
+      "adjusted_net": 4520,
+      "share": 3164,
+      "ming_share": 1356.0000000000002,
       "share_pct": 0.7
     },
     "b3": {
@@ -6234,7 +6234,7 @@
     }
   },
   "all": {
-    "total_rev": 3838789.92,
+    "total_rev": 3841829.92,
     "total_cogs": 1551622,
     "fruit_summary": {
       "Packaging": 234762,
@@ -10225,7 +10225,7 @@
       "share_pct": 0.6350314778220266
     },
     "b2": {
-      "rev": 745448,
+      "rev": 748488,
       "opex": 154896.74,
       "rental": 194000,
       "daily_exp": 11950,
@@ -10565,11 +10565,11 @@
         }
       ],
       "cogs": 335361.6218950624,
-      "net": 49239.63810493759,
-      "share": 34467.74667345631,
-      "ming_share": 14771.891431481281,
+      "net": 52279.63810493759,
+      "share": 36595.74667345631,
+      "ming_share": 15683.891431481281,
       "loss_carry_forward": 0,
-      "adjusted_net": 49239.63810493759,
+      "adjusted_net": 52279.63810493759,
       "closing_loss": 0,
       "loss_offset": 78514.77030160754,
       "share_pct": 0.7
