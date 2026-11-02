@@ -104,5 +104,160 @@
       "qty": 2,
       "unit": "box"
     }
+  ],
+  "stock_counts": [
+    {
+      "branch": "B2",
+      "date": "2026-11-01",
+      "item": "Apple",
+      "qty": 6,
+      "unit": "whole",
+      "delivered": null,
+      "source": "line:photo:638747979347918900"
+    },
+    {
+      "branch": "B2",
+      "date": "2026-11-01",
+      "item": "Coconut meat",
+      "qty": 0.5,
+      "unit": "pack",
+      "delivered": null,
+      "source": "line:photo:638747979347918900"
+    },
+    {
+      "branch": "B2",
+      "date": "2026-11-01",
+      "item": "Cup (95)",
+      "qty": 40,
+      "unit": "pcs",
+      "delivered": null,
+      "source": "line:photo:638747988290175266"
+    },
+    {
+      "branch": "B2",
+      "date": "2026-11-01",
+      "item": "Cup (98)",
+      "qty": 160,
+      "unit": "pcs",
+      "delivered": 50,
+      "source": "line:photo:638747988290175266"
+    },
+    {
+      "branch": "B2",
+      "date": "2026-11-01",
+      "item": "Falcon",
+      "qty": 0.5,
+      "unit": "bottle",
+      "delivered": null,
+      "source": "line:photo:638747979347918900"
+    },
+    {
+      "branch": "B2",
+      "date": "2026-11-01",
+      "item": "Guava",
+      "qty": 2,
+      "unit": "kg",
+      "delivered": null,
+      "source": "line:photo:638747979347918900"
+    },
+    {
+      "branch": "B2",
+      "date": "2026-11-01",
+      "item": "Lid (95)",
+      "qty": 40,
+      "unit": "pcs",
+      "delivered": null,
+      "source": "line:photo:638747988290175266"
+    },
+    {
+      "branch": "B2",
+      "date": "2026-11-01",
+      "item": "Lid (98)",
+      "qty": 76,
+      "unit": "pcs",
+      "delivered": null,
+      "source": "line:photo:638747988290175266"
+    },
+    {
+      "branch": "B2",
+      "date": "2026-11-01",
+      "item": "Mango",
+      "qty": 2.5,
+      "unit": "kg",
+      "delivered": null,
+      "source": "line:photo:638747979347918900"
+    },
+    {
+      "branch": "B2",
+      "date": "2026-11-01",
+      "item": "Orange",
+      "qty": 0.5,
+      "unit": "basket",
+      "delivered": null,
+      "source": "line:photo:638747979347918900"
+    },
+    {
+      "branch": "B2",
+      "date": "2026-11-01",
+      "item": "Pomegranate",
+      "qty": 10,
+      "unit": "whole",
+      "delivered": null,
+      "source": "line:photo:638747979347918900"
+    },
+    {
+      "branch": "B2",
+      "date": "2026-11-01",
+      "item": "Straw - Big",
+      "qty": 0.5,
+      "unit": "pcs",
+      "delivered": null,
+      "source": "line:photo:638747857293672449"
+    },
+    {
+      "branch": "B2",
+      "date": "2026-11-01",
+      "item": "Straw - Small",
+      "qty": 0.5,
+      "unit": "pcs",
+      "delivered": null,
+      "source": "line:photo:638747857293672449"
+    },
+    {
+      "branch": "B2",
+      "date": "2026-11-01",
+      "item": "Watermelon",
+      "qty": 1.5,
+      "unit": "whole",
+      "delivered": null,
+      "source": "line:photo:638747979347918900"
+    },
+    {
+      "branch": "B4",
+      "date": "2026-11-01",
+      "item": "Apple",
+      "qty": 6,
+      "unit": "whole",
+      "delivered": null,
+      "source": "line:photo:638754185307226164"
+    },
+    {
+      "branch": "B4",
+      "date": "2026-11-01",
+      "item": "Pomegranate",
+      "qty": 12,
+      "unit": "whole",
+      "delivered": null,
+      "source": "line:photo:638754185307226164"
+    },
+    {
+      "branch": "B4",
+      "date": "2026-11-01",
+      "item": "Watermelon",
+      "qty": 3,
+      "unit": "whole",
+      "delivered": null,
+      "source": "line:photo:638754185307226164"
+    }
   ]
 }
