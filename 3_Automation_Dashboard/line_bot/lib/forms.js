@@ -44,84 +44,6 @@ function formTemplate(extraction) {
   return null;
 }
 
-function moneyText(field) {
-  if (!field || field.state === 'missing') return 'ไม่มีช่อง';
-  if (field.state !== 'observed') {
-    const alt = (field.alternatives || []).length ? ` (${field.alternatives.join(' / ')})` : '';
-    const raw = field.raw_text ? ` เขียนว่า ${field.raw_text}` : '';
-    return `ไม่ชัด${raw}${alt}`;
-  }
-  return String(field.value);
-}
-
-function itemLine(item) {
-  const kind = classifyItem(item.item_raw);
-  const name = item.item_raw || '(ไม่มีชื่อ)';
-  const where = kind.code ? kind.code : 'ไม่มีช่องในตาราง';
-  const bits = [name];
-  if (item.price_overridden_from != null || item.price_overridden_to != null) {
-    bits.push(`ราคา ${item.price_overridden_from ?? '?'} ขีดเป็น ${item.price_overridden_to ?? item.price_written ?? '?'}`);
-  } else if (item.price_written != null && item.price_written !== '') {
-    bits.push(`ราคา ${item.price_written}`);
-  }
-  const cash = observedNumber(item.cash_qty);
-  const scan = observedNumber(item.scan_qty);
-  const qty = observedNumber(item.qty);
-  const amount = observedNumber(item.amount);
-  if (cash != null || scan != null) bits.push(`สด ${cash == null ? '?' : cash} สแกน ${scan == null ? '?' : scan}`);
-  if (qty != null) bits.push(`รวม ${qty}`);
-  else if (item.qty && item.qty.state && item.qty.state !== 'missing') bits.push('รวมไม่ชัด');
-  if (amount != null) bits.push(`บาท ${amount}`);
-  if (item.struck) bits.push('ขีดฆ่า');
-  if (item.uncertain) bits.push('ตัวเลขไม่ชัวร์');
-  bits.push(`→ ${where}`);
-  return bits.join(' ');
-}
-
-function reportLines(record) {
-  if (!record || (record.document_type !== 'sales_report' && record.document_type !== 'closing_cash')) return [];
-  const lines = [];
-  const formName = record.form_template === 'daily_shop_report'
-    ? 'แบบ Daily Shop Report'
-    : record.form_template === 'daily_sales_record'
-      ? 'แบบ Daily Sales Record'
-      : 'แบบฟอร์มที่ยังไม่ระบุชื่อ';
-  lines.push(formName);
-  if ((record.sales_items || []).some(item => handwritingFlags(item).length)) {
-    lines.push('มีราคาหรือเมนูที่เขียนทับ ต้องตรวจก่อนอนุมัติ');
-  }
-  if (record.orientation && record.orientation !== 'upright') lines.push('รูปเอียง อ่านหลังหมุนให้หัวกระดาษอยู่บน');
-  const staff = (record.staff_raw || []).filter(Boolean);
-  if (staff.length) lines.push(`พนักงาน ${staff.join(', ')}`);
-  else lines.push('ชื่อพนักงานบนกระดาษอ่านไม่ได้');
-  if (record.branch_hint && (!record.branch || record.branch.state !== 'observed')) {
-    lines.push(`กลุ่มไลน์ตั้งไว้เป็น ${record.branch_hint} แต่บนกระดาษไม่เขียนสาขา จึงยังไม่ใช้ค่านี้`);
-  }
-  if (record.branch_hint && record.branch && record.branch.state === 'observed' && record.branch.value !== record.branch_hint) {
-    lines.push(`กระดาษเขียน ${record.branch.value} แต่กลุ่มไลน์ตั้งไว้เป็น ${record.branch_hint}`);
-  }
-  const fin = record.financials || {};
-  lines.push(`เงินสด ${moneyText(fin.cash_sales)} สแกน ${moneyText(fin.scan_sales)} ยอดรวม ${moneyText(fin.total_sales)}`);
-  if (fin.total_expense && fin.total_expense.state !== 'missing') lines.push(`ค่าใช้จ่ายรวม ${moneyText(fin.total_expense)}`);
-  if (fin.net_sales && fin.net_sales.state !== 'missing') lines.push(`ยอดหลังหักตามช่องบนกระดาษ ${moneyText(fin.net_sales)}`);
-  if (fin.opening_cash && fin.opening_cash.state !== 'missing') lines.push(`เงินเปิดกะ ${moneyText(fin.opening_cash)}`);
-  if (fin.counted_cash && fin.counted_cash.state !== 'missing') lines.push(`เงินนับได้ ${moneyText(fin.counted_cash)}`);
-  if (fin.expected_cash && fin.expected_cash.state !== 'missing') lines.push(`เงินที่ควรเหลือ ${moneyText(fin.expected_cash)}`);
-  const ice = record.other && record.other.ice;
-  if (ice && ice.state !== 'missing') lines.push(`น้ำแข็ง ${moneyText(ice)} บาท อยู่ในช่อง Other ยังไม่ลงเป็นค่าใช้จ่าย`);
-  const other = record.other && record.other.other;
-  if (other && other.state !== 'missing') lines.push(`อื่น ๆ ${moneyText(other)}`);
-  for (const note of record.notes || []) lines.push(`โน้ต: ${note}`);
-  const items = record.sales_items || [];
-  if (items.length) {
-    lines.push('รายการ:');
-    for (const item of items.slice(0, 24)) lines.push(`- ${itemLine(item)}`);
-    if (items.length > 24) lines.push(`- และอีก ${items.length - 24} แถว`);
-  }
-  for (const text of record.model_uncertainties || []) lines.push(`ไม่ชัด: ${text}`);
-  return lines;
-}
-
 function rowQtyCheck(item) {
   const cash = observedNumber(item.cash_qty);
   const scan = observedNumber(item.scan_qty);
@@ -206,22 +128,22 @@ function extraFlavors(itemRaw) {
 function handwritingFlags(item) {
   if (!item) return [];
   const flags = [];
-  const name = item.item_raw || 'แถว';
+  const name = item.item_raw || 'Row';
   if (item.price_overridden_from != null || item.price_overridden_to != null) {
     flags.push({
       kind: 'price_change',
-      text: `${name}: ราคาเขียนทับ ${item.price_overridden_from ?? '?'} เป็น ${item.price_overridden_to ?? '?'}`,
+      text: `${name}: price changed by hand ${item.price_overridden_from ?? '?'} to ${item.price_overridden_to ?? '?'}`,
     });
   }
   const extra = extraFlavors(item.item_raw);
   if (extra.length) {
-    flags.push({ kind: 'flavor_shift', text: `${name}: มีรสที่เขียนเพิ่ม (${extra.join(', ')})` });
+    flags.push({ kind: 'flavor_shift', text: `${name}: extra flavour written in (${extra.join(', ')})` });
   }
   if (item.label_crossed_out) {
-    flags.push({ kind: 'label_shift', text: `${name}: ป้ายเดิม ${item.label_crossed_out} ถูกขีดฆ่า ลงตามที่เขียน` });
+    flags.push({ kind: 'label_shift', text: `${name}: printed name ${item.label_crossed_out} crossed out, booked as written` });
   }
   if (item.struck || item.handwritten) {
-    flags.push({ kind: 'row_shift', text: `${name}: แถวถูกเขียนเพิ่มหรือขีดฆ่า` });
+    flags.push({ kind: 'row_shift', text: `${name}: row added or crossed out by hand` });
   }
   return flags;
 }
@@ -249,11 +171,9 @@ module.exports = {
   ALBUM_HELP_TH,
   classifyItem,
   formTemplate,
-  reportLines,
   rowQtyCheck,
   rowAmountCheck,
   noteCheck,
-  moneyText,
   handwritingFlags,
   extraFlavors,
 };

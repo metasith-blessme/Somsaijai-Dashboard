@@ -139,10 +139,8 @@ test('handwritten price changes and extra flavors are flagged for review', () =>
   assert.equal(review.records[0].status, 'needs_review');
   assert.ok(review.issues.some(issue => issue.field === 'price_change'));
   const summary = formatSummary(review, {}).text;
-  assert.match(summary, /ชุด price/);
-  assert.match(summary, /B1 17\/10\/2026/);
-  assert.match(summary, /รวม 160/);
-  assert.match(summary, /ราคาเขียนทับ 65 เป็น 80/);
+  assert.match(summary, /^B1 · 17 Oct 2026 · Total ฿160/);
+  assert.match(summary, /\(price 65→80\)/);
   const plan = buildChangePlan(review);
   assert.equal(plan.salesLists.length, 1);
 });

@@ -146,7 +146,7 @@ function summarizeParts(parts, conflicts) {
 
 function missingNote(summary) {
   if (!summary || !summary.missing || !summary.missing.length) return '';
-  return `รูปไม่ครบ ${summary.ordered.length}/${summary.total} ขาดลำดับ ${summary.missing.join(', ')}`;
+  return `Missing photos: got ${summary.ordered.length} of ${summary.total} (missing no. ${summary.missing.join(', ')})`;
 }
 
 module.exports = {

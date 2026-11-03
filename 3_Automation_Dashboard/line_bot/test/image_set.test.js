@@ -106,7 +106,7 @@ test('the webhook waits for the whole imageSet, then reads each photo once', asy
   assert.equal(c.extracts.length, 2);
   assert.equal(c.pushes.length, 1);
   assert.equal(c.pushes[0].to, 'U-owner');
-  assert.match(c.pushes[0].messages[0].text, /ยังไม่เข้าระบบ/);
+  assert.match(c.pushes[0].messages[1].template.text, /^Tap Approve|Not booked|Nothing can be booked/);
 
   const again = await post([imageEvent('m1', 1, 2, 'SET1', 'wh-1')]);
   assert.equal(again.outcomes[0].duplicate, true);
@@ -132,7 +132,7 @@ test('ten imageSet parts delivered together are read once', async () => {
   assert.equal(c.downloads.length, 10);
   assert.equal(c.pushes.length, 1);
   assert.equal(c.pushes[0].to, 'U-owner');
-  assert.match(c.pushes[0].messages[0].text, /ยังไม่เข้าระบบ/);
+  assert.equal(c.pushes[0].messages[1].template.actions[0].label, 'Approve');
   const parts = await c.store.list('set:SET10:part:');
   assert.equal(parts.length, 10);
   assert.equal(parts.includes(doneKey('SET10')), false);
@@ -165,7 +165,7 @@ test('an incomplete imageSet is still summarized once the wait expires', async (
   await Promise.all(tails);
   assert.equal(c.extracts.length, 2);
   assert.equal(c.pushes.length, 1);
-  assert.match(c.pushes[0].messages[0].text, /ขาดลำดับ 2/);
+  assert.match(c.pushes[0].messages[0].text, /^Missing photos: got 2 of 3 \(missing no\. 2\)/);
   const late = await post(imageEvent('a2', 2, 3, 'SETWAIT', 'wh-b'));
   assert.equal(late.outcomes[0].late, true);
   assert.equal(c.extracts.length, 2);

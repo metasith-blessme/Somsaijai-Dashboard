@@ -5,7 +5,7 @@ const { redactText } = require('./redact');
 
 const { formTemplate } = require('./forms');
 
-const PROMPT_VERSION = 'line-bot-ocr-4';
+const PROMPT_VERSION = 'line-bot-ocr-5';
 const OPENED = { B1: '2026-01-01', B2: '2026-04-18', B3: '2026-07-11', B4: '2026-09-19' };
 
 function branchField(raw) {
@@ -125,6 +125,14 @@ function menuRows(list) {
     label_crossed_out: row && row.label_crossed_out ? String(row.label_crossed_out) : null,
     source_row: i + 1,
   }));
+}
+
+// The model sometimes copies a handwritten extra row into menu_rows too. The same
+// item, qty and amount twice is one line read twice, not two sales.
+function withAdditions(rows, additions) {
+  const same = (a, b) => String(a.item_raw || '').trim().toLowerCase() === String(b.item_raw || '').trim().toLowerCase()
+    && a.qty.value === b.qty.value && a.amount.value === b.amount.value;
+  return rows.concat(additions.filter(extra => !rows.some(row => !row.handwritten && same(row, extra))));
 }
 
 function readingHeader(obj) {
@@ -291,7 +299,7 @@ function buildReview({ batchId, images, now }) {
       financials: page.financials,
       other: page.other,
       notes: page.notes,
-      sales_items: page.sales_items.concat(page.handwritten_additions),
+      sales_items: withAdditions(page.sales_items, page.handwritten_additions),
       stock_items: page.stock_items,
       shift_expenses: page.shift_expenses,
       issues: page.issues,

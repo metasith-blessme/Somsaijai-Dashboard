@@ -211,36 +211,29 @@ function renderSupplier(supplier, items) {
   throw new Error(`unknown supplier kind ${supplier.kind}`);
 }
 
-function itemPhrase(item) {
-  const who = item.handled_by === 'ming'
-    ? 'คุณเมนสั่งเอง'
-    : (item.supplier ? null : 'ไม่มีร้าน');
-  return { text: `${item.label_th} ${formatQty(item.qty)} ${item.display_unit}`, who };
-}
-
 function buildOrderMessages(parsed, catalog) {
-  const lines = ['ออเดอร์พรุ่งนี้'];
+  const lines = ["Tomorrow's order"];
   for (const item of combineSameItem(parsed.items)) {
-    const phrase = itemPhrase(item);
+    const what = `${item.label_en || item.label_th} ${formatQty(item.qty)} ${showUnit(item.display_unit)}`.replace(/ +/g, ' ').trim();
     if (item.handled_by === 'ming') {
-      lines.push(`• ${phrase.text} → คุณเมนสั่งเอง`);
+      lines.push(`• ${what} → Ming orders this`);
     } else if (item.supplier) {
       const supplier = catalog.suppliers.get(item.supplier);
-      const ask = supplier && supplier.kind === 'price_question' ? ' (ถามราคาก่อน)' : '';
-      const extra = item.flags.includes('combined') ? ' รวมจากหลายบรรทัด' : '';
-      const unitNote = item.flags.includes('unit_differs') || item.flags.includes('unit_unrecognized') ? ' หน่วยตามที่ส่งมา' : '';
-      lines.push(`• ${phrase.text} → ${supplier ? supplier.name : item.supplier}${ask}${extra}${unitNote}`);
+      const ask = supplier && supplier.kind === 'price_question' ? ' (ask the price first)' : '';
+      const extra = item.flags.includes('combined') ? ' (several lines added up)' : '';
+      const unitNote = item.flags.includes('unit_differs') || item.flags.includes('unit_unrecognized') ? ' (unit as sent)' : '';
+      lines.push(`• ${what} → ${supplier ? supplier.name : item.supplier}${ask}${extra}${unitNote}`);
     }
   }
   for (const row of parsed.unknown) {
-    const unit = row.unit || row.rawUnit || 'ไม่บอกหน่วย';
-    lines.push(`• ${row.name} ${formatQty(row.qty)} ${unit} → ไม่รู้จักสินค้านี้`);
+    const unit = showUnit(row.unit || row.rawUnit || '') || 'no unit';
+    lines.push(`• ${row.name} ${formatQty(row.qty)} ${unit} → unknown item`);
   }
-  for (const row of parsed.unparsed) lines.push(`• อ่านบรรทัดนี้ไม่ได้: ${row}`);
-  if (!parsed.items.length && !parsed.unknown.length && !parsed.unparsed.length) lines.push('ไม่มีรายการ');
+  for (const row of parsed.unparsed) lines.push(`• Could not read: ${row}`);
+  if (!parsed.items.length && !parsed.unknown.length && !parsed.unparsed.length) lines.push('No items.');
   const draftNames = parsed.drafts.map((draft, index) => `${index + 1}. ${draft.name}`);
-  if (draftNames.length) lines.push(`ก๊อปไปส่งเอง: ${draftNames.join(' ')}`);
-  lines.push('บอทไม่ได้ส่งให้ร้าน');
+  if (draftNames.length) lines.push(`Copy and send the Thai texts below: ${draftNames.join(' ')}`);
+  lines.push('The bot did not message any shop.');
   const summary = { type: 'text', text: lines.join('\n').slice(0, 4800) };
   const bubbles = parsed.drafts.map(draft => ({ type: 'text', text: String(draft.text).slice(0, 4800) }));
   return { summaryText: summary.text, messages: packBubbles(summary, bubbles), drafts: parsed.drafts };

@@ -91,7 +91,8 @@ test('the daily digest pushes Parn once a day and only when something is new', a
   assert.equal((await run(NOW)).pushed, true);
   assert.equal(c.pushes.length, 1);
   assert.equal(c.pushes[0].to, 'U-parn');
-  assert.match(c.pushes[0].messages[0].text, /B1 31\/10\/2026/);
+  assert.match(c.pushes[0].messages[0].text, /^B1 · 31 Oct 2026 · 1 item \(text\)$/m);
+  assert.match(c.pushes[0].messages[0].text, /^orange 27$/m);
   assert.match(c.pushes[0].messages[1].template.actions[0].data, /^action=stock_approve&batch=stock-2026-10-31$/);
   await post(c, text('U-staff', 'stock B2 31/10/2026\nmango 1 box'));
   assert.equal((await run(NOW + 60000)).skipped, 'already_sent_today');
@@ -107,14 +108,16 @@ test('Parn types สต็อก, taps อนุมัติ, and the rows are c
   await post(c, text('U-parn', 'สต็อก'));
   assert.equal(c.pushes.length, 0);
   const view = c.replies.at(-1);
-  assert.match(view[0].text, /สต็อกรอตรวจ 2 ใบ/);
-  assert.match(view[0].text, /ไม่ลง: no branch/);
+  assert.match(view[0].text, /^Stock · 2 lists to check/);
+  assert.match(view[0].text, /✗ Not added: no branch/);
+  assert.equal(view[1].template.text, 'Approve adds 1 list to the dashboard. Reject drops all 2.');
+  assert.deepEqual(view[1].template.actions.map(a => a.label), ['Approve', 'Reject']);
   const data = view[1].template.actions[0].data;
   await post(c, tap(data));
   assert.equal(c.commits.length, 1);
   assert.deepEqual(c.commits[0].rows, [{ branch: 'B1', date: '2026-10-31', item: 'orange', qty: 27, unit: 'basket', delivered: 20, source: c.commits[0].rows[0].source }]);
-  assert.match(c.replies.at(-1)[0].text, /ลงสต็อก 1 ใบ/);
-  assert.match(c.replies.at(-1)[0].text, /ค้าง 1 ใบ/);
+  assert.match(c.replies.at(-1)[0].text, /^Added 1 stock list \(1 items\)/);
+  assert.match(c.replies.at(-1)[0].text, /1 list still waiting/);
   await post(c, tap(data));
   assert.equal(c.commits.length, 1);
   const open = await stock.loadLists(c.store);
@@ -192,5 +195,5 @@ test('a stock line with no counted rows is not saved', async () => {
 test('Parn types สต็อก with nothing open and is told so', async () => {
   const c = ctx();
   await post(c, text('U-parn', 'สต็อก'));
-  assert.equal(c.replies[0][0].text, 'ยังไม่มีสต็อกรอตรวจ');
+  assert.equal(c.replies[0][0].text, 'No stock lists waiting.');
 });

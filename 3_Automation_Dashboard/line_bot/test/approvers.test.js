@@ -120,13 +120,14 @@ test('the stock digest goes to each approver; the second tap shows who handled i
   assert.equal(c.calls.filter(x => x === 'stock').length, 1);
 });
 
-test('the manager gets Parn\'s owner replies: Thai ack, สต็อก, sales Q&A context', async () => {
+test('the manager gets Parn\'s owner replies in English: ack, สต็อก, sales Q&A context', async () => {
   const c = harness();
   await post(c, photo('U-ming'));
-  assert.match(c.replies[0][0].text, /ได้รับรูปแล้ว/);
+  assert.equal(c.replies[0][0].text, 'Got the photo. Reading it now. Summary in 1–3 min.');
   await post(c, text('U-staff', 'stock B1 01/11/2026\norange 27'));
   await post(c, text('U-ming', 'สต็อก'));
-  assert.match(c.replies.at(-1)[0].text, /สต็อกรอตรวจ 1 ใบ/);
+  assert.match(c.replies.at(-1)[0].text, /^Stock · 1 list to check/);
+  assert.doesNotMatch(c.replies.at(-1)[0].text, /[\u0E00-\u0E7F]/);
   assert.equal(isOwnerDirect(user('U-ming'), c.config), true);
   assert.equal(isOwnerDirect(user('U-staff'), c.config), false);
 });

@@ -14,6 +14,7 @@ const {
 const { sha256, buildReview } = require('./normalize');
 const { applyChecks } = require('./validate');
 const { formatSummary, parsePostback } = require('./summary');
+const { alreadyText } = require('./words');
 const { makeApproval, approvalMatchesReview } = require('./approval');
 const { publishApprovedBatch, publishStock } = require('./publish');
 const stock = require('./stock');
@@ -60,7 +61,7 @@ const {
   readingPhoto,
   isTrustWrittenCommand,
   STOCK_SAVED,
-  STOCK_SAVED_TH,
+  STOCK_SAVED_OWNER,
   STOCK_HOW,
 } = require('./staff_text');
 
@@ -285,7 +286,7 @@ async function processClaimedSet(setId, summary, ctx, replyToken) {
   if (!batch.push_error && approversOf(ctx.config).length) {
     const warning = batchCtx.ocrWarning ? `\n${batchCtx.ocrWarning}` : '';
     const owner = isOwnerDirect(ctx.source, ctx.config);
-    const head = batch.status === 'stock' ? (owner ? STOCK_SAVED_TH : STOCK_SAVED) : (staffNote || photosDone());
+    const head = batch.status === 'stock' ? (owner ? STOCK_SAVED_OWNER : STOCK_SAVED) : (staffNote || (owner ? 'Card sent. Nothing is booked until you tap Approve.' : photosDone()));
     // Only with a live reply token. The chat already got "reading it now", and the
     // owner's own chat gets the summary card itself, so no extra push is spent here.
     if (replyToken) {
@@ -429,7 +430,7 @@ async function onPostback(event, ctx) {
   const review = await ctx.store.getJson(`review:${batch}`);
   const record = await ctx.store.getJson(`batch:${batch}`);
   if (!review || !record) {
-    await reply(ctx.line, event.replyToken, 'ไม่พบชุดนี้แล้ว');
+    await reply(ctx.line, event.replyToken, 'That card has expired. Send the photo again.');
     return { missing: true };
   }
   if (action !== 'approve' && action !== 'reject') return { ignored: true };
@@ -446,7 +447,7 @@ async function onPostback(event, ctx) {
     record.status = 'rejected';
     record.approval = makeApproval({ review, userId: source.userId, name: by.name, decision: 'reject', at: new Date(ctx.now).toISOString() });
     await ctx.store.putJson(`batch:${batch}`, record);
-    await reply(ctx.line, event.replyToken, `ไม่รับชุด ${batch}`);
+    await reply(ctx.line, event.replyToken, 'Rejected. Nothing booked.');
     return { status: 'rejected' };
   }
   // Reuse a saved approval only while it still describes this review. A rewritten
@@ -475,7 +476,7 @@ async function onPostback(event, ctx) {
     console.error(`[publish] ${step}: ${reason}`);
     record.last_result = { status: 'error', step, reason };
     await ctx.store.putJson(`batch:${batch}`, record);
-    await reply(ctx.line, event.replyToken, `ทำไม่สำเร็จ (${step}): ${reason}`);
+    await reply(ctx.line, event.replyToken, `Could not book (${step}): ${reason}`);
     return { status: 'error', step, reason };
   }
   if (result.status === 'error') await releaseDecision(ctx.store, `batch:${batch}`);
@@ -514,7 +515,7 @@ async function onText(event, ctx) {
     return { setup: true };
   }
   if (isHelpCommand(text)) {
-    await reply(ctx.line, event.replyToken, helpText());
+    await reply(ctx.line, event.replyToken, helpText(isOwnerDirect(source, ctx.config)));
     return { help: true };
   }
   if (/^(?:\/?senders|ผู้ส่ง|ใครทัก)$/i.test(String(text || '').trim()) && isOwnerDirect(source, ctx.config)) {
@@ -532,7 +533,7 @@ async function onText(event, ctx) {
   }
   if (saved && saved.rows.length) {
     await stock.saveList(ctx.store, saved);
-    await reply(ctx.line, event.replyToken, isOwnerDirect(source, ctx.config) ? STOCK_SAVED_TH : STOCK_SAVED);
+    await reply(ctx.line, event.replyToken, isOwnerDirect(source, ctx.config) ? STOCK_SAVED_OWNER : STOCK_SAVED);
     return { stock: saved.id, rows: saved.rows.length, flags: saved.flags };
   }
   if (isTrustWrittenCommand(text) && isOwnerDirect(source, ctx.config)) {
@@ -550,7 +551,7 @@ async function onText(event, ctx) {
     const latest = await ctx.store.getJson('latest:pending');
     const review = latest && await ctx.store.getJson(`review:${latest.batch_id}`);
     if (!review) {
-      await reply(ctx.line, event.replyToken, 'ยังไม่มีชุดที่รอตรวจ');
+      await reply(ctx.line, event.replyToken, 'Nothing waiting for review.');
       return { empty: true };
     }
     const summary = formatSummary(review, { publicUrl: ctx.config.publicUrl, channelSecret: ctx.config.channelSecret });
@@ -574,7 +575,7 @@ async function sendersText(store) {
     const entry = await store.getJson(key);
     if (entry && entry.first_seen_at) entries.push(entry);
   }
-  if (!entries.length) return 'ยังไม่มีคนทักใหม่';
+  if (!entries.length) return 'No one new has messaged the bot.';
   entries.sort((a, b) => b.first_seen_at.localeCompare(a.first_seen_at));
   return entries.slice(0, 15)
     .map(e => `${e.display_name || '(no name)'}\n${e.user_id}\n${e.first_seen_at.slice(0, 10)}`)
@@ -589,7 +590,7 @@ async function onStockCommand(event, ctx) {
   }
   const opened = await stock.replyDigest({ store: ctx.store, now: ctx.now });
   if (!opened) {
-    await reply(ctx.line, event.replyToken, 'ยังไม่มีสต็อกรอตรวจ');
+    await reply(ctx.line, event.replyToken, 'No stock lists waiting.');
     return { stock_empty: true };
   }
   await ctx.line.reply(event.replyToken, opened.messages);
@@ -607,18 +608,18 @@ async function trustWritten(event, ctx) {
   const review = batchId && await ctx.store.getJson(`review:${batchId}`);
   const record = batchId && await ctx.store.getJson(`batch:${batchId}`);
   if (!review || !record) {
-    await reply(ctx.line, event.replyToken, 'ยังไม่มีชุดที่รอตรวจ');
+    await reply(ctx.line, event.replyToken, 'Nothing waiting for review.');
     return { trust_written: false, empty: true };
   }
   if (record.status === 'published' || record.status === 'rejected') {
-    await reply(ctx.line, event.replyToken, `ชุด ${batchId} ${record.status === 'published' ? 'ลงบัญชีแล้ว' : 'ไม่รับไปแล้ว'} ไม่ได้แก้`);
+    await reply(ctx.line, event.replyToken, `${record.status === 'published' ? 'Already booked' : 'Already rejected'}. Nothing changed.`);
     return { trust_written: false, status: record.status };
   }
   const mismatched = (review.checks || [])
     .filter(c => c.status === 'fail' && (c.rule === 'channels' || c.rule === 'line_sum'))
     .map(c => c.record_id);
   if (!mismatched.length) {
-    await reply(ctx.line, event.replyToken, `ชุด ${batchId} ยอดรวมตรงอยู่แล้ว ไม่ต้องแก้`);
+    await reply(ctx.line, event.replyToken, 'The Total already matches. Nothing to change.');
     return { trust_written: false, nothing_to_fix: true };
   }
   review.owner_overrides = {
@@ -637,7 +638,7 @@ async function trustWritten(event, ctx) {
   delete record.approval;
   await releaseDecision(ctx.store, `batch:${batchId}`);
   await ctx.store.putJson(`batch:${batchId}`, record);
-  const head = { type: 'text', text: 'โอเค เชื่อยอดที่เขียน ยังไม่ลงบัญชี กดอนุมัติถ้าถูก' };
+  const head = { type: 'text', text: 'OK, using the written Total. Not booked yet. Tap Approve if it is right.' };
   await ctx.line.reply(event.replyToken, [head, ...summary.messages].slice(0, 5));
   return { trust_written: true, batch_id: batchId };
 }
@@ -805,13 +806,6 @@ async function claimDecision(store, key, decision, by, now) {
 
 async function releaseDecision(store, key) {
   try { await store.delete(`decision:${key}`); } catch (err) { console.error(err); }
-}
-
-function alreadyText(who) {
-  const name = who.name || (who.userId ? `…${String(who.userId).slice(-6)}` : 'someone');
-  return who.decision === 'reject' || who.decision === 'stock_reject'
-    ? `Already rejected by ${name} (ไม่รับแล้วโดย ${name})`
-    : `Already approved by ${name} (อนุมัติแล้วโดย ${name})`;
 }
 
 /** First 1:1 message from someone who is not an approver: keep their id and LINE name. */

@@ -33,9 +33,9 @@ module.exports = async function review(req, res) {
   const summary = formatSummary(redactDeep(stored), { publicUrl: config.publicUrl, channelSecret: config.channelSecret });
   res.setHeader('Content-Type', 'text/html; charset=utf-8');
   res.setHeader('Cache-Control', 'no-store');
-  res.end(`<!doctype html><meta name="robots" content="noindex"><title>Review ${escapeHtml(batch)}</title>
+  res.end(`<!doctype html><meta name="robots" content="noindex"><title>Sales photo check</title>
 <style>body{font-family:sans-serif;max-width:40rem;margin:2rem auto;padding:0 1rem;white-space:pre-wrap}</style>
-<h1>ชุด ${escapeHtml(batch)}</h1>
-<p>อย่าส่งต่อลิงก์นี้</p>
-<pre>${escapeHtml(summary.text)}</pre>`);
+<h1>Sales photo check</h1>
+<p>Private link. Do not forward it.</p>
+<pre>${escapeHtml([summary.text, ...(summary.details || [])].join('\n'))}</pre>`);
 };

@@ -8,7 +8,7 @@ Rules:
 - Do not compute one number from another. Never set scan = total - cash.
 - Do not guess the branch from a filename or a folder. Read it from the page. If it is not on the page, branch_raw is null.
 - On a Daily Shop Report the branch is often written in the Shift box, as B-3, B - 3, B.3, B 1, B-4, or B-04. Copy that text into shift_raw and also into branch_raw. Do not leave branch_raw null when Shift contains a branch code.
-- Keep date_raw exactly as written (25.8.2026 or 25/08/2569). Do not invent a year.
+- Keep date_raw exactly as written (25.8.2026 or 25/08/2569). Do not invent a year. Reports are from 2026 or later, so a year that looks like 2024 or 2025 is probably a misread 2026: check the last digit again and set uncertain if unsure.
 - Copy every menu row, including blanks and handwritten additions. qty null when the cell is blank.
 - Set uncertain true when a digit could be another digit. Do not pick the digit that makes the total balance.
 - For a transfer slip, read every memo line into memo_lines in order. Do not stop at the first line.
@@ -19,9 +19,10 @@ Rules:
 - The shop-report photo may be rotated. Read it after turning the title upright. Set orientation to "rotated" when you had to turn it, otherwise "upright".
 - Tally marks are strokes. A digit written in brackets next to the strokes is the staff count: put that digit in cash_qty or scan_qty. If your stroke count disagrees with the bracket, keep both and set uncertain true. Do not pick the one that balances.
 - On a Daily Sales Record the column headed Total Qty sometimes contains baht, not cups. Put a column that is money in amount, and put bracket counts in cash_qty and scan_qty. If you cannot tell whether a number is cups or baht, leave qty and amount null and set uncertain true. Do not multiply price by qty and call the product observed.
-- Copy handwritten price changes into price_overridden_from and price_overridden_to. Copy extra handwritten rows, including items with no printed line. A crossed-out row has struck true and is not a sale.
+- Copy handwritten price changes into price_overridden_from and price_overridden_to. Copy extra handwritten rows, including items with no printed line, into handwritten_additions only, never also into menu_rows. Use the handwritten price when a printed price is overwritten. A crossed-out row has struck true and is not a sale.
 - When staff cross out only the printed product name and write another product on that row (for example Coconut crossed out, Volcano Water written), item_raw is the WRITTEN product, struck stays false, and label_crossed_out is the printed name. Book what staff wrote, never the crossed-out printed label.
 - Ice and Other are not menu cups. Put them in other.ice and other.other.
+- Pomegranate, Pear, Grape, Lychee, Mangosteen and Rambutan are their own rows, as printed. Copy the SKU tag in brackets as part of item_raw.
 - Mixed drinks (Volcano, Blended, Mango Sticky Rice) stay as their own rows. Do not split them into orange, mango, or another single fruit.
 - A blank qty is null. Do not write 0 because the row is empty.
 - A stock sheet or stock count (remaining fruit, cups, lids, milk, bottles) is document_type stock_report. Copy every row into stock_rows: item_raw exactly as written, qty is the count left, unit_raw as written, delivered only when the sheet has a received / delivered / in column for that row. Do not add rows that are not written. Stock rows are not sales.`;

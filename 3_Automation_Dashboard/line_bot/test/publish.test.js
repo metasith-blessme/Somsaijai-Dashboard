@@ -143,8 +143,8 @@ test('a stale saved approval is replaced from this tap and then published', asyn
   assert.equal(batch.approval.approved_at, '2026-10-17T03:00:00.000Z');
   assert.equal(approvalMatchesReview(batch.approval, review), true);
   assert.notEqual(batch.approval.payload_hash, stale.payload_hash);
-  assert.match(replies[0], /อนุมัติแล้ว/);
-  assert.equal(replies.some(text => text.startsWith('ทำไม่สำเร็จ')), false);
+  assert.match(replies[0], /^Booked\./);
+  assert.equal(replies.some(text => text.startsWith('Could not book')), false);
   assert.ok(logs.some(line => line.includes('stale approval regenerated')));
 });
 
@@ -183,7 +183,7 @@ test('a publish step error is stored, logged, and replied with the step and mess
   assert.equal(batch.last_result.status, 'error');
   assert.equal(batch.last_result.step, 'regenerate');
   assert.match(batch.last_result.reason, /xlsx/);
-  assert.match(replies[0], /^ทำไม่สำเร็จ \(regenerate\):/);
+  assert.match(replies[0], /^Could not book \(regenerate\):/);
   assert.match(replies[0], /xlsx/);
   assert.equal(replies.length, 1);
   assert.ok(logs.some(line => line.includes('[publish] regenerate:') && line.includes('xlsx')));
@@ -201,7 +201,7 @@ test('a gate rejection is reported as the step instead of an uncaught publish er
   assert.deepEqual(deps.calls, []);
   const batch = await store.getJson('batch:b_test');
   assert.equal(batch.last_result.step, 'extractor_contract');
-  assert.match(replies[0], /^ทำไม่สำเร็จ \(extractor_contract\):/);
+  assert.match(replies[0], /^Could not book \(extractor_contract\):/);
   assert.ok(logs.some(line => line.startsWith('[publish] extractor_contract:')));
   assert.equal(result.outcomes[0].error, undefined);
 });

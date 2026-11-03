@@ -100,7 +100,18 @@ function ownerMissing() {
   return 'Read, but LINE_OWNER_USER_ID is not set. Parn was not notified.';
 }
 
-function helpText() {
+function helpText(owner) {
+  if (owner) {
+    return [
+      'Commands:',
+      'summary · show the latest card again',
+      'trust written · book the written Total on the latest card',
+      'stock · show stock lists waiting for you',
+      'senders · who messaged the bot',
+      'id · this chat id',
+      'order · draft supplier orders (sent in Thai)',
+    ].join('\n');
+  }
   return `${ALBUM_HELP}\nStock: send "stock", the branch and date, then one item per line.`;
 }
 
@@ -111,12 +122,12 @@ function catalogFailed(error) {
 // Sent at once, before the 1–3 minute read, so the chat is never silent.
 function readingPhoto(owner) {
   return owner
-    ? 'ได้รับรูปแล้ว กำลังอ่าน สรุปจะส่งมาใน 1–3 นาที'
+    ? 'Got the photo. Reading it now. Summary in 1–3 min.'
     : 'Got the photo. Reading it now. Parn gets the summary in 1–3 min.';
 }
 
 const STOCK_SAVED = 'Got the stock list. Thank you.';
-const STOCK_SAVED_TH = 'ได้รับสต็อกแล้ว สรุปตอน 22:00 หรือพิมพ์ สต็อก เพื่อดูตอนนี้';
+const STOCK_SAVED_OWNER = 'Got the stock list. It is in the 22:00 stock list, or type "stock" to see it now.';
 const STOCK_HOW = 'Send stock like this:\nstock B1 31/10\norange 27 basket +20\ncoconut 15 pcs';
 
 const TRUST_WRITTEN_RE = /^(?:\/)?(?:เชื่อ\s*(?:ตัว|ยอด)?\s*เขียน|ใช้\s*(?:ตัว|ยอด)\s*เขียน|ยึด\s*(?:ตัว|ยอด)?\s*เขียน|trust\s+(?:the\s+)?written(?:\s+total)?|use\s+(?:the\s+)?written(?:\s+total)?)\s*[.!ครับค่ะคะ]*$/i;
@@ -168,6 +179,6 @@ module.exports = {
   readingPhoto,
   isTrustWrittenCommand,
   STOCK_SAVED,
-  STOCK_SAVED_TH,
+  STOCK_SAVED_OWNER,
   STOCK_HOW,
 };

@@ -50,8 +50,8 @@ test('Ming\'s example parses into supplier drafts and leaves guava out of them',
 
   const packed = buildOrderMessages(parsed, catalog);
   assert.equal(packed.messages.length, 3);
-  assert.match(packed.messages[0].text, /ฝรั่ง 50 กก → คุณเมนสั่งเอง/);
-  assert.match(packed.messages[0].text, /บอทไม่ได้ส่งให้ร้าน/);
+  assert.match(packed.messages[0].text, /Guava 50 kg → Ming orders this/);
+  assert.match(packed.messages[0].text, /The bot did not message any shop\./);
   assert.equal(packed.messages[1].text, 'วันนี้ 40 ลูกครับผม');
   assert.match(packed.messages[2].text, /ทับทิม - 3/);
   assert.doesNotMatch(packed.messages[1].text, /พี่กบ/);
@@ -80,7 +80,7 @@ test('spacing, dashes, Thai names, and kg versus boxes stay on the right supplie
   assert.equal(draft(parsed, 'porn').text, 'วันนี้ราคาเท่าไหร่ครับ');
   assert.doesNotMatch(draft(parsed, 'porn').text, /4/);
   const packed = buildOrderMessages(parsed, catalog);
-  assert.match(packed.messages[0].text, /มะม่วง 4 กก → เจ๊พร \(ถามราคาก่อน\)/);
+  assert.match(packed.messages[0].text, /Mango 4 kg → เจ๊พร \(ask the price first\)/);
 });
 
 test('unknown fruit is flagged and pineapple is not filed under apple', () => {
@@ -96,8 +96,8 @@ test('unknown fruit is flagged and pineapple is not filed under apple', () => {
   assert.equal(parsed.drafts.length, 1);
   assert.doesNotMatch(parsed.drafts[0].text, /Pineapple|Orange|สับปะรด|ส้ม/);
   const packed = buildOrderMessages(parsed, catalog);
-  assert.match(packed.messages[0].text, /Pineapple 4 ไม่บอกหน่วย → ไม่รู้จักสินค้านี้/);
-  assert.match(packed.messages[0].text, /Orange 10 ไม่บอกหน่วย → ไม่รู้จักสินค้านี้/);
+  assert.match(packed.messages[0].text, /Pineapple 4 no unit → unknown item/);
+  assert.match(packed.messages[0].text, /Orange 10 no unit → unknown item/);
 });
 
 test('a chat line that is not an order is ignored', () => {
@@ -117,7 +117,7 @@ test('two lines of the same fruit are added and the summary says so', () => {
   const parsed = parseOrder('Watermelon - 10\nWatermelon - 30', catalog);
   assert.equal(draft(parsed, 'kob').text, 'วันนี้ 40 ลูกครับผม');
   const packed = buildOrderMessages(parsed, catalog);
-  assert.match(packed.messages[0].text, /แตงโม 40 ลูก → พี่กบ รวมจากหลายบรรทัด/);
+  assert.match(packed.messages[0].text, /Watermelon 40 pcs → พี่กบ \(several lines added up\)/);
 });
 
 test('more than four supplier drafts still fit in one five-bubble push', () => {
@@ -224,7 +224,7 @@ test('ออเดอร์ repeats the last drafts as a reply', async () => {
   const again = await post(ctx, orderEvent('ออเดอร์', 'U-parn', { webhookEventId: 'replay' }));
   assert.equal(again.outcomes[0].order_replay, true);
   assert.equal(pushes.length, 1);
-  assert.match(replies[0].messages[0].text, /ออเดอร์พรุ่งนี้/);
+  assert.match(replies[0].messages[0].text, /^Tomorrow's order/);
   assert.equal(replies[0].messages[1].text, 'วันนี้ 40 ลูกครับผม');
 });
 
@@ -248,7 +248,7 @@ test('summary and order aliases work for staff and the owner', async () => {
   assert.equal(replies[1].messages[0].text, 'Only Parn can ask for the summary.');
   const owner = await post(ctx, orderEvent('summary', 'U-parn', { webhookEventId: 'sum-owner' }));
   assert.equal(owner.outcomes[0].empty, true);
-  assert.equal(replies[2].messages[0].text, 'ยังไม่มีชุดที่รอตรวจ');
+  assert.equal(replies[2].messages[0].text, 'Nothing waiting for review.');
   const none = await post(ctx, orderEvent('ออเดอร์', 'U-ming', { webhookEventId: 'no-order' }));
   assert.equal(none.outcomes[0].empty, true);
   assert.equal(replies[3].messages[0].text, 'No order yet.');

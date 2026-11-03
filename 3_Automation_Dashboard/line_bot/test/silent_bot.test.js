@@ -56,11 +56,11 @@ const parnPhoto = {
   source: { type: 'user', userId: 'U-parn' }, message: { type: 'image', id: 'm1' },
 };
 
-test('Parn\'s photo is answered at once in Thai and the card is pushed', async () => {
+test('Parn\'s photo is answered at once in English and the card is pushed', async () => {
   const c = ctx();
   await post(c, parnPhoto);
   assert.equal(c.replies.length, 1);
-  assert.match(c.replies[0][0].text, /ได้รับรูปแล้ว/);
+  assert.equal(c.replies[0][0].text, 'Got the photo. Reading it now. Summary in 1–3 min.');
   assert.equal(c.pushes.length, 1);
   assert.equal(c.pushes[0].to, 'U-parn');
   assert.equal(c.pushes[0].messages[1].type, 'template');
@@ -70,7 +70,7 @@ test('an OCR failure in Parn\'s chat is pushed after the ack, never silent', asy
   const c = ctx();
   c.extractImage = async () => { throw new Error('Gemini call timed out after 90 s'); };
   await post(c, parnPhoto);
-  assert.match(c.replies[0][0].text, /ได้รับรูปแล้ว/);
+  assert.match(c.replies[0][0].text, /^Got the photo/);
   assert.equal(c.pushes.length, 1);
   assert.match(c.pushes[0].messages[0].text, /Could not read this photo/);
 });
@@ -88,7 +88,7 @@ test('"เชื่อตัวเขียน" lets the pending batch book the 
     source: { type: 'user', userId: 'U-parn' }, message: { type: 'text', id: 't1', text: 'เชื่อตัวเขียน' },
   });
   const sent = c.replies.at(-1);
-  assert.match(sent[0].text, /เชื่อยอดที่เขียน/);
+  assert.equal(sent[0].text, 'OK, using the written Total. Not booked yet. Tap Approve if it is right.');
   assert.equal(sent.at(-1).type, 'template');
   const review = await c.store.getJson(`review:${batchId}`);
   const after = buildChangePlan(review);

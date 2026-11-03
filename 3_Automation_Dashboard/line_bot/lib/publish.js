@@ -5,6 +5,7 @@ const { spawnSync } = require('child_process');
 const { assertApproval, GateError } = require('./approval');
 const { buildChangePlan } = require('./adapter');
 const { mergeLedger } = require('./stock');
+const { heldWords } = require('./words');
 
 // The importers and update_dashboard.js are spawned, so the file tracer never
 // sees their require('xlsx'). This static require is what puts the package,
@@ -22,28 +23,22 @@ const PUBLISH_FILES = [
 ];
 
 function resultMessage(result) {
+  const site = result.url || 'https://somsaijailive.vercel.app';
   if (result.status === 'published') {
-    const live = result.readback && result.readback.ok
-      ? 'เว็บตรงกับที่อนุมัติ'
-      : 'เว็บยังไม่ตรง ยังไม่ขึ้น dashboard';
-    return `อนุมัติแล้ว\n${live}\n${result.url || 'https://somsaijailive.vercel.app'}`;
+    return result.readback && result.readback.ok
+      ? `Booked. The dashboard shows it.\n${site}`
+      : `Booked, but the dashboard does not show it yet.\n${site}`;
   }
   if (result.status === 'held') {
-    const first = (result.plan.held[0] && result.plan.held[0].reasons[0]) || 'ไม่มีรายการที่อ่านชัด';
-    return `อนุมัติแล้ว แต่ยังไม่เขียน: ${first}`;
+    const why = result.plan.held[0] ? heldWords(result.plan.held[0].reasons, {}).join('; ') : '';
+    return `Approved, but nothing booked: ${why || 'nothing was read clearly'}.`.slice(0, 400);
   }
-  if (result.status === 'approved_not_deployed') {
-    return `อนุมัติแล้ว แต่ยังไม่เขียนและยังไม่ deploy\n${result.reason}`;
-  }
-  if (result.status === 'deployed_readback_failed') {
-    return 'เขียนและ deploy แล้ว แต่เว็บยังไม่ตรง';
-  }
+  if (result.status === 'approved_not_deployed') return `Approved, but not saved or published yet.\n${result.reason}`.slice(0, 400);
+  if (result.status === 'deployed_readback_failed') return 'Saved and published, but the dashboard does not match yet.';
   if (result.status === 'error') {
-    const step = result.step || 'publish';
-    const reason = result.reason || result.status;
-    return `ทำไม่สำเร็จ (${step}): ${reason}`.slice(0, 400);
+    return `Could not book (${result.step || 'publish'}): ${result.reason || result.status}`.slice(0, 400);
   }
-  return `อนุมัติแล้ว แต่เขียนไม่สำเร็จ: ${result.reason || result.status}`;
+  return `Approved, but saving failed: ${result.reason || result.status}`.slice(0, 400);
 }
 
 function stepReason(err) {
