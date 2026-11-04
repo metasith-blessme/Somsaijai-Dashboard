@@ -143,6 +143,141 @@
       "source": "line:photo:638891424007848243"
     },
     {
+      "branch": "B1",
+      "date": "2026-11-03",
+      "item": "Apple",
+      "qty": 16,
+      "unit": "whole",
+      "delivered": null,
+      "source": "line:photo:639061991101038848"
+    },
+    {
+      "branch": "B1",
+      "date": "2026-11-03",
+      "item": "Coconut meat",
+      "qty": 0.5,
+      "unit": "pack",
+      "delivered": null,
+      "source": "line:photo:639061991101038848"
+    },
+    {
+      "branch": "B1",
+      "date": "2026-11-03",
+      "item": "Coconut water (1 liter)",
+      "qty": 0.5,
+      "unit": "bottle",
+      "delivered": null,
+      "source": "line:photo:639061991101038848"
+    },
+    {
+      "branch": "B1",
+      "date": "2026-11-03",
+      "item": "Cup (95)",
+      "qty": 10,
+      "unit": "pcs",
+      "delivered": null,
+      "source": "line:photo:639061990262177912"
+    },
+    {
+      "branch": "B1",
+      "date": "2026-11-03",
+      "item": "Cup (98)",
+      "qty": 60,
+      "unit": "pcs",
+      "delivered": null,
+      "source": "line:photo:639061990262177912"
+    },
+    {
+      "branch": "B1",
+      "date": "2026-11-03",
+      "item": "Falcon",
+      "qty": 0.5,
+      "unit": "bottle",
+      "delivered": null,
+      "source": "line:photo:639061991101038848"
+    },
+    {
+      "branch": "B1",
+      "date": "2026-11-03",
+      "item": "Guava",
+      "qty": 3,
+      "unit": "kg",
+      "delivered": null,
+      "source": "line:photo:639061991101038848"
+    },
+    {
+      "branch": "B1",
+      "date": "2026-11-03",
+      "item": "Lid (95)",
+      "qty": 19,
+      "unit": "pcs",
+      "delivered": null,
+      "source": "line:photo:639061990262177912"
+    },
+    {
+      "branch": "B1",
+      "date": "2026-11-03",
+      "item": "Lid (98)",
+      "qty": 52,
+      "unit": "pcs",
+      "delivered": null,
+      "source": "line:photo:639061990262177912"
+    },
+    {
+      "branch": "B1",
+      "date": "2026-11-03",
+      "item": "Mango",
+      "qty": 2,
+      "unit": "kg",
+      "delivered": null,
+      "source": "line:photo:639061991101038848"
+    },
+    {
+      "branch": "B1",
+      "date": "2026-11-03",
+      "item": "Orange",
+      "qty": 0.5,
+      "unit": "basket",
+      "delivered": null,
+      "source": "line:photo:639061991101038848"
+    },
+    {
+      "branch": "B1",
+      "date": "2026-11-03",
+      "item": "Straw - Big",
+      "qty": 0.5,
+      "unit": "pcs",
+      "delivered": null,
+      "source": "line:photo:639061990262177912"
+    },
+    {
+      "branch": "B1",
+      "date": "2026-11-03",
+      "item": "Straw - Small",
+      "qty": 0.5,
+      "unit": "pcs",
+      "delivered": null,
+      "source": "line:photo:639061990262177912"
+    },
+    {
+      "branch": "B1",
+      "date": "2026-11-03",
+      "item": "Tissue Bag",
+      "qty": 0.5,
+      "unit": "pcs",
+      "delivered": null,
+      "source": "line:photo:639061990262177912"
+    },
+    {
+      "branch": "B1",
+      "date": "2026-11-03",
+      "item": "Watermelon",
+      "qty": 1,
+      "unit": "whole",
+      "delivered": null,
+      "source": "line:photo:639061991101038848"
+    },
+    {
       "branch": "B2",
       "date": "2026-11-01",
       "item": "Apple",
@@ -350,6 +485,42 @@
       "source": "line:photo:638890731645698202"
     },
     {
+      "branch": "B2",
+      "date": "2026-11-03",
+      "item": "Cup (95)",
+      "qty": 40,
+      "unit": "pcs",
+      "delivered": null,
+      "source": "line:photo:639038988833259844"
+    },
+    {
+      "branch": "B2",
+      "date": "2026-11-03",
+      "item": "Cup (98)",
+      "qty": 82,
+      "unit": "pcs",
+      "delivered": null,
+      "source": "line:photo:639038988833259844"
+    },
+    {
+      "branch": "B2",
+      "date": "2026-11-03",
+      "item": "Lid (95)",
+      "qty": 40,
+      "unit": "pcs",
+      "delivered": null,
+      "source": "line:photo:639038988833259844"
+    },
+    {
+      "branch": "B2",
+      "date": "2026-11-03",
+      "item": "Lid (98)",
+      "qty": 62,
+      "unit": "pcs",
+      "delivered": null,
+      "source": "line:photo:639038988833259844"
+    },
+    {
       "branch": "B3",
       "date": "2026-11-01",
       "item": "Apple",
@@ -476,6 +647,231 @@
       "source": "line:photo:638886625807434107"
     },
     {
+      "branch": "B3",
+      "date": "2026-11-03",
+      "item": "Apple",
+      "qty": 25,
+      "unit": "whole",
+      "delivered": 27,
+      "source": "line:photo:639115635544293862"
+    },
+    {
+      "branch": "B3",
+      "date": "2026-11-03",
+      "item": "Coconut meat",
+      "qty": 5,
+      "unit": "pack",
+      "delivered": 3,
+      "source": "line:photo:639115635544293862"
+    },
+    {
+      "branch": "B3",
+      "date": "2026-11-03",
+      "item": "Coconut water (1 liter)",
+      "qty": 2,
+      "unit": "bottle",
+      "delivered": 3,
+      "source": "line:photo:639115635544293862"
+    },
+    {
+      "branch": "B3",
+      "date": "2026-11-03",
+      "item": "Cup (95)",
+      "qty": 273,
+      "unit": "pcs",
+      "delivered": null,
+      "source": "line:photo:639115635544293862"
+    },
+    {
+      "branch": "B3",
+      "date": "2026-11-03",
+      "item": "Cup (98)",
+      "qty": 87,
+      "unit": "pcs",
+      "delivered": null,
+      "source": "line:photo:639115635544293862"
+    },
+    {
+      "branch": "B3",
+      "date": "2026-11-03",
+      "item": "Falcon",
+      "qty": 3,
+      "unit": "bottle",
+      "delivered": 3,
+      "source": "line:photo:639115635544293862"
+    },
+    {
+      "branch": "B3",
+      "date": "2026-11-03",
+      "item": "Gloves",
+      "qty": 4,
+      "unit": "pcs",
+      "delivered": 3,
+      "source": "line:photo:639115635544293862"
+    },
+    {
+      "branch": "B3",
+      "date": "2026-11-03",
+      "item": "Goodwill",
+      "qty": 3,
+      "unit": "pack",
+      "delivered": 3,
+      "source": "line:photo:639115635544293862"
+    },
+    {
+      "branch": "B3",
+      "date": "2026-11-03",
+      "item": "Grapes",
+      "qty": 16,
+      "unit": "kg",
+      "delivered": null,
+      "source": "line:photo:639115635544293862"
+    },
+    {
+      "branch": "B3",
+      "date": "2026-11-03",
+      "item": "Guava",
+      "qty": 16.8,
+      "unit": "kg",
+      "delivered": null,
+      "source": "line:photo:639115635544293862"
+    },
+    {
+      "branch": "B3",
+      "date": "2026-11-03",
+      "item": "Lid (95)",
+      "qty": 184,
+      "unit": "pcs",
+      "delivered": null,
+      "source": "line:photo:639115635544293862"
+    },
+    {
+      "branch": "B3",
+      "date": "2026-11-03",
+      "item": "Lid (98)",
+      "qty": 85,
+      "unit": "pcs",
+      "delivered": null,
+      "source": "line:photo:639115635544293862"
+    },
+    {
+      "branch": "B3",
+      "date": "2026-11-03",
+      "item": "Mango",
+      "qty": 18.5,
+      "unit": "kg",
+      "delivered": 16.5,
+      "source": "line:photo:639115635544293862"
+    },
+    {
+      "branch": "B3",
+      "date": "2026-11-03",
+      "item": "Mangosteen",
+      "qty": 1.1,
+      "unit": "kg",
+      "delivered": null,
+      "source": "line:photo:639115635544293862"
+    },
+    {
+      "branch": "B3",
+      "date": "2026-11-03",
+      "item": "Mangosteen & Lychee",
+      "qty": 5.1,
+      "unit": "kg",
+      "delivered": null,
+      "source": "line:photo:639115635544293862"
+    },
+    {
+      "branch": "B3",
+      "date": "2026-11-03",
+      "item": "Orange",
+      "qty": 1,
+      "unit": "basket",
+      "delivered": 1,
+      "source": "line:photo:639115635544293862"
+    },
+    {
+      "branch": "B3",
+      "date": "2026-11-03",
+      "item": "Plastic bag - Big",
+      "qty": 2,
+      "unit": "pcs",
+      "delivered": null,
+      "source": "line:photo:639115635544293862"
+    },
+    {
+      "branch": "B3",
+      "date": "2026-11-03",
+      "item": "Plastic bag - Small",
+      "qty": 5,
+      "unit": "pcs",
+      "delivered": null,
+      "source": "line:photo:639115635544293862"
+    },
+    {
+      "branch": "B3",
+      "date": "2026-11-03",
+      "item": "Pomegranate",
+      "qty": 29,
+      "unit": "whole",
+      "delivered": null,
+      "source": "line:photo:639115635544293862"
+    },
+    {
+      "branch": "B3",
+      "date": "2026-11-03",
+      "item": "Rambutan",
+      "qty": 3,
+      "unit": "pack",
+      "delivered": null,
+      "source": "line:photo:639115635544293862"
+    },
+    {
+      "branch": "B3",
+      "date": "2026-11-03",
+      "item": "Straw - Big",
+      "qty": 2,
+      "unit": "pcs",
+      "delivered": null,
+      "source": "line:photo:639115635544293862"
+    },
+    {
+      "branch": "B3",
+      "date": "2026-11-03",
+      "item": "Straw - Small",
+      "qty": 2,
+      "unit": "pcs",
+      "delivered": null,
+      "source": "line:photo:639115635544293862"
+    },
+    {
+      "branch": "B3",
+      "date": "2026-11-03",
+      "item": "Tissue Bag",
+      "qty": 3,
+      "unit": "pcs",
+      "delivered": null,
+      "source": "line:photo:639115635544293862"
+    },
+    {
+      "branch": "B3",
+      "date": "2026-11-03",
+      "item": "Tissues",
+      "qty": 3,
+      "unit": "pcs",
+      "delivered": null,
+      "source": "line:photo:639115635544293862"
+    },
+    {
+      "branch": "B3",
+      "date": "2026-11-03",
+      "item": "Watermelon",
+      "qty": 13,
+      "unit": "whole",
+      "delivered": 12,
+      "source": "line:photo:639115635544293862"
+    },
+    {
       "branch": "B4",
       "date": "2026-11-01",
       "item": "Apple",
@@ -546,6 +942,114 @@
       "unit": "pcs",
       "delivered": null,
       "source": "line:photo:638891206726123538"
+    },
+    {
+      "branch": "B4",
+      "date": "2026-11-03",
+      "item": "Apple",
+      "qty": 4,
+      "unit": "whole",
+      "delivered": null,
+      "source": "line:photo:639033836214681671"
+    },
+    {
+      "branch": "B4",
+      "date": "2026-11-03",
+      "item": "Mango",
+      "qty": 2,
+      "unit": "kg",
+      "delivered": null,
+      "source": "line:photo:639033836214681671"
+    },
+    {
+      "branch": "B4",
+      "date": "2026-11-03",
+      "item": "Mangosteen",
+      "qty": 1,
+      "unit": "kg",
+      "delivered": null,
+      "source": "line:photo:639033836214681671"
+    },
+    {
+      "branch": "B4",
+      "date": "2026-11-03",
+      "item": "Orange",
+      "qty": 0.5,
+      "unit": "basket",
+      "delivered": null,
+      "source": "line:photo:639033836214681671"
+    },
+    {
+      "branch": "B4",
+      "date": "2026-11-03",
+      "item": "Pomegranate",
+      "qty": 4,
+      "unit": "whole",
+      "delivered": null,
+      "source": "line:photo:639033836214681671"
+    },
+    {
+      "branch": "B4",
+      "date": "2026-11-03",
+      "item": "Watermelon",
+      "qty": 0.5,
+      "unit": "whole",
+      "delivered": null,
+      "source": "line:photo:639033836214681671"
+    },
+    {
+      "branch": "B4",
+      "date": "2026-11-30",
+      "item": "Cup (95)",
+      "qty": 33,
+      "unit": "pcs",
+      "delivered": null,
+      "source": "line:photo:639033837002948609"
+    },
+    {
+      "branch": "B4",
+      "date": "2026-11-30",
+      "item": "Cup (98)",
+      "qty": 67,
+      "unit": "pcs",
+      "delivered": null,
+      "source": "line:photo:639033837002948609"
+    },
+    {
+      "branch": "B4",
+      "date": "2026-11-30",
+      "item": "Lid (95)",
+      "qty": 31,
+      "unit": "pcs",
+      "delivered": null,
+      "source": "line:photo:639033837002948609"
+    },
+    {
+      "branch": "B4",
+      "date": "2026-11-30",
+      "item": "Lid (98)",
+      "qty": 36,
+      "unit": "pcs",
+      "delivered": null,
+      "source": "line:photo:639033837002948609"
+    },
+    {
+      "branch": "B4",
+      "date": "2026-11-30",
+      "item": "Straw - Big",
+      "qty": 0.5,
+      "unit": "pcs",
+      "delivered": null,
+      "source": "line:photo:639033837002948609"
+    },
+    {
+      "branch": "B4",
+      "date": "2026-11-30",
+      "item": "Straw - Small",
+      "qty": 0.5,
+      "unit": "pcs",
+      "delivered": null,
+      "source": "line:photo:639033837002948609"
     }
   ]
 }
