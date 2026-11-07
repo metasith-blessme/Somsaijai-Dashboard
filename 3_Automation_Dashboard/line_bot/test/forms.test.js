@@ -92,7 +92,7 @@ test('the shop report keeps blank quantities and names every unmapped drink', ()
   assert.doesNotMatch(summary, /oct16|batch/);
   assert.match(summary, /Hard to read: .*19 item rows/);
   assert.match(summary, /No branch on the sheet\. The LINE group is B3/);
-  assert.match(summary, /Not booked: no branch; no Total/);
+  assert.match(summary, /Cannot book: no branch; no Total/);
   const plan = buildChangePlan(review);
   assert.equal(plan.salesLists.length, 0);
   assert.equal(JSON.stringify(plan).includes('"or"'), false);
@@ -161,7 +161,7 @@ test('B2 uses the bracket counts, does not treat the unread column as cups, and 
   assert.match(summary, /Cash 2,743 · Scan 1,315 · Ice 60/);
   assert.match(summary, /Total check: Cash \+ Scan = 4,058 ✓/);
   assert.doesNotMatch(summary, /Written total/);
-  assert.match(packed.messages[1].template.text, /^Tap Approve to book B2 16 Oct ฿4,058, or Reject\.$/);
+  assert.match(packed.messages[1].template.text, /^Approve books B2 16 Oct ฿4,058\. Reject asks staff to resend\.$/);
   assert.equal(packed.messages[1].template.actions[0].data, 'action=approve&batch=oct16');
   assert.equal(packed.messages[1].template.actions[1].data, 'action=reject&batch=oct16');
   assert.equal(packed.messages[1].template.actions[0].label, 'Approve');

@@ -145,7 +145,7 @@ test('handwritten price changes and extra flavors are flagged for review', () =>
   assert.equal(plan.salesLists.length, 1);
 });
 
-test('arithmetic mismatches are marked and block the row', () => {
+test('arithmetic mismatches are marked, and Approve still books the written Total with the flags noted', () => {
   const extraction = clearExtraction({
     sales: { cash_sales: money(100), scan_sales: money(20), total_sales: money(130), total_expense: money(10), net_sales: money(100) },
     menu_rows: [
@@ -166,8 +166,10 @@ test('arithmetic mismatches are marked and block the row', () => {
   assert.equal(review.checks.find(check => check.rule === 'line_sum').status, 'fail');
   assert.equal(review.checks.find(check => check.rule === 'net').status, 'fail');
   const plan = buildChangePlan(review);
-  assert.equal(plan.salesLists.length, 0);
-  assert.ok(plan.held[0].reasons.some(reason => /total/.test(reason)));
+  assert.equal(plan.held.length, 0);
+  const [row] = plan.salesLists[0].rows;
+  assert.equal(row.revenue, 130);
+  assert.match(row.note, /approved with flags: .*channels.*line_sum.*net/);
 });
 
 test('a consistent first reading does not spend a second Gemini call', async () => {

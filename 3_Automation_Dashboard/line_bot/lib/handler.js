@@ -14,9 +14,10 @@ const {
 const { sha256, buildReview } = require('./normalize');
 const { applyChecks } = require('./validate');
 const { formatSummary, parsePostback } = require('./summary');
-const { alreadyText } = require('./words');
+const { alreadyText, shortDay } = require('./words');
 const { makeApproval, approvalMatchesReview } = require('./approval');
-const { publishApprovedBatch, publishStock } = require('./publish');
+const { publishApprovedBatch, publishStock, publishCosts } = require('./publish');
+const costs = require('./costs');
 const stock = require('./stock');
 const { loadCatalog, parseOrder, buildOrderMessages, buildSenderConfirm, isOrderReplay, packBubbles } = require('./orders');
 const { parseGroupConfig, approversOf, isApprover } = require('./config');
@@ -59,13 +60,13 @@ const {
   catalogFailed,
   wentWrong,
   readingPhoto,
-  isTrustWrittenCommand,
   STOCK_SAVED,
   STOCK_SAVED_OWNER,
   STOCK_HOW,
 } = require('./staff_text');
 
 const PROCESSING_MS = 5 * 60 * 1000;
+const SAME_PHOTOS = 'Got it. These photos were already sent, so no new card.';
 const OCR_FAIL_TH = OCR_FAIL;
 
 function groupTable(config) {
@@ -142,12 +143,15 @@ async function finishBatch(batchId, parts, ctx) {
   const existing = await store.getJson(`batch:${batchId}`);
   if (existing && existing.review) return existing;
 
-  const images = [];
-  let failed = 0;
+  // All photos are read at once, so the last one gets the same time as the first.
+  const loaded = [];
   for (const part of parts) {
     const saved = await store.getJson(`msg:${part.messageId}`);
     const bytes = await store.get(`bytes:${part.messageId}`);
-    if (!saved || !bytes) continue;
+    if (saved && bytes) loaded.push({ part, saved, bytes });
+  }
+  let failed = 0;
+  const images = await Promise.all(loaded.map(async ({ part, saved, bytes }) => {
     let reading;
     try {
       reading = await extractImage({
@@ -161,7 +165,7 @@ async function finishBatch(batchId, parts, ctx) {
       failed += 1;
       reading = { extraction: null, second: null, secondError: err.message || String(err), secondSkipped: false };
     }
-    images.push({
+    return {
       sourceId: part.messageId,
       sha256: saved.sha256,
       contentType: saved.contentType,
@@ -171,8 +175,8 @@ async function finishBatch(batchId, parts, ctx) {
       secondSkipped: reading.secondSkipped === true,
       branch_hint: ctx.branchHint || null,
       line_group_id: ctx.lineGroupId || null,
-    });
-  }
+    };
+  }));
   if (images.length && failed === images.length) {
     const error = new Error(OCR_FAIL_TH);
     error.ocrFailed = true;
@@ -201,6 +205,15 @@ async function finishBatch(batchId, parts, ctx) {
     await store.putJson(`batch:${batchId}`, batch);
     return batch;
   }
+  const days = salesDays(review);
+  const same = await sameSheetsAs(store, days);
+  if (same) {
+    // Staff sent the same photos again: the card Parn and Ming already have still stands.
+    const batch = { batch_id: batchId, review, created_at: ctx.now, status: 'duplicate', duplicate_of: same };
+    await store.putJson(`batch:${batchId}`, batch);
+    return batch;
+  }
+  for (const d of days) await store.putJson(dayKey(d), { batch_id: batchId, sha256: d.sha256 });
   const summary = formatSummary(review, { publicUrl: config.publicUrl, channelSecret: config.channelSecret });
   if (ctx.setNote) {
     summary.text = `${ctx.setNote}\n\n${summary.text}`.slice(0, 4800);
@@ -225,6 +238,44 @@ async function finishBatch(batchId, parts, ctx) {
   }
   await store.putJson(`batch:${batchId}`, batch);
   return batch;
+}
+
+/** One entry per sales sheet in a review: which branch and day it books, and its photo. */
+function salesDays(review) {
+  return (review.records || [])
+    .filter(r => r.document_type === 'sales_report' && r.branch && r.branch.state === 'observed' && r.date && r.date.state === 'observed')
+    .map(r => ({
+      branch: r.branch.value,
+      date: r.date.value,
+      sha256: ((review.sources || []).find(s => s.source_id === r.record_id) || {}).sha256 || null,
+    }));
+}
+
+function dayKey(d) {
+  return `sales:day:${d.branch}:${d.date.replace(/\//g, '-')}`;
+}
+
+/** The batch that already carries exactly these sales photos, if every one matches. */
+async function sameSheetsAs(store, days) {
+  if (!days.length) return null;
+  let batchId = null;
+  for (const d of days) {
+    const latest = await store.getJson(dayKey(d));
+    if (!latest || !d.sha256 || latest.sha256 !== d.sha256) return null;
+    if (batchId && batchId !== latest.batch_id) return null;
+    batchId = latest.batch_id;
+  }
+  const earlier = await store.getJson(`batch:${batchId}`);
+  return earlier && earlier.status !== 'rejected' ? batchId : null;
+}
+
+/** A newer card for one of these days, if staff re-sent the sheet after this one. */
+async function newerCardFor(store, review) {
+  for (const d of salesDays(review)) {
+    const latest = await store.getJson(dayKey(d));
+    if (latest && latest.batch_id !== review.batch_id) return { ...d, batch_id: latest.batch_id };
+  }
+  return null;
 }
 
 async function savePart(store, part) {
@@ -286,7 +337,9 @@ async function processClaimedSet(setId, summary, ctx, replyToken) {
   if (!batch.push_error && approversOf(ctx.config).length) {
     const warning = batchCtx.ocrWarning ? `\n${batchCtx.ocrWarning}` : '';
     const owner = isOwnerDirect(ctx.source, ctx.config);
-    const head = batch.status === 'stock' ? (owner ? STOCK_SAVED_OWNER : STOCK_SAVED) : (staffNote || (owner ? 'Card sent. Nothing is booked until you tap Approve.' : photosDone()));
+    const head = batch.status === 'stock' ? (owner ? STOCK_SAVED_OWNER : STOCK_SAVED)
+      : batch.status === 'duplicate' ? SAME_PHOTOS
+        : (staffNote || (owner ? 'Card sent. Nothing is booked until you tap Approve.' : photosDone()));
     // Only with a live reply token. The chat already got "reading it now", and the
     // owner's own chat gets the summary card itself, so no extra push is spent here.
     if (replyToken) {
@@ -450,6 +503,12 @@ async function onPostback(event, ctx) {
     await reply(ctx.line, event.replyToken, 'Rejected. Nothing booked.');
     return { status: 'rejected' };
   }
+  const newer = await newerCardFor(ctx.store, review);
+  if (newer) {
+    await releaseDecision(ctx.store, `batch:${batch}`);
+    await reply(ctx.line, event.replyToken, `A newer photo of ${newer.branch} ${shortDay(newer.date)} came in. Use the newest card. Nothing booked.`);
+    return { status: 'superseded', by: newer.batch_id };
+  }
   // Reuse a saved approval only while it still describes this review. A rewritten
   // reading (the 2-digit year fix, for example) gets a new approval from this tap.
   // assertApproval still rejects a mismatched approval if one is passed through.
@@ -479,7 +538,8 @@ async function onPostback(event, ctx) {
     await reply(ctx.line, event.replyToken, `Could not book (${step}): ${reason}`);
     return { status: 'error', step, reason };
   }
-  if (result.status === 'error') await releaseDecision(ctx.store, `batch:${batch}`);
+  // Only a booked card is final. Anything else can be tapped again.
+  if (result.status !== 'published') await releaseDecision(ctx.store, `batch:${batch}`);
   if (result.status === 'published') {
     record.status = 'published';
     record.approval.publish_receipt = result;
@@ -522,6 +582,9 @@ async function onText(event, ctx) {
     await reply(ctx.line, event.replyToken, await sendersText(ctx.store));
     return { senders: true };
   }
+  if (costs.isCostCommand(text) && source.type === 'user' && source.userId && source.userId === ctx.config.ownerUserId) {
+    return onCost(event, ctx);
+  }
   if (stock.isStockCommand(text)) return onStockCommand(event, ctx);
   const saved = stock.isStockText(text) && stock.fromText({
     id: event.message.id, text, now: ctx.now, source, branchHint: scope.branchHint,
@@ -535,9 +598,6 @@ async function onText(event, ctx) {
     await stock.saveList(ctx.store, saved);
     await reply(ctx.line, event.replyToken, isOwnerDirect(source, ctx.config) ? STOCK_SAVED_OWNER : STOCK_SAVED);
     return { stock: saved.id, rows: saved.rows.length, flags: saved.flags };
-  }
-  if (isTrustWrittenCommand(text) && isOwnerDirect(source, ctx.config)) {
-    return trustWritten(event, ctx);
   }
   if (isReviewCommand(text)) {
     if (source.type !== 'user') {
@@ -582,6 +642,21 @@ async function sendersText(store) {
     .join('\n\n');
 }
 
+/** Parn only: "cost B1 Nov 12000 rent" books one month-end cost row. */
+async function onCost(event, ctx) {
+  const parsed = costs.parseCost(event.message.text, ctx.now);
+  if (parsed.error) {
+    await reply(ctx.line, event.replyToken, parsed.error);
+    return { cost: 'usage' };
+  }
+  const result = await publishCosts({ rows: [parsed.row], config: ctx.config, deps: ctx.deps });
+  const text = result.status === 'published'
+    ? costs.costSaved(parsed.row)
+    : `Cost not saved (${result.step || result.status}): ${result.reason || ''}`.trim().slice(0, 400);
+  await reply(ctx.line, event.replyToken, text);
+  return { cost: result.status, row: parsed.row };
+}
+
 /** "สต็อก" alone: Parn sees the open stock lists as a free reply; staff get the format. */
 async function onStockCommand(event, ctx) {
   if (!isOwnerDirect(event.source, ctx.config)) {
@@ -595,52 +670,6 @@ async function onStockCommand(event, ctx) {
   }
   await ctx.line.reply(event.replyToken, opened.messages);
   return { stock_digest: opened.digest.id };
-}
-
-/**
- * Parn: "เชื่อตัวเขียน". The latest pending batch books the written total even when
- * cash + scan or the row sums do not match it. Nothing is written here; the new
- * card still needs his อนุมัติ tap.
- */
-async function trustWritten(event, ctx) {
-  const latest = await ctx.store.getJson('latest:pending');
-  const batchId = latest && latest.batch_id;
-  const review = batchId && await ctx.store.getJson(`review:${batchId}`);
-  const record = batchId && await ctx.store.getJson(`batch:${batchId}`);
-  if (!review || !record) {
-    await reply(ctx.line, event.replyToken, 'Nothing waiting for review.');
-    return { trust_written: false, empty: true };
-  }
-  if (record.status === 'published' || record.status === 'rejected') {
-    await reply(ctx.line, event.replyToken, `${record.status === 'published' ? 'Already booked' : 'Already rejected'}. Nothing changed.`);
-    return { trust_written: false, status: record.status };
-  }
-  const mismatched = (review.checks || [])
-    .filter(c => c.status === 'fail' && (c.rule === 'channels' || c.rule === 'line_sum'))
-    .map(c => c.record_id);
-  if (!mismatched.length) {
-    await reply(ctx.line, event.replyToken, 'The Total already matches. Nothing to change.');
-    return { trust_written: false, nothing_to_fix: true };
-  }
-  review.owner_overrides = {
-    trust_written_total: true,
-    record_ids: [...new Set(mismatched)],
-    by: event.source.userId,
-    at: new Date(ctx.now).toISOString(),
-    text: String(event.message && event.message.text || '').slice(0, 40),
-  };
-  await ctx.store.putJson(`review:${batchId}`, review);
-  const summary = formatSummary(review, { publicUrl: ctx.config.publicUrl, channelSecret: ctx.config.channelSecret });
-  record.review = review;
-  record.summary_text = summary.text;
-  record.status = 'pending_review';
-  // Approved but held on the mismatch: the new reading needs a new tap.
-  delete record.approval;
-  await releaseDecision(ctx.store, `batch:${batchId}`);
-  await ctx.store.putJson(`batch:${batchId}`, record);
-  const head = { type: 'text', text: 'OK, using the written Total. Not booked yet. Tap Approve if it is right.' };
-  await ctx.line.reply(event.replyToken, [head, ...summary.messages].slice(0, 5));
-  return { trust_written: true, batch_id: batchId };
 }
 
 async function onQuestion(event, ctx) {
@@ -782,9 +811,7 @@ async function displayName(ctx, userId) {
 
 function decidedBy(record) {
   const a = record && record.approval;
-  if (!a || !['published', 'rejected', 'approved'].includes(record.status)) return null;
-  // Approved with no result means the publish was cut off; a retry may finish it.
-  if (record.status === 'approved' && (!record.last_result || record.last_result.status === 'error')) return null;
+  if (!a || !['published', 'rejected'].includes(record.status)) return null;
   return { decision: a.decision, userId: a.approver_user_id, name: a.approver_name };
 }
 

@@ -35,10 +35,6 @@ function payloadHash(review) {
       memo: d.memo_lines || [],
     })),
   };
-  // Only present when Parn trusted the written total, so older approvals keep their hash.
-  if (review.owner_overrides && review.owner_overrides.trust_written_total === true) {
-    body.trust_written_total = true;
-  }
   return crypto.createHash('sha256').update(JSON.stringify(body)).digest('hex');
 }
 

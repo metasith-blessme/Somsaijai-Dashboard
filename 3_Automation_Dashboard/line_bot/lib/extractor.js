@@ -117,7 +117,7 @@ async function defaultGenerate({ buf, mimeType, prompt, apiKey, model, timeoutMs
   return parseModelJson(response.text);
 }
 
-const MAX_ATTEMPTS = 4;
+const MAX_ATTEMPTS = 5;
 
 function errorText(err) {
   if (!err) return '';

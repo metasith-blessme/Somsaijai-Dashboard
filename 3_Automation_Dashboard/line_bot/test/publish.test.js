@@ -143,7 +143,7 @@ test('a stale saved approval is replaced from this tap and then published', asyn
   assert.equal(batch.approval.approved_at, '2026-10-17T03:00:00.000Z');
   assert.equal(approvalMatchesReview(batch.approval, review), true);
   assert.notEqual(batch.approval.payload_hash, stale.payload_hash);
-  assert.match(replies[0], /^Booked\./);
+  assert.match(replies[0], /^Booked to dashboard: B2 18 Oct ฿120\n/);
   assert.equal(replies.some(text => text.startsWith('Could not book')), false);
   assert.ok(logs.some(line => line.includes('stale approval regenerated')));
 });

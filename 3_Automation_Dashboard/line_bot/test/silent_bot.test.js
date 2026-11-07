@@ -1,15 +1,12 @@
-// 31 Oct 2026: Parn's photo waited about 2.5 minutes with no answer, "เชื่อตัวเขียน"
-// got "Could not answer" (MiniMax-M2 was retired), and a held batch had no way
-// to take the written total. These tests pin the fixes.
+// 31 Oct 2026: Parn's photo waited about 2.5 minutes with no answer and a question
+// got "Could not answer" (MiniMax-M2 was retired). These tests pin the fixes.
 const test = require('node:test');
 const assert = require('node:assert/strict');
 const { handleWebhook } = require('../lib/handler');
 const { signBody } = require('../lib/signature');
 const { MemoryStore } = require('../lib/store');
-const { buildChangePlan } = require('../lib/adapter');
 const { askMinimax } = require('../lib/qa');
 const { extractImage } = require('../lib/extractor');
-const { isTrustWrittenCommand } = require('../lib/staff_text');
 
 const money = v => ({ raw: String(v), value: v, state: 'observed' });
 
@@ -73,47 +70,6 @@ test('an OCR failure in Parn\'s chat is pushed after the ack, never silent', asy
   assert.match(c.replies[0][0].text, /^Got the photo/);
   assert.equal(c.pushes.length, 1);
   assert.match(c.pushes[0].messages[0].text, /Could not read this photo/);
-});
-
-test('"เชื่อตัวเขียน" lets the pending batch book the written total, still behind the tap', async () => {
-  const c = ctx();
-  await post(c, parnPhoto);
-  const batchId = (await c.store.getJson('latest:pending')).batch_id;
-  const before = buildChangePlan(await c.store.getJson(`review:${batchId}`));
-  assert.equal(before.salesLists.length, 0);
-  assert.match(before.held[0].reasons.join(' '), /cash \+ scan/);
-
-  await post(c, {
-    webhookEventId: 'e-trust', type: 'message', timestamp: 2, replyToken: 'r2',
-    source: { type: 'user', userId: 'U-parn' }, message: { type: 'text', id: 't1', text: 'เชื่อตัวเขียน' },
-  });
-  const sent = c.replies.at(-1);
-  assert.equal(sent[0].text, 'OK, using the written Total. Not booked yet. Tap Approve if it is right.');
-  assert.equal(sent.at(-1).type, 'template');
-  const review = await c.store.getJson(`review:${batchId}`);
-  const after = buildChangePlan(review);
-  assert.equal(after.salesLists.length, 1);
-  assert.equal(after.salesLists[0].rows[0].revenue, 120);
-  const batch = await c.store.getJson(`batch:${batchId}`);
-  assert.equal(batch.status, 'pending_review');
-  assert.equal(c.pushes.length, 1, 'no extra push');
-});
-
-test('"เชื่อตัวเขียน" from staff is not a command', async () => {
-  const c = ctx();
-  await post(c, parnPhoto);
-  await post(c, {
-    webhookEventId: 'e-staff', type: 'message', timestamp: 3, replyToken: 'r3',
-    source: { type: 'user', userId: 'U-staff' }, message: { type: 'text', id: 't2', text: 'เชื่อตัวเขียน' },
-  });
-  const batchId = (await c.store.getJson('latest:pending')).batch_id;
-  const review = await c.store.getJson(`review:${batchId}`);
-  assert.equal(review.owner_overrides, undefined);
-});
-
-test('trust-written phrases', () => {
-  for (const t of ['เชื่อตัวเขียน', 'เชื่อยอดเขียน', 'ใช้ยอดเขียน', 'trust written', 'use written total']) assert.equal(isTrustWrittenCommand(t), true, t);
-  for (const t of ['เชื่อมั้ย', 'B1 ยอดเท่าไหร่', 'written']) assert.equal(isTrustWrittenCommand(t), false, t);
 });
 
 test('a retired MiniMax model falls through to the next model', async () => {

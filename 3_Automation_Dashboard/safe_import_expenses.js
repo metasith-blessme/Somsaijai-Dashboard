@@ -86,7 +86,7 @@ if (!Array.isArray(cl.rows) || !cl.rows.length) fail('change list has no rows');
 // validate every row BEFORE touching any workbook — fail closed on the whole batch
 cl.rows.forEach((r, i) => {
   const at = `row ${i + 1} (slip ${r.idx})`;
-  if (!['B1', 'B2', 'B3'].includes(r.branch)) fail(`${at}: bad branch "${r.branch}"`);
+  if (!['B1', 'B2', 'B3', 'B4'].includes(r.branch)) fail(`${at}: bad branch "${r.branch}"`);
   if (!['COGS', 'OPEX'].includes(r.bucket)) fail(`${at}: bad bucket "${r.bucket}"`);
   if (!norm(r.cat)) fail(`${at}: empty category`);
   if (!norm(r.desc)) fail(`${at}: empty description`);

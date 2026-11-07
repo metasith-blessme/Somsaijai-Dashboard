@@ -25,15 +25,6 @@ const KEYWORDS = [
   { bucket: 'OPEX', cat: 'Utilities', test: /ค่าน้ำ|ค่าไฟ|utilities/i },
 ];
 
-const WRITTEN_TOTAL_RULES = new Set(['channels', 'line_sum']);
-
-function trustsWrittenTotal(review, record) {
-  const o = review && review.owner_overrides;
-  if (!o || o.trust_written_total !== true) return false;
-  if (!Array.isArray(o.record_ids) || !o.record_ids.length) return true;
-  return o.record_ids.includes(record.record_id);
-}
-
 function menuCode(itemRaw) {
   return classifyItem(itemRaw).code;
 }
@@ -44,29 +35,17 @@ function salesRow(record, review, held) {
   const branch = record.branch && record.branch.state === 'observed' ? record.branch.value : null;
   const date = record.date && record.date.state === 'observed' ? record.date.value : null;
   const revenue = observedNumber(record.financials && record.financials.total_sales);
+  if (record.document_type === 'stock_report') return null;
   const why = [];
-  if (record.document_type === 'stock_report') {
-    why.push('stock counts are kept in the review and are not booked as sales');
-  }
   if (!branch) why.push('branch was not read');
   if (!date) why.push('date was not read');
-  if (revenue == null && record.document_type !== 'stock_report') why.push('revenue was not read');
+  if (revenue == null) why.push('revenue was not read');
   if (date && before(date, '2026-04-01')) why.push('January–March is closed; this bot will not add rows there');
   if (branch && date && OPENED[branch] && before(date, OPENED[branch])) why.push(`${branch} was not open yet on ${date}`);
-  // Parn's rule: the written total beats cash + scan and the row sums. He turns
-  // this on for one batch by replying "เชื่อตัวเขียน"; the batch still needs his tap.
-  const trustWritten = trustsWrittenTotal(review, record);
-  const channel = (review.checks || []).find(c => c.record_id === record.record_id && c.rule === 'channels');
-  if (channel && channel.status === 'fail' && !trustWritten) why.push('cash + scan does not equal the written total');
-  for (const check of review.checks || []) {
-    if (check.record_id !== record.record_id || check.status !== 'fail' || check.rule === 'channels') continue;
-    if (trustWritten && WRITTEN_TOTAL_RULES.has(check.rule)) continue;
-    why.push(check.reason);
-  }
+  // Only what stops the bot knowing where a sheet goes holds it. Sum and channel
+  // mismatches are on the card; Approve books the written Total and notes them.
   for (const issue of record.issues || []) {
-    if (issue.field === 'total_sales' || issue.field === 'date' || issue.field === 'branch' || issue.field === 'second_reading' || issue.field === 'extraction') {
-      why.push(issue.issue);
-    }
+    if (issue.field === 'date' || issue.field === 'branch') why.push(issue.issue);
   }
   if (why.length) {
     hold(held, { source_id: record.record_id, branch, date, reasons: [...new Set(why)] });
@@ -81,9 +60,15 @@ function salesRow(record, review, held) {
   const scanIssue = (record.issues || []).some(i => i.field === 'scan_sales');
   const cash = cashIssue ? null : observedNumber(record.financials.cash_sales);
   const scan = scanIssue ? null : observedNumber(record.financials.scan_sales);
+  const flagged = (review.checks || [])
+    .filter(c => c.record_id === record.record_id && c.status === 'fail')
+    .map(c => c.rule);
   const row = {
     branch, date, day: weekday(date), revenue,
-    note: `LINE ${review.batch_id} sha256:${(record.source_ids[0] && review.sources.find(s => s.source_id === record.source_ids[0])?.sha256 || '').slice(0, 12)}`,
+    // A later photo of the same branch and day replaces this row; see safe_import_sales.js.
+    replace: true,
+    note: `LINE ${review.batch_id} sha256:${(record.source_ids[0] && review.sources.find(s => s.source_id === record.source_ids[0])?.sha256 || '').slice(0, 12)}`
+      + (flagged.length ? ` | approved with flags: ${[...new Set(flagged)].join(', ')}` : ''),
   };
   // Empty when unknown. Never substitute revenue - cash.
   if (cash != null) row.cash = cash;
@@ -189,21 +174,8 @@ function buildChangePlan(review) {
     if (!grouped.has(key)) grouped.set(key, []);
     grouped.get(key).push({ record, built });
   }
-  const sales = [];
-  for (const items of grouped.values()) {
-    if (items.length === 1) {
-      sales.push(items[0].built);
-      continue;
-    }
-    for (const item of items) {
-      hold(held, {
-        source_id: item.record.record_id,
-        branch: item.built.row.branch,
-        date: item.built.row.date,
-        reasons: ['two or more sales photos for the same branch and date — none of them were imported'],
-      });
-    }
-  }
+  // The same day twice in one set: the last photo is the one staff meant.
+  const sales = [...grouped.values()].map(items => items[items.length - 1].built);
   const expenseRowsFlat = [];
   for (const doc of review.expense_documents || []) {
     expenseRowsFlat.push(...expenseRows(doc, review, held));
@@ -222,4 +194,4 @@ function buildChangePlan(review) {
   return { salesLists, expenseList, held };
 }
 
-module.exports = { buildChangePlan, menuCode, KEYWORDS, trustsWrittenTotal, WRITTEN_TOTAL_RULES };
+module.exports = { buildChangePlan, menuCode, KEYWORDS };

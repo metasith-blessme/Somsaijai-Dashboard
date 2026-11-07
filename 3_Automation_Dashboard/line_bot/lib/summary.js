@@ -1,6 +1,6 @@
 const crypto = require('crypto');
 const { observedNumber } = require('./fields');
-const { buildChangePlan, trustsWrittenTotal } = require('./adapter');
+const { buildChangePlan } = require('./adapter');
 const { classifyItem, handwritingFlags } = require('./forms');
 const { money, day, shortDay, less, heldWords } = require('./words');
 
@@ -206,14 +206,6 @@ function issueFlags(record) {
   return flags;
 }
 
-function trustable(review, record) {
-  if (trustsWrittenTotal(review, record)) return false;
-  return ['channels', 'line_sum'].some(rule => {
-    const check = checkFor(review, record, rule);
-    return check && check.status === 'fail';
-  });
-}
-
 /** One sheet: head, items, closing box, flags, and whether it books. */
 function salesSection(review, record, held) {
   const fin = record.financials || {};
@@ -223,7 +215,6 @@ function salesSection(review, record, held) {
   const items = itemsLine(review, record);
   const check = totalCheck(record);
   const flags = check.flag ? [check.flag] : [];
-  if (trustsWrittenTotal(review, record)) flags.push('Using the written Total (you said trust written)');
   if (items.flag) flags.push(items.flag);
   flags.push(...mismatchFlags(review, record), ...handwritingLines(record), ...issueFlags(record));
   const iceField = record.other && record.other.ice;
@@ -235,7 +226,7 @@ function salesSection(review, record, held) {
     lines: [head, ...itemLines(record), ...(items.line ? [items.line] : []), ...closingLines(record), ...(check.line ? [check.line] : [])],
     flags,
     notBooked: entry ? notBooked : null,
-    trustable: Boolean(entry) && trustable(review, record),
+    checkFirst: Boolean(check.flag || items.flag || mismatchFlags(review, record).length),
   };
 }
 
@@ -243,14 +234,14 @@ function actionText(sections, booked, expenses) {
   if (booked.length) {
     const parts = booked.map(s => `${s.branch} ${shortDay(s.date)} ฿${money(s.total)}`);
     if (expenses.length) parts.push(`${expenses.length} expense${expenses.length > 1 ? 's' : ''}`);
-    let text = `Tap Approve to book ${parts.join(' and ')}, or Reject.`;
-    if (text.length > 160) text = `Tap Approve to book ${booked.length} days and ${expenses.length} expenses, or Reject.`;
+    const lead = booked.some(s => s.checkFirst) ? 'Check the ⚠ lines. Approve books the written Total' : 'Approve books';
+    let text = `${lead} ${parts.join(' and ')}. Reject asks staff to resend.`;
+    if (text.length > 160) text = `${lead} ${booked.length} days. Reject asks staff to resend.`;
     return text;
   }
-  if (expenses.length) return `Tap Approve to book ${expenses.length} expense${expenses.length > 1 ? 's' : ''}, or Reject.`;
-  const fixable = sections.find(s => s.trustable && s.total != null);
-  if (fixable) return `Not booked yet. Reply "trust written" to book the Total ฿${money(fixable.total)}, or tap Reject.`;
-  return 'Nothing can be booked from this. Tap Reject to clear it.';
+  if (expenses.length) return `Approve books ${expenses.length} expense${expenses.length > 1 ? 's' : ''}. Reject drops ${expenses.length > 1 ? 'them' : 'it'}.`;
+  if (sections.length) return 'This cannot be booked (see ✗). Tap Reject and ask staff to send the photo again.';
+  return 'Nothing to book here. Tap Reject to clear it.';
 }
 
 function formatSummary(review, { publicUrl, channelSecret } = {}) {
@@ -264,12 +255,12 @@ function formatSummary(review, { publicUrl, channelSecret } = {}) {
     out.push(...s.lines);
     for (const flag of s.flags.slice(0, MAX_FLAGS)) out.push(`⚠ ${flag}`);
     if (s.flags.length > MAX_FLAGS) out.push(`⚠ ${s.flags.length - MAX_FLAGS} more on the details page`);
-    if (s.notBooked && s.notBooked.length) out.push(`✗ Not booked: ${s.notBooked.join('; ')}`);
+    if (s.notBooked && s.notBooked.length) out.push(`✗ Cannot book: ${s.notBooked.join('; ')}`);
   }
   const expenses = (plan.expenseList && plan.expenseList.rows) || [];
   for (const row of expenses) out.push(`Expense · ${row.branch} · ${day(row.date)} · ${row.cat} ฿${money(row.amt)}`);
   for (const h of plan.held.filter(h => !(review.records || []).some(r => r.record_id === h.source_id))) {
-    out.push(`✗ Slip not booked: ${heldWords(h.reasons, {}).join('; ') || 'unclear'}`);
+    out.push(`✗ Slip not booked: ${heldWords(h.reasons).join('; ') || 'unclear'}`);
   }
   const stockPhotos = (review.records || []).filter(r => r.document_type === 'stock_report').length;
   if (stockPhotos) out.push(`Also got ${stockPhotos} stock photo${stockPhotos > 1 ? 's' : ''}. ${stockPhotos > 1 ? 'They are' : 'It is'} in tonight's stock list.`);

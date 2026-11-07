@@ -5,7 +5,7 @@ const { applyChecks } = require('../lib/validate');
 const { buildChangePlan } = require('../lib/adapter');
 const { formatSummary } = require('../lib/summary');
 const { resultMessage } = require('../lib/publish');
-const { helpText, readingPhoto, isTrustWrittenCommand } = require('../lib/staff_text');
+const { helpText, readingPhoto } = require('../lib/staff_text');
 const { b1, pome } = require('./fixtures/2026-11-02/readings');
 
 // Thai letters and digits; the baht sign ฿ (U+0E3F) is fine in English text.
@@ -46,17 +46,14 @@ test('the 2 Nov B1 card: result first, cups per item, closing box, and Parn\'s t
   assert.doesNotMatch(JSON.stringify(card.messages), THAI);
 });
 
-test('the 2 Nov B1 sheet books nothing until trust written, then books the written Total as gross', () => {
+test('the 2 Nov B1 sheet with a total mismatch books the written Total as gross in one tap', () => {
   const review = reviewOf(b1.extraction);
-  // Booking basis is unchanged: cash + scan must equal the written Total.
   assert.equal(review.checks.find(c => c.rule === 'channels').status, 'fail');
-  assert.equal(review.checks.find(c => c.rule === 'line_sum').status, 'pass');
-  assert.equal(buildChangePlan(review).salesLists.length, 0);
   const card = formatSummary(review, {});
-  assert.match(card.text, /✗ Not booked: Net cash \+ Scan is ฿60 less than the Total \(same as Ice\)/);
-  assert.equal(card.messages[1].template.text, 'Not booked yet. Reply "trust written" to book the Total ฿4,516, or tap Reject.');
-  review.owner_overrides = { trust_written_total: true, record_ids: review.records.map(r => r.record_id) };
+  assert.doesNotMatch(card.text, /✗/);
+  assert.equal(card.messages[1].template.text, 'Check the ⚠ lines. Approve books the written Total B1 2 Nov ฿4,516. Reject asks staff to resend.');
   const [row] = buildChangePlan(review).salesLists[0].rows;
+  assert.match(row.note, /approved with flags: channels/);
   assert.equal(row.revenue, 4516);
   assert.equal(row.cash, 2806);
   assert.equal(row.scan, 1650);
@@ -77,15 +74,15 @@ test('a misread year is named in plain words, not as a closed quarter', () => {
   assert.match(text, /^B1 · 2 Nov 2024 · Total ฿4,516/);
   assert.match(text, /⚠ Date reads 2 Nov 2024\. Check the year/);
   assert.doesNotMatch(text, /Jan to Mar|not open yet/);
+  assert.match(text, /✗ Cannot book: the date looks wrong/);
 });
 
 test('approver-only texts are English; supplier drafts are not touched here', () => {
   assert.equal(readingPhoto(true), 'Got the photo. Reading it now. Summary in 1–3 min.');
   const help = helpText(true);
-  for (const cmd of ['summary', 'trust written', 'stock', 'senders', 'id']) assert.match(help, new RegExp(`^${cmd} · `, 'm'));
+  for (const cmd of ['summary', 'stock', 'senders', 'id', 'cost B1 Nov 12000 rent']) assert.match(help, new RegExp(`^${cmd} · `, 'm'));
+  assert.doesNotMatch(help, /trust written/);
   assert.doesNotMatch(help, THAI);
-  assert.equal(isTrustWrittenCommand('trust written'), true);
-  assert.equal(isTrustWrittenCommand('เชื่อตัวเขียน'), true);
   for (const result of [
     { status: 'published', readback: { ok: true }, url: 'https://x' },
     { status: 'published', readback: { ok: false } },

@@ -5,7 +5,15 @@ const { spawnSync } = require('child_process');
 const { assertApproval, GateError } = require('./approval');
 const { buildChangePlan } = require('./adapter');
 const { mergeLedger } = require('./stock');
-const { heldWords } = require('./words');
+const { heldWords, money, shortDay } = require('./words');
+
+function bookedDays(plan) {
+  const rows = [];
+  for (const list of (plan && plan.salesLists) || []) for (const row of list.rows) rows.push(`${row.branch} ${shortDay(row.date)} ฿${money(row.revenue)}`);
+  const expenses = (plan && plan.expenseList && plan.expenseList.rows) || [];
+  if (expenses.length) rows.push(`${expenses.length} expense${expenses.length > 1 ? 's' : ''}`);
+  return rows.join(', ');
+}
 
 // The importers and update_dashboard.js are spawned, so the file tracer never
 // sees their require('xlsx'). This static require is what puts the package,
@@ -25,13 +33,14 @@ const PUBLISH_FILES = [
 function resultMessage(result) {
   const site = result.url || 'https://somsaijailive.vercel.app';
   if (result.status === 'published') {
+    const what = bookedDays(result.plan);
     return result.readback && result.readback.ok
-      ? `Booked. The dashboard shows it.\n${site}`
-      : `Booked, but the dashboard does not show it yet.\n${site}`;
+      ? `Booked to dashboard: ${what}\n${site}`
+      : `Booked: ${what}. The dashboard may take a minute to show it.\n${site}`;
   }
   if (result.status === 'held') {
-    const why = result.plan.held[0] ? heldWords(result.plan.held[0].reasons, {}).join('; ') : '';
-    return `Approved, but nothing booked: ${why || 'nothing was read clearly'}.`.slice(0, 400);
+    const why = result.plan.held[0] ? heldWords(result.plan.held[0].reasons).join('; ') : '';
+    return `Not booked: ${why || 'nothing was read clearly'}. Tap Reject and ask staff to send the photo again.`.slice(0, 400);
   }
   if (result.status === 'approved_not_deployed') return `Approved, but not saved or published yet.\n${result.reason}`.slice(0, 400);
   if (result.status === 'deployed_readback_failed') return 'Saved and published, but the dashboard does not match yet.';
@@ -68,6 +77,25 @@ async function publishStock({ rows, digestId, config, deps }) {
     return { status: 'published', commit: commit.sha, url: config.publicUrl || 'https://somsaijailive.vercel.app' };
   } catch (err) {
     return { status: 'error', step: err.step || 'commit_stock', reason: stepReason(err) };
+  }
+}
+
+/**
+ * Parn's month-end cost rows go into Daily_Expenses through the same importer as
+ * approved slips. The importer skips a row it already has, so the same line twice
+ * is booked once.
+ */
+async function publishCosts({ rows, config, deps }) {
+  if (!config || !config.allowDeploy) return { status: 'approved_not_deployed', reason: 'LINE_BOT_ALLOW_DEPLOY is not 1' };
+  if (!config.githubToken || !config.githubRepo) return { status: 'approved_not_deployed', reason: 'GITHUB_TOKEN or GITHUB_REPO is not set' };
+  try {
+    const work = await runStep('prepare', () => deps.prepareWorkdir());
+    await runStep('import_expenses', () => deps.importExpenses(work, { batch_id: `cost-${rows[0].idx}`, rows }));
+    await runStep('regenerate', () => deps.regenerate(work));
+    const commit = await runStep('commit', () => deps.commit(work, `cost ${rows.map(r => r.idx).join(' ')}`));
+    return { status: 'published', commit: commit.sha };
+  } catch (err) {
+    return { status: 'error', step: err.step || 'publish', reason: stepReason(err) };
   }
 }
 
@@ -243,7 +271,8 @@ function createProductionDeps(config, opts = {}) {
       return out.stdout;
     },
     commit(dir, batchId) {
-      return commitFiles(request, config, dir, DASHBOARD_FILES, `Import approved LINE batch ${batchId}`);
+      const message = /^cost /.test(batchId) ? `Add Parn's month-end ${batchId}` : `Import approved LINE batch ${batchId}`;
+      return commitFiles(request, config, dir, DASHBOARD_FILES, message);
     },
     async commitStock(rows, digestId) {
       const current = await downloadRepoFile(request, config, '3_Automation_Dashboard/stock_ledger.json');
@@ -450,6 +479,6 @@ function publishBundleReport(opts = {}) {
 }
 
 module.exports = {
-  publishApprovedBatch, publishStock, createProductionDeps, resultMessage, readbackLive, rowMatches, GateError,
+  publishApprovedBatch, publishStock, publishCosts, createProductionDeps, resultMessage, readbackLive, rowMatches, GateError,
   publishWorkRoot, publishBundleReport, PUBLISH_FILES,
 };

@@ -740,6 +740,7 @@ body {
 
     <p style="color:var(--muted); font-size:0.85em">Provisional financial figures. Partner shares are calculated entitlements; payments and retained balances require reconciliation. February SKU counts and B3 usage include estimates.</p>
     <div class="kpi-row" id="kpiGrid"></div>
+    <div id="emptyNotice" role="status" style="display:none; margin:0 0 16px; padding:12px 16px; border-radius:12px; background:var(--card); color:var(--muted); font-weight:700"></div>
 
     <div class="section active" id="view-overall">
         <div class="dashboard-grid">
@@ -43050,6 +43051,42 @@ const BUILT_IN_LEDGER = {
       "source": "line:photo:639038988833259844"
     },
     {
+      "branch": "B2",
+      "date": "2026-11-04",
+      "item": "Cup (95)",
+      "qty": 40,
+      "unit": "pcs",
+      "delivered": null,
+      "source": "line:photo:639179908874502451"
+    },
+    {
+      "branch": "B2",
+      "date": "2026-11-04",
+      "item": "Cup (98)",
+      "qty": 100,
+      "unit": "pcs",
+      "delivered": null,
+      "source": "line:photo:639179908874502451"
+    },
+    {
+      "branch": "B2",
+      "date": "2026-11-04",
+      "item": "Lid (95)",
+      "qty": 40,
+      "unit": "pcs",
+      "delivered": null,
+      "source": "line:photo:639179908874502451"
+    },
+    {
+      "branch": "B2",
+      "date": "2026-11-04",
+      "item": "Lid (98)",
+      "qty": 80,
+      "unit": "pcs",
+      "delivered": null,
+      "source": "line:photo:639179908874502451"
+    },
+    {
       "branch": "B3",
       "date": "2026-11-01",
       "item": "Apple",
@@ -43528,6 +43565,177 @@ const BUILT_IN_LEDGER = {
     },
     {
       "branch": "B4",
+      "date": "2026-11-04",
+      "item": "Apple",
+      "qty": 5,
+      "unit": "whole",
+      "delivered": null,
+      "source": "line:photo:639181854511464636"
+    },
+    {
+      "branch": "B4",
+      "date": "2026-11-04",
+      "item": "Cup (95)",
+      "qty": 32,
+      "unit": "pcs",
+      "delivered": null,
+      "source": "line:photo:639181306315931904"
+    },
+    {
+      "branch": "B4",
+      "date": "2026-11-04",
+      "item": "Cup (98)",
+      "qty": 50,
+      "unit": "pcs",
+      "delivered": null,
+      "source": "line:photo:639181306315931904"
+    },
+    {
+      "branch": "B4",
+      "date": "2026-11-04",
+      "item": "Guava",
+      "qty": 2.5,
+      "unit": "kg",
+      "delivered": null,
+      "source": "line:photo:639181854511464636"
+    },
+    {
+      "branch": "B4",
+      "date": "2026-11-04",
+      "item": "Lid (95)",
+      "qty": 30,
+      "unit": "pcs",
+      "delivered": null,
+      "source": "line:photo:639181306315931904"
+    },
+    {
+      "branch": "B4",
+      "date": "2026-11-04",
+      "item": "Lid (98)",
+      "qty": 29,
+      "unit": "pcs",
+      "delivered": null,
+      "source": "line:photo:639181306315931904"
+    },
+    {
+      "branch": "B4",
+      "date": "2026-11-04",
+      "item": "Mangosteen",
+      "qty": 1,
+      "unit": "kg",
+      "delivered": null,
+      "source": "line:photo:639181854511464636"
+    },
+    {
+      "branch": "B4",
+      "date": "2026-11-04",
+      "item": "Orange",
+      "qty": 0.5,
+      "unit": "basket",
+      "delivered": null,
+      "source": "line:photo:639181854511464636"
+    },
+    {
+      "branch": "B4",
+      "date": "2026-11-04",
+      "item": "Pomegranate",
+      "qty": 13,
+      "unit": "whole",
+      "delivered": null,
+      "source": "line:photo:639181854511464636"
+    },
+    {
+      "branch": "B4",
+      "date": "2026-11-04",
+      "item": "Watermelon",
+      "qty": 1.5,
+      "unit": "whole",
+      "delivered": null,
+      "source": "line:photo:639181854511464636"
+    },
+    {
+      "branch": "B4",
+      "date": "2026-11-05",
+      "item": "Cup (95)",
+      "qty": 31,
+      "unit": "pcs",
+      "delivered": null,
+      "source": "line:photo:639326731341660229"
+    },
+    {
+      "branch": "B4",
+      "date": "2026-11-05",
+      "item": "Cup (98)",
+      "qty": 12,
+      "unit": "pcs",
+      "delivered": null,
+      "source": "line:photo:639326731341660229"
+    },
+    {
+      "branch": "B4",
+      "date": "2026-11-05",
+      "item": "Guava",
+      "qty": 2,
+      "unit": "kg",
+      "delivered": null,
+      "source": "line:photo:639326732230852813"
+    },
+    {
+      "branch": "B4",
+      "date": "2026-11-05",
+      "item": "Lid (95)",
+      "qty": 29,
+      "unit": "pcs",
+      "delivered": null,
+      "source": "line:photo:639326731341660229"
+    },
+    {
+      "branch": "B4",
+      "date": "2026-11-05",
+      "item": "Lid (98)",
+      "qty": 41,
+      "unit": "pcs",
+      "delivered": 50,
+      "source": "line:photo:639326731341660229"
+    },
+    {
+      "branch": "B4",
+      "date": "2026-11-05",
+      "item": "Mangosteen",
+      "qty": 8,
+      "unit": "kg",
+      "delivered": null,
+      "source": "line:photo:639326732230852813"
+    },
+    {
+      "branch": "B4",
+      "date": "2026-11-05",
+      "item": "Orange",
+      "qty": 0.5,
+      "unit": "basket",
+      "delivered": null,
+      "source": "line:photo:639326732230852813"
+    },
+    {
+      "branch": "B4",
+      "date": "2026-11-05",
+      "item": "Pomegranate",
+      "qty": 4,
+      "unit": "whole",
+      "delivered": null,
+      "source": "line:photo:639326732230852813"
+    },
+    {
+      "branch": "B4",
+      "date": "2026-11-05",
+      "item": "Watermelon",
+      "qty": 2,
+      "unit": "whole",
+      "delivered": null,
+      "source": "line:photo:639326732230852813"
+    },
+    {
+      "branch": "B4",
       "date": "2026-11-30",
       "item": "Cup (95)",
       "qty": 33,
@@ -43706,6 +43914,7 @@ function updateUI() {
 
     console.log('Updating UI for:', { branch: currentBranch, month: currentMonth, recordCount: sales.length });
 
+    renderEmptyNotice(sales);
     renderOverall(sales, expenses);
     renderKPIs(sales);
     renderFinance(sales, expenses);
@@ -43716,6 +43925,18 @@ function updateUI() {
     renderBranchSelector();
     renderMonthSelector(Array.from(new Set(Object.keys(DATA.branches).flatMap(b => Object.keys(DATA.branches[b].sales)))).sort(monthSort));
     wrapTables();
+}
+
+// A branch with no booked day in the chosen month says so instead of showing blank cards.
+function renderEmptyNotice(sales) {
+    const el = document.getElementById('emptyNotice');
+    const branches = currentBranch === 'all' ? Object.keys(DATA.branches) : [currentBranch];
+    const missing = branches.filter(b => !sales.some(r => r.branch === b));
+    const when = currentMonth === 'all' ? 'this year' : 'this month';
+    el.textContent = !missing.length ? ''
+        : missing.length === branches.length ? `No sales booked ${when}${currentBranch === 'all' ? '' : ' for ' + currentBranch}.`
+        : `No sales booked ${when}: ${missing.join(', ')}.`;
+    el.style.display = missing.length ? 'block' : 'none';
 }
 
 function wrapTables() {
@@ -43795,7 +44016,7 @@ function renderKPIs(sales) {
         <div class="kpi-cell">
             <div class="label">Operating Costs</div>
             <div class="change" style="color:var(--red)">COGS ฿${fmt(tCogs)}</div>
-            <div class="value">฿${fmt(tCogs + tOpex)}</div>
+            <div class="value">฿${fmt(REPORTS_DATA && REPORTS_DATA[currentMonth] ? tRev - tNet : tCogs + tOpex)}</div>
         </div>
         <div class="kpi-cell">
             <div class="label">Net Profit</div>

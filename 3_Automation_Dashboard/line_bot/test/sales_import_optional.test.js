@@ -91,3 +91,35 @@ test('mangosteen, mangosteen & lychee, and rambutan write only into their own co
   assert.equal(data[header.indexOf('Rambutan')], 1);
   assert.equal(data[header.indexOf('Revenue (฿)')], 387);
 });
+
+function dayRows(dir, date) {
+  const wb = XLSX.readFile(path.join(dir, 'SomSaiJai_Dashboard_B2_2026.xlsx'));
+  const grid = XLSX.utils.sheet_to_json(wb.Sheets.Oct26, { header: 1, defval: null });
+  const header = grid.find(row => row && row.includes('Date'));
+  return grid.filter(row => row && row[0] === date).map(row => Object.fromEntries(header.map((h, i) => [h, row[i]])));
+}
+
+test('a re-sent LINE sheet replaces the earlier LINE day instead of adding a second one', () => {
+  const dir = workbook();
+  const first = { batch_id: 'a', month: 'Oct26', rows: [{ branch: 'B2', date: '20/10/2026', day: 'Tue', revenue: 469, cash: 289, scan: 180, or: 4, replace: true, note: 'LINE set_a sha256:111' }] };
+  assert.equal(run(dir, first).status, 0);
+  const second = { batch_id: 'b', month: 'Oct26', rows: [{ branch: 'B2', date: '20/10/2026', day: 'Tue', revenue: 520, cash: 300, scan: 220, replace: true, note: 'LINE set_b sha256:222' }] };
+  const out = run(dir, second);
+  assert.equal(out.status, 0, out.stderr || out.stdout);
+  const rows = dayRows(dir, '20/10/2026');
+  assert.equal(rows.length, 1);
+  assert.equal(rows[0]['Revenue (฿)'], 520);
+  assert.equal(rows[0]['Cash (฿)'], 300);
+  assert.equal(rows[0].Orange, null, 'counts from the replaced sheet do not linger');
+  assert.match(rows[0]['Source Note'], /set_b/);
+});
+
+test('a day typed in by hand is never replaced by a LINE sheet', () => {
+  const dir = workbook();
+  assert.equal(run(dir, { batch_id: 'm', month: 'Oct26', rows: [{ branch: 'B2', date: '21/10/2026', day: 'Wed', revenue: 1000, note: 'typed by Parn' }] }).status, 0);
+  const out = run(dir, { batch_id: 'b', month: 'Oct26', rows: [{ branch: 'B2', date: '21/10/2026', day: 'Wed', revenue: 5, replace: true, note: 'LINE set_b sha256:222' }] });
+  assert.equal(out.status, 0, out.stderr || out.stdout);
+  const rows = dayRows(dir, '21/10/2026');
+  assert.equal(rows.length, 1);
+  assert.equal(rows[0]['Revenue (฿)'], 1000);
+});

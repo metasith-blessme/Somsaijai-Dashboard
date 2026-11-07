@@ -14,6 +14,10 @@
  *
  * Estimated rows are written with their revenue AND a Source Note marking them estimated,
  * so they can be found and replaced when real data arrives.
+ *
+ * A row with replace: true overwrites the same day only when that day was booked from
+ * LINE (its Source Note starts with "LINE "). A re-sent sheet then corrects the day
+ * instead of being skipped; a day typed in by hand is never overwritten.
  */
 const XLSX = require('xlsx');
 const fs = require('fs');
@@ -103,11 +107,11 @@ function preflight(branch) {
   let noteCol = col[NOTE_COL];
   if (noteCol === undefined) noteCol = hdr.length;          // append a new trailing column
 
-  const existing = new Set();
+  const existing = new Map();
   for (let i = hdrIdx + 1; i < grid.length; i++) {
     const r = grid[i];
     if (!r || !r[0] || ['TOTAL', 'AVG/DAY', 'AVG'].includes(String(r[0]))) continue;
-    existing.add(norm(r[0]));
+    existing.set(norm(r[0]), { index: i, fromLine: /^LINE /.test(norm(r[noteCol])) });
   }
   return { branch, file, wb, sh, grid, hdrIdx, hdr, col, noteCol, existing };
 }
@@ -116,10 +120,12 @@ const branches = [...new Set(cl.rows.map(r => r.branch))].sort();
 const books = {}; branches.forEach(b => books[b] = preflight(b));
 
 const plan = {}; branches.forEach(b => plan[b] = []);
-let nSkip = 0;
+let nSkip = 0, nReplace = 0;
 cl.rows.forEach(r => {
-  if (books[r.branch].existing.has(norm(r.date))) { nSkip++; r._skip = true; }
-  else plan[r.branch].push(r);
+  const had = books[r.branch].existing.get(norm(r.date));
+  if (had && !(r.replace && had.fromLine)) { nSkip++; r._skip = true; return; }
+  if (had) { r._at = had.index; nReplace++; }
+  plan[r.branch].push(r);
 });
 const nNew = cl.rows.length - nSkip;
 
@@ -135,6 +141,7 @@ branches.forEach(b => {
               (est.length ? `   (of which ${est.length} ESTIMATED, ฿${est.reduce((a, r) => a + r.revenue, 0).toFixed(2)})` : ''));
 });
 if (nSkip) console.log(`\n  ${nSkip} day(s) already present — skipped (idempotent).`);
+if (nReplace) console.log(`  ${nReplace} day(s) booked from LINE before — replaced by the newer sheet.`);
 console.log(`\n  total to write: ${nNew} rows`);
 
 if (!COMMIT) { console.log('\nDry run only. Re-run with --commit to write.\n'); process.exit(0); }
@@ -191,7 +198,12 @@ branches.forEach(b => {
     row[bk.noteCol] = note;
     return row;
   });
-  XLSX.utils.sheet_add_aoa(bk.sh, aoa, { origin: bk.grid.length });
+  let next = bk.grid.length;
+  add.forEach((r, i) => {
+    // sheet_add_aoa skips nulls, so a replaced day is cleared first or old counts would stay.
+    if (r._at != null) for (let c = 0; c < width; c++) delete bk.sh[XLSX.utils.encode_cell({ r: r._at, c })];
+    XLSX.utils.sheet_add_aoa(bk.sh, [aoa[i]], { origin: r._at != null ? r._at : next++ });
+  });
   XLSX.writeFile(bk.wb, bk.file, { cellStyles: true });
 
   // readback

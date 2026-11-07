@@ -106,7 +106,7 @@ test('the webhook waits for the whole imageSet, then reads each photo once', asy
   assert.equal(c.extracts.length, 2);
   assert.equal(c.pushes.length, 1);
   assert.equal(c.pushes[0].to, 'U-owner');
-  assert.match(c.pushes[0].messages[1].template.text, /^Tap Approve|Not booked|Nothing can be booked/);
+  assert.match(c.pushes[0].messages[1].template.text, /^Approve books|Check the ⚠ lines|cannot be booked/);
 
   const again = await post([imageEvent('m1', 1, 2, 'SET1', 'wh-1')]);
   assert.equal(again.outcomes[0].duplicate, true);

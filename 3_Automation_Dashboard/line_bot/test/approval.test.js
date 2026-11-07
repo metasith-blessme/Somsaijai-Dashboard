@@ -180,16 +180,18 @@ test('scan is not invented from revenue minus cash, and a blank is not zero', ()
   assert.equal(zeroRow.cash, 0);
 });
 
-test('two sales photos for the same branch and date are both held', () => {
+test('two sales photos for the same branch and date book the last one once', () => {
   const one = cleanSale();
   const other = cleanSale();
   other.records[0].record_id = 'src2';
   other.sources.push({ ...one.sources[0], source_id: 'src2', sha256: 'b'.repeat(64) });
   one.records.push(other.records[0]);
   one.sources.push(other.sources[1]);
+  one.records[1].financials.total_sales = { ...one.records[1].financials.total_sales, value: 999 };
   const plan = buildChangePlan(one);
-  assert.equal(plan.salesLists.length, 0);
-  assert.equal(plan.held.length, 2);
+  assert.equal(plan.salesLists.length, 1);
+  assert.equal(plan.salesLists[0].rows.length, 1);
+  assert.equal(plan.salesLists[0].rows[0].revenue, 999);
 });
 
 test('an illegible total and a January row are held', () => {
