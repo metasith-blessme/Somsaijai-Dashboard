@@ -23546,6 +23546,49 @@
               "is_flagged": true
             }
           }
+        ],
+        "Nov26": [
+          {
+            "d": "06/11/2026",
+            "day": "Fri",
+            "rev": 9936,
+            "cash": 7938,
+            "exp": 0,
+            "net": 7938,
+            "scan": 1998,
+            "or": 0,
+            "or_100": 0,
+            "wm": 0,
+            "mg": 0,
+            "co": 0,
+            "ap": 0,
+            "yco": 0,
+            "guava": 0,
+            "pineapple": 0,
+            "mangosteen": 0,
+            "mangosteen_lychee": 0,
+            "rambutan": 0,
+            "tot": 0,
+            "bb": 0,
+            "bs": 0,
+            "bottle_rev": 0,
+            "uo": 0,
+            "uw": 0,
+            "umg": 0,
+            "uco_meat": 0,
+            "uco_water": 0,
+            "uco_conden": 0,
+            "uco_raw": 0,
+            "uap": 0,
+            "uguava": 0,
+            "upine": 0,
+            "uyco": 0,
+            "audit": {
+              "theoretical_rev": 0,
+              "rev_diff": 9936,
+              "is_flagged": true
+            }
+          }
         ]
       }
     },
