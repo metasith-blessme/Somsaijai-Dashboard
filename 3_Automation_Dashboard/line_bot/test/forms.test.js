@@ -118,13 +118,17 @@ test('B1 keeps the conflicting grand total, the guava price change, and ice', ()
   assert.equal(pineapple.qty.value, null);
   assert.equal(record.other.ice.value, 120);
   const summary = formatSummary(review, {}).text;
-  assert.match(summary, /^B1 · 16 Oct 2026 · Total ฿3,089 or 3,090\?/);
+  assert.match(summary, /^B1 · 16 Oct 2026 · Total ฿3,089 \(Approve books this; also saw 3,090\)/);
   assert.match(summary, /Guava · 15 \(price 65→80\)/);
   assert.match(summary, /Ice ฿120 is not booked as an expense/);
   assert.match(summary, /Written in with no qty: Pomegranate/);
   assert.match(summary, /Crossed out by hand: Grape/);
   const plan = buildChangePlan(review);
-  assert.equal(plan.salesLists.length, 0);
+  assert.equal(plan.salesLists.length, 1);
+  assert.equal(plan.salesLists[0].rows[0].revenue, 3089);
+  assert.equal(plan.salesLists[0].rows[0].cash, 1964);
+  assert.match(plan.salesLists[0].rows[0].note, /readings disagree \(3089 vs 3090\)/);
+  assert.match(formatSummary(review, {}).messages[1].template.text, /Approve books the written Total B1 16 Oct ฿3,089/);
   assert.equal(review.review.import_allowed, false);
 });
 

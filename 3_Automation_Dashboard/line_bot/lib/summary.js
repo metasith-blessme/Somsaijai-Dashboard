@@ -1,5 +1,5 @@
 const crypto = require('crypto');
-const { observedNumber } = require('./fields');
+const { observedNumber, bookableNumber } = require('./fields');
 const { buildChangePlan } = require('./adapter');
 const { classifyItem, handwritingFlags } = require('./forms');
 const { money, day, shortDay, less, heldWords } = require('./words');
@@ -15,7 +15,14 @@ const num = field => observedNumber(field);
 
 function amountText(field) {
   if (!field || field.state === 'missing') return null;
-  if (num(field) != null) return money(num(field));
+  const booked = bookableNumber(field);
+  if (booked != null) {
+    const alts = (field.alternatives || []).filter(v => v != null && v !== booked);
+    if (field.state === 'ambiguous' && alts.length) {
+      return `${money(booked)} (Approve books this; also saw ${alts.map(money).join(', ')})`;
+    }
+    return money(booked);
+  }
   const alt = (field.alternatives || []).filter(v => v != null);
   return alt.length ? `${alt.map(money).join(' or ')}?` : 'unclear';
 }
@@ -211,6 +218,7 @@ function salesSection(review, record, held) {
   const fin = record.financials || {};
   const branch = record.branch && record.branch.state === 'observed' && record.branch.value ? record.branch.value : 'Branch?';
   const total = amountText(fin.total_sales);
+  const bookedTotal = bookableNumber(fin.total_sales);
   const head = `${branch} · ${day(record.date && record.date.value)} · Total ${total ? `฿${total}` : 'unclear'}`;
   const items = itemsLine(review, record);
   const check = totalCheck(record);
@@ -219,14 +227,15 @@ function salesSection(review, record, held) {
   flags.push(...mismatchFlags(review, record), ...handwritingLines(record), ...issueFlags(record));
   const iceField = record.other && record.other.ice;
   if (num(iceField) != null) flags.push(`Ice ฿${money(num(iceField))} is not booked as an expense`);
+  const ambiguousMoney = [fin.total_sales, fin.cash_sales, fin.scan_sales].some(f => f && f.state === 'ambiguous' && bookableNumber(f) != null);
   const entry = held.find(h => h.source_id === record.record_id);
   const notBooked = entry ? heldWords(entry.reasons, record) : [];
   return {
-    branch, date: record.date && record.date.value, total: num(fin.total_sales),
+    branch, date: record.date && record.date.value, total: bookedTotal,
     lines: [head, ...itemLines(record), ...(items.line ? [items.line] : []), ...closingLines(record), ...(check.line ? [check.line] : [])],
     flags,
     notBooked: entry ? notBooked : null,
-    checkFirst: Boolean(check.flag || items.flag || mismatchFlags(review, record).length),
+    checkFirst: Boolean(check.flag || items.flag || mismatchFlags(review, record).length || ambiguousMoney),
   };
 }
 

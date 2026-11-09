@@ -123,3 +123,64 @@ test('only Parn can add a month-end cost, and it goes in as one expense row', as
   assert.match(lastReply(c), /^Type: cost B1 Nov 12000 rent/);
   assert.equal(c.expenses.length, 1);
 });
+
+// B1 7 Nov 2026 live shape: two OCR readings left total_sales ambiguous (8103 vs 8100)
+// with value null. Approve must still book the written Total and say so on the card.
+const { buildChangePlan } = require('../lib/adapter');
+const { formatSummary } = require('../lib/summary');
+
+function b1_7_nov_ambiguous() {
+  return {
+    batch_id: 'set_b1_7nov',
+    sources: [{ source_id: 'src-sales', sha256: 'a'.repeat(64) }],
+    checks: [],
+    records: [{
+      record_id: 'rec-b1-7',
+      document_type: 'sales_report',
+      form_template: 'daily_shop_report',
+      source_ids: ['src-sales'],
+      branch: { raw_text: 'B-1', value: 'B1', state: 'observed' },
+      date: { raw_text: '7.11.2026', value: '07/11/2026', state: 'observed' },
+      financials: {
+        cash_sales: { raw_text: '5140', value: null, state: 'ambiguous', unit: 'THB', alternatives: [5140] },
+        scan_sales: { raw_text: '2960', value: 2960, state: 'observed', unit: 'THB', alternatives: [] },
+        total_sales: { raw_text: '8103', value: null, state: 'ambiguous', unit: 'THB', alternatives: [8103, 8100] },
+        total_expense: { raw_text: null, value: null, state: 'missing', unit: 'THB', alternatives: [] },
+      },
+      other: { ice: { raw_text: '120', value: 120, state: 'observed', unit: 'THB', alternatives: [] } },
+      sales_items: [],
+      issues: [{ field: 'total_sales', issue: 'readings disagree (8103 vs 8100)', source_id: 'src-sales' }],
+    }],
+  };
+}
+
+test('ambiguous Total with alternatives books raw_text and the card names that value', () => {
+  const review = b1_7_nov_ambiguous();
+  const plan = buildChangePlan(review);
+  assert.equal(plan.held.length, 0, 'disagreeing readings must not hold the sheet');
+  assert.equal(plan.salesLists.length, 1);
+  const row = plan.salesLists[0].rows[0];
+  assert.equal(row.branch, 'B1');
+  assert.equal(row.date, '07/11/2026');
+  assert.equal(row.revenue, 8103);
+  assert.equal(row.cash, 5140);
+  assert.equal(row.scan, 2960);
+  assert.match(row.note, /readings disagree \(8103 vs 8100\)/);
+
+  const card = formatSummary(review, {});
+  assert.doesNotMatch(card.text, /Cannot book/);
+  assert.match(card.text, /8103|8,103/);
+  assert.match(card.messages[1].template.text, /Approve books.*B1 7 Nov ฿8,103/);
+});
+
+test('a Total with no value and no alternatives still cannot book', () => {
+  const review = b1_7_nov_ambiguous();
+  review.records[0].financials.total_sales = {
+    raw_text: null, value: null, state: 'missing', unit: 'THB', alternatives: [],
+  };
+  review.records[0].issues = [];
+  const plan = buildChangePlan(review);
+  assert.equal(plan.salesLists.flatMap(l => l.rows).length, 0);
+  assert.ok(plan.held.some(h => h.reasons.some(r => /revenue was not read/.test(r))));
+  assert.match(formatSummary(review, {}).text, /Cannot book/);
+});

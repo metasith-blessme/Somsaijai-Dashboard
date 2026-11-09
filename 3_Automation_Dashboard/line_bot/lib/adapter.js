@@ -1,4 +1,4 @@
-const { observedNumber } = require('./fields');
+const { observedNumber, bookableNumber, readingsDisagreeFlag } = require('./fields');
 const { classifyItem } = require('./forms');
 const { monthTag, weekday, before, memoMonthConflict } = require('./dates');
 const { redactText } = require('./redact');
@@ -34,7 +34,8 @@ function hold(held, entry) { held.push(entry); }
 function salesRow(record, review, held) {
   const branch = record.branch && record.branch.state === 'observed' ? record.branch.value : null;
   const date = record.date && record.date.state === 'observed' ? record.date.value : null;
-  const revenue = observedNumber(record.financials && record.financials.total_sales);
+  const fin = record.financials || {};
+  const revenue = bookableNumber(fin.total_sales);
   if (record.document_type === 'stock_report') return null;
   const why = [];
   if (!branch) why.push('branch was not read');
@@ -44,6 +45,7 @@ function salesRow(record, review, held) {
   if (branch && date && OPENED[branch] && before(date, OPENED[branch])) why.push(`${branch} was not open yet on ${date}`);
   // Only what stops the bot knowing where a sheet goes holds it. Sum and channel
   // mismatches are on the card; Approve books the written Total and notes them.
+  // Ambiguous totals with alternatives also book (written raw_text / first alt).
   for (const issue of record.issues || []) {
     if (issue.field === 'date' || issue.field === 'branch') why.push(issue.issue);
   }
@@ -56,13 +58,15 @@ function salesRow(record, review, held) {
     return null;
   }
 
-  const cashIssue = (record.issues || []).some(i => i.field === 'cash_sales');
-  const scanIssue = (record.issues || []).some(i => i.field === 'scan_sales');
-  const cash = cashIssue ? null : observedNumber(record.financials.cash_sales);
-  const scan = scanIssue ? null : observedNumber(record.financials.scan_sales);
+  const cash = bookableNumber(fin.cash_sales);
+  const scan = bookableNumber(fin.scan_sales);
   const flagged = (review.checks || [])
     .filter(c => c.record_id === record.record_id && c.status === 'fail')
     .map(c => c.rule);
+  for (const field of [fin.total_sales, fin.cash_sales, fin.scan_sales]) {
+    const disagree = readingsDisagreeFlag(field);
+    if (disagree) flagged.push(disagree);
+  }
   const row = {
     branch, date, day: weekday(date), revenue,
     // A later photo of the same branch and day replaces this row; see safe_import_sales.js.
@@ -73,7 +77,7 @@ function salesRow(record, review, held) {
   // Empty when unknown. Never substitute revenue - cash.
   if (cash != null) row.cash = cash;
   if (scan != null) row.scan = scan;
-  const exp = observedNumber(record.financials.total_expense);
+  const exp = observedNumber(fin.total_expense);
   if (exp != null) row.exp = exp;
 
   const cups = {};

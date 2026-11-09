@@ -54,4 +54,30 @@ function observedNumber(field) {
   return field && field.state === 'observed' && typeof field.value === 'number' ? field.value : null;
 }
 
-module.exports = { asField, observedNumber, parsePlainNumber };
+/**
+ * Number Approve may book. Observed wins. Ambiguous with a written raw_text or
+ * alternatives books that written-looking value instead of holding the sheet.
+ */
+function bookableNumber(field) {
+  const observed = observedNumber(field);
+  if (observed != null) return observed;
+  if (!field || field.state !== 'ambiguous') return null;
+  if (field.raw_text != null && String(field.raw_text).trim() !== '') {
+    const parsed = parsePlainNumber(field.raw_text);
+    if (parsed && !parsed.uncertain) return parsed.value;
+  }
+  for (const alt of field.alternatives || []) {
+    if (typeof alt === 'number' && isFinite(alt)) return alt;
+  }
+  return null;
+}
+
+/** Note/flag text when two readings left the field ambiguous. */
+function readingsDisagreeFlag(field) {
+  if (!field || field.state !== 'ambiguous') return null;
+  const alts = (field.alternatives || []).filter(v => typeof v === 'number' && isFinite(v));
+  if (alts.length >= 2) return `readings disagree (${alts.join(' vs ')})`;
+  return null;
+}
+
+module.exports = { asField, observedNumber, bookableNumber, readingsDisagreeFlag, parsePlainNumber };
