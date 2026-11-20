@@ -8,6 +8,7 @@
 *.xlsx
 *.xls
 *.csv
+!3_Automation_Dashboard/SomSaiJai_Financial_Statement_2026.csv
 
 # Receipts, sale photos, bank statements, and audit workpapers
 B1/

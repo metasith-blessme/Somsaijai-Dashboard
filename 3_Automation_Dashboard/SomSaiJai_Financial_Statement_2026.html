@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <title>SomSaiJai 2026 Financial Statement (งบการเงินปี 69 — แยกทุกรายการ & ตัด Double-Book)</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; margin: 20px; background: #f8fafc; color: #0f172a; }
+    h1 { font-size: 20px; margin-bottom: 6px; }
+    .subtitle { font-size: 13px; color: #475569; margin-bottom: 16px; }
+    .badge-bar { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 16px; }
+    .badge { background: #e2e8f0; padding: 6px 12px; border-radius: 6px; font-size: 12px; font-weight: 600; }
+    .badge.green { background: #dcfce7; color: #166534; }
+    .badge.amber { background: #fef3c7; color: #92400e; }
+    .table-wrap { overflow-x: auto; background: #fff; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); margin-bottom: 28px; }
+    table { border-collapse: collapse; width: 100%; font-size: 12px; }
+    th, td { border: 1px solid #cbd5e1; padding: 6px 8px; white-space: nowrap; }
+    tr.hdr th { background: #1e293b; color: #fff; text-align: center; position: sticky; top: 0; z-index: 2; }
+    td.row-num { text-align: center; color: #64748b; background: #f1f5f9; font-weight: 600; width: 36px; }
+    td.label-cell { font-weight: 500; background: #fff; position: sticky; left: 0; z-index: 1; }
+    td.num { text-align: right; font-variant-numeric: tabular-nums; }
+    td.neg { color: #dc2626; font-weight: 600; }
+    td.future { color: #94a3b8; }
+    .ytd-col { background: #f8fafc; font-weight: 700; }
+    tr.sec-hdr td { background: #e0f2fe; color: #0369a1; font-weight: 700; font-size: 13px; }
+    tr.subtotal-row td { background: #fef9c3; font-weight: 700; border-top: 2px solid #94a3b8; border-bottom: 2px solid #94a3b8; }
+    tr.kpi-row td { background: #f0fdf4; font-weight: 700; }
+    tr.blank-row td { background: #f1f5f9; height: 10px; padding: 0; }
+  </style>
+</head>
+<body>
+  <h1>งบการเงิน ส้มใส่ใจ ปี 2569 (รายจ่ายปี69 — รวมทุกสาขา B1, B2, B3, B4)</h1>
+  <div class="subtitle">
+    แยกบรรทัด COGS, SG&A และงบลงทุนอย่างละเอียดตรงไปตรงมา (แยก ค่าน้ำมะพร้าว / ค่ามะพร้าวลูก / ค่านมข้นหวาน / ค่านมข้นจืด ออกเป็น 4 รายการ) • ตัดรายการ Double-Book ทั้ง 8 จุด (รวม ฿60,843.47)
+  </div>
+  <div class="badge-bar">
+    <div class="badge green">ยอดขายรวม YTD (ม.ค.–ก.ย.): ฿3,520,285.92</div>
+    <div class="badge green">รวมต้นทุน COGS (GP): ฿1,576,793.00</div>
+    <div class="badge green">รวม SG&A: ฿1,309,771.49</div>
+    <div class="badge green">รวมงบลงทุน (CAPEX): ฿94,044.75</div>
+    <div class="badge amber">ตัดยอดซ้ำ (Double-Book 8 จุด): -฿60,843.47</div>
+    <div class="badge green">กำไรสุทธิ (Net Margin YTD หลังตัดยอดซ้ำ): ฿539,676.68</div>
+  </div>
+  <div class="table-wrap">
+    <table>
+      <tr class="hdr">
+      <th class="sticky-col">Row</th>
+      <th class="sticky-label">รายจ่ายปี69 (แยกทุกรายการ ไม่ยุบรวม — All Branches B1–B4)</th>
+      <th>เดือน 1<br><small>Jan26</small></th><th>เดือน 2<br><small>Feb26</small></th><th>เดือน 3<br><small>Mar26</small></th><th>เดือน 4<br><small>Apr26</small></th><th>เดือน 5<br><small>May26</small></th><th>เดือน 6<br><small>Jun26</small></th><th>เดือน 7<br><small>Jul26</small></th><th>เดือน 8<br><small>Aug26</small></th><th>เดือน 9<br><small>Sep26</small></th><th>เดือน 10<br><small>Oct26</small></th><th>เดือน 11<br><small>Nov26</small></th><th>เดือน 12<br><small>Dec26</small></th>
+      <th class="ytd-col">รวม YTD<br><small>(ม.ค.–ก.ย.)</small></th>
+    </tr>
+<tr class="">
+    <td class="row-num">2</td>
+    <td class="label-cell">ค่าส้ม</td>
+    <td class="num ">45,301.00</td><td class="num ">61,557.00</td><td class="num ">73,326.00</td><td class="num ">78,760.00</td><td class="num ">53,440.00</td><td class="num ">50,810.00</td><td class="num ">65,128.00</td><td class="num ">22,010.00</td><td class="num ">10,720.00</td><td class="num ">16,000.00</td><td class="num future">0.00</td><td class="num future">0.00</td>
+    <td class="num ytd-col ">461,052.00</td>
+  </tr>
+<tr class="">
+    <td class="row-num">3</td>
+    <td class="label-cell">ค่าแตงโม</td>
+    <td class="num ">22,800.00</td><td class="num ">40,000.00</td><td class="num ">29,480.00</td><td class="num ">31,400.00</td><td class="num ">40,208.00</td><td class="num ">36,450.00</td><td class="num ">30,480.00</td><td class="num ">42,960.00</td><td class="num ">22,160.00</td><td class="num ">28,520.00</td><td class="num future">0.00</td><td class="num future">0.00</td>
+    <td class="num ytd-col ">295,938.00</td>
+  </tr>
+<tr class="">
+    <td class="row-num">4</td>
+    <td class="label-cell">ค่าเนื้อมะพร้าว</td>
+    <td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">1,650.00</td><td class="num ">7,700.00</td><td class="num ">4,820.00</td><td class="num ">2,400.00</td><td class="num ">15,000.00</td><td class="num ">11,800.00</td><td class="num ">0.00</td><td class="num ">9,500.00</td><td class="num future">0.00</td><td class="num future">0.00</td>
+    <td class="num ytd-col ">43,370.00</td>
+  </tr>
+<tr class="">
+    <td class="row-num">5</td>
+    <td class="label-cell">ค่าน้ำมะพร้าว</td>
+    <td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">750.00</td><td class="num ">6,195.00</td><td class="num ">3,500.00</td><td class="num ">8,900.00</td><td class="num ">5,790.00</td><td class="num ">5,275.00</td><td class="num ">11,675.00</td><td class="num ">6,975.00</td><td class="num future">0.00</td><td class="num future">0.00</td>
+    <td class="num ytd-col ">42,085.00</td>
+  </tr>
+<tr class="">
+    <td class="row-num">6</td>
+    <td class="label-cell">ค่ามะพร้าวลูก (มะพร้าวถอดเสื้อ / มะพร้าวลูก)</td>
+    <td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">1,980.00</td><td class="num ">7,010.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num future">0.00</td><td class="num future">0.00</td><td class="num future">0.00</td>
+    <td class="num ytd-col ">8,990.00</td>
+  </tr>
+<tr class="">
+    <td class="row-num">7</td>
+    <td class="label-cell">ค่านมข้นหวาน</td>
+    <td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">2,246.00</td><td class="num ">2,438.00</td><td class="num ">2,568.00</td><td class="num ">3,639.00</td><td class="num ">3,367.00</td><td class="num ">1,434.00</td><td class="num ">0.00</td><td class="num ">4,194.00</td><td class="num future">0.00</td><td class="num future">0.00</td>
+    <td class="num ytd-col ">15,692.00</td>
+  </tr>
+<tr class="">
+    <td class="row-num">8</td>
+    <td class="label-cell">ค่านมข้นจืด</td>
+    <td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">1,720.00</td><td class="num ">2,142.00</td><td class="num ">2,900.00</td><td class="num ">2,821.00</td><td class="num ">2,809.00</td><td class="num ">1,937.00</td><td class="num ">1,400.00</td><td class="num ">7,769.00</td><td class="num future">0.00</td><td class="num future">0.00</td>
+    <td class="num ytd-col ">15,729.00</td>
+  </tr>
+<tr class="">
+    <td class="row-num">9</td>
+    <td class="label-cell">ค่าแอปเปิ้ล (รวมแอปเปิ้ล เมล่อน ม.ค. 851)</td>
+    <td class="num ">851.00</td><td class="num ">0.00</td><td class="num ">350.00</td><td class="num ">9,800.00</td><td class="num ">9,550.00</td><td class="num ">7,350.00</td><td class="num ">16,190.00</td><td class="num ">13,174.00</td><td class="num ">8,000.00</td><td class="num ">12,690.00</td><td class="num future">0.00</td><td class="num future">0.00</td>
+    <td class="num ytd-col ">65,265.00</td>
+  </tr>
+<tr class="">
+    <td class="row-num">10</td>
+    <td class="label-cell">ค่ามะม่วง</td>
+    <td class="num ">0.00</td><td class="num ">500.00</td><td class="num ">7,775.00</td><td class="num ">10,540.00</td><td class="num ">11,615.00</td><td class="num ">6,312.00</td><td class="num ">30,560.00</td><td class="num ">31,200.00</td><td class="num ">21,584.00</td><td class="num ">28,250.00</td><td class="num future">0.00</td><td class="num future">0.00</td>
+    <td class="num ytd-col ">120,086.00</td>
+  </tr>
+<tr class="">
+    <td class="row-num">11</td>
+    <td class="label-cell">ค่าฝรั่ง</td>
+    <td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">1,500.00</td><td class="num ">4,500.00</td><td class="num ">6,700.00</td><td class="num ">24,200.00</td><td class="num ">23,960.00</td><td class="num ">6,675.00</td><td class="num ">12,100.00</td><td class="num future">0.00</td><td class="num future">0.00</td>
+    <td class="num ytd-col ">67,535.00</td>
+  </tr>
+<tr class="">
+    <td class="row-num">12</td>
+    <td class="label-cell">ค่าสับปะรด</td>
+    <td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">1,500.00</td><td class="num ">5,634.00</td><td class="num ">6,042.00</td><td class="num ">9,281.00</td><td class="num ">11,778.00</td><td class="num ">9,190.00</td><td class="num future">0.00</td><td class="num future">0.00</td><td class="num future">0.00</td>
+    <td class="num ytd-col ">43,425.00</td>
+  </tr>
+<tr class="">
+    <td class="row-num">13</td>
+    <td class="label-cell">ค่าทับทิม</td>
+    <td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">16,280.00</td><td class="num future">0.00</td><td class="num future">0.00</td>
+    <td class="num ytd-col ">0.00</td>
+  </tr>
+<tr class="">
+    <td class="row-num">14</td>
+    <td class="label-cell">ค่าข้าวเหนียวมูน</td>
+    <td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">10,730.00</td><td class="num ">13,174.00</td><td class="num ">1,045.00</td><td class="num future">0.00</td><td class="num future">0.00</td>
+    <td class="num ytd-col ">23,904.00</td>
+  </tr>
+<tr class="">
+    <td class="row-num">15</td>
+    <td class="label-cell">ค่าทุเรียน</td>
+    <td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">6,705.00</td><td class="num ">4,830.00</td><td class="num ">9,670.00</td><td class="num future">0.00</td><td class="num future">0.00</td><td class="num future">0.00</td>
+    <td class="num ytd-col ">21,205.00</td>
+  </tr>
+<tr class="">
+    <td class="row-num">16</td>
+    <td class="label-cell">ค่าบาร์เลย์ / ถั่วแดง / ถั่วเหลือง</td>
+    <td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">420.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">50.00</td><td class="num ">0.00</td><td class="num future">0.00</td><td class="num future">0.00</td><td class="num future">0.00</td>
+    <td class="num ytd-col ">470.00</td>
+  </tr>
+<tr class="">
+    <td class="row-num">17</td>
+    <td class="label-cell">ค่าผลไม้เงินสด (โอนผู้จัดการซื้อผลไม้ ก.ย. Slip 19)</td>
+    <td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">5,000.00</td><td class="num future">0.00</td><td class="num future">0.00</td><td class="num future">0.00</td>
+    <td class="num ytd-col ">5,000.00</td>
+  </tr>
+<tr class="">
+    <td class="row-num">18</td>
+    <td class="label-cell">ค่าซื้อของหน้างานโดยผู้จัดการ (ส.ค. ไม่มีบิลย่อย)</td>
+    <td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">2,377.00</td><td class="num ">0.00</td><td class="num future">0.00</td><td class="num future">0.00</td><td class="num future">0.00</td>
+    <td class="num ytd-col ">2,377.00</td>
+  </tr>
+<tr class="">
+    <td class="row-num">19</td>
+    <td class="label-cell">วัตถุดิบอื่นไม่ระบุชื่อในสลิป (Unknown COGS)</td>
+    <td class="num ">60.00</td><td class="num ">1,148.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">18.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">5,812.00</td><td class="num future">0.00</td><td class="num future">0.00</td>
+    <td class="num ytd-col ">1,226.00</td>
+  </tr>
+<tr class="">
+    <td class="row-num">20</td>
+    <td class="label-cell">ค่าแก้ว (และบรรจุภัณฑ์รวม ก.ย.)</td>
+    <td class="num ">6,492.00</td><td class="num ">15,846.00</td><td class="num ">6,240.00</td><td class="num ">17,255.00</td><td class="num ">12,093.00</td><td class="num ">12,659.00</td><td class="num ">7,021.00</td><td class="num ">16,011.00</td><td class="num ">14,143.00</td><td class="num ">21,999.00</td><td class="num future">0.00</td><td class="num future">0.00</td>
+    <td class="num ytd-col ">107,760.00</td>
+  </tr>
+<tr class="">
+    <td class="row-num">21</td>
+    <td class="label-cell">ค่าสั่งซื้อบรรจุภัณฑ์/วัสดุ Shopee [bank] (รอแยกบิลย่อย)</td>
+    <td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">26,494.00</td><td class="num ">0.00</td><td class="num ">23,004.00</td><td class="num ">33,717.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num future">0.00</td><td class="num future">0.00</td><td class="num future">0.00</td>
+    <td class="num ytd-col ">83,215.00</td>
+  </tr>
+<tr class="">
+    <td class="row-num">22</td>
+    <td class="label-cell">ค่ากล่องใส่ทุเรียนและผลไม้</td>
+    <td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">355.00</td><td class="num ">0.00</td><td class="num future">0.00</td><td class="num future">0.00</td><td class="num future">0.00</td>
+    <td class="num ytd-col ">355.00</td>
+  </tr>
+<tr class="">
+    <td class="row-num">23</td>
+    <td class="label-cell">ค่าฝา</td>
+    <td class="num ">0.00</td><td class="num ">2,076.00</td><td class="num ">2,547.00</td><td class="num ">0.00</td><td class="num ">4,699.00</td><td class="num ">1,610.00</td><td class="num ">2,592.00</td><td class="num ">3,146.00</td><td class="num ">0.00</td><td class="num future">0.00</td><td class="num future">0.00</td><td class="num future">0.00</td>
+    <td class="num ytd-col ">16,670.00</td>
+  </tr>
+<tr class="">
+    <td class="row-num">24</td>
+    <td class="label-cell">ค่าหลอด</td>
+    <td class="num ">0.00</td><td class="num ">421.00</td><td class="num ">765.00</td><td class="num ">2,110.00</td><td class="num ">1,502.00</td><td class="num ">1,779.00</td><td class="num ">671.00</td><td class="num ">4,056.00</td><td class="num ">0.00</td><td class="num ">2,913.00</td><td class="num future">0.00</td><td class="num future">0.00</td>
+    <td class="num ytd-col ">11,304.00</td>
+  </tr>
+<tr class="">
+    <td class="row-num">25</td>
+    <td class="label-cell">ค่าถุงพลาสติกเล็ก</td>
+    <td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">400.00</td><td class="num ">605.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">1,213.00</td><td class="num future">0.00</td><td class="num future">0.00</td>
+    <td class="num ytd-col ">1,005.00</td>
+  </tr>
+<tr class="">
+    <td class="row-num">26</td>
+    <td class="label-cell">ค่าถุงพลาสติกใหญ่</td>
+    <td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">943.00</td><td class="num ">134.00</td><td class="num ">0.00</td><td class="num ">953.00</td><td class="num future">0.00</td><td class="num future">0.00</td>
+    <td class="num ytd-col ">1,077.00</td>
+  </tr>
+<tr class="">
+    <td class="row-num">27</td>
+    <td class="label-cell">ค่าน้ำแข็ง (บิลน้ำแข็ง + น้ำแข็งรายวันหน้าแผง)</td>
+    <td class="num ">2,940.00</td><td class="num ">3,540.00</td><td class="num ">9,250.00</td><td class="num ">6,180.00</td><td class="num ">7,630.00</td><td class="num ">5,640.00</td><td class="num ">8,580.00</td><td class="num ">0.00</td><td class="num ">7,884.00</td><td class="num ">9,693.00</td><td class="num future">0.00</td><td class="num future">0.00</td>
+    <td class="num ytd-col ">51,644.00</td>
+  </tr>
+<tr class="">
+    <td class="row-num">28</td>
+    <td class="label-cell">ค่าขนส่ง (COGS)</td>
+    <td class="num ">7,122.00</td><td class="num ">8,407.00</td><td class="num ">6,220.00</td><td class="num ">4,335.00</td><td class="num ">6,000.00</td><td class="num ">4,000.00</td><td class="num ">0.00</td><td class="num ">17,000.00</td><td class="num ">0.00</td><td class="num ">4,600.00</td><td class="num future">0.00</td><td class="num future">0.00</td>
+    <td class="num ytd-col ">53,084.00</td>
+  </tr>
+<tr class="">
+    <td class="row-num">29</td>
+    <td class="label-cell">ขวด ฝาเล็ก (200 ml)</td>
+    <td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num future">0.00</td><td class="num future">0.00</td><td class="num future">0.00</td>
+    <td class="num ytd-col ">0.00</td>
+  </tr>
+<tr class="">
+    <td class="row-num">30</td>
+    <td class="label-cell">ขวด ฝาใหญ่ (1000 ml)</td>
+    <td class="num ">319.00</td><td class="num ">319.00</td><td class="num ">0.00</td><td class="num ">338.00</td><td class="num ">0.00</td><td class="num ">364.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num future">0.00</td><td class="num future">0.00</td><td class="num future">0.00</td>
+    <td class="num ytd-col ">1,340.00</td>
+  </tr>
+<tr class="">
+    <td class="row-num">31</td>
+    <td class="label-cell">ถุงขยะ</td>
+    <td class="num ">548.00</td><td class="num ">0.00</td><td class="num ">909.00</td><td class="num ">1,490.00</td><td class="num ">0.00</td><td class="num ">1,830.00</td><td class="num ">1,101.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num future">0.00</td><td class="num future">0.00</td><td class="num future">0.00</td>
+    <td class="num ytd-col ">5,878.00</td>
+  </tr>
+<tr class="">
+    <td class="row-num">32</td>
+    <td class="label-cell">ถุงมือ</td>
+    <td class="num ">1,077.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">2,745.00</td><td class="num ">4,598.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">6,738.00</td><td class="num future">0.00</td><td class="num future">0.00</td>
+    <td class="num ytd-col ">8,420.00</td>
+  </tr>
+<tr class="">
+    <td class="row-num">33</td>
+    <td class="label-cell">อุปกรณ์ล้างจาน</td>
+    <td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">149.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num future">0.00</td><td class="num future">0.00</td><td class="num future">0.00</td>
+    <td class="num ytd-col ">149.00</td>
+  </tr>
+<tr class="">
+    <td class="row-num">34</td>
+    <td class="label-cell">ทิชชู่</td>
+    <td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">451.00</td><td class="num ">0.00</td><td class="num ">636.00</td><td class="num ">456.00</td><td class="num ">0.00</td><td class="num future">0.00</td><td class="num future">0.00</td><td class="num future">0.00</td>
+    <td class="num ytd-col ">1,543.00</td>
+  </tr>
+<tr class="subtotal-row">
+    <td class="row-num">35</td>
+    <td class="label-cell">รวม (GP)</td>
+    <td class="num ">87,510.00</td><td class="num ">133,814.00</td><td class="num ">143,228.00</td><td class="num ">212,577.00</td><td class="num ">180,865.00</td><td class="num ">187,475.00</td><td class="num ">265,376.00</td><td class="num ">224,673.00</td><td class="num ">141,275.00</td><td class="num ">197,244.00</td><td class="num future">0.00</td><td class="num future">0.00</td>
+    <td class="num ytd-col ">1,576,793.00</td>
+  </tr>
+<tr class="sec-hdr">
+      <td class="row-num">36</td>
+      <td colspan="14">SG&A</td>
+    </tr>
+<tr class="">
+    <td class="row-num">37</td>
+    <td class="label-cell">ค่าเช่าหน้าร้าน (B1–B4)</td>
+    <td class="num ">30,000.00</td><td class="num ">35,000.00</td><td class="num ">35,000.00</td><td class="num ">65,000.00</td><td class="num ">65,000.00</td><td class="num ">65,000.00</td><td class="num ">73,146.16</td><td class="num ">78,780.22</td><td class="num ">101,746.89</td><td class="num ">109,015.22</td><td class="num future">0.00</td><td class="num future">0.00</td>
+    <td class="num ytd-col ">548,673.27</td>
+  </tr>
+<tr class="">
+    <td class="row-num">38</td>
+    <td class="label-cell">ค่าน้ำ + ค่าไฟ</td>
+    <td class="num ">0.00</td><td class="num ">389.00</td><td class="num ">3,229.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">1,592.22</td><td class="num ">1,806.91</td><td class="num future">0.00</td><td class="num future">0.00</td>
+    <td class="num ytd-col ">5,210.22</td>
+  </tr>
+<tr class="">
+    <td class="row-num">39</td>
+    <td class="label-cell">ค่าแรงคนงาน</td>
+    <td class="num ">19,000.00</td><td class="num ">19,000.00</td><td class="num ">43,600.00</td><td class="num ">49,000.00</td><td class="num ">60,200.00</td><td class="num ">48,400.00</td><td class="num ">111,500.00</td><td class="num ">114,200.00</td><td class="num ">123,300.00</td><td class="num ">121,700.00</td><td class="num future">0.00</td><td class="num future">0.00</td>
+    <td class="num ytd-col ">588,200.00</td>
+  </tr>
+<tr class="">
+    <td class="row-num">40</td>
+    <td class="label-cell">ค่าเช่าคลัง (Stock)</td>
+    <td class="num ">12,324.00</td><td class="num ">12,000.00</td><td class="num ">12,000.00</td><td class="num ">12,000.00</td><td class="num ">12,000.00</td><td class="num ">12,000.00</td><td class="num ">12,000.00</td><td class="num ">12,000.00</td><td class="num ">12,000.00</td><td class="num ">12,000.00</td><td class="num future">0.00</td><td class="num future">0.00</td>
+    <td class="num ytd-col ">108,324.00</td>
+  </tr>
+<tr class="">
+    <td class="row-num">41</td>
+    <td class="label-cell">ค่าขนส่ง / โลจิสติกส์ (OPEX ก.ค., ก.ย.)</td>
+    <td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">9,656.00</td><td class="num ">0.00</td><td class="num ">12,400.00</td><td class="num future">0.00</td><td class="num future">0.00</td><td class="num future">0.00</td>
+    <td class="num ytd-col ">22,056.00</td>
+  </tr>
+<tr class="">
+    <td class="row-num">42</td>
+    <td class="label-cell">ค่าเทศกิจ / ตำรวจ</td>
+    <td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">4,290.00</td><td class="num ">2,000.00</td><td class="num ">2,000.00</td><td class="num ">2,000.00</td><td class="num ">6,000.00</td><td class="num future">0.00</td><td class="num future">0.00</td><td class="num future">0.00</td>
+    <td class="num ytd-col ">16,290.00</td>
+  </tr>
+<tr class="">
+    <td class="row-num">43</td>
+    <td class="label-cell">ค่าทำความสะอาด / ซักล้าง</td>
+    <td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">3,700.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">1,500.00</td><td class="num ">0.00</td><td class="num future">0.00</td><td class="num future">0.00</td><td class="num future">0.00</td>
+    <td class="num ytd-col ">5,200.00</td>
+  </tr>
+<tr class="">
+    <td class="row-num">44</td>
+    <td class="label-cell">ค่ารักษาพยาบาลพนักงาน (หมอเอ)</td>
+    <td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">719.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num future">0.00</td><td class="num future">0.00</td><td class="num future">0.00</td>
+    <td class="num ytd-col ">719.00</td>
+  </tr>
+<tr class="">
+    <td class="row-num">45</td>
+    <td class="label-cell">ค่ายกของ / ปริ้นเอกสาร / เบ็ดเตล็ดร้าน</td>
+    <td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">1,918.00</td><td class="num ">340.00</td><td class="num ">0.00</td><td class="num future">0.00</td><td class="num future">0.00</td><td class="num future">0.00</td>
+    <td class="num ytd-col ">2,258.00</td>
+  </tr>
+<tr class="">
+    <td class="row-num">46</td>
+    <td class="label-cell">สลิป OPEX ไม่ระบุรายละเอียด (Unknown OPEX)</td>
+    <td class="num ">0.00</td><td class="num ">4,000.00</td><td class="num ">0.00</td><td class="num ">4,000.00</td><td class="num ">2,524.00</td><td class="num ">317.00</td><td class="num ">2,000.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num future">0.00</td><td class="num future">0.00</td><td class="num future">0.00</td>
+    <td class="num ytd-col ">12,841.00</td>
+  </tr>
+<tr class="subtotal-row">
+    <td class="row-num">47</td>
+    <td class="label-cell">รวม (SG&A)</td>
+    <td class="num ">61,324.00</td><td class="num ">70,389.00</td><td class="num ">93,829.00</td><td class="num ">130,000.00</td><td class="num ">148,433.00</td><td class="num ">127,717.00</td><td class="num ">212,220.16</td><td class="num ">208,820.22</td><td class="num ">257,039.11</td><td class="num ">244,522.13</td><td class="num future">0.00</td><td class="num future">0.00</td>
+    <td class="num ytd-col ">1,309,771.49</td>
+  </tr>
+<tr class="sec-hdr">
+      <td class="row-num">48</td>
+      <td colspan="14">งบลงทุน + ค่าเสื่อม</td>
+    </tr>
+<tr class="">
+    <td class="row-num">49</td>
+    <td class="label-cell">ค่าซื้อมอเตอร์ไซค์ (Yamaha Finn 2022 - B1 Slip 73)</td>
+    <td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">25,000.00</td><td class="num future">0.00</td><td class="num future">0.00</td><td class="num future">0.00</td>
+    <td class="num ytd-col ">25,000.00</td>
+  </tr>
+<tr class="">
+    <td class="row-num">50</td>
+    <td class="label-cell">งบลงทุนจัดตั้งสาขาใหม่ B4 (เตา/ไฟ/หมวก/ยกรถ Slips 37,38,40,66)</td>
+    <td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">3,008.00</td><td class="num future">0.00</td><td class="num future">0.00</td><td class="num future">0.00</td>
+    <td class="num ytd-col ">3,008.00</td>
+  </tr>
+<tr class="">
+    <td class="row-num">51</td>
+    <td class="label-cell">ค่าปืนฉีดน้ำ กิจกรรมสงกรานต์</td>
+    <td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">24,016.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num future">0.00</td><td class="num future">0.00</td><td class="num future">0.00</td>
+    <td class="num ytd-col ">24,016.00</td>
+  </tr>
+<tr class="">
+    <td class="row-num">52</td>
+    <td class="label-cell">ค่าป้ายเมนู ร่ม เต็นท์ และตกแต่งร้าน</td>
+    <td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">6,500.00</td><td class="num ">0.00</td><td class="num ">2,019.00</td><td class="num ">0.00</td><td class="num ">3,132.00</td><td class="num ">4,508.00</td><td class="num ">0.00</td><td class="num ">2,992.00</td><td class="num future">0.00</td><td class="num future">0.00</td>
+    <td class="num ytd-col ">16,159.00</td>
+  </tr>
+<tr class="">
+    <td class="row-num">53</td>
+    <td class="label-cell">ค่าโต๊ะพับ โต๊ะสแตนเลส ลิ้นชักเก็บเงิน พรม ผ้าปิดร้าน (เดิมแถวคีออส)</td>
+    <td class="num ">0.00</td><td class="num ">218.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">858.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">1,876.00</td><td class="num ">0.00</td><td class="num future">0.00</td><td class="num future">0.00</td><td class="num future">0.00</td>
+    <td class="num ytd-col ">2,952.00</td>
+  </tr>
+<tr class="">
+    <td class="row-num">54</td>
+    <td class="label-cell">ค่าเครื่องทำน้ำผลไม้ทั้งหลาย (เครื่องสกัดเย็น)</td>
+    <td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">1,065.00</td><td class="num ">1,402.00</td><td class="num ">2,102.00</td><td class="num ">1,142.00</td><td class="num ">0.00</td><td class="num future">0.00</td><td class="num future">0.00</td><td class="num future">0.00</td>
+    <td class="num ytd-col ">5,711.00</td>
+  </tr>
+<tr class="">
+    <td class="row-num">55</td>
+    <td class="label-cell">ค่ากล้องวงจรปิด ปลั๊ก และอุปกรณ์ไฟแต่งร้าน</td>
+    <td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">838.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">4,486.00</td><td class="num ">0.00</td><td class="num ">1,899.00</td><td class="num future">0.00</td><td class="num future">0.00</td>
+    <td class="num ytd-col ">5,324.00</td>
+  </tr>
+<tr class="">
+    <td class="row-num">56</td>
+    <td class="label-cell">ค่าอุปกรณ์เครื่องครัวภายในร้าน รถเข็น มีด ตะกร้า</td>
+    <td class="num ">0.00</td><td class="num ">5,000.00</td><td class="num ">1,869.00</td><td class="num ">0.00</td><td class="num ">550.00</td><td class="num ">0.00</td><td class="num ">1,484.00</td><td class="num ">1,721.00</td><td class="num ">0.00</td><td class="num future">0.00</td><td class="num future">0.00</td><td class="num future">0.00</td>
+    <td class="num ytd-col ">10,624.00</td>
+  </tr>
+<tr class="">
+    <td class="row-num">57</td>
+    <td class="label-cell">วัตถุดิบทดลองเมนูใหม่: Avocado milk (ก.ค. Slip 74)</td>
+    <td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">440.75</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num future">0.00</td><td class="num future">0.00</td><td class="num future">0.00</td>
+    <td class="num ytd-col ">440.75</td>
+  </tr>
+<tr class="">
+    <td class="row-num">58</td>
+    <td class="label-cell">งบลงทุน - ทดลองเมนูอื่นๆ (ก.ค. Slip 8)</td>
+    <td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num ">810.00</td><td class="num ">0.00</td><td class="num ">0.00</td><td class="num future">0.00</td><td class="num future">0.00</td><td class="num future">0.00</td>
+    <td class="num ytd-col ">810.00</td>
+  </tr>
+<tr class="subtotal-row">
+    <td class="row-num">59</td>
+    <td class="label-cell">รวม (งบลงทุน + ค่าเสื่อม)</td>
+    <td class="num ">0.00</td><td class="num ">5,218.00</td><td class="num ">8,369.00</td><td class="num ">24,016.00</td><td class="num ">5,330.00</td><td class="num ">1,402.00</td><td class="num ">7,968.75</td><td class="num ">13,733.00</td><td class="num ">28,008.00</td><td class="num ">4,891.00</td><td class="num future">0.00</td><td class="num future">0.00</td>
+    <td class="num ytd-col ">94,044.75</td>
+  </tr>
+<tr class="blank-row"><td colspan="15">&nbsp;</td></tr>
+<tr class="subtotal-row">
+    <td class="row-num">61</td>
+    <td class="label-cell">รวมค่าใช้จ่าย</td>
+    <td class="num ">148,834.00</td><td class="num ">209,421.00</td><td class="num ">245,426.00</td><td class="num ">366,593.00</td><td class="num ">334,628.00</td><td class="num ">316,594.00</td><td class="num ">485,564.91</td><td class="num ">447,226.22</td><td class="num ">426,322.11</td><td class="num ">446,657.13</td><td class="num future">0.00</td><td class="num future">0.00</td>
+    <td class="num ytd-col ">2,980,609.24</td>
+  </tr>
+<tr class="blank-row"><td colspan="15">&nbsp;</td></tr>
+<tr class="kpi-row">
+    <td class="row-num">63</td>
+    <td class="label-cell">ยอดขาย</td>
+    <td class="num ">274,405.00</td><td class="num ">338,060.00</td><td class="num ">286,925.00</td><td class="num ">383,118.00</td><td class="num ">427,311.00</td><td class="num ">307,320.00</td><td class="num ">547,057.00</td><td class="num ">593,726.92</td><td class="num ">362,363.00</td><td class="num ">568,192.00</td><td class="num future">0.00</td><td class="num future">0.00</td>
+    <td class="num ytd-col ">3,520,285.92</td>
+  </tr>
+<tr class="kpi-row">
+    <td class="row-num">64</td>
+    <td class="label-cell">GP(หักต้นทุนวัตถุดิบ)</td>
+    <td class="num ">186,895.00</td><td class="num ">204,246.00</td><td class="num ">143,697.00</td><td class="num ">170,541.00</td><td class="num ">246,446.00</td><td class="num ">119,845.00</td><td class="num ">281,681.00</td><td class="num ">369,053.92</td><td class="num ">221,088.00</td><td class="num ">370,948.00</td><td class="num future">0.00</td><td class="num future">0.00</td>
+    <td class="num ytd-col ">1,943,492.92</td>
+  </tr>
+<tr class="kpi-row">
+    <td class="row-num">65</td>
+    <td class="label-cell">EBITDA</td>
+    <td class="num ">125,571.00</td><td class="num ">133,857.00</td><td class="num ">49,868.00</td><td class="num ">40,541.00</td><td class="num ">98,013.00</td><td class="num neg">-7,872.00</td><td class="num ">69,460.84</td><td class="num ">160,233.70</td><td class="num neg">-35,951.11</td><td class="num ">126,425.87</td><td class="num future">0.00</td><td class="num future">0.00</td>
+    <td class="num ytd-col ">633,721.43</td>
+  </tr>
+<tr class="kpi-row">
+    <td class="row-num">66</td>
+    <td class="label-cell">Net Margin</td>
+    <td class="num ">125,571.00</td><td class="num ">128,639.00</td><td class="num ">41,499.00</td><td class="num ">16,525.00</td><td class="num ">92,683.00</td><td class="num neg">-9,274.00</td><td class="num ">61,492.09</td><td class="num ">146,500.70</td><td class="num neg">-63,959.11</td><td class="num ">121,534.87</td><td class="num future">0.00</td><td class="num future">0.00</td>
+    <td class="num ytd-col ">539,676.68</td>
+  </tr>
+<tr class="blank-row"><td colspan="15">&nbsp;</td></tr>
+<tr class="blank-row"><td colspan="15">&nbsp;</td></tr>
+<tr class="kpi-row">
+    <td class="row-num">69</td>
+    <td class="label-cell">ยอดขาย</td>
+    <td class="num ">274,405.00</td><td class="num ">338,060.00</td><td class="num ">286,925.00</td><td class="num ">383,118.00</td><td class="num ">427,311.00</td><td class="num ">307,320.00</td><td class="num ">547,057.00</td><td class="num ">593,726.92</td><td class="num ">362,363.00</td><td class="num ">568,192.00</td><td class="num future">0.00</td><td class="num future">0.00</td>
+    <td class="num ytd-col ">3,520,285.92</td>
+  </tr>
+<tr class="kpi-row">
+    <td class="row-num">70</td>
+    <td class="label-cell">GP(หักต้นทุนวัตถุดิบ)</td>
+    <td class="num ">68.11%</td><td class="num ">60.42%</td><td class="num ">50.08%</td><td class="num ">44.51%</td><td class="num ">57.67%</td><td class="num ">39.00%</td><td class="num ">51.49%</td><td class="num ">62.16%</td><td class="num ">61.01%</td><td class="num ">65.29%</td><td class="num future">0.00%</td><td class="num future">0.00%</td>
+    <td class="num ytd-col ">55.21%</td>
+  </tr>
+<tr class="kpi-row">
+    <td class="row-num">71</td>
+    <td class="label-cell">EBITDA</td>
+    <td class="num ">45.76%</td><td class="num ">39.60%</td><td class="num ">17.38%</td><td class="num ">10.58%</td><td class="num ">22.94%</td><td class="num neg">-2.56%</td><td class="num ">12.70%</td><td class="num ">26.99%</td><td class="num neg">-9.92%</td><td class="num ">22.25%</td><td class="num future">0.00%</td><td class="num future">0.00%</td>
+    <td class="num ytd-col ">18.00%</td>
+  </tr>
+<tr class="kpi-row">
+    <td class="row-num">72</td>
+    <td class="label-cell">Net Margin</td>
+    <td class="num ">45.76%</td><td class="num ">38.05%</td><td class="num ">14.46%</td><td class="num ">4.31%</td><td class="num ">21.69%</td><td class="num neg">-3.02%</td><td class="num ">11.24%</td><td class="num ">24.67%</td><td class="num neg">-17.65%</td><td class="num ">21.39%</td><td class="num future">0.00%</td><td class="num future">0.00%</td>
+    <td class="num ytd-col ">15.33%</td>
+  </tr>
+<tr class="blank-row"><td colspan="15">&nbsp;</td></tr>
+<tr class="kpi-row">
+    <td class="row-num">74</td>
+    <td class="label-cell">Blessme (60% ม.ค.–มิ.ย. / 70% ก.ค.–ธ.ค.)</td>
+    <td class="num ">75,342.60</td><td class="num ">77,183.40</td><td class="num ">24,899.40</td><td class="num ">9,915.00</td><td class="num ">55,609.80</td><td class="num ">0.00</td><td class="num ">43,044.46</td><td class="num ">102,550.49</td><td class="num ">0.00</td><td class="num ">85,074.41</td><td class="num future">0.00</td><td class="num future">0.00</td>
+    <td class="num ytd-col ">388,545.15</td>
+  </tr>
+<tr class="kpi-row">
+    <td class="row-num">75</td>
+    <td class="label-cell">Main / Ming (40% ม.ค.–มิ.ย. / 30% ก.ค.–ธ.ค.)</td>
+    <td class="num ">50,228.40</td><td class="num ">51,455.60</td><td class="num ">16,599.60</td><td class="num ">6,610.00</td><td class="num ">37,073.20</td><td class="num ">0.00</td><td class="num ">18,447.63</td><td class="num ">43,950.21</td><td class="num ">0.00</td><td class="num ">36,460.46</td><td class="num future">0.00</td><td class="num future">0.00</td>
+    <td class="num ytd-col ">224,364.64</td>
+  </tr>
+    </table>
+  </div>
+
+  <h2>ตารางรายการบันทึกซ้ำ (Confirmed Double-Bookings) ที่ตัดออกจากงบการเงิน (รวม ฿60,843.47)</h2>
+  <div class="table-wrap">
+    <table>
+      <tr class="hdr">
+        <th>#</th>
+        <th>เดือน</th>
+        <th>วันที่</th>
+        <th>สาขา</th>
+        <th>หมวดเดิม</th>
+        <th>รายละเอียดในระบบ</th>
+        <th>ยอดที่ตัดซ้ำออก (฿)</th>
+        <th>สาเหตุที่เกิด Double-Book</th>
+      </tr>
+      <tr>
+      <td style="text-align:center">1</td>
+      <td>Mar26</td>
+      <td>17/03/2026</td>
+      <td style="text-align:center">B1</td>
+      <td>OPEX / Utilities</td>
+      <td>ค่าไฟเดือนกพ มีนา</td>
+      <td class="num neg">-2,779.47</td>
+      <td>Mar26 electricity slip (฿2,779.47) duplicated inside 31/03 owner total utilities (฿3,229.00)</td>
+    </tr>
+<tr>
+      <td style="text-align:center">2</td>
+      <td>Apr26</td>
+      <td>04/04/2026</td>
+      <td style="text-align:center">B1</td>
+      <td>COGS / Watermelon</td>
+      <td>4/4/68 40 ลูก</td>
+      <td class="num neg">-3,200.00</td>
+      <td>Apr26 04/04 Watermelon 40 melons (฿3,200) counted again in 07/04 combined settlement slip (฿6,400)</td>
+    </tr>
+<tr>
+      <td style="text-align:center">3</td>
+      <td>Apr26</td>
+      <td>30/04/2026</td>
+      <td style="text-align:center">B1</td>
+      <td>COGS / Stock</td>
+      <td>Stock (Allocated 82.9%)</td>
+      <td class="num neg">-9,948.00</td>
+      <td>Apr26 Stock Rent (฿12,000) booked in both COGS/Stock and OPEX/Rental</td>
+    </tr>
+<tr>
+      <td style="text-align:center">4</td>
+      <td>May26</td>
+      <td>01/05/2026</td>
+      <td style="text-align:center">B1</td>
+      <td>OPEX / Other</td>
+      <td>ยอดคงเหลือใบเสร็จ 01/05 — ไม่ระบุรายการ ต้องตรวจสอบสลิป</td>
+      <td class="num neg">-2,019.00</td>
+      <td>May26 01/05 bundled receipt residual (฿4,543) failed to subtract ฿2,019 umbrellas already booked in CAPEX</td>
+    </tr>
+<tr>
+      <td style="text-align:center">5</td>
+      <td>Jun26</td>
+      <td>08/06/2026</td>
+      <td style="text-align:center">B1</td>
+      <td>COGS / Stock</td>
+      <td>Stock June 2026 (B1 ครึ่งหนึ่ง 6,000; B2 ถืออีก 6,000)</td>
+      <td class="num neg">-6,000.00</td>
+      <td>Jun26 B1 Stock Rent (฿6,000) booked in both COGS/Stock and OPEX/Rental</td>
+    </tr>
+<tr>
+      <td style="text-align:center">6</td>
+      <td>Jul26</td>
+      <td>24/07/2026</td>
+      <td style="text-align:center">B1</td>
+      <td>COGS / Packaging</td>
+      <td>ฝา (LINE_ALBUM_Cost July_260802_1.jpg)</td>
+      <td class="num neg">-509.00</td>
+      <td>Duplicate import of 24/07/2026 Shopee slips (_1.jpg, _2.jpg, _3.jpg) via july_additions.json</td>
+    </tr>
+<tr>
+      <td style="text-align:center">7</td>
+      <td>Jul26</td>
+      <td>24/07/2026</td>
+      <td style="text-align:center">B1</td>
+      <td>COGS / Coconut</td>
+      <td>นมข้นหวาน 785 + นมข้นจืด 1,342 (LINE_ALBUM_Cost July_260802_1.jpg)</td>
+      <td class="num neg">-2,127.00</td>
+      <td>Duplicate import of 24/07/2026 Shopee slips (_1.jpg, _2.jpg, _3.jpg) via july_additions.json</td>
+    </tr>
+<tr>
+      <td style="text-align:center">8</td>
+      <td>Jul26</td>
+      <td>24/07/2026</td>
+      <td style="text-align:center">B1</td>
+      <td>COGS / Packaging</td>
+      <td>ฝา (LINE_ALBUM_Cost July_260802_2.jpg)</td>
+      <td class="num neg">-502.00</td>
+      <td>Duplicate import of 24/07/2026 Shopee slips (_1.jpg, _2.jpg, _3.jpg) via july_additions.json</td>
+    </tr>
+<tr>
+      <td style="text-align:center">9</td>
+      <td>Jul26</td>
+      <td>24/07/2026</td>
+      <td style="text-align:center">B1</td>
+      <td>COGS / Coconut</td>
+      <td>นมข้นหวาน 3 ลัง (LINE_ALBUM_Cost July_260802_2.jpg)</td>
+      <td class="num neg">-2,582.00</td>
+      <td>Duplicate import of 24/07/2026 Shopee slips (_1.jpg, _2.jpg, _3.jpg) via july_additions.json</td>
+    </tr>
+<tr>
+      <td style="text-align:center">10</td>
+      <td>Jul26</td>
+      <td>24/07/2026</td>
+      <td style="text-align:center">B1</td>
+      <td>COGS / Packaging</td>
+      <td>ฝา (LINE_ALBUM_Cost July_260802_3.jpg)</td>
+      <td class="num neg">-474.00</td>
+      <td>Duplicate import of 24/07/2026 Shopee slips (_1.jpg, _2.jpg, _3.jpg) via july_additions.json</td>
+    </tr>
+<tr>
+      <td style="text-align:center">11</td>
+      <td>Jul26</td>
+      <td>24/07/2026</td>
+      <td style="text-align:center">B1</td>
+      <td>COGS / Coconut</td>
+      <td>นมข้นจืด 1 ลัง (LINE_ALBUM_Cost July_260802_3.jpg)</td>
+      <td class="num neg">-751.00</td>
+      <td>Duplicate import of 24/07/2026 Shopee slips (_1.jpg, _2.jpg, _3.jpg) via july_additions.json</td>
+    </tr>
+<tr>
+      <td style="text-align:center">12</td>
+      <td>Apr26</td>
+      <td>30/04/2026</td>
+      <td style="text-align:center">B2</td>
+      <td>COGS / Stock</td>
+      <td>Stock (Allocated 17.1%)</td>
+      <td class="num neg">-2,052.00</td>
+      <td>Apr26 Stock Rent (฿12,000) booked in both COGS/Stock and OPEX/Rental</td>
+    </tr>
+<tr>
+      <td style="text-align:center">13</td>
+      <td>Jun26</td>
+      <td>30/06/2026</td>
+      <td style="text-align:center">B2</td>
+      <td>OPEX / Salary</td>
+      <td>ค่าแรง 2 คน คนละ 12000 (B2 portion, split from joint payroll transfer ฿48,400 - see B1 for other portion)</td>
+      <td class="num neg">-24,000.00</td>
+      <td>Jun26 B2 payroll split (฿24,400) duplicated on top of B1 unsplit ฿48,400 payroll slip IMG_0332.JPG</td>
+    </tr>
+<tr>
+      <td style="text-align:center">14</td>
+      <td>Jun26</td>
+      <td>30/06/2026</td>
+      <td style="text-align:center">B2</td>
+      <td>OPEX / Salary</td>
+      <td>รายวัน 1 คน 400 (B2 portion, part of joint payroll transfer ฿48,400)</td>
+      <td class="num neg">-400.00</td>
+      <td>Jun26 B2 payroll split (฿24,400) duplicated on top of B1 unsplit ฿48,400 payroll slip IMG_0332.JPG</td>
+    </tr>
+<tr>
+      <td style="text-align:center">15</td>
+      <td>Jul26</td>
+      <td>01/08/2026</td>
+      <td style="text-align:center">B3</td>
+      <td>OPEX / Salary</td>
+      <td>Salary B3 7 days (จ่าย 01/08 — เจ้าของระบุเป็นค่าใช้จ่ายเดือน ก.ค.)</td>
+      <td class="num neg">-3,500.00</td>
+      <td>Jul26 B3 7-day salary slip (฿3,500) added without reducing hardcoded ฿39,000 remaining salary plug</td>
+    </tr>
+      <tr class="subtotal-row">
+        <td colspan="6" style="text-align:right">รวมยอดที่ถูกบันทึกซ้ำทั้งหมด (YTD ม.ค.–ก.ย. 69)</td>
+        <td class="num neg">-60,843.47</td>
+        <td>กระทบยอดตรงกับ data.json / reports_data.json 100.00%</td>
+      </tr>
+    </table>
+  </div>
+</body>
+</html>

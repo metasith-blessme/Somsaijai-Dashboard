@@ -944,6 +944,7 @@ function updateUI() {
     wrapTables();
 }
 
+
 // A branch with no booked day in the chosen month says so instead of showing blank cards.
 function renderEmptyNotice(sales) {
     const el = document.getElementById('emptyNotice');
@@ -1033,7 +1034,7 @@ function renderKPIs(sales) {
         <div class="kpi-cell">
             <div class="label">Operating Costs</div>
             <div class="change" style="color:var(--red)">COGS ฿${fmt(tCogs)}</div>
-            <div class="value">฿${fmt(REPORTS_DATA && REPORTS_DATA[currentMonth] ? tRev - tNet : tCogs + tOpex)}</div>
+            <div class="value">฿${fmt(tCogs + tOpex)}</div>
         </div>
         <div class="kpi-cell">
             <div class="label">Net Profit</div>
@@ -1225,7 +1226,9 @@ function renderInventory(sales) {
         { k: 'coconut', b: 'uco_raw', i: '🥥', n: 'Coconut', u: 'Pcs', p: 'co' },
         { k: 'apple', b: 'uap', i: '🍎', n: 'Apple', u: 'Pcs', p: 'ap' },
         { k: 'guava', b: 'uguava', i: '🍐', n: 'Guava', u: 'Pcs', p: 'guava' },
-        { k: 'pineapple', b: 'upine', i: '🍍', n: 'Pineapple', u: 'Pcs', p: 'pineapple' }
+        { k: 'pineapple', b: 'upine', i: '🍍', n: 'Pineapple', u: 'Pcs', p: 'pineapple' },
+        { k: 'pomegranate', b: 'upome', i: '🔴', n: 'Pomegranate', u: 'Pcs', p: 'pomegranate' },
+        { k: 'pear', b: 'upear', i: '🍐', n: 'Pear', u: 'Pcs', p: 'pear' }
     ];
 
     document.getElementById('liveStockGrid').innerHTML = items.map(item => {
@@ -1319,9 +1322,8 @@ function renderAnalytics(sales) {
         Apple: sum(sales,'ap'),
         Guava: sum(sales,'guava'),
         Pineapple: sum(sales,'pineapple'),
-        Mangosteen: sum(sales,'mangosteen'),
-        'Mangosteen & Lychee': sum(sales,'mangosteen_lychee'),
-        Rambutan: sum(sales,'rambutan')
+        Pomegranate: sum(sales,'pomegranate'),
+        Pear: sum(sales,'pear')
     };
     charts.mix = new Chart(document.getElementById('chartProductMix'), { 
         type: 'doughnut', 
@@ -1329,7 +1331,7 @@ function renderAnalytics(sales) {
             labels: Object.keys(mix).filter(k => mix[k] > 0), 
             datasets: [{ 
                 data: Object.values(mix).filter(v => v > 0), 
-                backgroundColor: ['#ff9800','#4caf50','#ffc107','#795548','#f44336','#8bc34a','#ffeb3b'] 
+                backgroundColor: ['#ff9800','#4caf50','#ffc107','#795548','#f44336','#8bc34a','#ffeb3b','#ad1457','#aed581'] 
             }] 
         },
         options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
@@ -1506,9 +1508,7 @@ function renderDailyLog(sales) {
                     <th class="num">Expense</th><th class="num">Net</th>
                     <th class="num">Or</th><th class="num">WM</th><th class="num">MG</th>
                     <th class="num">CO</th><th class="num">AP</th><th class="num">YCo</th>
-                    <th class="num">Guava</th><th class="num">Pine</th>
-                    <th class="num">Mst</th><th class="num">M&amp;L</th><th class="num">Ram</th>
-                    <th class="num">Total</th>
+                    <th class="num">Guava</th><th class="num">Pine</th><th class="num">Pome</th><th class="num">Pear</th><th class="num">Total</th>
                     <th class="num">u:Or</th><th class="num">u:WM</th><th class="num">u:MG</th>
                     <th class="num">u:Co</th><th class="num">u:AP</th><th class="num">Audit</th>
                 </tr></thead>
@@ -1531,9 +1531,8 @@ function renderDailyLog(sales) {
                         <td class="num">${r.yco||0}</td>
                         <td class="num">${r.guava||0}</td>
                         <td class="num">${r.pineapple||0}</td>
-                        <td class="num">${r.mangosteen||0}</td>
-                        <td class="num">${r.mangosteen_lychee||0}</td>
-                        <td class="num">${r.rambutan||0}</td>
+                        <td class="num">${r.pomegranate||0}</td>
+                        <td class="num">${r.pear||0}</td>
                         <td class="num"><b>${r.tot||0}</b></td>
                         <td class="num">${r.uo||0}</td>
                         <td class="num">${r.uw||0}</td>

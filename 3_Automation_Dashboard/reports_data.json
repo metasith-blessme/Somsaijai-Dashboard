@@ -322,23 +322,16 @@
         "roi": "N/A"
       },
       {
-        "name": "Mangosteen",
+        "name": "Pomegranate",
         "rev": 0,
-        "cost": null,
+        "cost": 0,
         "cups": 0,
         "roi": "N/A"
       },
       {
-        "name": "Mangosteen & Lychee",
+        "name": "Pear",
         "rev": 0,
-        "cost": null,
-        "cups": 0,
-        "roi": "N/A"
-      },
-      {
-        "name": "Rambutan",
-        "rev": 0,
-        "cost": null,
+        "cost": 0,
         "cups": 0,
         "roi": "N/A"
       }
@@ -711,23 +704,16 @@
         "roi": "N/A"
       },
       {
-        "name": "Mangosteen",
+        "name": "Pomegranate",
         "rev": 0,
-        "cost": null,
+        "cost": 0,
         "cups": 0,
         "roi": "N/A"
       },
       {
-        "name": "Mangosteen & Lychee",
+        "name": "Pear",
         "rev": 0,
-        "cost": null,
-        "cups": 0,
-        "roi": "N/A"
-      },
-      {
-        "name": "Rambutan",
-        "rev": 0,
-        "cost": null,
+        "cost": 0,
         "cups": 0,
         "roi": "N/A"
       }
@@ -1139,23 +1125,16 @@
         "roi": "N/A"
       },
       {
-        "name": "Mangosteen",
+        "name": "Pomegranate",
         "rev": 0,
-        "cost": null,
+        "cost": 0,
         "cups": 0,
         "roi": "N/A"
       },
       {
-        "name": "Mangosteen & Lychee",
+        "name": "Pear",
         "rev": 0,
-        "cost": null,
-        "cups": 0,
-        "roi": "N/A"
-      },
-      {
-        "name": "Rambutan",
-        "rev": 0,
-        "cost": null,
+        "cost": 0,
         "cups": 0,
         "roi": "N/A"
       }
@@ -1793,23 +1772,16 @@
         "roi": "-100.0%"
       },
       {
-        "name": "Mangosteen",
+        "name": "Pomegranate",
         "rev": 0,
-        "cost": null,
+        "cost": 0,
         "cups": 0,
         "roi": "N/A"
       },
       {
-        "name": "Mangosteen & Lychee",
+        "name": "Pear",
         "rev": 0,
-        "cost": null,
-        "cups": 0,
-        "roi": "N/A"
-      },
-      {
-        "name": "Rambutan",
-        "rev": 0,
-        "cost": null,
+        "cost": 0,
         "cups": 0,
         "roi": "N/A"
       }
@@ -2430,23 +2402,16 @@
         "roi": "136.4%"
       },
       {
-        "name": "Mangosteen",
+        "name": "Pomegranate",
         "rev": 0,
-        "cost": null,
+        "cost": 0,
         "cups": 0,
         "roi": "N/A"
       },
       {
-        "name": "Mangosteen & Lychee",
+        "name": "Pear",
         "rev": 0,
-        "cost": null,
-        "cups": 0,
-        "roi": "N/A"
-      },
-      {
-        "name": "Rambutan",
-        "rev": 0,
-        "cost": null,
+        "cost": 0,
         "cups": 0,
         "roi": "N/A"
       }
@@ -3264,23 +3229,16 @@
         "roi": "76.8%"
       },
       {
-        "name": "Mangosteen",
+        "name": "Pomegranate",
         "rev": 0,
-        "cost": null,
+        "cost": 0,
         "cups": 0,
         "roi": "N/A"
       },
       {
-        "name": "Mangosteen & Lychee",
+        "name": "Pear",
         "rev": 0,
-        "cost": null,
-        "cups": 0,
-        "roi": "N/A"
-      },
-      {
-        "name": "Rambutan",
-        "rev": 0,
-        "cost": null,
+        "cost": 0,
         "cups": 0,
         "roi": "N/A"
       }
@@ -4013,23 +3971,16 @@
         "roi": "62.3%"
       },
       {
-        "name": "Mangosteen",
+        "name": "Pomegranate",
         "rev": 0,
-        "cost": null,
+        "cost": 0,
         "cups": 0,
         "roi": "N/A"
       },
       {
-        "name": "Mangosteen & Lychee",
+        "name": "Pear",
         "rev": 0,
-        "cost": null,
-        "cups": 0,
-        "roi": "N/A"
-      },
-      {
-        "name": "Rambutan",
-        "rev": 0,
-        "cost": null,
+        "cost": 0,
         "cups": 0,
         "roi": "N/A"
       }
@@ -5031,23 +4982,16 @@
         "roi": "-100.0%"
       },
       {
-        "name": "Mangosteen",
+        "name": "Pomegranate",
         "rev": 0,
-        "cost": null,
+        "cost": 0,
         "cups": 0,
         "roi": "N/A"
       },
       {
-        "name": "Mangosteen & Lychee",
+        "name": "Pear",
         "rev": 0,
-        "cost": null,
-        "cups": 0,
-        "roi": "N/A"
-      },
-      {
-        "name": "Rambutan",
-        "rev": 0,
-        "cost": null,
+        "cost": 0,
         "cups": 0,
         "roi": "N/A"
       }
@@ -5194,14 +5138,14 @@
           "branch": "B1"
         }
       ],
-      "cogs": 88518.98133936724,
-      "net": 48578.41866063276,
+      "cogs": 81930.56599515479,
+      "net": 55166.83400484521,
       "loss_carry_forward": 0,
       "closing_loss": 0,
       "loss_offset": 0,
-      "adjusted_net": 48578.41866063276,
-      "share": 34004.89306244293,
-      "ming_share": 14573.52559818983,
+      "adjusted_net": 55166.83400484521,
+      "share": 38616.78380339164,
+      "ming_share": 16550.050201453563,
       "share_pct": 0.7
     },
     "b2": {
@@ -5346,11 +5290,11 @@
           "branch": "B2"
         }
       ],
-      "cogs": 48804.510226688064,
-      "net": 21795.489773311936,
+      "cogs": 51166.13265404911,
+      "net": 19433.867345950886,
       "loss_carry_forward": 29980.95824306387,
-      "closing_loss": 8185.468469751933,
-      "loss_offset": 21795.489773311936,
+      "closing_loss": 10547.090897112983,
+      "loss_offset": 19433.867345950886,
       "adjusted_net": 0,
       "share": 0,
       "ming_share": 0,
@@ -5480,14 +5424,14 @@
           "branch": "B3"
         }
       ],
-      "cogs": 87349.50843394469,
-      "net": 76126.7915660553,
+      "cogs": 91576.30135079607,
+      "net": 71899.99864920392,
       "loss_carry_forward": 0,
       "closing_loss": 0,
       "loss_offset": 0,
-      "adjusted_net": 76126.7915660553,
-      "share": 53288.75409623871,
-      "ming_share": 22838.037469816594,
+      "adjusted_net": 71899.99864920392,
+      "share": 50329.99905444274,
+      "ming_share": 21569.99959476118,
       "share_pct": 0.7
     },
     "b4": {
@@ -5508,8 +5452,8 @@
     }
   },
   "Sep26": {
-    "total_rev": 364472,
-    "total_cogs": 135251,
+    "total_rev": 362363,
+    "total_cogs": 133391,
     "fruit_summary": {
       "Watermelon": 22160,
       "Mango": 21584,
@@ -5520,9 +5464,9 @@
       "Guava": 6675,
       "Packaging": 14143,
       "Milk/Conden": 1400,
-      "Other": 6860,
-      "Durian": 9670,
-      "Sticky Rice": 13174
+      "Other": 5000,
+      "Sticky Rice": 13174,
+      "Durian": 9670
     },
     "daily_cogs": [
       {
@@ -5581,9 +5525,21 @@
       },
       {
         "date": "01/09/2026",
-        "desc": "วัตถุดิบผลไม้อื่นๆ / Slip 19 ฿5k (pool by rev share)",
+        "desc": "[VOID ฿6860] Other COGS ฿6,860 had ฿1,860 with no slip (owner cannot recall, 13/10) — rebooked as Slip 19 ฿5,000 only",
         "cat": "Other",
-        "amt": 6860
+        "amt": 0
+      },
+      {
+        "date": "22/09/2026",
+        "desc": "ค่าผลไม้ (Slip 19, paid to manager for fruit bought in cash) (pool by rev share)",
+        "cat": "Other",
+        "amt": 5000
+      },
+      {
+        "date": "30/09/2026",
+        "desc": "ข้าวเหนียวมูน ก.ย. B2 share 3/52 portions sold (forms 22, 27, 30/09) of ฿13,174",
+        "cat": "Sticky Rice",
+        "amt": 760.04
       },
       {
         "date": "30/09/2026",
@@ -5593,46 +5549,52 @@
       },
       {
         "date": "30/09/2026",
-        "desc": "ข้าวเหนียวมูน B3 ก.ย.",
+        "desc": "[VOID ฿13174] Sep sticky rice ฿13,174 re-split B3/B2 by portions sold (owner 13/10) — see replacement rows",
         "cat": "Sticky Rice",
-        "amt": 13174
+        "amt": 0
+      },
+      {
+        "date": "30/09/2026",
+        "desc": "ข้าวเหนียวมูน ก.ย. B3 share 49/52 portions sold (mango 45 + durian 4) of ฿13,174",
+        "cat": "Sticky Rice",
+        "amt": 12413.96
       }
     ],
     "fruit_performance": [
       {
         "name": "Orange",
-        "rev": 44900,
+        "rev": 43520,
         "cost": 10720,
-        "cups": 727,
-        "roi": "318.8%"
+        "cups": 704,
+        "roi": "306.0%"
       },
       {
         "name": "Watermelon",
-        "rev": 77000,
+        "rev": 69750,
         "cost": 22160,
-        "cups": 1540,
-        "roi": "247.5%"
+        "cups": 1395,
+        "roi": "214.8%"
       },
       {
         "name": "Mango",
-        "rev": 34380,
+        "rev": 36180,
         "cost": 21584,
-        "cups": 382,
-        "roi": "59.3%"
+        "cups": 402,
+        "roi": "67.6%"
       },
       {
         "name": "Apple",
-        "rev": 20460,
+        "rev": 24960,
         "cost": 8000,
-        "cups": 341,
-        "roi": "155.8%"
+        "cups": 416,
+        "roi": "212.0%"
       },
       {
         "name": "Coconut",
-        "rev": 48180,
+        "rev": 53400,
         "cost": 13075,
-        "cups": 803,
-        "roi": "268.5%"
+        "cups": 890,
+        "roi": "308.4%"
       },
       {
         "name": "Young Coco",
@@ -5643,36 +5605,29 @@
       },
       {
         "name": "Guava",
-        "rev": 24780,
+        "rev": 24000,
         "cost": 6675,
-        "cups": 413,
-        "roi": "271.2%"
+        "cups": 400,
+        "roi": "259.6%"
       },
       {
         "name": "Pineapple",
-        "rev": 16860,
+        "rev": 11340,
         "cost": 9190,
-        "cups": 281,
-        "roi": "83.5%"
+        "cups": 189,
+        "roi": "23.4%"
       },
       {
-        "name": "Mangosteen",
-        "rev": 4386,
-        "cost": null,
-        "cups": 34,
-        "roi": "N/A"
-      },
-      {
-        "name": "Mangosteen & Lychee",
+        "name": "Pomegranate",
         "rev": 0,
-        "cost": null,
+        "cost": 0,
         "cups": 0,
         "roi": "N/A"
       },
       {
-        "name": "Rambutan",
+        "name": "Pear",
         "rev": 0,
-        "cost": null,
+        "cost": 0,
         "cups": 0,
         "roi": "N/A"
       }
@@ -5680,7 +5635,7 @@
     "b1": {
       "rev": 135223,
       "rental": 38000,
-      "opex": 35100.56,
+      "opex": 35184.34,
       "daily_exp": 2875,
       "opex_list": [
         {
@@ -5724,26 +5679,26 @@
           "month": "Sep26",
           "bucket": "OPEX",
           "cat": "Other OPEX",
-          "desc": "ค่าขนส่ง / logistics / supplies Sep (B1 portion 37.10%)",
-          "amt": 4600.56,
+          "desc": "ค่าขนส่ง / logistics / supplies Sep (B1 portion 37.78%)",
+          "amt": 4684.34,
           "branch": "B1"
         }
       ],
-      "cogs": 43216.32939947162,
-      "net": 16031.11060052838,
+      "cogs": 41352.376176027254,
+      "net": 17811.28382397275,
       "loss_carry_forward": 0,
       "closing_loss": 0,
       "loss_offset": 0,
-      "adjusted_net": 16031.11060052838,
-      "share": 11221.777420369865,
-      "ming_share": 4809.333180158515,
+      "adjusted_net": 17811.28382397275,
+      "share": 12467.898676780924,
+      "ming_share": 5343.385147191826,
       "share_pct": 0.7
     },
     "b2": {
-      "rev": 55370,
+      "rev": 53261,
       "rental": 28000,
-      "opex": 29683.74,
-      "daily_exp": 1650,
+      "opex": 29492.79,
+      "daily_exp": 1410,
       "opex_list": [
         {
           "date": "01/09/2026",
@@ -5786,15 +5741,15 @@
           "month": "Sep26",
           "bucket": "OPEX",
           "cat": "Other OPEX",
-          "desc": "ค่าขนส่ง / logistics / supplies Sep (B2 portion 15.19%)",
-          "amt": 1883.74,
+          "desc": "ค่าขนส่ง / logistics / supplies Sep (B2 portion 13.65%)",
+          "amt": 1692.79,
           "branch": "B2"
         }
       ],
-      "cogs": 18981.60160825021,
-      "net": -22945.34160825021,
-      "loss_carry_forward": 8185.468469751933,
-      "closing_loss": 31130.810078002145,
+      "cogs": 17038.645102237606,
+      "net": -22680.435102237607,
+      "loss_carry_forward": 10547.090897112983,
+      "closing_loss": 33227.52599935059,
       "loss_offset": 0,
       "adjusted_net": 0,
       "share": 0,
@@ -5804,7 +5759,7 @@
     "b3": {
       "rev": 161444,
       "rental": 21780.22,
-      "opex": 57084.87,
+      "opex": 57184.81,
       "daily_exp": 3179,
       "opex_list": [
         {
@@ -5857,25 +5812,25 @@
           "month": "Sep26",
           "bucket": "OPEX",
           "cat": "Other OPEX",
-          "desc": "ค่าขนส่ง / logistics / supplies Sep (B3 portion 44.30%)",
-          "amt": 5492.65,
+          "desc": "ค่าขนส่ง / logistics / supplies Sep (B3 portion 45.10%)",
+          "amt": 5592.59,
           "branch": "B3"
         }
       ],
-      "cogs": 70225.90027995371,
-      "net": 9174.009720046291,
+      "cogs": 70526.06942115145,
+      "net": 8773.900578848552,
       "loss_carry_forward": 0,
       "closing_loss": 0,
       "loss_offset": 0,
-      "adjusted_net": 9174.009720046291,
-      "share": 6421.806804032403,
-      "ming_share": 2752.2029160138877,
+      "adjusted_net": 8773.900578848552,
+      "share": 6141.730405193986,
+      "ming_share": 2632.170173654566,
       "share_pct": 0.7
     },
     "b4": {
       "rev": 12435,
       "rental": 25966.67,
-      "opex": 15423.05,
+      "opex": 21430.28,
       "daily_exp": 420,
       "opex_list": [
         {
@@ -5919,15 +5874,24 @@
           "month": "Sep26",
           "bucket": "OPEX",
           "cat": "Other OPEX",
-          "desc": "ค่าขนส่ง / logistics / supplies Sep (B4 portion 3.41%)",
-          "amt": 423.05,
+          "desc": "ค่าขนส่ง / logistics / supplies Sep (B4 portion 3.47%)",
+          "amt": 430.28,
+          "branch": "B4"
+        },
+        {
+          "date": "21/09/2026",
+          "month": "Sep26",
+          "bucket": "OPEX",
+          "cat": "Other OPEX",
+          "desc": "ค่าตำรวจ B4 2 คน คนละ 3,000 (Slip 21) — reclassified from CAPEX",
+          "amt": 6000,
           "branch": "B4"
         }
       ],
-      "cogs": 2827.168712324464,
-      "net": -32201.88871232446,
+      "cogs": 4473.909300583702,
+      "net": -39855.8593005837,
       "loss_carry_forward": 0,
-      "closing_loss": 32201.88871232446,
+      "closing_loss": 39855.8593005837,
       "loss_offset": 0,
       "adjusted_net": 0,
       "share": 0,
@@ -5936,45 +5900,181 @@
     }
   },
   "Oct26": {
-    "total_rev": 314915,
-    "total_cogs": 0,
-    "fruit_summary": {},
-    "daily_cogs": [],
+    "total_rev": 568192,
+    "total_cogs": 187551,
+    "fruit_summary": {
+      "Watermelon": 28520,
+      "Mango": 28250,
+      "Coconut Meat": 9500,
+      "Coconut Water": 6975,
+      "Orange": 16000,
+      "Guava": 12100,
+      "Apple": 12690,
+      "Milk/Conden": 11963,
+      "Packaging": 33816,
+      "Pomegranate": 16280,
+      "Pear": 2940,
+      "Other": 2872,
+      "Transportation": 4600,
+      "Sticky Rice": 1045
+    },
+    "daily_cogs": [
+      {
+        "date": "31/10/2026",
+        "desc": "แตงโม ต.ค. 404 ลูก (Slips 21, 40, 42, 47, 53; pool by usage)",
+        "cat": "Watermelon",
+        "amt": 28520
+      },
+      {
+        "date": "31/10/2026",
+        "desc": "มะม่วง ต.ค. 499 โล (Slips 3, 14, 35, 49, 51, 68, 72 = 24,800 + Slip 22 69 โล = 3,450; pool by usage)",
+        "cat": "Mango",
+        "amt": 28250
+      },
+      {
+        "date": "31/10/2026",
+        "desc": "เนื้อมะพร้าว ต.ค. 95 โล (Slip 43: 5,000 + Slip 65: 4,500; pool by usage)",
+        "cat": "Coconut Meat",
+        "amt": 9500
+      },
+      {
+        "date": "31/10/2026",
+        "desc": "น้ำมะพร้าว ต.ค. (Slip 43: 2,375 + Slip 44: 2,375 + Slip 65: 2,225; pool by usage)",
+        "cat": "Coconut Water",
+        "amt": 6975
+      },
+      {
+        "date": "31/10/2026",
+        "desc": "ส้ม ต.ค. 1,000 โล (Slips 16, 26, 46, 57, 67; pool by usage)",
+        "cat": "Orange",
+        "amt": 16000
+      },
+      {
+        "date": "31/10/2026",
+        "desc": "ฝรั่ง ต.ค. 775 โล (Slips 2, 15, 19, 23, 31, 36, 45, 50, 66, 71; pool by usage)",
+        "cat": "Guava",
+        "amt": 12100
+      },
+      {
+        "date": "31/10/2026",
+        "desc": "แอปเปิ้ล ต.ค. 33 ลัง (Slip 13: 1,290 + Slips 48, 52, 64, 70: 4,560 + Slips 1, 17, 22, 30, 37, 41 18 ลัง: 6,840; pool by usage)",
+        "cat": "Apple",
+        "amt": 12690
+      },
+      {
+        "date": "31/10/2026",
+        "desc": "นมข้นหวาน ต.ค. 5 ลัง (Slip 6: 752 + Slips 7, 8: 1,792 + Slip 9: 914 + Slip 28: 736; pool by coconut usage)",
+        "cat": "Milk/Conden",
+        "amt": 4194
+      },
+      {
+        "date": "31/10/2026",
+        "desc": "นมข้นจืด ต.ค. 11 ลัง (Slip 6: 2,130 + Slips 7, 8: 1,502 + Slip 9: 766 + Slip 10: 768 + Slip 28: 1,284 + Slip 29: 1,319; pool by coconut usage)",
+        "cat": "Milk/Conden",
+        "amt": 7769
+      },
+      {
+        "date": "31/10/2026",
+        "desc": "แก้วสกรีน ต.ค. (Slip 58; pool by rev share)",
+        "cat": "Packaging",
+        "amt": 20144
+      },
+      {
+        "date": "31/10/2026",
+        "desc": "ฝาปิดแก้ว ต.ค. (Slip 10: 508 + Slip 58: 1,347; pool by rev share)",
+        "cat": "Packaging",
+        "amt": 1855
+      },
+      {
+        "date": "31/10/2026",
+        "desc": "หลอด ต.ค. (Slips 7, 8: 1,042 + Slip 9: 531 + Slips 60, 62: 1,340; pool by rev share)",
+        "cat": "Packaging",
+        "amt": 2913
+      },
+      {
+        "date": "31/10/2026",
+        "desc": "ถุงเล็กเดี่ยว ต.ค. (Slip 11: 405 + Slips 61, 63: 808; pool by rev share)",
+        "cat": "Packaging",
+        "amt": 1213
+      },
+      {
+        "date": "31/10/2026",
+        "desc": "ถุงใหญ่คู่ ต.ค. (Slip 12: 477 + Slip 59: 476; pool by rev share)",
+        "cat": "Packaging",
+        "amt": 953
+      },
+      {
+        "date": "31/10/2026",
+        "desc": "ถุงมือ 40 กล่อง ต.ค. (Slip 10: 4,492 + Slip 55: 2,246; pool by rev share)",
+        "cat": "Packaging",
+        "amt": 6738
+      },
+      {
+        "date": "31/10/2026",
+        "desc": "ทับทิม ต.ค. 41 ลัง (Slips 48, 52, 64, 70 = 7,880 + Slips 1, 17, 22, 30, 37, 41 = 8,400; pool by usage)",
+        "cat": "Pomegranate",
+        "amt": 16280
+      },
+      {
+        "date": "31/10/2026",
+        "desc": "สาลี่ ต.ค. 9 ลัง (Slip 38: 700 + Slip 52: 1,050 + Slip 64: 280 + Slip 70: 560 + Slip 1: 350; pool by usage)",
+        "cat": "Pear",
+        "amt": 2940
+      },
+      {
+        "date": "31/10/2026",
+        "desc": "องุ่น ต.ค. (Slips 48, 52, 64, 70: 1,830 + Slips 1, 22, 30, 37: 1,042; pool by rev share)",
+        "cat": "Other",
+        "amt": 2872
+      },
+      {
+        "date": "31/10/2026",
+        "desc": "ค่าขนส่งและยกสินค้า ต.ค. (Slips 4, 39, 54, 69; pool by rev share)",
+        "cat": "Transportation",
+        "amt": 4600
+      },
+      {
+        "date": "08/10/2026",
+        "desc": "ข้าวเหนียวมูน B3 5 โล + ค่าส่ง (Slip 27)",
+        "cat": "Sticky Rice",
+        "amt": 1045
+      }
+    ],
     "fruit_performance": [
       {
         "name": "Orange",
-        "rev": 35960,
-        "cost": 0,
-        "cups": 592,
-        "roi": "N/A"
+        "rev": 74220,
+        "cost": 16000,
+        "cups": 1219,
+        "roi": "363.9%"
       },
       {
         "name": "Watermelon",
-        "rev": 59400,
-        "cost": 0,
-        "cups": 1188,
-        "roi": "N/A"
+        "rev": 97600,
+        "cost": 28520,
+        "cups": 1952,
+        "roi": "242.2%"
       },
       {
         "name": "Mango",
-        "rev": 26100,
-        "cost": 0,
-        "cups": 290,
-        "roi": "N/A"
+        "rev": 39150,
+        "cost": 28250,
+        "cups": 435,
+        "roi": "38.6%"
       },
       {
         "name": "Apple",
-        "rev": 23160,
-        "cost": 0,
-        "cups": 386,
-        "roi": "N/A"
+        "rev": 34980,
+        "cost": 12690,
+        "cups": 583,
+        "roi": "175.7%"
       },
       {
         "name": "Coconut",
-        "rev": 33840,
-        "cost": 0,
-        "cups": 564,
-        "roi": "N/A"
+        "rev": 60960,
+        "cost": 28438,
+        "cups": 1016,
+        "roi": "114.4%"
       },
       {
         "name": "Young Coco",
@@ -5985,276 +6085,324 @@
       },
       {
         "name": "Guava",
-        "rev": 26580,
-        "cost": 0,
-        "cups": 443,
-        "roi": "N/A"
+        "rev": 43920,
+        "cost": 12100,
+        "cups": 732,
+        "roi": "263.0%"
       },
       {
         "name": "Pineapple",
-        "rev": 4620,
+        "rev": 4260,
         "cost": 0,
-        "cups": 77,
+        "cups": 71,
         "roi": "N/A"
       },
       {
-        "name": "Mangosteen",
-        "rev": 9675,
-        "cost": null,
-        "cups": 75,
-        "roi": "N/A"
+        "name": "Pomegranate",
+        "rev": 70050,
+        "cost": 16280,
+        "cups": 467,
+        "roi": "330.3%"
       },
       {
-        "name": "Mangosteen & Lychee",
-        "rev": 0,
-        "cost": null,
-        "cups": 0,
-        "roi": "N/A"
-      },
-      {
-        "name": "Rambutan",
-        "rev": 0,
-        "cost": null,
-        "cups": 0,
-        "roi": "N/A"
+        "name": "Pear",
+        "rev": 7980,
+        "cost": 2940,
+        "cups": 133,
+        "roi": "171.4%"
       }
     ],
     "b1": {
-      "rev": 110471,
-      "rental": 0,
-      "opex": 0,
-      "daily_exp": 2307,
-      "opex_list": [],
-      "cogs": 0,
-      "net": 108164,
+      "rev": 183641,
+      "rental": 38000,
+      "opex": 32067.02,
+      "daily_exp": 3568,
+      "opex_list": [
+        {
+          "date": "07/10/2026",
+          "month": "Oct26",
+          "bucket": "OPEX",
+          "cat": "Rental",
+          "desc": "ค่าเช่าที่ B1 เดือนตุลาคม (Slip 24)",
+          "amt": 35000,
+          "branch": "B1"
+        },
+        {
+          "date": "13/10/2026",
+          "month": "Oct26",
+          "bucket": "OPEX",
+          "cat": "Rental",
+          "desc": "ค่าเช่าคลังสต็อก เดือนตุลาคม (1/4 split B1; Slip 33)",
+          "amt": 3000,
+          "branch": "B1"
+        },
+        {
+          "date": "31/10/2026",
+          "month": "Oct26",
+          "bucket": "OPEX",
+          "cat": "Salary",
+          "desc": "เงินเดือนพนักงาน B1 ต.ค. (พนักงานประจำ 2 คน; โอนผ่านสลิป 73 + เงินสด)",
+          "amt": 26100,
+          "branch": "B1"
+        },
+        {
+          "date": "31/10/2026",
+          "month": "Oct26",
+          "bucket": "OPEX",
+          "cat": "Salary",
+          "desc": "ค่าจ้างผู้จัดการร้าน ต.ค. (1/4 ของ ฿20,000)",
+          "amt": 5000,
+          "branch": "B1"
+        },
+        {
+          "date": "31/10/2026",
+          "month": "Oct26",
+          "bucket": "OPEX",
+          "cat": "Other OPEX",
+          "desc": "ค่าแรงงานอีเวนต์ + ปริ้นป้าย + โถปั่น ต.ค. (Slips 5, 18, 32; B1 portion 32.32%)",
+          "amt": 967.02,
+          "branch": "B1"
+        }
+      ],
+      "cogs": 62911.69335999368,
+      "net": 47094.28664000633,
       "loss_carry_forward": 0,
       "closing_loss": 0,
       "loss_offset": 0,
-      "adjusted_net": 108164,
-      "share": 75714.79999999999,
-      "ming_share": 32449.200000000004,
+      "adjusted_net": 47094.28664000633,
+      "share": 32966.000648004425,
+      "ming_share": 14128.2859920019,
       "share_pct": 0.7
     },
     "b2": {
-      "rev": 63924,
-      "rental": 0,
-      "opex": 0,
-      "daily_exp": 1110,
-      "opex_list": [],
-      "cogs": 0,
-      "net": 62814,
-      "loss_carry_forward": 31130.810078002145,
-      "closing_loss": 0,
-      "loss_offset": 31130.810078002145,
-      "adjusted_net": 31683.189921997855,
-      "share": 22178.232945398497,
-      "ming_share": 9504.956976599358,
-      "share_pct": 0.7
-    },
-    "b3": {
-      "rev": 97420,
-      "rental": 0,
-      "opex": 0,
-      "daily_exp": 1550,
-      "opex_list": [],
-      "cogs": 0,
-      "net": 95870,
-      "loss_carry_forward": 0,
-      "closing_loss": 0,
-      "loss_offset": 0,
-      "adjusted_net": 95870,
-      "share": 67109,
-      "ming_share": 28761.000000000004,
-      "share_pct": 0.7
-    },
-    "b4": {
-      "rev": 43100,
-      "rental": 0,
-      "opex": 0,
-      "daily_exp": 600,
-      "opex_list": [],
-      "cogs": 0,
-      "net": 42500,
-      "loss_carry_forward": 32201.88871232446,
-      "closing_loss": 0,
-      "loss_offset": 32201.88871232446,
-      "adjusted_net": 10298.11128767554,
-      "share": 7208.677901372877,
-      "ming_share": 3089.4333863026623,
-      "share_pct": 0.7
-    }
-  },
-  "Nov26": {
-    "total_rev": 20726,
-    "total_cogs": 0,
-    "fruit_summary": {},
-    "daily_cogs": [],
-    "fruit_performance": [
-      {
-        "name": "Orange",
-        "rev": 0,
-        "cost": 0,
-        "cups": 0,
-        "roi": "N/A"
-      },
-      {
-        "name": "Watermelon",
-        "rev": 0,
-        "cost": 0,
-        "cups": 0,
-        "roi": "N/A"
-      },
-      {
-        "name": "Mango",
-        "rev": 0,
-        "cost": 0,
-        "cups": 0,
-        "roi": "N/A"
-      },
-      {
-        "name": "Apple",
-        "rev": 0,
-        "cost": 0,
-        "cups": 0,
-        "roi": "N/A"
-      },
-      {
-        "name": "Coconut",
-        "rev": 0,
-        "cost": 0,
-        "cups": 0,
-        "roi": "N/A"
-      },
-      {
-        "name": "Young Coco",
-        "rev": 0,
-        "cost": null,
-        "cups": 0,
-        "roi": "N/A"
-      },
-      {
-        "name": "Guava",
-        "rev": 0,
-        "cost": 0,
-        "cups": 0,
-        "roi": "N/A"
-      },
-      {
-        "name": "Pineapple",
-        "rev": 0,
-        "cost": 0,
-        "cups": 0,
-        "roi": "N/A"
-      },
-      {
-        "name": "Mangosteen",
-        "rev": 0,
-        "cost": null,
-        "cups": 0,
-        "roi": "N/A"
-      },
-      {
-        "name": "Mangosteen & Lychee",
-        "rev": 0,
-        "cost": null,
-        "cups": 0,
-        "roi": "N/A"
-      },
-      {
-        "name": "Rambutan",
-        "rev": 0,
-        "cost": null,
-        "cups": 0,
-        "roi": "N/A"
-      }
-    ],
-    "b1": {
-      "rev": 0,
-      "rental": 0,
-      "opex": 0,
-      "daily_exp": 0,
-      "opex_list": [],
-      "cogs": 0,
-      "net": 0,
-      "loss_carry_forward": 0,
-      "closing_loss": 0,
-      "loss_offset": 0,
+      "rev": 110258,
+      "rental": 28000,
+      "opex": 19080.6,
+      "daily_exp": 2070,
+      "opex_list": [
+        {
+          "date": "07/10/2026",
+          "month": "Oct26",
+          "bucket": "OPEX",
+          "cat": "Rental",
+          "desc": "ค่าเช่าที่ B2 เดือนตุลาคม (Slip 25)",
+          "amt": 25000,
+          "branch": "B2"
+        },
+        {
+          "date": "13/10/2026",
+          "month": "Oct26",
+          "bucket": "OPEX",
+          "cat": "Rental",
+          "desc": "ค่าเช่าคลังสต็อก เดือนตุลาคม (1/4 split B2; Slip 33)",
+          "amt": 3000,
+          "branch": "B2"
+        },
+        {
+          "date": "31/10/2026",
+          "month": "Oct26",
+          "bucket": "OPEX",
+          "cat": "Salary",
+          "desc": "เงินเดือนพนักงาน B2 ต.ค. (พนักงานประจำ 1 คน; โอนผ่านสลิป 73 + เงินสด)",
+          "amt": 13500,
+          "branch": "B2"
+        },
+        {
+          "date": "31/10/2026",
+          "month": "Oct26",
+          "bucket": "OPEX",
+          "cat": "Salary",
+          "desc": "ค่าจ้างผู้จัดการร้าน ต.ค. (1/4 ของ ฿20,000)",
+          "amt": 5000,
+          "branch": "B2"
+        },
+        {
+          "date": "31/10/2026",
+          "month": "Oct26",
+          "bucket": "OPEX",
+          "cat": "Other OPEX",
+          "desc": "ค่าแรงงานอีเวนต์ + ปริ้นป้าย + โถปั่น ต.ค. (Slips 5, 18, 32; B2 portion 19.41%)",
+          "amt": 580.6,
+          "branch": "B2"
+        }
+      ],
+      "cogs": 43115.44567226457,
+      "net": 17991.954327735424,
+      "loss_carry_forward": 33227.52599935059,
+      "closing_loss": 15235.571671615166,
+      "loss_offset": 17991.954327735424,
       "adjusted_net": 0,
       "share": 0,
       "ming_share": 0,
       "share_pct": 0.7
     },
-    "b2": {
-      "rev": 10020,
-      "rental": 0,
-      "opex": 0,
-      "daily_exp": 0,
-      "opex_list": [],
-      "cogs": 0,
-      "net": 10020,
-      "loss_carry_forward": 0,
-      "closing_loss": 0,
-      "loss_offset": 0,
-      "adjusted_net": 10020,
-      "share": 7014,
-      "ming_share": 3006.0000000000005,
-      "share_pct": 0.7
-    },
     "b3": {
-      "rev": 9936,
-      "rental": 0,
-      "opex": 0,
-      "daily_exp": 0,
-      "opex_list": [],
-      "cogs": 0,
-      "net": 9936,
+      "rev": 205678,
+      "rental": 21780.22,
+      "opex": 43889.97,
+      "daily_exp": 3035,
+      "opex_list": [
+        {
+          "date": "13/10/2026",
+          "month": "Oct26",
+          "bucket": "OPEX",
+          "cat": "Rental",
+          "desc": "ค่าเช่าที่ B3 เดือนตุลาคม (Slip 34)",
+          "amt": 18780.22,
+          "branch": "B3"
+        },
+        {
+          "date": "13/10/2026",
+          "month": "Oct26",
+          "bucket": "OPEX",
+          "cat": "Rental",
+          "desc": "ค่าเช่าคลังสต็อก เดือนตุลาคม (1/4 split B3; Slip 33)",
+          "amt": 3000,
+          "branch": "B3"
+        },
+        {
+          "date": "31/10/2026",
+          "month": "Oct26",
+          "bucket": "OPEX",
+          "cat": "Salary",
+          "desc": "เงินเดือนพนักงาน B3 ต.ค. (พนักงานประจำ 3 คน; โอนผ่านสลิป 73 + เงินสด)",
+          "amt": 36000,
+          "branch": "B3"
+        },
+        {
+          "date": "31/10/2026",
+          "month": "Oct26",
+          "bucket": "OPEX",
+          "cat": "Salary",
+          "desc": "ค่าจ้างผู้จัดการร้าน ต.ค. (1/4 ของ ฿20,000)",
+          "amt": 5000,
+          "branch": "B3"
+        },
+        {
+          "date": "31/10/2026",
+          "month": "Oct26",
+          "bucket": "OPEX",
+          "cat": "Other OPEX",
+          "desc": "ค่าแรงงานอีเวนต์ + ปริ้นป้าย + โถปั่น ต.ค. (Slips 5, 18, 32; B3 portion 36.20%)",
+          "amt": 1083.06,
+          "branch": "B3"
+        },
+        {
+          "date": "10/11/2026",
+          "month": "Oct26",
+          "bucket": "OPEX",
+          "cat": "Utilities",
+          "desc": "ค่าไฟ B3 เดือน 10 (IMG_4431.JPG)",
+          "amt": 1806.91,
+          "branch": "B3"
+        }
+      ],
+      "cogs": 63276.93693213074,
+      "net": 73695.87306786925,
       "loss_carry_forward": 0,
       "closing_loss": 0,
       "loss_offset": 0,
-      "adjusted_net": 9936,
-      "share": 6955.2,
-      "ming_share": 2980.8000000000006,
+      "adjusted_net": 73695.87306786925,
+      "share": 51587.111147508476,
+      "ming_share": 22108.76192036078,
       "share_pct": 0.7
     },
     "b4": {
-      "rev": 770,
-      "rental": 0,
-      "opex": 0,
-      "daily_exp": 0,
-      "opex_list": [],
-      "cogs": 0,
-      "net": 770,
-      "loss_carry_forward": 0,
-      "closing_loss": 0,
+      "rev": 68615,
+      "rental": 33235,
+      "opex": 33360.32,
+      "daily_exp": 1020,
+      "opex_list": [
+        {
+          "date": "01/10/2026",
+          "month": "Oct26",
+          "bucket": "OPEX",
+          "cat": "Rental",
+          "desc": "ค่าเช่าที่ B4 เดือนตุลาคม (IMG_3032.JPG ชำระ 30/09)",
+          "amt": 30235,
+          "branch": "B4"
+        },
+        {
+          "date": "13/10/2026",
+          "month": "Oct26",
+          "bucket": "OPEX",
+          "cat": "Rental",
+          "desc": "ค่าเช่าคลังสต็อก เดือนตุลาคม (1/4 split B4; Slip 33)",
+          "amt": 3000,
+          "branch": "B4"
+        },
+        {
+          "date": "31/10/2026",
+          "month": "Oct26",
+          "bucket": "OPEX",
+          "cat": "Salary",
+          "desc": "เงินเดือนพนักงาน B4 ต.ค. (พนักงานประจำ 2 คน; โอนผ่านสลิป 73 + เงินสด)",
+          "amt": 26100,
+          "branch": "B4"
+        },
+        {
+          "date": "31/10/2026",
+          "month": "Oct26",
+          "bucket": "OPEX",
+          "cat": "Salary",
+          "desc": "ค่าจ้างผู้จัดการร้าน ต.ค. (1/4 ของ ฿20,000)",
+          "amt": 5000,
+          "branch": "B4"
+        },
+        {
+          "date": "31/10/2026",
+          "month": "Oct26",
+          "bucket": "OPEX",
+          "cat": "Other OPEX",
+          "desc": "ค่าแรงงานอีเวนต์ + ปริ้นป้าย + โถปั่น ต.ค. (Slips 5, 18, 32; B4 portion 12.08%)",
+          "amt": 361.32,
+          "branch": "B4"
+        },
+        {
+          "date": "05/10/2026",
+          "month": "Oct26",
+          "bucket": "OPEX",
+          "cat": "Other OPEX",
+          "desc": "กล้องวงจรปิดร้าน B4 (Slip 20)",
+          "amt": 1899,
+          "branch": "B4"
+        }
+      ],
+      "cogs": 18246.924035611002,
+      "net": -17247.244035611002,
+      "loss_carry_forward": 39855.8593005837,
+      "closing_loss": 57103.103336194705,
       "loss_offset": 0,
-      "adjusted_net": 770,
-      "share": 539,
-      "ming_share": 231.00000000000003,
+      "adjusted_net": 0,
+      "share": 0,
+      "ming_share": 0,
       "share_pct": 0.7
     }
   },
   "all": {
-    "total_rev": 3858035.92,
-    "total_cogs": 1551622,
+    "total_rev": 4109203.92,
+    "total_cogs": 1737313,
     "fruit_summary": {
-      "Packaging": 234762,
-      "Transportation": 66689,
-      "Watermelon": 299138,
-      "Orange": 461052,
-      "Other": 17578,
-      "Apple": 63515,
-      "Mango": 120086,
-      "Coconut Meat": 5150,
-      "Coconut Water": 15450,
-      "Milk/Conden": 27820,
+      "Packaging": 268578,
+      "Transportation": 71289,
+      "Watermelon": 327658,
+      "Orange": 477052,
+      "Other": 18590,
+      "Apple": 76205,
+      "Mango": 148336,
+      "Coconut Meat": 14650,
+      "Coconut Water": 22425,
+      "Milk/Conden": 39783,
       "Water": 2800,
       "Coconut": 70106,
       "Pineapple": 43425,
       "Stock": 18472,
-      "Guava": 67535,
-      "Sticky Rice": 23544,
+      "Guava": 79635,
+      "Sticky Rice": 24589,
       "Durain": 4830,
-      "Durian": 9670
+      "Durian": 9670,
+      "Pomegranate": 16280,
+      "Pear": 2940
     },
     "daily_cogs": [
       {
@@ -9229,9 +9377,21 @@
       },
       {
         "date": "01/09/2026",
-        "desc": "วัตถุดิบผลไม้อื่นๆ / Slip 19 ฿5k (pool by rev share)",
+        "desc": "[VOID ฿6860] Other COGS ฿6,860 had ฿1,860 with no slip (owner cannot recall, 13/10) — rebooked as Slip 19 ฿5,000 only",
         "cat": "Other",
-        "amt": 6860
+        "amt": 0
+      },
+      {
+        "date": "22/09/2026",
+        "desc": "ค่าผลไม้ (Slip 19, paid to manager for fruit bought in cash) (pool by rev share)",
+        "cat": "Other",
+        "amt": 5000
+      },
+      {
+        "date": "30/09/2026",
+        "desc": "ข้าวเหนียวมูน ก.ย. B2 share 3/52 portions sold (forms 22, 27, 30/09) of ฿13,174",
+        "cat": "Sticky Rice",
+        "amt": 760.04
       },
       {
         "date": "30/09/2026",
@@ -9241,46 +9401,172 @@
       },
       {
         "date": "30/09/2026",
-        "desc": "ข้าวเหนียวมูน B3 ก.ย.",
+        "desc": "[VOID ฿13174] Sep sticky rice ฿13,174 re-split B3/B2 by portions sold (owner 13/10) — see replacement rows",
         "cat": "Sticky Rice",
-        "amt": 13174
+        "amt": 0
+      },
+      {
+        "date": "30/09/2026",
+        "desc": "ข้าวเหนียวมูน ก.ย. B3 share 49/52 portions sold (mango 45 + durian 4) of ฿13,174",
+        "cat": "Sticky Rice",
+        "amt": 12413.96
+      },
+      {
+        "date": "31/10/2026",
+        "desc": "แตงโม ต.ค. 404 ลูก (Slips 21, 40, 42, 47, 53; pool by usage)",
+        "cat": "Watermelon",
+        "amt": 28520
+      },
+      {
+        "date": "31/10/2026",
+        "desc": "มะม่วง ต.ค. 499 โล (Slips 3, 14, 35, 49, 51, 68, 72 = 24,800 + Slip 22 69 โล = 3,450; pool by usage)",
+        "cat": "Mango",
+        "amt": 28250
+      },
+      {
+        "date": "31/10/2026",
+        "desc": "เนื้อมะพร้าว ต.ค. 95 โล (Slip 43: 5,000 + Slip 65: 4,500; pool by usage)",
+        "cat": "Coconut Meat",
+        "amt": 9500
+      },
+      {
+        "date": "31/10/2026",
+        "desc": "น้ำมะพร้าว ต.ค. (Slip 43: 2,375 + Slip 44: 2,375 + Slip 65: 2,225; pool by usage)",
+        "cat": "Coconut Water",
+        "amt": 6975
+      },
+      {
+        "date": "31/10/2026",
+        "desc": "ส้ม ต.ค. 1,000 โล (Slips 16, 26, 46, 57, 67; pool by usage)",
+        "cat": "Orange",
+        "amt": 16000
+      },
+      {
+        "date": "31/10/2026",
+        "desc": "ฝรั่ง ต.ค. 775 โล (Slips 2, 15, 19, 23, 31, 36, 45, 50, 66, 71; pool by usage)",
+        "cat": "Guava",
+        "amt": 12100
+      },
+      {
+        "date": "31/10/2026",
+        "desc": "แอปเปิ้ล ต.ค. 33 ลัง (Slip 13: 1,290 + Slips 48, 52, 64, 70: 4,560 + Slips 1, 17, 22, 30, 37, 41 18 ลัง: 6,840; pool by usage)",
+        "cat": "Apple",
+        "amt": 12690
+      },
+      {
+        "date": "31/10/2026",
+        "desc": "นมข้นหวาน ต.ค. 5 ลัง (Slip 6: 752 + Slips 7, 8: 1,792 + Slip 9: 914 + Slip 28: 736; pool by coconut usage)",
+        "cat": "Milk/Conden",
+        "amt": 4194
+      },
+      {
+        "date": "31/10/2026",
+        "desc": "นมข้นจืด ต.ค. 11 ลัง (Slip 6: 2,130 + Slips 7, 8: 1,502 + Slip 9: 766 + Slip 10: 768 + Slip 28: 1,284 + Slip 29: 1,319; pool by coconut usage)",
+        "cat": "Milk/Conden",
+        "amt": 7769
+      },
+      {
+        "date": "31/10/2026",
+        "desc": "แก้วสกรีน ต.ค. (Slip 58; pool by rev share)",
+        "cat": "Packaging",
+        "amt": 20144
+      },
+      {
+        "date": "31/10/2026",
+        "desc": "ฝาปิดแก้ว ต.ค. (Slip 10: 508 + Slip 58: 1,347; pool by rev share)",
+        "cat": "Packaging",
+        "amt": 1855
+      },
+      {
+        "date": "31/10/2026",
+        "desc": "หลอด ต.ค. (Slips 7, 8: 1,042 + Slip 9: 531 + Slips 60, 62: 1,340; pool by rev share)",
+        "cat": "Packaging",
+        "amt": 2913
+      },
+      {
+        "date": "31/10/2026",
+        "desc": "ถุงเล็กเดี่ยว ต.ค. (Slip 11: 405 + Slips 61, 63: 808; pool by rev share)",
+        "cat": "Packaging",
+        "amt": 1213
+      },
+      {
+        "date": "31/10/2026",
+        "desc": "ถุงใหญ่คู่ ต.ค. (Slip 12: 477 + Slip 59: 476; pool by rev share)",
+        "cat": "Packaging",
+        "amt": 953
+      },
+      {
+        "date": "31/10/2026",
+        "desc": "ถุงมือ 40 กล่อง ต.ค. (Slip 10: 4,492 + Slip 55: 2,246; pool by rev share)",
+        "cat": "Packaging",
+        "amt": 6738
+      },
+      {
+        "date": "31/10/2026",
+        "desc": "ทับทิม ต.ค. 41 ลัง (Slips 48, 52, 64, 70 = 7,880 + Slips 1, 17, 22, 30, 37, 41 = 8,400; pool by usage)",
+        "cat": "Pomegranate",
+        "amt": 16280
+      },
+      {
+        "date": "31/10/2026",
+        "desc": "สาลี่ ต.ค. 9 ลัง (Slip 38: 700 + Slip 52: 1,050 + Slip 64: 280 + Slip 70: 560 + Slip 1: 350; pool by usage)",
+        "cat": "Pear",
+        "amt": 2940
+      },
+      {
+        "date": "31/10/2026",
+        "desc": "องุ่น ต.ค. (Slips 48, 52, 64, 70: 1,830 + Slips 1, 22, 30, 37: 1,042; pool by rev share)",
+        "cat": "Other",
+        "amt": 2872
+      },
+      {
+        "date": "31/10/2026",
+        "desc": "ค่าขนส่งและยกสินค้า ต.ค. (Slips 4, 39, 54, 69; pool by rev share)",
+        "cat": "Transportation",
+        "amt": 4600
+      },
+      {
+        "date": "08/10/2026",
+        "desc": "ข้าวเหนียวมูน B3 5 โล + ค่าส่ง (Slip 27)",
+        "cat": "Sticky Rice",
+        "amt": 1045
       }
     ],
     "fruit_performance": [
       {
         "name": "Orange",
-        "rev": 1115020,
-        "cost": 461052,
-        "cups": 18004,
-        "roi": "141.8%"
+        "rev": 1151900,
+        "cost": 477052,
+        "cups": 18608,
+        "roi": "141.5%"
       },
       {
         "name": "Watermelon",
-        "rev": 941825,
-        "cost": 299138,
-        "cups": 18631,
-        "roi": "214.8%"
+        "rev": 972775,
+        "cost": 327658,
+        "cups": 19250,
+        "roi": "196.9%"
       },
       {
         "name": "Mango",
-        "rev": 191340,
-        "cost": 120086,
-        "cups": 2126,
-        "roi": "59.3%"
+        "rev": 206190,
+        "cost": 148336,
+        "cups": 2291,
+        "roi": "39.0%"
       },
       {
         "name": "Apple",
-        "rev": 170040,
-        "cost": 63515,
-        "cups": 2834,
-        "roi": "167.7%"
+        "rev": 186360,
+        "cost": 76205,
+        "cups": 3106,
+        "roi": "144.6%"
       },
       {
         "name": "Coconut",
-        "rev": 402060,
-        "cost": 118526,
-        "cups": 6701,
-        "roi": "239.2%"
+        "rev": 434400,
+        "cost": 146964,
+        "cups": 7240,
+        "roi": "195.6%"
       },
       {
         "name": "Young Coco",
@@ -9291,23 +9577,37 @@
       },
       {
         "name": "Guava",
-        "rev": 90360,
-        "cost": 67535,
-        "cups": 1506,
-        "roi": "33.8%"
+        "rev": 106920,
+        "cost": 79635,
+        "cups": 1782,
+        "roi": "34.3%"
       },
       {
         "name": "Pineapple",
-        "rev": 60540,
+        "rev": 54660,
         "cost": 43425,
-        "cups": 1009,
-        "roi": "39.4%"
+        "cups": 911,
+        "roi": "25.9%"
+      },
+      {
+        "name": "Pomegranate",
+        "rev": 70050,
+        "cost": 16280,
+        "cups": 467,
+        "roi": "330.3%"
+      },
+      {
+        "name": "Pear",
+        "rev": 7980,
+        "cost": 2940,
+        "cups": 133,
+        "roi": "171.4%"
       },
       {
         "name": "Mangosteen",
-        "rev": 14061,
+        "rev": 0,
         "cost": null,
-        "cups": 109,
+        "cups": 0,
         "roi": "N/A"
       },
       {
@@ -9326,10 +9626,10 @@
       }
     ],
     "b1": {
-      "rev": 2365043.92,
-      "opex": 415891.3,
-      "rental": 375324,
-      "daily_exp": 37442,
+      "rev": 2438213.92,
+      "opex": 448042.1,
+      "rental": 413324,
+      "daily_exp": 38703,
       "opex_list": [
         {
           "date": "08/01/2026",
@@ -10209,26 +10509,71 @@
           "month": "Sep26",
           "bucket": "OPEX",
           "cat": "Other OPEX",
-          "desc": "ค่าขนส่ง / logistics / supplies Sep (B1 portion 37.10%)",
-          "amt": 4600.56,
+          "desc": "ค่าขนส่ง / logistics / supplies Sep (B1 portion 37.78%)",
+          "amt": 4684.34,
+          "branch": "B1"
+        },
+        {
+          "date": "07/10/2026",
+          "month": "Oct26",
+          "bucket": "OPEX",
+          "cat": "Rental",
+          "desc": "ค่าเช่าที่ B1 เดือนตุลาคม (Slip 24)",
+          "amt": 35000,
+          "branch": "B1"
+        },
+        {
+          "date": "13/10/2026",
+          "month": "Oct26",
+          "bucket": "OPEX",
+          "cat": "Rental",
+          "desc": "ค่าเช่าคลังสต็อก เดือนตุลาคม (1/4 split B1; Slip 33)",
+          "amt": 3000,
+          "branch": "B1"
+        },
+        {
+          "date": "31/10/2026",
+          "month": "Oct26",
+          "bucket": "OPEX",
+          "cat": "Salary",
+          "desc": "เงินเดือนพนักงาน B1 ต.ค. (พนักงานประจำ 2 คน; โอนผ่านสลิป 73 + เงินสด)",
+          "amt": 26100,
+          "branch": "B1"
+        },
+        {
+          "date": "31/10/2026",
+          "month": "Oct26",
+          "bucket": "OPEX",
+          "cat": "Salary",
+          "desc": "ค่าจ้างผู้จัดการร้าน ต.ค. (1/4 ของ ฿20,000)",
+          "amt": 5000,
+          "branch": "B1"
+        },
+        {
+          "date": "31/10/2026",
+          "month": "Oct26",
+          "bucket": "OPEX",
+          "cat": "Other OPEX",
+          "desc": "ค่าแรงงานอีเวนต์ + ปริ้นป้าย + โถปั่น ต.ค. (Slips 5, 18, 32; B1 portion 32.32%)",
+          "amt": 967.02,
           "branch": "B1"
         }
       ],
-      "cogs": 968662.3291400936,
-      "net": 567724.2908599064,
-      "share": 360522.7954202283,
-      "ming_share": 207201.49543967794,
+      "cogs": 1023121.6539324304,
+      "net": 515023.1660675696,
+      "share": 323632.0080655925,
+      "ming_share": 191391.15800197687,
       "loss_carry_forward": 0,
-      "adjusted_net": 567724.2908599062,
+      "adjusted_net": 515023.16606756946,
       "closing_loss": 0,
       "loss_offset": 16230.291128732293,
-      "share_pct": 0.6350314778220266
+      "share_pct": 0.6283833997928027
     },
     "b2": {
-      "rev": 753988,
-      "opex": 154896.74,
-      "rental": 194000,
-      "daily_exp": 11950,
+      "rev": 798213,
+      "opex": 173786.39,
+      "rental": 222000,
+      "daily_exp": 12670,
       "opex_list": [
         {
           "date": "30/04/2026",
@@ -10559,26 +10904,71 @@
           "month": "Sep26",
           "bucket": "OPEX",
           "cat": "Other OPEX",
-          "desc": "ค่าขนส่ง / logistics / supplies Sep (B2 portion 15.19%)",
-          "amt": 1883.74,
+          "desc": "ค่าขนส่ง / logistics / supplies Sep (B2 portion 13.65%)",
+          "amt": 1692.79,
+          "branch": "B2"
+        },
+        {
+          "date": "07/10/2026",
+          "month": "Oct26",
+          "bucket": "OPEX",
+          "cat": "Rental",
+          "desc": "ค่าเช่าที่ B2 เดือนตุลาคม (Slip 25)",
+          "amt": 25000,
+          "branch": "B2"
+        },
+        {
+          "date": "13/10/2026",
+          "month": "Oct26",
+          "bucket": "OPEX",
+          "cat": "Rental",
+          "desc": "ค่าเช่าคลังสต็อก เดือนตุลาคม (1/4 split B2; Slip 33)",
+          "amt": 3000,
+          "branch": "B2"
+        },
+        {
+          "date": "31/10/2026",
+          "month": "Oct26",
+          "bucket": "OPEX",
+          "cat": "Salary",
+          "desc": "เงินเดือนพนักงาน B2 ต.ค. (พนักงานประจำ 1 คน; โอนผ่านสลิป 73 + เงินสด)",
+          "amt": 13500,
+          "branch": "B2"
+        },
+        {
+          "date": "31/10/2026",
+          "month": "Oct26",
+          "bucket": "OPEX",
+          "cat": "Salary",
+          "desc": "ค่าจ้างผู้จัดการร้าน ต.ค. (1/4 ของ ฿20,000)",
+          "amt": 5000,
+          "branch": "B2"
+        },
+        {
+          "date": "31/10/2026",
+          "month": "Oct26",
+          "bucket": "OPEX",
+          "cat": "Other OPEX",
+          "desc": "ค่าแรงงานอีเวนต์ + ปริ้นป้าย + โถปั่น ต.ค. (Slips 5, 18, 32; B2 portion 19.41%)",
+          "amt": 580.6,
           "branch": "B2"
         }
       ],
-      "cogs": 335361.6218950624,
-      "net": 57779.63810493759,
-      "share": 40445.74667345631,
-      "ming_share": 17333.891431481283,
-      "loss_carry_forward": 0,
-      "adjusted_net": 57779.63810493759,
-      "closing_loss": 0,
-      "loss_offset": 78514.77030160754,
+      "cogs": 378895.7334886753,
+      "net": 10860.876511324575,
+      "share": 18267.51372805782,
+      "ming_share": 7828.934454881923,
+      "loss_carry_forward": 15235.571671615166,
+      "adjusted_net": 26096.44818293974,
+      "closing_loss": 15235.571671615166,
+      "loss_offset": 63014.29212397977,
       "share_pct": 0.7
     },
     "b3": {
-      "rev": 682699,
-      "opex": 162830.35,
-      "rental": 61706.600000000006,
-      "daily_exp": 7039,
+      "rev": 790957,
+      "opex": 206820.26,
+      "rental": 83486.82,
+      "daily_exp": 8524,
       "opex_list": [
         {
           "date": "22/07/2026",
@@ -10792,26 +11182,80 @@
           "month": "Sep26",
           "bucket": "OPEX",
           "cat": "Other OPEX",
-          "desc": "ค่าขนส่ง / logistics / supplies Sep (B3 portion 44.30%)",
-          "amt": 5492.65,
+          "desc": "ค่าขนส่ง / logistics / supplies Sep (B3 portion 45.10%)",
+          "amt": 5592.59,
+          "branch": "B3"
+        },
+        {
+          "date": "13/10/2026",
+          "month": "Oct26",
+          "bucket": "OPEX",
+          "cat": "Rental",
+          "desc": "ค่าเช่าที่ B3 เดือนตุลาคม (Slip 34)",
+          "amt": 18780.22,
+          "branch": "B3"
+        },
+        {
+          "date": "13/10/2026",
+          "month": "Oct26",
+          "bucket": "OPEX",
+          "cat": "Rental",
+          "desc": "ค่าเช่าคลังสต็อก เดือนตุลาคม (1/4 split B3; Slip 33)",
+          "amt": 3000,
+          "branch": "B3"
+        },
+        {
+          "date": "31/10/2026",
+          "month": "Oct26",
+          "bucket": "OPEX",
+          "cat": "Salary",
+          "desc": "เงินเดือนพนักงาน B3 ต.ค. (พนักงานประจำ 3 คน; โอนผ่านสลิป 73 + เงินสด)",
+          "amt": 36000,
+          "branch": "B3"
+        },
+        {
+          "date": "31/10/2026",
+          "month": "Oct26",
+          "bucket": "OPEX",
+          "cat": "Salary",
+          "desc": "ค่าจ้างผู้จัดการร้าน ต.ค. (1/4 ของ ฿20,000)",
+          "amt": 5000,
+          "branch": "B3"
+        },
+        {
+          "date": "31/10/2026",
+          "month": "Oct26",
+          "bucket": "OPEX",
+          "cat": "Other OPEX",
+          "desc": "ค่าแรงงานอีเวนต์ + ปริ้นป้าย + โถปั่น ต.ค. (Slips 5, 18, 32; B3 portion 36.20%)",
+          "amt": 1083.06,
+          "branch": "B3"
+        },
+        {
+          "date": "10/11/2026",
+          "month": "Oct26",
+          "bucket": "OPEX",
+          "cat": "Utilities",
+          "desc": "ค่าไฟ B3 เดือน 10 (IMG_4431.JPG)",
+          "amt": 1806.91,
           "branch": "B3"
         }
       ],
-      "cogs": 244770.8802525194,
-      "net": 206352.16974748063,
-      "share": 144446.51882323646,
-      "ming_share": 61905.6509242442,
+      "cogs": 312574.7792426992,
+      "net": 179551.14075730077,
+      "share": 125685.79853011054,
+      "ming_share": 53865.34222719024,
       "loss_carry_forward": 0,
-      "adjusted_net": 206352.16974748063,
+      "adjusted_net": 179551.14075730077,
       "closing_loss": 0,
       "loss_offset": 0,
-      "share_pct": 0.7000000000000001
+      "share_pct": 0.7
     },
     "b4": {
-      "rev": 56305,
-      "opex": 15423.05,
-      "rental": 25966.67,
-      "daily_exp": 1020,
+      "rev": 81820,
+      "opex": 54790.6,
+      "rental": 59201.67,
+      "daily_exp": 1440,
       "opex_list": [
         {
           "date": "01/09/2026",
@@ -10854,19 +11298,231 @@
           "month": "Sep26",
           "bucket": "OPEX",
           "cat": "Other OPEX",
-          "desc": "ค่าขนส่ง / logistics / supplies Sep (B4 portion 3.41%)",
-          "amt": 423.05,
+          "desc": "ค่าขนส่ง / logistics / supplies Sep (B4 portion 3.47%)",
+          "amt": 430.28,
+          "branch": "B4"
+        },
+        {
+          "date": "21/09/2026",
+          "month": "Sep26",
+          "bucket": "OPEX",
+          "cat": "Other OPEX",
+          "desc": "ค่าตำรวจ B4 2 คน คนละ 3,000 (Slip 21) — reclassified from CAPEX",
+          "amt": 6000,
+          "branch": "B4"
+        },
+        {
+          "date": "01/10/2026",
+          "month": "Oct26",
+          "bucket": "OPEX",
+          "cat": "Rental",
+          "desc": "ค่าเช่าที่ B4 เดือนตุลาคม (IMG_3032.JPG ชำระ 30/09)",
+          "amt": 30235,
+          "branch": "B4"
+        },
+        {
+          "date": "13/10/2026",
+          "month": "Oct26",
+          "bucket": "OPEX",
+          "cat": "Rental",
+          "desc": "ค่าเช่าคลังสต็อก เดือนตุลาคม (1/4 split B4; Slip 33)",
+          "amt": 3000,
+          "branch": "B4"
+        },
+        {
+          "date": "31/10/2026",
+          "month": "Oct26",
+          "bucket": "OPEX",
+          "cat": "Salary",
+          "desc": "เงินเดือนพนักงาน B4 ต.ค. (พนักงานประจำ 2 คน; โอนผ่านสลิป 73 + เงินสด)",
+          "amt": 26100,
+          "branch": "B4"
+        },
+        {
+          "date": "31/10/2026",
+          "month": "Oct26",
+          "bucket": "OPEX",
+          "cat": "Salary",
+          "desc": "ค่าจ้างผู้จัดการร้าน ต.ค. (1/4 ของ ฿20,000)",
+          "amt": 5000,
+          "branch": "B4"
+        },
+        {
+          "date": "31/10/2026",
+          "month": "Oct26",
+          "bucket": "OPEX",
+          "cat": "Other OPEX",
+          "desc": "ค่าแรงงานอีเวนต์ + ปริ้นป้าย + โถปั่น ต.ค. (Slips 5, 18, 32; B4 portion 12.08%)",
+          "amt": 361.32,
+          "branch": "B4"
+        },
+        {
+          "date": "05/10/2026",
+          "month": "Oct26",
+          "bucket": "OPEX",
+          "cat": "Other OPEX",
+          "desc": "กล้องวงจรปิดร้าน B4 (Slip 20)",
+          "amt": 1899,
           "branch": "B4"
         }
       ],
-      "cogs": 2827.168712324464,
-      "net": 11068.11128767554,
-      "share": 7747.677901372877,
-      "ming_share": 3320.4333863026623,
+      "cogs": 22720.833336194704,
+      "net": -56333.103336194705,
+      "share": 539,
+      "ming_share": 231.00000000000003,
+      "loss_carry_forward": 57103.103336194705,
+      "adjusted_net": 770,
+      "closing_loss": 57103.103336194705,
+      "loss_offset": 0,
+      "share_pct": 0.7
+    }
+  },
+  "Nov26": {
+    "total_rev": 20726,
+    "total_cogs": 0,
+    "fruit_summary": {},
+    "daily_cogs": [],
+    "fruit_performance": [
+      {
+        "name": "Orange",
+        "rev": 0,
+        "cost": 0,
+        "cups": 0,
+        "roi": "N/A"
+      },
+      {
+        "name": "Watermelon",
+        "rev": 0,
+        "cost": 0,
+        "cups": 0,
+        "roi": "N/A"
+      },
+      {
+        "name": "Mango",
+        "rev": 0,
+        "cost": 0,
+        "cups": 0,
+        "roi": "N/A"
+      },
+      {
+        "name": "Apple",
+        "rev": 0,
+        "cost": 0,
+        "cups": 0,
+        "roi": "N/A"
+      },
+      {
+        "name": "Coconut",
+        "rev": 0,
+        "cost": 0,
+        "cups": 0,
+        "roi": "N/A"
+      },
+      {
+        "name": "Young Coco",
+        "rev": 0,
+        "cost": null,
+        "cups": 0,
+        "roi": "N/A"
+      },
+      {
+        "name": "Guava",
+        "rev": 0,
+        "cost": 0,
+        "cups": 0,
+        "roi": "N/A"
+      },
+      {
+        "name": "Pineapple",
+        "rev": 0,
+        "cost": 0,
+        "cups": 0,
+        "roi": "N/A"
+      },
+      {
+        "name": "Mangosteen",
+        "rev": 0,
+        "cost": null,
+        "cups": 0,
+        "roi": "N/A"
+      },
+      {
+        "name": "Mangosteen & Lychee",
+        "rev": 0,
+        "cost": null,
+        "cups": 0,
+        "roi": "N/A"
+      },
+      {
+        "name": "Rambutan",
+        "rev": 0,
+        "cost": null,
+        "cups": 0,
+        "roi": "N/A"
+      }
+    ],
+    "b1": {
+      "rev": 0,
+      "rental": 0,
+      "opex": 0,
+      "daily_exp": 0,
+      "opex_list": [],
+      "cogs": 0,
+      "net": 0,
       "loss_carry_forward": 0,
-      "adjusted_net": 11068.11128767554,
       "closing_loss": 0,
-      "loss_offset": 32201.88871232446,
+      "loss_offset": 0,
+      "adjusted_net": 0,
+      "share": 0,
+      "ming_share": 0,
+      "share_pct": 0.7
+    },
+    "b2": {
+      "rev": 10020,
+      "rental": 0,
+      "opex": 0,
+      "daily_exp": 0,
+      "opex_list": [],
+      "cogs": 0,
+      "net": 10020,
+      "loss_carry_forward": 0,
+      "closing_loss": 0,
+      "loss_offset": 0,
+      "adjusted_net": 10020,
+      "share": 7014,
+      "ming_share": 3006.0000000000005,
+      "share_pct": 0.7
+    },
+    "b3": {
+      "rev": 9936,
+      "rental": 0,
+      "opex": 0,
+      "daily_exp": 0,
+      "opex_list": [],
+      "cogs": 0,
+      "net": 9936,
+      "loss_carry_forward": 0,
+      "closing_loss": 0,
+      "loss_offset": 0,
+      "adjusted_net": 9936,
+      "share": 6955.2,
+      "ming_share": 2980.8000000000006,
+      "share_pct": 0.7
+    },
+    "b4": {
+      "rev": 770,
+      "rental": 0,
+      "opex": 0,
+      "daily_exp": 0,
+      "opex_list": [],
+      "cogs": 0,
+      "net": 770,
+      "loss_carry_forward": 0,
+      "closing_loss": 0,
+      "loss_offset": 0,
+      "adjusted_net": 770,
+      "share": 539,
+      "ming_share": 231.00000000000003,
       "share_pct": 0.7
     }
   }
