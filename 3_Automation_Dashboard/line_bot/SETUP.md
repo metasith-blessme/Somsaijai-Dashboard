@@ -98,7 +98,13 @@ Set these on the Vercel project that serves `somsaijailive.vercel.app`, team **p
 
 Vercel → that project → **Settings → Environment Variables**.
 
-Then **Storage → Blob → Create** (or connect) a store and link it to this project. Vercel adds `BLOB_READ_WRITE_TOKEN` for you. The original photos and the review files live there. They are not published on the dashboard.
+The original photos and the review files live in Supabase, project **metasith-blessme's Project** (`hxnccygzjpjlmwucmuid`, free plan). They sit in the private table `ssj_private.kv`, which the REST API does not expose. The bot reaches it only through the `ssj_kv_*` functions in `supabase/001_ssj_kv.sql`, and every call carries `SSJ_STORE_SECRET`. Only the secret's sha256 is kept in the database. They are not published on the dashboard.
+
+Until 20 Nov 2026 this was a Vercel Blob store. Its Hobby quota (2,000 writes and listings per 30 days) suspended it, and the bot went silent. That store and its data stay locked.
+
+Free Supabase limits are 500 MB of database and 1 GB of file storage. Photos are kept in the database, so the 500 MB limit is the one to watch (about 46 MB a month at the October-November rate). A free project pauses after a week with no traffic. Daily photos keep it awake. If it pauses, the bot replies to staff in Thai that storage is down; restore it in the Supabase dashboard.
+
+To rotate the secret, put a new random value in `SSJ_STORE_SECRET` on Vercel and its sha256 (hex) in `ssj_private.bot_secret`, then redeploy.
 
 After saving variables, redeploy once so the webhook can see them.
 
@@ -114,7 +120,10 @@ After saving variables, redeploy once so the webhook can see them.
 | `GEMINI_API_KEY` | The Gemini key already used for reading reports |
 | `GEMINI_MODEL` | Optional. Default `gemini-3.5-flash`. `GEMINI_OCR_MODEL` still works if `GEMINI_MODEL` is unset |
 | `GEMINI_MODEL_FALLBACK` | Optional. Default `gemini-3.8-flash`, used after the first model returns 503 or 429 |
-| `BLOB_READ_WRITE_TOKEN` | Filled in when the Blob store is connected |
+| `SSJ_SUPABASE_URL` | `https://hxnccygzjpjlmwucmuid.supabase.co` |
+| `SSJ_SUPABASE_KEY` | The project's publishable key (`sb_publishable_…`). It cannot reach the table without the secret |
+| `SSJ_STORE_SECRET` | A long random value. Its sha256 is in `ssj_private.bot_secret` |
+| `BLOB_READ_WRITE_TOKEN` | The old Blob store. Used only when the three `SSJ_` variables are missing |
 | `LINE_BOT_ALLOW_DEPLOY` | Set to exactly `1` only when you want Approve to write the books and publish. Leave it unset while you are still testing the summaries. |
 | `LINE_BOT_VERCEL_DEPLOY` | Optional. Set to exactly `1` to also call the Vercel deployments API after the git push. Leave unset: pushing to `main` already starts the Git integration deploy, and Approve waits for that deploy in the live readback. |
 | `GITHUB_TOKEN` | A GitHub token that can write to `metasith-blessme/Somsaijai-Dashboard` (contents permission) |

@@ -60,6 +60,7 @@ const {
   catalogFailed,
   wentWrong,
   readingPhoto,
+  STORE_DOWN_TH,
   STOCK_SAVED,
   STOCK_SAVED_OWNER,
   STOCK_HOW,
@@ -86,14 +87,35 @@ function orderCatalog(ctx) {
   return ctx._orderCatalog;
 }
 
+/**
+ * One write per event. LINE gets 200 at once, so it only redelivers an event the
+ * function never answered. Any earlier claim is a duplicate, except one that ended
+ * in an error, which may run again.
+ */
 async function claimEvent(store, event, now) {
   const id = event.webhookEventId || `${event.type}:${event.timestamp}:${(event.message && event.message.id) || ''}`;
   const key = `event:${id}`;
+  const body = Buffer.from(JSON.stringify({ status: 'processing', at: now }));
+  const put = await store.putIfAbsent(key, body, 'application/json');
+  if (put && put.created !== false) return { duplicate: false, key };
   const existing = await store.getJson(key);
-  if (existing && existing.status === 'done') return { duplicate: true, key };
-  if (existing && existing.status === 'processing' && now - existing.at < PROCESSING_MS) return { duplicate: true, key };
-  await store.putJson(key, { status: 'processing', at: now });
-  return { duplicate: false, key };
+  if (existing && existing.status === 'error') {
+    await store.putJson(key, { status: 'processing', at: now });
+    return { duplicate: false, key };
+  }
+  return { duplicate: true, key };
+}
+
+/** Events the bot acts on. Anything else is answered 200 and not stored. */
+function handles(event) {
+  if (event.type === 'postback' || event.type === 'join') return true;
+  return event.type === 'message' && Boolean(event.message) && ['image', 'text'].includes(event.message.type);
+}
+
+function isStoreError(err) {
+  if (!err) return false;
+  if (err.storeError) return true;
+  return /Vercel Blob|Supabase store|store has been suspended/i.test(String(err.message || err));
 }
 
 function inScope(event, config) {
@@ -857,24 +879,36 @@ async function logNewSender(event, ctx) {
 }
 
 async function handleEvent(event, ctx) {
-  const claim = await claimEvent(ctx.store, event, ctx.now);
+  if (!handles(event)) {
+    try { await logNewSender(event, ctx); } catch (err) { console.error(`[sender] ${(err && err.message) || err}`); }
+    return { ignored: event.type };
+  }
+  let claim;
+  try {
+    claim = await claimEvent(ctx.store, event, ctx.now);
+  } catch (err) {
+    // The store is down. Say so in the chat (a free reply), never stay silent.
+    console.error(`[store] ${(err && err.message) || err}`);
+    try { await reply(ctx.line, event.replyToken, STORE_DOWN_TH); } catch (replyErr) { console.error(`[reply] ${(replyErr && replyErr.message) || replyErr}`); }
+    return { error: (err && err.message) || String(err), store_down: true };
+  }
   if (claim.duplicate) return { duplicate: true };
   try {
     try { await logNewSender(event, ctx); } catch (err) { console.error(`[sender] ${(err && err.message) || err}`); }
     let outcome;
-    if (event.type === 'message' && event.message && event.message.type === 'image') outcome = await onImage(event, ctx);
+    if (event.type === 'message' && event.message.type === 'image') outcome = await onImage(event, ctx);
     else if (event.type === 'postback') outcome = await onPostback(event, ctx);
-    else if (event.type === 'message' && event.message && event.message.type === 'text') outcome = await onText(event, ctx);
-    else if (event.type === 'join') outcome = await onText({ ...event, message: { text: 'id' } }, ctx);
-    else outcome = { ignored: event.type };
-    await ctx.store.putJson(claim.key, { status: 'done', at: ctx.now });
+    else if (event.type === 'message' && event.message.type === 'text') outcome = await onText(event, ctx);
+    else outcome = await onText({ ...event, message: { text: 'id' } }, ctx);
     return outcome;
   } catch (err) {
-    await ctx.store.putJson(claim.key, { status: 'error', at: ctx.now, message: err.message || String(err) });
+    try { await ctx.store.putJson(claim.key, { status: 'error', at: ctx.now, message: err.message || String(err) }); }
+    catch (storeErr) { console.error(`[store] ${(storeErr && storeErr.message) || storeErr}`); }
     console.error(`[event] ${(err && err.message) || err}`);
     if (!err.replied) {
+      const text = isStoreError(err) ? STORE_DOWN_TH : wentWrong((err.message || err).toString());
       try {
-        await answer(ctx, event.replyToken, wentWrong((err.message || err).toString()));
+        await answer(ctx, event.replyToken, text);
       } catch (replyErr) { /* the reply token may already have been used */ }
     }
     return { error: err.message || String(err) };

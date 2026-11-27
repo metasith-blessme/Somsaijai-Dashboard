@@ -1,7 +1,9 @@
 /**
  * Batch state and original photo bytes.
  * MemoryStore is the test double. FileStore is the local dry-run.
- * BlobStore is the production store (Vercel Blob). Photos are private.
+ * SupabaseStore is the production store since 27 Nov 2026: one private Postgres
+ * table reached through the ssj_kv_* functions (see ../supabase/001_ssj_kv.sql).
+ * BlobStore (Vercel Blob) was the store before. Its Hobby quota suspended it on 20 Nov.
  */
 
 class MemoryStore {
@@ -164,10 +166,71 @@ function createBlobStore(token) {
   });
 }
 
-function createStore(env = process.env) {
-  if (env.BLOB_READ_WRITE_TOKEN) return createBlobStore(env.BLOB_READ_WRITE_TOKEN);
-  if (env.LINE_BOT_FILE_STORE) return new FileStore(env.LINE_BOT_FILE_STORE);
-  throw new Error('No photo store configured. Link a Vercel Blob store (BLOB_READ_WRITE_TOKEN).');
+/**
+ * Calls the ssj_kv_* Postgres functions over the Supabase REST API.
+ * key is the project's publishable (anon) key. secret is the bot secret the
+ * functions check, so the publishable key alone cannot read or write anything.
+ */
+function createSupabaseStore({ url, key, secret, fetchImpl }) {
+  const doFetch = fetchImpl || globalThis.fetch;
+  const base = String(url).replace(/\/+$/, '');
+  async function rpc(name, args) {
+    const fail = message => Object.assign(new Error(message), { storeError: true });
+    let res;
+    try {
+      res = await doFetch(`${base}/rest/v1/rpc/${name}`, {
+        method: 'POST',
+        headers: {
+          apikey: key,
+          ...(String(key).startsWith('eyJ') ? { Authorization: `Bearer ${key}` } : {}),
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ p_secret: secret, ...args }),
+      });
+    } catch (err) {
+      throw fail(`Supabase store ${name} unreachable: ${(err && err.message) || err}`);
+    }
+    const text = await res.text();
+    if (!res.ok) {
+      let detail = text;
+      try { detail = JSON.parse(text).message || text; } catch (e) { /* plain text */ }
+      throw fail(`Supabase store ${name} failed (${res.status}): ${String(detail).slice(0, 200)}`);
+    }
+    return text ? JSON.parse(text) : null;
+  }
+  const b64 = body => Buffer.from(body).toString('base64');
+  return {
+    async put(k, body, contentType) {
+      await rpc('ssj_kv_put', { p_key: k, p_body: b64(body), p_type: contentType || 'application/octet-stream' });
+    },
+    async get(k) {
+      const out = await rpc('ssj_kv_get', { p_key: k });
+      return out == null ? null : Buffer.from(out, 'base64');
+    },
+    async putIfAbsent(k, body, contentType) {
+      const created = await rpc('ssj_kv_put_if_absent', { p_key: k, p_body: b64(body), p_type: contentType || 'application/octet-stream' });
+      return { created: created === true };
+    },
+    async list(prefix) {
+      const rows = await rpc('ssj_kv_list', { p_prefix: prefix });
+      return (rows || []).map(r => (typeof r === 'string' ? r : r.ssj_kv_list));
+    },
+    async delete(k) { await rpc('ssj_kv_delete', { p_key: k }); },
+    async putJson(k, value) { await this.put(k, Buffer.from(JSON.stringify(value)), 'application/json'); },
+    async getJson(k) {
+      const buf = await this.get(k);
+      return buf ? JSON.parse(buf.toString('utf8')) : null;
+    },
+  };
 }
 
-module.exports = { MemoryStore, FileStore, createBlobStore, createBlobStoreFromClient, createStore, blobAlreadyExists };
+function createStore(env = process.env) {
+  if (env.SSJ_SUPABASE_URL && env.SSJ_SUPABASE_KEY && env.SSJ_STORE_SECRET) {
+    return createSupabaseStore({ url: env.SSJ_SUPABASE_URL, key: env.SSJ_SUPABASE_KEY, secret: env.SSJ_STORE_SECRET });
+  }
+  if (env.BLOB_READ_WRITE_TOKEN) return createBlobStore(env.BLOB_READ_WRITE_TOKEN);
+  if (env.LINE_BOT_FILE_STORE) return new FileStore(env.LINE_BOT_FILE_STORE);
+  throw new Error('No photo store configured. Set SSJ_SUPABASE_URL, SSJ_SUPABASE_KEY and SSJ_STORE_SECRET.');
+}
+
+module.exports = { MemoryStore, FileStore, createBlobStore, createBlobStoreFromClient, createSupabaseStore, createStore, blobAlreadyExists };

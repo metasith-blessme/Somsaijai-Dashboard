@@ -130,11 +130,15 @@ const STOCK_SAVED = 'Got the stock list. Thank you.';
 const STOCK_SAVED_OWNER = 'Got the stock list. It is in the 22:00 stock list, or type "stock" to see it now.';
 const STOCK_HOW = 'Send stock like this:\nstock B1 31/10\norange 27 basket +20\ncoconut 15 pcs';
 
+// Staff read Thai. Sent as a free reply when the photo store cannot be reached.
+const STORE_DOWN_TH = 'ตอนนี้ระบบบันทึกข้อมูลขัดข้อง บอทยังรับรายการนี้ไม่ได้ รบกวนส่งใหม่อีกครั้งในอีกสักครู่ หรือพิมพ์ยอดแจ้ง Parn แทน';
+
 function wentWrong(error) {
   return `Something went wrong: ${String(error).slice(0, 300)}`;
 }
 
 module.exports = {
+  STORE_DOWN_TH,
   ALBUM_HELP,
   OCR_FAIL,
   ONLY_PARN_APPROVE,
