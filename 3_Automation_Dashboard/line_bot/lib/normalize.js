@@ -5,7 +5,7 @@ const { redactText } = require('./redact');
 
 const { formTemplate } = require('./forms');
 
-const PROMPT_VERSION = 'line-bot-ocr-5';
+const PROMPT_VERSION = 'line-bot-ocr-6';
 const OPENED = { B1: '2026-01-01', B2: '2026-04-18', B3: '2026-07-11', B4: '2026-09-19' };
 
 function branchField(raw) {

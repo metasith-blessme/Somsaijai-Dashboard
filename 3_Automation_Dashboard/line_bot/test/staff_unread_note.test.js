@@ -111,3 +111,24 @@ test('a read slower than the hold sends "reading it now" and spends no push on s
   assert.match(replies[0].text, /Reading it now/);
   assert.equal(pushes.filter(p => p.to === 'C1').length, 0);
 });
+
+test('the reader prompt describes both forms, dd/mm/yy dates and B1-B4, and sends the approved examples before the photo', async () => {
+  const { FULL_PROMPT, SECOND_PROMPT, extractImage } = require('../lib/extractor');
+  const { loadExamples, exampleParts } = require('../lib/fewshot');
+  for (const prompt of [FULL_PROMPT, SECOND_PROMPT]) {
+    assert.match(prompt, /19 printed rows/);
+    assert.match(prompt, /Pomegranate or Pear/);
+    assert.match(prompt, /Total = Net cash \+ Scan - Ice/);
+    assert.match(prompt, /1\/10\/26 is 1 October 2026/);
+    assert.match(prompt, /B1, B2, B3 and B4 only/);
+  }
+  const examples = loadExamples();
+  assert.equal(examples.length, 2);
+  assert.deepEqual(examples.map(e => e.answer.total_sales), [5635, 4586]);
+  const parts = exampleParts(examples);
+  assert.equal(parts.filter(p => p.inlineData).length, 2);
+  assert.match(parts.at(-1).text, /Now read the next photo/);
+  const seen = [];
+  await extractImage({ buf: Buffer.from('x'), apiKey: 'k', model: 'm', generate: async (a) => { seen.push(a.examples.length); return sheet(); } });
+  assert.deepEqual(seen, [2]);
+});

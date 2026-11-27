@@ -1,5 +1,24 @@
 const { PROMPT_VERSION, resolveBranch } = require('./normalize');
 const { formTemplate } = require('./forms');
+const { loadExamples, exampleParts } = require('./fewshot');
+
+// What SomSaiJai's two paper forms look like. Written from the October 2026 sheets
+// and Parn's rules. It tells the reader where each number lives; it never asks it to
+// compute or balance a number.
+const FORM_GUIDE = `Form guide.
+SOMSAIJAI DAILY SHOP REPORT (landscape, title top left):
+- Section 1 MENU SALES has 19 printed rows, in this order: Orange Cup (Regular) [or], Orange Premium Cup 100% [or_100], Watermelon Cup [wm], Mango Cup [mg], Coconut Cup [co], Apple Cup [ap], Guava Cup [guava], Pineapple Cup [pineapple], Mangosteen Blended [ssl_mangosteen], Mangosteen Lychee Blended [ssl_mangosteenLychee], Rambutan Blended [ssl_rambutan], Volcano Mix Fruit [volcano_mix], Volcano Orange [volcano_orange], Volcano Watermelon [volcano_watermelon], Volcano Mango [volcano_mango], Volcano Apple [volcano_apple], Volcano Guava [volcano_guava], Volcano Pineapple [volcano_pineapple], Mango Sticky Rice. Copy all 19 into menu_rows, blank ones too. Read each price as printed or as overwritten by hand.
+- Columns are PRICE, CASH TALLY MARKS, SCAN TALLY MARKS, TOTAL QTY, SALES THB. SALES THB is the row amount in baht.
+- Staff write extra products by hand in blank rows or margins, for example Pomegranate or Pear. Those go in handwritten_additions with their qty and baht.
+- SHIFT DETAILS on the right: Date, Staff, Shift (the branch code, for example B-3), Open/Close.
+- The closing box comes in two versions. Older: Cash sales, Scan sales, Total sales, Total expense, Net sales, Opening cash, Expected cash, Counted cash. Newer: Net cash, Scan, Change, Ice, Total. Put Cash sales or Net cash in sales.cash_sales, Scan sales or Scan in sales.scan_sales, Total sales or Total in sales.total_sales, Opening cash or Change in sales.opening_cash, Ice in other.ice, Total expense in sales.total_expense, Net sales in sales.net_sales.
+- On the newer box Total = Net cash + Scan - Ice. On the older box Total sales = Cash sales + Scan sales. Use this only to look again at a digit you are unsure of. If the written numbers still do not fit, copy them as written and set uncertain. Never change a written digit to make them fit.
+SOM SAI JAI Daily Sales Record (landscape, product photos down the left):
+- Date and Branch boxes are top right. The branch is written like B-1.
+- About 10 printed products (Orange, Watermelon, Apple, Mango, Coconut, Pineapple, Guava, Mangosteen, Mangosteen & Lychee, Rambutan) with Cash Qty and Scan (QR/Bank) Qty columns and Total Qty. Handwritten products below them go in handwritten_additions.
+- The Total row under the products holds the cash baht and the scan baht. Payment Summary (Baht): Cash Total is sales.cash_sales, QR / Bank Total is sales.scan_sales, Grand Total (Baht) is sales.total_sales. Grand Total = Cash Total + QR / Bank Total.
+- Other (Baht): Ice is other.ice, written like "Ice x2 120", which is 120 baht. Other is other.other. Ice is not a sale.
+- Numbers often use a dot or comma as a thousands mark: 3.435 and 3,435 both mean 3435 baht.`;
 
 const RULES = `You transcribe a SomSaiJai (Thai juice shop) photo. Return ONLY JSON, no markdown.
 Rules:
@@ -17,7 +36,8 @@ Rules:
 - document_type is one of: sales_report, closing_cash, stock_report, transfer_slip, supplier_receipt, other, unreadable.
 - Two sales forms exist. Set form_template to "daily_shop_report" when the title is SOMSAIJAI DAILY SHOP REPORT (menu rows, cash tally, scan tally, total qty, sales THB, shift expenses, closing summary). Set "daily_sales_record" when the title is SOM SAI JAI Daily Sales Record (about 10 products, cash qty, scan qty, total qty, payment summary, Other/Ice).
 - The shop-report photo may be rotated. Read it after turning the title upright. Set orientation to "rotated" when you had to turn it, otherwise "upright".
-- Tally marks are strokes. A digit written in brackets next to the strokes is the staff count: put that digit in cash_qty or scan_qty. If your stroke count disagrees with the bracket, keep both and set uncertain true. Do not pick the one that balances.
+- Tally marks are strokes. A small number written in brackets next to the strokes is the staff count: put it in cash_qty or scan_qty. If your stroke count disagrees with the bracket, keep both and set uncertain true. Do not pick the one that balances.
+- On a Daily Sales Record the bracket is often baht, not cups: 8 strokes on Orange at 80 baht written as (640). When the bracket equals strokes x price, it is baht. Then cash_qty and scan_qty are the stroke counts, and amount_raw is the cash baht plus the scan baht of that row.
 - On a Daily Sales Record the column headed Total Qty sometimes contains baht, not cups. Put a column that is money in amount, and put bracket counts in cash_qty and scan_qty. If you cannot tell whether a number is cups or baht, leave qty and amount null and set uncertain true. Do not multiply price by qty and call the product observed.
 - Copy handwritten price changes into price_overridden_from and price_overridden_to. Copy extra handwritten rows, including items with no printed line, into handwritten_additions only, never also into menu_rows. Use the handwritten price when a printed price is overwritten. A crossed-out row has struck true and is not a sale.
 - When staff cross out only the printed product name and write another product on that row (for example Coconut crossed out, Volcano Water written), item_raw is the WRITTEN product, struck stays false, and label_crossed_out is the printed name. Book what staff wrote, never the crossed-out printed label.
@@ -25,6 +45,9 @@ Rules:
 - Pomegranate, Pear, Grape, Lychee, Mangosteen and Rambutan are their own rows, as printed. Copy the SKU tag in brackets as part of item_raw.
 - Mixed drinks (Volcano, Blended, Mango Sticky Rice) stay as their own rows. Do not split them into orange, mango, or another single fruit.
 - A blank qty is null. Do not write 0 because the row is empty.
+- Dates are day/month/year, never month/day. A two-digit year 26 means 2026, so 1/10/26 is 1 October 2026 and 7/11/26 is 7 November 2026.
+- Branches are B1, B2, B3 and B4 only. They are written B-1, B 1, B.1, B-01 or similar. A branch written B-3 is B3.
+${FORM_GUIDE}
 - A stock sheet or stock count (remaining fruit, cups, lids, milk, bottles) is document_type stock_report. Copy every row into stock_rows: item_raw exactly as written, qty is the count left, unit_raw as written, delivered only when the sheet has a received / delivered / in column for that row. Do not add rows that are not written. Stock rows are not sales.`;
 
 const FULL_SHAPE = `{
@@ -96,7 +119,7 @@ function withTimeout(promise, ms, controller) {
   ]).finally(() => clearTimeout(timer));
 }
 
-async function defaultGenerate({ buf, mimeType, prompt, apiKey, model, timeoutMs }) {
+async function defaultGenerate({ buf, mimeType, prompt, apiKey, model, timeoutMs, examples }) {
   if (!apiKey) throw new Error('GEMINI_API_KEY is not set');
   const { GoogleGenAI } = require('@google/genai');
   const ai = new GoogleGenAI({ apiKey });
@@ -107,6 +130,7 @@ async function defaultGenerate({ buf, mimeType, prompt, apiKey, model, timeoutMs
       role: 'user',
       parts: [
         { text: prompt },
+        ...exampleParts(examples),
         { inlineData: { data: Buffer.from(buf).toString('base64'), mimeType: mimeType || 'image/jpeg' } },
       ],
     }],
@@ -230,13 +254,14 @@ async function generateWithRetry({ gen, args, fallbackModel, sleep, random, maxA
  * Read one photo. A consistent first reading is not sent to Gemini again.
  * 503 and 429 are retried with backoff. This does not write any books.
  */
-async function extractImage({ buf, mimeType, apiKey, model, fallbackModel, generate, sleep, random, maxAttempts, budgetMs, clock }) {
+async function extractImage({ buf, mimeType, apiKey, model, fallbackModel, generate, sleep, random, maxAttempts, budgetMs, clock, examples }) {
+  const shots = examples === undefined ? loadExamples() : (examples || []);
   const gen = generate || defaultGenerate;
   const now = clock || Date.now;
   const deadlineAt = now() + (budgetMs || READ_BUDGET_MS);
   const first = await generateWithRetry({
     gen,
-    args: { buf, mimeType, prompt: FULL_PROMPT, apiKey, model },
+    args: { buf, mimeType, prompt: FULL_PROMPT, apiKey, model, examples: shots },
     fallbackModel,
     sleep,
     random,
@@ -261,7 +286,7 @@ async function extractImage({ buf, mimeType, apiKey, model, fallbackModel, gener
     if (deadlineAt - now() < 20000) throw new Error('no time left for a second reading');
     second = await generateWithRetry({
       gen,
-      args: { buf, mimeType, prompt: SECOND_PROMPT, apiKey, model },
+      args: { buf, mimeType, prompt: SECOND_PROMPT, apiKey, model, examples: shots },
       fallbackModel,
       sleep,
       random,
