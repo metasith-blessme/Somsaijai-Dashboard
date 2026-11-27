@@ -316,10 +316,11 @@ test('a group list maps each id to a branch and a foreign group is ignored', asy
   };
   const rawPhoto = Buffer.from(JSON.stringify({ events: [photo] }));
   await handleWebhook({ rawBody: rawPhoto, signature: signBody(rawPhoto, 's'), ctx });
-  // The photo is answered at once; the summary goes to Parn by push.
-  assert.match(replies.at(-1)[0].text, /Reading it now/);
-  assert.match(replies.at(-1)[0].text, /Parn gets the summary/);
-  assert.doesNotMatch(replies.at(-1)[0].text, /[\u0E00-\u0E7F]/);
+  // Tae's 16 Oct sheet reads as illegible, so the held reply names what to resend, in Thai.
+  const note = replies.at(-1)[0].text;
+  assert.match(note, /^ใบยอด B3 16\/10 อ่านไม่ชัด ยอดรวม \(Total\), เงินสดสุทธิ \(Net cash\), สแกน \(Scan\)/);
+  assert.match(note, /ถ่ายรูปใหม่ให้ชัด/);
+  assert.equal(replies.length, 2);
   const saved = await store.getJson('review:set_singlep1');
   assert.ok(saved);
   assert.equal(saved.records[0].branch_hint, 'B3');

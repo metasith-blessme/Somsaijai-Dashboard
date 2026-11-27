@@ -12,6 +12,7 @@ const {
   IMAGE_SET_TIMEOUT_MS,
 } = require('./image_set');
 const { sha256, buildReview } = require('./normalize');
+const { unreadFieldsNote } = require('./staff_fields');
 const { applyChecks } = require('./validate');
 const { formatSummary, parsePostback } = require('./summary');
 const { alreadyText, shortDay } = require('./words');
@@ -153,6 +154,40 @@ async function answer(ctx, token, text) {
   return { sent: false };
 }
 
+// LINE keeps a reply token usable for about one minute. Hold it while the photo is
+// read, so the result (and any unread fields) goes out free. If the read runs long,
+// the "reading it now" note goes out at REPLY_HOLD_MS instead.
+const REPLY_HOLD_MS = 40 * 1000;
+
+function holdReply(ctx, token, holdingText) {
+  let spent = !token;
+  let timer = null;
+  const take = () => {
+    if (spent) return null;
+    spent = true;
+    if (timer) clearTimeout(timer);
+    return token;
+  };
+  const flush = async () => {
+    const t = take();
+    if (t) {
+      try { await reply(ctx.line, t, holdingText); } catch (err) { console.error(`[reply] ${(err && err.message) || err}`); }
+    }
+  };
+  const ms = Number.isFinite(ctx.replyHoldMs) && ctx.replyHoldMs >= 0 ? ctx.replyHoldMs : REPLY_HOLD_MS;
+  if (token) {
+    timer = setTimeout(() => { flush(); }, ms);
+    if (timer && typeof timer.unref === 'function') timer.unref();
+  }
+  return { take, flush };
+}
+
+/** A plain token, or the live token from a hold (spending it). */
+function takeToken(token) {
+  if (token && typeof token.take === 'function') return token.take();
+  return token || null;
+}
+
 function chatOf(source) {
   if (!source) return null;
   if (source.type === 'group') return source.groupId || null;
@@ -203,7 +238,7 @@ async function finishBatch(batchId, parts, ctx) {
     const error = new Error(OCR_FAIL_TH);
     error.ocrFailed = true;
     try {
-      const sent = await answer(ctx, ctx.replyToken, OCR_FAIL_TH);
+      const sent = await answer(ctx, takeToken(ctx.replyToken), OCR_FAIL_TH);
       error.replied = sent.replied === true || sent.pushed === true;
     } catch (replyErr) {
       error.replied = false;
@@ -252,11 +287,11 @@ async function finishBatch(batchId, parts, ctx) {
     batch.review_pushed = sent.ok.length > 0;
     if (!sent.ok.length) {
       batch.push_error = sent.errors[0];
-      try { await answer({ ...ctx, pushTo: approvers.includes(ctx.pushTo) ? null : ctx.pushTo }, ctx.replyToken, pushFailed(batch.push_error)); }
+      try { await answer({ ...ctx, pushTo: approvers.includes(ctx.pushTo) ? null : ctx.pushTo }, takeToken(ctx.replyToken), pushFailed(batch.push_error)); }
       catch (replyErr) { console.error(replyErr); }
     }
   } else {
-    try { await answer(ctx, ctx.replyToken, ownerMissing()); } catch (replyErr) { console.error(replyErr); }
+    try { await answer(ctx, takeToken(ctx.replyToken), ownerMissing()); } catch (replyErr) { console.error(replyErr); }
   }
   await store.putJson(`batch:${batchId}`, batch);
   return batch;
@@ -362,11 +397,13 @@ async function processClaimedSet(setId, summary, ctx, replyToken) {
     const head = batch.status === 'stock' ? (owner ? STOCK_SAVED_OWNER : STOCK_SAVED)
       : batch.status === 'duplicate' ? SAME_PHOTOS
         : (staffNote || (owner ? 'Card sent. Nothing is booked until you tap Approve.' : photosDone()));
-    // Only with a live reply token. The chat already got "reading it now", and the
-    // owner's own chat gets the summary card itself, so no extra push is spent here.
-    if (replyToken) {
+    // Only with a live reply token, so the staff note costs no push. When the read ran
+    // past the hold, the chat already got "reading it now" and the fields stay on the card.
+    const unread = batch.status === 'duplicate' ? '' : unreadFieldsNote(batch.review);
+    const token = takeToken(replyToken);
+    if (token) {
       try {
-        await reply(ctx.line, replyToken, `${head}${warning}`);
+        await reply(ctx.line, token, unread ? `${unread}${warning}` : `${head}${warning}`);
       } catch (err) { /* a reply token expires before the two-minute fallback */ }
     } else if (warning && ctx.pushTo && !isApprover(ctx.pushTo, ctx.config)) {
       try { await answer(ctx, null, `${head}${warning}`); } catch (err) { console.error(err); }
@@ -382,7 +419,7 @@ async function settleImageSet(setId, ctx, replyToken) {
     const claimed = await claimSet(ctx.store, setId, 'conflict');
     if (!claimed) return { claimed: false };
     try {
-      await answer(ctx, replyToken, conflictPhotos());
+      await answer(ctx, takeToken(replyToken), conflictPhotos());
     } catch (err) { console.error(err); }
     return { conflict: true };
   }
@@ -451,17 +488,25 @@ async function onImage(event, ctx) {
   }
   const summary = await loadSet(store, part.setId);
   if (summary.conflicts.length || summary.complete) {
-    let token = event.replyToken;
-    if (!summary.conflicts.length && !write.duplicate) {
-      // Answer at once. The read takes 1–3 minutes and used to leave the chat silent.
-      try {
-        await reply(line, token, readingPhoto(isOwnerDirect(event.source, ctx.config)));
-        token = null;
-      } catch (err) { console.error(`[reply] ${(err && err.message) || err}`); }
+    // Hold the token for the result. Never silent: the hold sends "reading it now"
+    // when the read runs long, and flush sends it if nothing else used the token.
+    // Parn and Ming get the card itself, so their chat is answered at once as before.
+    const fresh = !summary.conflicts.length && !write.duplicate;
+    const approver = Boolean(event.source && event.source.userId && isApprover(event.source.userId, ctx.config));
+    let held = null;
+    if (fresh && !approver) held = holdReply(ctx, event.replyToken, readingPhoto(false));
+    else if (fresh) {
+      try { await reply(line, event.replyToken, readingPhoto(isOwnerDirect(event.source, ctx.config))); }
+      catch (err) { console.error(`[reply] ${(err && err.message) || err}`); }
     }
-    const outcome = await settleImageSet(part.setId, ctx, token);
-    if (outcome.claimed === false || outcome.skipped) return { claimed: false, pending: !summary.complete };
-    return outcome;
+    const token = held || (fresh ? null : event.replyToken);
+    try {
+      const outcome = await settleImageSet(part.setId, ctx, token);
+      if (outcome.claimed === false || outcome.skipped) return { claimed: false, pending: !summary.complete };
+      return outcome;
+    } finally {
+      if (held) await held.flush();
+    }
   }
   scheduleImageSetTimeout(part.setId, ctx, event.replyToken);
   if (part.index === 1 && !write.duplicate) {
