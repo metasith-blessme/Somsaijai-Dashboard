@@ -114,7 +114,7 @@ test('group id, help, and a denied summary are simple English', async () => {
   assert.doesNotMatch(c.replies[2], THAI);
 });
 
-test('a photo is answered in English at once even when the private summary cannot be pushed', async () => {
+test('a staff photo gets one free English reply saying the summary could not be sent when push is blocked', async () => {
   const c = ctx();
   const result = await post(c, {
     webhookEventId: 'photo-1',
@@ -125,8 +125,8 @@ test('a photo is answered in English at once even when the private summary canno
     message: { type: 'image', id: 'pic' },
   });
   assert.equal(result.outcomes[0].batch_id != null, true);
-  // The ack is the reply; with push blocked (quota) nothing else can reach the chat.
-  assert.match(c.replies[0], /Reading it now/);
+  // The held reply token carries the outcome; with push blocked (quota) nothing else can reach the chat.
+  assert.match(c.replies[0], /could not be sent/);
   assert.equal(c.replies.length, 1);
   assert.doesNotMatch(c.replies[0], THAI);
   const batch = await c.store.getJson(`batch:${result.outcomes[0].batch_id}`);

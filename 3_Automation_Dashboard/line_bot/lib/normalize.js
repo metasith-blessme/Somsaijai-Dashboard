@@ -294,6 +294,7 @@ function buildReview({ batchId, images, now }) {
       close_raw: page.header.close_raw,
       form_template: page.form_template,
       orientation: page.orientation,
+      image_quality: page.image_quality,
       branch_hint: page.branch_hint,
       line_group_id: page.line_group_id,
       financials: page.financials,

@@ -270,7 +270,7 @@ test('503 and 429 back off, then the fallback model is used, and other errors do
   assert.deepEqual(once, []);
 });
 
-test('a final OCR failure is replied in English and the event can be retried', async () => {
+test('a final OCR failure from staff is a free English reply, not a push, and the event can be retried', async () => {
   const replies = [];
   const pushes = [];
   const store = new MemoryStore();
@@ -304,15 +304,10 @@ test('a final OCR failure is replied in English and the event can be retried', a
   }
   const failed = await post();
   assert.equal(failed.outcomes[0].error != null, true);
-  // The photo is answered at once; the failure follows as a push to the same chat.
-  assert.equal(replies.length, 1);
-  assert.match(replies[0], /Reading it now/);
-  assert.equal(pushes.length, 1);
-  assert.equal(pushes[0].to, 'C1');
-  assert.match(pushes[0].text, /Could not read this photo/);
-  assert.match(pushes[0].text, /send this photo again/);
-  assert.doesNotMatch(pushes[0].text, /[\u0E00-\u0E7F]/);
-  assert.equal(pushes[0].text, OCR_FAIL_TH);
+  // The reply token was held for the result, so the failure goes out free.
+  assert.deepEqual(replies, [OCR_FAIL_TH]);
+  assert.match(replies[0], /send this photo again/);
+  assert.equal(pushes.length, 0);
   const claim = await store.getJson('event:ocr-1');
   assert.equal(claim.status, 'error');
   ctx.now = 80;
