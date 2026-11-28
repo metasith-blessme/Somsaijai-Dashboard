@@ -755,6 +755,213 @@
       "source": "line:photo:639617586224955495"
     },
     {
+      "branch": "B2",
+      "date": "2026-11-22",
+      "item": "Apple",
+      "qty": 9,
+      "unit": "whole",
+      "delivered": null,
+      "source": "line:photo:642478466373517347"
+    },
+    {
+      "branch": "B2",
+      "date": "2026-11-22",
+      "item": "Cup (95)",
+      "qty": 32,
+      "unit": "pcs",
+      "delivered": null,
+      "source": "line:photo:642478448572367271"
+    },
+    {
+      "branch": "B2",
+      "date": "2026-11-22",
+      "item": "Cup (98)",
+      "qty": 107,
+      "unit": "pcs",
+      "delivered": null,
+      "source": "line:photo:642478448572367271"
+    },
+    {
+      "branch": "B2",
+      "date": "2026-11-22",
+      "item": "Falcon",
+      "qty": 0.5,
+      "unit": "bottle",
+      "delivered": null,
+      "source": "line:photo:642478466373517347"
+    },
+    {
+      "branch": "B2",
+      "date": "2026-11-22",
+      "item": "Lid (95)",
+      "qty": 32,
+      "unit": "pcs",
+      "delivered": null,
+      "source": "line:photo:642478448572367271"
+    },
+    {
+      "branch": "B2",
+      "date": "2026-11-22",
+      "item": "Lid (98)",
+      "qty": 85,
+      "unit": "pcs",
+      "delivered": null,
+      "source": "line:photo:642478448572367271"
+    },
+    {
+      "branch": "B2",
+      "date": "2026-11-22",
+      "item": "Orange",
+      "qty": 0.5,
+      "unit": "basket",
+      "delivered": null,
+      "source": "line:photo:642478466373517347"
+    },
+    {
+      "branch": "B2",
+      "date": "2026-11-22",
+      "item": "Pear",
+      "qty": 6,
+      "unit": "kg",
+      "delivered": null,
+      "source": "line:photo:642478466373517347"
+    },
+    {
+      "branch": "B2",
+      "date": "2026-11-22",
+      "item": "Pomegranate",
+      "qty": 6,
+      "unit": "whole",
+      "delivered": null,
+      "source": "line:photo:642478466373517347"
+    },
+    {
+      "branch": "B2",
+      "date": "2026-11-25",
+      "item": "Apple",
+      "qty": 6,
+      "unit": "whole",
+      "delivered": null,
+      "source": "line:photo:642478709643149823"
+    },
+    {
+      "branch": "B2",
+      "date": "2026-11-25",
+      "item": "Coconut water (1 liter)",
+      "qty": 0.5,
+      "unit": "bottle",
+      "delivered": null,
+      "source": "line:photo:642478709643149823"
+    },
+    {
+      "branch": "B2",
+      "date": "2026-11-25",
+      "item": "Guava",
+      "qty": 2,
+      "unit": "kg",
+      "delivered": null,
+      "source": "line:photo:642478709643149823"
+    },
+    {
+      "branch": "B2",
+      "date": "2026-11-25",
+      "item": "Mango",
+      "qty": 1,
+      "unit": "kg",
+      "delivered": null,
+      "source": "line:photo:642478709643149823"
+    },
+    {
+      "branch": "B2",
+      "date": "2026-11-25",
+      "item": "Orange",
+      "qty": 0.5,
+      "unit": "basket",
+      "delivered": null,
+      "source": "line:photo:642478709643149823"
+    },
+    {
+      "branch": "B2",
+      "date": "2026-11-25",
+      "item": "Pear",
+      "qty": 6,
+      "unit": "pcs",
+      "delivered": null,
+      "source": "line:photo:642478709643149823"
+    },
+    {
+      "branch": "B2",
+      "date": "2026-11-25",
+      "item": "Pomegranate",
+      "qty": 3,
+      "unit": "whole",
+      "delivered": null,
+      "source": "line:photo:642478709643149823"
+    },
+    {
+      "branch": "B2",
+      "date": "2026-11-25",
+      "item": "Watermelon",
+      "qty": 1,
+      "unit": "whole",
+      "delivered": null,
+      "source": "line:photo:642478709643149823"
+    },
+    {
+      "branch": "B2",
+      "date": "2026-11-26",
+      "item": "Cup (95)",
+      "qty": 28,
+      "unit": "pcs",
+      "delivered": null,
+      "source": "line:photo:642478738868797824"
+    },
+    {
+      "branch": "B2",
+      "date": "2026-11-26",
+      "item": "Cup (98)",
+      "qty": 97,
+      "unit": "pcs",
+      "delivered": null,
+      "source": "line:photo:642478738868797824"
+    },
+    {
+      "branch": "B2",
+      "date": "2026-11-26",
+      "item": "Lid (95)",
+      "qty": 28,
+      "unit": "pcs",
+      "delivered": null,
+      "source": "line:photo:642478738868797824"
+    },
+    {
+      "branch": "B2",
+      "date": "2026-11-26",
+      "item": "Lid (98)",
+      "qty": 77,
+      "unit": "pcs",
+      "delivered": null,
+      "source": "line:photo:642478738868797824"
+    },
+    {
+      "branch": "B2",
+      "date": "2026-11-26",
+      "item": "Plastic bag - Small",
+      "qty": 0.5,
+      "unit": "pcs",
+      "delivered": null,
+      "source": "line:photo:642478738868797824"
+    },
+    {
+      "branch": "B2",
+      "date": "2026-11-26",
+      "item": "Tissues",
+      "qty": 0.5,
+      "unit": "pcs",
+      "delivered": null,
+      "source": "line:photo:642478738868797824"
+    },
+    {
       "branch": "B3",
       "date": "2026-11-01",
       "item": "Apple",
